@@ -23,7 +23,7 @@ export default{
     },
 }
     
-import ImageChecker from ".../../components/Menu.vue";
+import ImageChecker from ".../../ImageChecker/Menu.vue";
 export default
 {
     components:
