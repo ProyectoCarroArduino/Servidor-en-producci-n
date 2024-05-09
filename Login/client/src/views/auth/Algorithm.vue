@@ -22,6 +22,16 @@ export default{
         Menu
     },
 }
+    
+import ImageChecker from ".../../components/Menu.vue";
+export default
+{
+    components:
+    {
+    ImageChecker,
+    }
+    }
+
 </script >
 
 
