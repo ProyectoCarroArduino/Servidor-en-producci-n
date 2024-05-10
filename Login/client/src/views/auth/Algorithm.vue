@@ -67,6 +67,16 @@ export default{
     },
 
 }
+    
+import ImageChecker from ".../../ImageChecker/Menu.vue";
+export default
+{
+    components:
+    {
+    ImageChecker,
+    }
+    }
+
 </script >
 
 
