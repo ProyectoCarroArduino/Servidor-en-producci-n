@@ -61,24 +61,15 @@
 
 <script>
 import Menu from "../../components/Menu.vue";
-export default{
-    components:{
-        Menu
-    },
+import ImageChecker from "../../components/ImageChecker.vue";
 
-}
-    
-import ImageChecker from ".../../ImageChecker/Menu.vue";
-export default
-{
-    components:
-    {
+export default {
+  components: {
+    Menu,
     ImageChecker,
-    }
-    }
-
-</script >
-
+  }
+}
+</script>
 
 
 <style>
