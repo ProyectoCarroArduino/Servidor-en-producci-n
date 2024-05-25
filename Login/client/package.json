@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^1.6.5",
     "bootstrap": "^5.3.2",
+    "clang.js": "^0.1.1",
     "material-icons": "^1.13.12",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",

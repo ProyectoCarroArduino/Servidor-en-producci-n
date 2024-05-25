@@ -3,8 +3,8 @@
     <p class="text">{{ enunciado }}</p>
     <div class="image-container">
       <div class="image-item" v-for="(image, index) in puzzle" :key="image.id">
-        <img :src="require(`@/assets/images/${image.src}`)" :alt="image.alt" />
         <p>{{ index + 1 }}</p>
+        <img :src="image.src" />
       </div>
     </div>
     <p class="text">{{ instruccion }}</p>
@@ -36,60 +36,65 @@
       <p class="validate-msg" v-else>Lo sentimos, es incorrecto.</p>
     </div>
     <div class="button-container">
-      <button class="bt-validate" v-if="isCorrect" @click="hideModule">
-        Finalizar
-      </button>
-      <button class="bt-validate" v-else @click="showModule">
-        Volver a intentar
-      </button>
+      <button class="bt-validate" v-if="isCorrect" @click="finish">Finalizar</button>
+      <button class="bt-validate" v-else @click="showModule">Volver a intentar</button>
     </div>
   </div>
 </template>
 
 <script>
+import router from '@/router'
+import image1 from '@/assets/images/image1.png'
+import image2 from '@/assets/images/image2.png'
+import image3 from '@/assets/images/image3.png'
+import image4 from '@/assets/images/image4.png'
+import image5 from '@/assets/images/image5.png'
+import image6 from '@/assets/images/image6.png'
+import image7 from '@/assets/images/image7.png'
+import image8 from '@/assets/images/image8.png'
 export default {
-  name: "ImageOrderingModule",
+  name: 'ImageOrderingModule',
   data() {
     return {
       enunciado:
-        "Hacer un programa que calcule el área de un rectángulo que tiene dos lados de 12cm y otros dos lados de 6cm.",
-      instruccion: "Ingrese el orden correcto del algoritmo",
+        'Hacer un programa que calcule el área de un rectángulo que tiene dos lados de 12cm y otros dos lados de 6cm.',
+      instruccion: 'Ingrese el orden correcto del algoritmo',
       puzzle: [],
       correct: [
         {
           id: 1,
-          src: "image1.png",
+          src: image1
         },
         {
           id: 2,
-          src: "image2.png",
+          src: image2
         },
         {
           id: 3,
-          src: "image3.png",
+          src: image3
         },
         {
           id: 4,
-          src: "image4.png",
-        },
+          src: image4
+        }
       ],
       bad: [
         {
           id: 5,
-          src: "image5.png",
+          src: image5
         },
         {
           id: 6,
-          src: "image6.png",
+          src: image6
         },
         {
           id: 7,
-          src: "image7.png",
+          src: image7
         },
         {
           id: 8,
-          src: "image8.png",
-        },
+          src: image8
+        }
       ],
       showErrorMessage: false,
       showResult: false,
@@ -100,87 +105,83 @@ export default {
         .map((_, index) => ({
           key: index,
           value: null,
-          name: `input-${index + 1}`,
+          name: `input-${index + 1}`
         })),
-      numSteps: 4,
-    };
+      numSteps: 4
+    }
   },
   created() {
-    this.puzzle = this.puzzle.concat(
-      this.getImages(this.correct, 2),
-      this.correct
-    );
-    this.shuffleImages();
+    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 2), this.correct)
+    this.shuffleImages()
   },
   methods: {
     hideModule() {
-      this.showModule = false;
+      this.showModule = false
     },
     showModule() {
-      this.showPrincipal = true;
-      this.showResult = false;
-      this.shuffleImages();
+      this.showPrincipal = true
+      this.showResult = false
+      this.shuffleImages()
       this.inputs = Array(4)
         .fill()
         .map((_, index) => ({
           key: index,
           value: null,
-          name: `input-${index + 1}`,
-        }));
+          name: `input-${index + 1}`
+        }))
+    },
+    finish() {
+      router.push('/abstraccion')
     },
 
     shuffleImages() {
       // Fisher-Yates
       for (let i = this.puzzle.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [this.puzzle[i], this.puzzle[j]] = [this.puzzle[j], this.puzzle[i]];
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[this.puzzle[i], this.puzzle[j]] = [this.puzzle[j], this.puzzle[i]]
       }
     },
 
     getImages(images, n) {
-      const allImages = this.getUniqueImages([...images, ...this.bad]);
-      return allImages.slice(allImages.length - n);
+      const allImages = this.getUniqueImages([...images, ...this.bad])
+      return allImages.slice(allImages.length - n)
     },
-    
+
     getUniqueImages(images) {
       return images.filter((image, index) => {
-        return images.indexOf(images.find((i) => i.id === image.id)) === index;
-      });
+        return images.indexOf(images.find((i) => i.id === image.id)) === index
+      })
     },
 
     validateInputs() {
       //reset de variables
-      this.showErrorMessage = false;
-      this.showResult = false;
-      this.isCorrect = false;
+      this.showErrorMessage = false
+      this.showResult = false
+      this.isCorrect = false
       // Verifica si todas las entradas están llenas y son números
       this.showErrorMessage = !this.inputs.every((input) => {
-        const inputValue = Number.parseInt(input.value, 10); // Intenta convertir el valor de entrada a un número
+        const inputValue = Number.parseInt(input.value, 10) // Intenta convertir el valor de entrada a un número
         // Si el valor de entrada no es un número o está fuera de rango, no es válido
-        if (
-          Number.isNaN(inputValue) ||
-          inputValue < 1 ||
-          inputValue > this.puzzle.length
-        ) {
-          return false;
+        if (Number.isNaN(inputValue) || inputValue < 1 || inputValue > this.puzzle.length) {
+          return false
         } else {
-          return true;
+          return true
         }
-      });
+      })
       //Verifica si las entradas son correctas
       if (!this.showErrorMessage) {
-        this.showPrincipal = false;
+        this.showPrincipal = false
         this.isCorrect = this.inputs.every((input, index) => {
-          const inputValue = Number.parseInt(input.value, 10);
-          return this.puzzle[inputValue - 1].id === this.correct[index].id;
-        });
-        this.showResult = true;
+          const inputValue = Number.parseInt(input.value, 10)
+          return this.puzzle[inputValue - 1].id === this.correct[index].id
+        })
+        this.showResult = true
       } else {
-        this.showErrorMessage = true;
+        this.showErrorMessage = true
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -230,7 +231,7 @@ button {
 .image-item p {
   font-weight: bold;
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   bottom: 0;
   left: 0;
   right: 0;
@@ -239,7 +240,7 @@ button {
   padding: 0px;
   border-radius: 0 0 5px 5px;
   color: rgb(27, 27, 27);
-  background-color: rgba(119, 119, 119, 0.8);
+  background-color: rgb(119, 119, 119);
 }
 
 .message p {
@@ -293,20 +294,20 @@ button {
 }
 
 .validate-msg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
   font-size: 200%;
   margin: 0 auto;
   text-align: center;
 }
 
 .bt-validate {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
 }
 
 @media (max-width: 768px) {

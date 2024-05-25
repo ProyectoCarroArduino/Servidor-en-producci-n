@@ -64,6 +64,26 @@ const router = createRouter({
       name: 'descomposicionEj',
       component: () => import("../views/auth/DescompositionEj.vue"),
     },
+    {
+      path: '/algoritmoEj',
+      name: 'algoritmoEj',
+      component: () => import("../views/auth/AlgorithmEj.vue"),
+    },
+    {
+      path: '/abstraccionEj',
+      name: 'abstraccionEj',
+      component: () => import("../views/auth/AbstractionEj.vue"),
+    },
+    {
+      path: '/generalizacionEj',
+      name: 'generalizacionEj',
+      component: () => import("../views/auth/GeneralizationEj.vue"),
+    },
+    {
+      path: '/descomposicionExc',
+      name: 'descomposicionExc',
+      component: () => import("../views/auth/DescompositionExc.vue"),
+    },
   ]
 })
 

@@ -1,7 +1,7 @@
 <template>
     <div id="user">
         <div class="card card-body mt-8, align-left, col-md-15"> 
-            <h1 class="text-center">Variables y operaciones</h1>
+            <h1 class="text-center">4. Variables y operaciones</h1>
             <br>
             <h3>Ejemplo 2:</h3>
             <p class="texto-personalizado">Hacer un programa que calcule el área de las siguientes figuras: un rectángulo que tiene dos lados de 12 cm y otros dos lados de 6 cm y el área de un triángulo de base 12 cm y altura 8 cm (no usar fórmula de Herón).</p>
@@ -61,6 +61,10 @@
             </div>
             <br>
             <button @click="submitOrder" class="btn btn-primary">Enviar Orden</button>
+            <br>
+            <div>
+                <button class="bt-validate" @click="finish">Avanzar</button>
+            </div>
         </div>
         <div class="align-left col-md-3">
             <div class="temas">
@@ -71,6 +75,7 @@
 </template>
 
 <script>
+import router from '@/router';
 import Menu from "../../components/Menu.vue";
 export default {
     components: {
@@ -158,6 +163,10 @@ export default {
 
         resetear() {
             this.acumulado = 0; // Reinicia el valor acumulado a 0
+        },
+
+        finish() {
+            router.push('/algoritmoEj')
         },
 
     },

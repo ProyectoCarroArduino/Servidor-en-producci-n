@@ -3,6 +3,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { exec } from "child_process";
 import  fs from "fs";
+import { parseString } from 'xml2js';
+import path from "path";
+
+
 
 export const register = async (req, res) => {
     const {username, email, first_name, last_name, password, password_confirm} = req.body
@@ -144,44 +148,49 @@ export const profile = async (req, res) => {
 };
 
 export const analyzeCode = async (req, res) => {
-    // Obtener el código del cuerpo de la solicitud
-    let codigo = req.body.codigo;
-    
-    // Verificar si el código es un objeto y convertirlo a cadena de texto si es necesario
-    if (typeof codigo !== 'string') {
-        codigo = JSON.stringify(codigo);
-    }
+    const code = req.body.code;
+    const tempFilePath = path.join(__dirname, 'temp_code.c');
 
-    console.log("Código recibido:", codigo);
+    try {
+        // Guardar el código en un archivo temporal
+        await fs.writeFile(tempFilePath, code);
 
-    // Guardar el código en un archivo temporal
-    fs.writeFile('codigo.c', codigo, (err) => {
-        if (err) {
-            console.error('Error al escribir el archivo:', err);
-            return res.status(500).send('Error al escribir el archivo');
-        }
-
-        // Ejecutar GCC para compilar el archivo C
-        exec('gcc -Wall -o output codigo.c', (error, stdout, stderr) => {
-            // Eliminar el archivo temporal después de compilar
-            fs.unlink('codigo.c', (err) => {
-                if (err) {
-                    console.error('Error al eliminar el archivo temporal:', err);
-                }
-            });
+        // Ejecutar Cppcheck en el archivo temporal
+        exec(`cppcheck --enable=all --inconclusive --xml --xml-version=2 ${tempFilePath}`, async (error, stdout, stderr) => {
+            // Eliminar el archivo temporal
+            await fs.unlink(tempFilePath);
 
             if (error) {
-                console.error(`Error al compilar el código: ${error.message}`);
-                return res.status(500).json({ error: error.message });
+                console.error(`Error ejecutando Cppcheck: ${stderr}`);
+                return res.status(500).json({
+                    status: 'error',
+                    message: stderr
+                });
             }
-            if (stderr) {
-                console.error(`GCC reportó un error: ${stderr}`);
-                return res.status(400).json({ error: stderr });
-            }
-            
-            // Enviar la salida de GCC al cliente
-            res.send(stdout);
+
+            // Parsear el output XML de Cppcheck
+            parseString(stdout, (err, result) => {
+                if (err) {
+                    console.error(`Error parseando XML: ${err.message}`);
+                    return res.status(500).json({
+                        status: 'error',
+                        message: err.message
+                    });
+                }
+
+                // Devolver los resultados del análisis
+                res.json({
+                    status: 'success',
+                    output: result
+                });
+            });
         });
-    });
+    } catch (err) {
+        console.error(`Error al manejar el archivo temporal: ${err.message}`);
+        res.status(500).json({
+            status: 'error',
+            message: err.message
+        });
+    }
 };
 

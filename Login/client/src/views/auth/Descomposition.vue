@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     <div class="card card-body mt-8, align-left, col-md-15">
-      <h1 class="text-center">Variables y operaciones</h1>
+      <h1 class="text-center">4. Variables y operaciones</h1>
       <h3>Ejemplo 1:</h3>
       <p class="texto-personalizado">Hacer un programa que calcule el área de las siguientes figuras: un rectángulo que tiene dos lados de 12 cm y otros dos lados de 6 cm y el área de un triángulo de base 12 cm y altura 8 cm (no usar fórmula de Herón).</p>
       <br>
@@ -72,6 +72,10 @@
         {{ errorMessageDrag }}
       </div>
     </div>
+    <br>
+    <div>
+      <button class="bt-validate" @click="finish">Avanzar</button>
+    </div>
   </div>
   <div class="align-left col-md-3">
   <div class="temas">
@@ -82,6 +86,7 @@
 </template>
 
 <script lang="">
+import router from '@/router'
 import Menu from "../../components/Menu.vue";
 import NavBar from '@/components/NavBar.vue';
 export default {
@@ -223,6 +228,10 @@ export default {
         }
       });
     },
+
+    finish() {
+      router.push('/algoritmo')
+    },
   },
 }
 </script>
@@ -279,6 +288,13 @@ export default {
 .temas {
   position: fixed;
   margin-top: -245px;
+}
+
+.bt-validate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
 }
 
 

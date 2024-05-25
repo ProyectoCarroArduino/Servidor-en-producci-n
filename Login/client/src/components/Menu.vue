@@ -23,7 +23,22 @@ export default {
                 label: "Contenido"
             },
             {
-                label: "Variables y operaciones:",
+                label: "1. ¿Qué es C?:",
+                icon: "",
+                href: "",
+            },
+            {
+                label: "2. ¿Cómo instalar el IDE de C?:",
+                icon: "",
+                href: "",
+            },
+            {
+                label: "3. Estructura de un programa e impresiones por pantalla:",
+                icon: "",
+                href: "",
+            },
+            {
+                label: "4. Variables y operaciones:",
                 icon: "",
                 children: [
                     {
@@ -64,13 +79,16 @@ export default {
                                         href: "/descomposicionEj"
                                     },
                                     {
-                                        label: "Algoritmo"
+                                        label: "Algoritmo",
+                                        href: "/algoritmoEj"
                                     },
                                     {
-                                        label: "Abstracción"
+                                        label: "Abstracción",
+                                        href: "/abstraccionEj"
                                     },
                                     {
-                                        label: "Generalización"
+                                        label: "Generalización",
+                                        href: "/generalizacionEj"
                                     },
                                 ]
                             }
@@ -85,7 +103,7 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/descomposicion"
+                                        href: "/descomposicionExc"
                                     },
                                     {
                                         label: "Algoritmo"
