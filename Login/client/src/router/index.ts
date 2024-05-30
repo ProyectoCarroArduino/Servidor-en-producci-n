@@ -84,6 +84,11 @@ const router = createRouter({
       name: 'descomposicionExc',
       component: () => import("../views/auth/DescompositionExc.vue"),
     },
+    {
+      path: '/prueba',
+      name: 'prueba',
+      component: () => import("../views/auth/Prueba.vue"),
+    },
   ]
 })
 
