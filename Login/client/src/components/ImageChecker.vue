@@ -1,13 +1,14 @@
 <template>
   <div v-if="showPrincipal" class="algoritmos">
-    <p class="text">{{ enunciado }}</p>
     <div class="image-container">
       <div class="image-item" v-for="(image, index) in puzzle" :key="image.id">
         <p>{{ index + 1 }}</p>
         <img :src="image.src" />
       </div>
     </div>
-    <p class="text">{{ instruccion }}</p>
+    <br>
+    <p class="texto-personalizado"> <strong>Instrucciones:</strong> {{ instruccion }} </p>
+    <br>
     <div class="input-container">
       <div class="input-item" v-for="(input, index) in inputs" :key="input.key">
         <p>{{ index + 1 }}</p>
@@ -22,6 +23,7 @@
         />
       </div>
     </div>
+    <br>
     <div class="button-container">
       <button @click="validateInputs">Enviar</button>
     </div>
@@ -29,7 +31,6 @@
       <p>Verifica los datos!</p>
     </div>
   </div>
-
   <div v-if="showResult" class="validate-container">
     <div v-if="showResult">
       <p class="validate-msg" v-if="isCorrect">¡Correcto!</p>
@@ -56,8 +57,8 @@ export default {
   name: 'ImageOrderingModule',
   data() {
     return {
-      enunciado:
-        'Hacer un programa que calcule el área de un rectángulo que tiene dos lados de 12cm y otros dos lados de 6cm.',
+      /*enunciado:
+        'Hacer un programa que calcule el área de un rectángulo que tiene dos lados de 12cm y otros dos lados de 6cm.',*/
       instruccion: 'Ingrese el orden correcto del algoritmo',
       puzzle: [],
       correct: [
@@ -308,6 +309,12 @@ button {
   justify-content: center;
   align-items: center;
   margin-top: 1%;
+}
+
+.texto-personalizado {
+    font-family: Arial, sans-serif; /* Tipo de letra */
+    font-size: 18px; /* Tamaño de fuente */
+    text-align: justify; /* Alineación justificada */
 }
 
 @media (max-width: 768px) {

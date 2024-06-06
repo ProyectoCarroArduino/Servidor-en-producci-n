@@ -13,7 +13,8 @@ router.post("/refresh", refresh);
 router.get("/user", authentication, auth, user);
 router.get("/profile", authentication, auth, profile);
 
-router.post("/analyze-code", analyzeCode);
+
+router.post("/analyze", analyzeCode);
 
 
 export default router;

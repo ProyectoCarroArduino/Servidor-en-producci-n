@@ -1,7 +1,5 @@
 <template>
   <div v-if="showPrincipal" class="generalizacion">
-    <p class="text">{{ enunciado }}</p>
-    <p class="text instruc">{{ instruccion }}</p>
     <div class="audio-container">
       <div class="audio-item" v-for="(audio, index) in audio" :key="audio.id">
         <audio :ref="'audioPlayer_' + index" :controls="true">
@@ -55,9 +53,9 @@ import audio9 from '@/assets/audios/Parte 9.mp3'
 export default {
   data() {
     return {
-      enunciado:
+      /*enunciado:
         'Teniendo en cuenta la teoria sobre variables y operaciones generalice el proceso de la obtención del área de un rectángulo paso a paso',
-      instruccion: 'Ingrese el orden correcto de los audios:',
+      instruccion: 'Ingrese el orden correcto de los audios:',*/
       audio: [
         {
           id: 1,
@@ -253,6 +251,12 @@ button {
   justify-content: center;
   align-items: center;
   margin-top: 1%;
+}
+
+.texto-personalizado {
+    font-family: Arial, sans-serif; /* Tipo de letra */
+    font-size: 18px; /* Tamaño de fuente */
+    text-align: justify; /* Alineación justificada */
 }
 
 @media (max-width: 768px) {

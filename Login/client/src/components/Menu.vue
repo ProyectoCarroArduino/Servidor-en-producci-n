@@ -76,7 +76,7 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/descomposicionEj"
+                                        href: "/prueba"
                                     },
                                     {
                                         label: "Algoritmo",

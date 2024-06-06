@@ -1,10 +1,12 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import {User} from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { exec } from "child_process";
-import  fs from "fs";
-import { parseString } from 'xml2js';
-import path from "path";
+//import  fs from "fs";
+import { promises as fs } from 'fs';
+import path from 'path';
 
 
 
@@ -148,49 +150,41 @@ export const profile = async (req, res) => {
 };
 
 export const analyzeCode = async (req, res) => {
-    const code = req.body.code;
-    const tempFilePath = path.join(__dirname, 'temp_code.c');
+    const { code } = req.body;
+
+    if (!code) {
+        return res.status(400).json({ message: "No se proporcionó ningún código" });
+    }
+
+    // Obtener la ruta del directorio actual
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+
+    // Construir la ruta del archivo temporal
+    const tempFileName = path.join(__dirname, 'temp_code.c');
 
     try {
         // Guardar el código en un archivo temporal
-        await fs.writeFile(tempFilePath, code);
+        await fs.writeFile(tempFileName, code);
 
-        // Ejecutar Cppcheck en el archivo temporal
-        exec(`cppcheck --enable=all --inconclusive --xml --xml-version=2 ${tempFilePath}`, async (error, stdout, stderr) => {
-            // Eliminar el archivo temporal
-            await fs.unlink(tempFilePath);
+        // Ruta a los archivos de encabezado estándar de C
+        const includePath = 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.40.33807/include';
+
+        // Ejecutar Clang en el archivo temporal
+        exec(`clang -fsyntax-only -I"${includePath}" ${tempFileName}`, async (error, stdout, stderr) => {
+            // Borrar el archivo temporal
+            await fs.unlink(tempFileName);
 
             if (error) {
-                console.error(`Error ejecutando Cppcheck: ${stderr}`);
-                return res.status(500).json({
-                    status: 'error',
-                    message: stderr
-                });
+                // Reemplazar todas las instancias de la ruta con un nombre genérico
+                const filteredErrors = stderr.replace(new RegExp(tempFileName.replace(/\\/g, '\\\\'), 'g'), 'temp_code.c');
+                return res.json({ errors: filteredErrors });
+            } else {
+                return res.json({ message: "¡Bien hecho!", output: stdout });
             }
-
-            // Parsear el output XML de Cppcheck
-            parseString(stdout, (err, result) => {
-                if (err) {
-                    console.error(`Error parseando XML: ${err.message}`);
-                    return res.status(500).json({
-                        status: 'error',
-                        message: err.message
-                    });
-                }
-
-                // Devolver los resultados del análisis
-                res.json({
-                    status: 'success',
-                    output: result
-                });
-            });
         });
     } catch (err) {
-        console.error(`Error al manejar el archivo temporal: ${err.message}`);
-        res.status(500).json({
-            status: 'error',
-            message: err.message
-        });
+        return res.status(500).json({ message: "Error al analizar el código", error: err.message });
     }
 };
 

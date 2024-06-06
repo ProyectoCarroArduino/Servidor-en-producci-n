@@ -3,7 +3,8 @@
         <div class="card card-body mt-8, align-left, col-md-15">
             <h1 class="text-center">4. Variables y operaciones</h1>
             <h3>Ejemplo 1:</h3>
-            <p class="texto-personalizado">Hacer un programa que calcule el área de las siguientes figuras: un rectángulo que tiene dos lados de 12 cm y otros dos lados de 6 cm y el área de un triángulo de base 12 cm y altura 8 cm (no usar fórmula de Herón).</p>
+            <br>
+            <p class="texto-personalizado">Hacer un programa que calcule el <strong>área</strong> de las siguientes figuras: un rectángulo que tiene dos lados de 12 cm y otros dos lados de 6 cm y el <strong>área</strong> de un triángulo de base 12 cm y altura 8 cm <strong>(no usar fórmula de Herón)</strong>.</p>
             <br>
             <h3>Algoritmo:</h3>
             <ImageChecker/>
@@ -21,7 +22,8 @@ import ImageChecker from "@/components/ImageChecker.vue";
 import NavMenu from "../../components/Menu.vue";
 export default{
     components:{
-        NavMenu, ImageChecker
+        NavMenu, 
+        ImageChecker
     },
 }
 </script >

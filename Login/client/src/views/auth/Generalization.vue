@@ -3,10 +3,16 @@
         <div class="card card-body mt-8, align-left, col-md-15">
             <h1 class="text-center">4. Variables y operaciones</h1>
             <h3>Ejemplo 1:</h3>
-            <p class="texto-personalizado">Hacer un programa que calcule el área de las siguientes figuras: un rectángulo que tiene dos lados de 12 cm y otros dos lados de 6 cm y el área de un triángulo de base 12 cm y altura 8 cm (no usar fórmula de Herón).</p>
+            <br>
+            <p class="texto-personalizado">Hacer un programa que calcule el <strong>área</strong> de las siguientes figuras: un rectángulo que tiene dos lados de 12 cm y otros dos lados de 6 cm y el <strong>área</strong> de un triángulo de base 12 cm y altura 8 cm <strong>(no usar fórmula de Herón)</strong>.</p>
             <br>
             <h3>Generalización:</h3>
-        <AudioChecker/>
+            <br>
+            <p class="texto-personalizado">Teniendo en cuenta la teoria sobre <strong>variables y operaciones</strong> generalice el proceso de la obtención del <strong>área</strong> de un rectángulo paso a paso:</p>
+            <br>
+            <p class="texto-personalizado"><strong>Instrucciones:</strong> ingrese el orden correcto de los audios</p>
+            <br>
+            <AudioChecker/>
         </div>
         <div class="align-left col-md-3">
             <div class="temas">
