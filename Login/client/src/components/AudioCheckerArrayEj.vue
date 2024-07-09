@@ -1,5 +1,5 @@
 <template>
-  <div>
+    <div>
     <div v-if="showPrincipal" class="generalizacion">
       <div class="audio-container">
         <div class="audio-item" v-for="(audio, index) in audio" :key="audio.id">
@@ -37,20 +37,20 @@
         <button class="bt-validate" v-else @click="showModule">Volver a intentar</button>
       </div>
     </div>
-  </div>
+</div>
   </template>
   
   <script>
   import router from '@/router'
-  import audio1 from '@/assets/audios/Parte 1.mp3'
-  import audio2 from '@/assets/audios/Parte 10.mp3'
-  import audio3 from '@/assets/audios/Parte 11.mp3'
-  import audio4 from '@/assets/audios/Parte 4.mp3'
-  import audio5 from '@/assets/audios/Parte 12.mp3'
-  import audio6 from '@/assets/audios/Parte 13.mp3'
-  import audio7 from '@/assets/audios/Parte 7.mp3'
-  import audio8 from '@/assets/audios/Parte 8.mp3'
-  import audio9 from '@/assets/audios/Parte 14.mp3'
+  import audio1 from '@/assets/ArrayAudios/Array 1.mp3'
+  import audio2 from '@/assets/ArrayAudios/Array 2.mp3'
+  import audio3 from '@/assets/ArrayAudios/Array 3.mp3'
+  import audio4 from '@/assets/ArrayAudios/Array 4.mp3'
+  import audio5 from '@/assets/ArrayAudios/Array 5.mp3'
+  import audio6 from '@/assets/ArrayAudios/Array 6.mp3'
+  import audio7 from '@/assets/ArrayAudios/Array 7.mp3'
+  import audio8 from '@/assets/ArrayAudios/Array 8.mp3'
+  import audio9 from '@/assets/ArrayAudios/Array 9.mp3'
   
   export default {
     data() {
@@ -101,7 +101,7 @@
         showResult: false,
         isCorrect: false,
         showPrincipal: true,
-        inputs: Array(9)
+        inputs: Array(13)
           .fill()
           .map((_, index) => ({
             key: index,

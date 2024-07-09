@@ -1,5 +1,5 @@
 <template>
-  <div>
+    <div>
     <div v-if="showPrincipal" class="generalizacion">
       <div class="audio-container">
         <div class="audio-item" v-for="(audio, index) in audio" :key="audio.id">
@@ -37,20 +37,21 @@
         <button class="bt-validate" v-else @click="showModule">Volver a intentar</button>
       </div>
     </div>
-  </div>
+</div>
   </template>
   
   <script>
   import router from '@/router'
-  import audio1 from '@/assets/audios/Parte 1.mp3'
-  import audio2 from '@/assets/audios/Parte 10.mp3'
-  import audio3 from '@/assets/audios/Parte 11.mp3'
-  import audio4 from '@/assets/audios/Parte 4.mp3'
-  import audio5 from '@/assets/audios/Parte 12.mp3'
-  import audio6 from '@/assets/audios/Parte 13.mp3'
-  import audio7 from '@/assets/audios/Parte 7.mp3'
-  import audio8 from '@/assets/audios/Parte 8.mp3'
-  import audio9 from '@/assets/audios/Parte 14.mp3'
+  import audio1 from '@/assets/WhileAudios/while 1.mp3'
+  import audio2 from '@/assets/WhileAudios/while 2.mp3'
+  import audio3 from '@/assets/WhileAudios/while 3.mp3'
+  import audio4 from '@/assets/WhileAudios/while 4.mp3'
+  import audio5 from '@/assets/WhileAudios/while 5.mp3'
+  import audio6 from '@/assets/WhileAudios/while 6.mp3'
+  import audio7 from '@/assets/WhileAudios/while 7.mp3'
+  import audio8 from '@/assets/WhileAudios/while 8.mp3'
+  import audio9 from '@/assets/WhileAudios/while 9.mp3'
+  import audio10 from '@/assets/WhileAudios/while 10.mp3'
   
   export default {
     data() {
@@ -95,13 +96,18 @@
             id: 9,
             src: audio9
           },
+          {
+            id: 10,
+            src: audio10
+          },
+
         ],
   
         showErrorMessage: false,
         showResult: false,
         isCorrect: false,
         showPrincipal: true,
-        inputs: Array(9)
+        inputs: Array(13)
           .fill()
           .map((_, index) => ({
             key: index,

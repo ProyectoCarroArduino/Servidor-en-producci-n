@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div v-if="showPrincipal" class="generalizacion">
     <div class="audio-container">
       <div class="audio-item" v-for="(audio, index) in audio" :key="audio.id">
@@ -36,6 +37,7 @@
       <button class="bt-validate" v-else @click="showModule">Volver a intentar</button>
     </div>
   </div>
+</div>
 </template>
 
 <script>

@@ -89,6 +89,86 @@ const router = createRouter({
       name: 'prueba',
       component: () => import("../views/auth/Prueba.vue"),
     },
+    {
+      path: '/teoria',
+      name: 'teoria',
+      component: () => import("../views/auth/TheorySwitch.vue"),
+    },
+    {
+      path: '/descomposicionSwitchEj',
+      name: 'descomposicionSwitchEj',
+      component: () => import("../views/auth/DescompositionSwitchEj.vue"),
+    },
+    {
+      path: '/algorithmSwitchEj',
+      name: 'algorithmSwitchEj',
+      component: () => import("../views/auth/AlgorithmSwitchEj.vue"),
+    },
+    {
+      path: '/abstractionSwitchEj',
+      name: 'abstractionSwitchEj',
+      component: () => import("../views/auth/AbstractionSwitchEj.vue"),
+    },
+    {
+      path: '/generalizacionSwitchEj',
+      name: 'generalizacionSwitchEj',
+      component: () => import("../views/auth/GeneralizationSwitchEj.vue"),
+    },
+    {
+      path: '/descomposicionSwitchEj2',
+      name: 'descomposicionSwitchEj2',
+      component: () => import("../views/auth/DescompositionSwitchEj2.vue"),
+    },
+    {
+      path: '/teoriaWhile',
+      name: 'teoriaWhile',
+      component: () => import("../views/auth/TheoryWhile.vue"),
+    },
+    {
+      path: '/descomposicionWhileEj',
+      name: 'descomposicionWhileEj',
+      component: () => import("../views/auth/DescompositionWhileEj.vue"),
+    },
+    {
+      path: '/generalizacionWhileEj',
+      name: 'generalizacionWhileEj',
+      component: () => import("../views/auth/GeneralizationWhileEj.vue"),
+    },
+    {
+      path: '/algoritmoWhileEj',
+      name: 'algoritmoWhileEj',
+      component: () => import("../views/auth/AlgorithmWhileEj.vue"),
+    },
+    {
+      path: '/abstraccionWhileEj',
+      name: 'abstraccionWhileEj',
+      component: () => import("../views/auth/AbstractionWhileEj.vue"),
+    },
+    {
+      path: '/teoriaArray',
+      name: 'teoriaArray',
+      component: () => import("../views/auth/TheoryArray.vue"),
+    },
+    {
+      path: '/descomposicionArrayEj',
+      name: 'descomposicionArrayEj',
+      component: () => import("../views/auth/DescompositionArrayEj.vue"),
+    },
+    {
+      path: '/algoritmoArrayEj',
+      name: 'algoritmoArrayEj',
+      component: () => import("../views/auth/AlgorithmArrayEj.vue"),
+    },
+    {
+      path: '/abstraccionArrayEj',
+      name: 'abstraccionArrayEj',
+      component: () => import("../views/auth/AbstractionArrayEj.vue"),
+    },
+    {
+      path: '/generalizacionArrayEj',
+      name: 'generalizacionArrayEj',
+      component: () => import("../views/auth/GeneralizationArrayEj.vue"),
+    },
   ]
 })
 

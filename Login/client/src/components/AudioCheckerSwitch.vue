@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div v-if="showPrincipal" class="generalizacion">
       <div class="audio-container">
         <div class="audio-item" v-for="(audio, index) in audio" :key="audio.id">
@@ -37,20 +36,23 @@
         <button class="bt-validate" v-else @click="showModule">Volver a intentar</button>
       </div>
     </div>
-  </div>
   </template>
   
   <script>
   import router from '@/router'
-  import audio1 from '@/assets/audios/Parte 1.mp3'
-  import audio2 from '@/assets/audios/Parte 10.mp3'
-  import audio3 from '@/assets/audios/Parte 11.mp3'
-  import audio4 from '@/assets/audios/Parte 4.mp3'
-  import audio5 from '@/assets/audios/Parte 12.mp3'
-  import audio6 from '@/assets/audios/Parte 13.mp3'
-  import audio7 from '@/assets/audios/Parte 7.mp3'
-  import audio8 from '@/assets/audios/Parte 8.mp3'
-  import audio9 from '@/assets/audios/Parte 14.mp3'
+  import audio1 from '@/assets/audiosSwitch/audio 1.mp3'
+  import audio2 from '@/assets/audiosSwitch/audio 2.mp3'
+  import audio3 from '@/assets/audiosSwitch/audio 3.mp3'
+  import audio4 from '@/assets/audiosSwitch/audio 4.mp3'
+  import audio5 from '@/assets/audiosSwitch/audio 5.mp3'
+  import audio6 from '@/assets/audiosSwitch/audio 6.mp3'
+  import audio7 from '@/assets/audiosSwitch/audio 7.mp3'
+  import audio8 from '@/assets/audiosSwitch/audio 8.mp3'
+  import audio9 from '@/assets/audiosSwitch/audio 9.mp3'
+  import audio10 from '@/assets/audiosSwitch/audio 10.mp3'
+  import audio11 from '@/assets/audiosSwitch/audio 11.mp3'
+  import audio12 from '@/assets/audiosSwitch/audio 12.mp3'
+  import audio13 from '@/assets/audiosSwitch/audio 13.mp3'
   
   export default {
     data() {
@@ -95,13 +97,29 @@
             id: 9,
             src: audio9
           },
+          {
+            id: 10,
+            src: audio10
+          },
+          {
+            id: 11,
+            src: audio11
+          },
+          {
+            id: 12,
+            src: audio12
+          },
+          {
+            id: 13,
+            src: audio13
+          },
         ],
   
         showErrorMessage: false,
         showResult: false,
         isCorrect: false,
         showPrincipal: true,
-        inputs: Array(9)
+        inputs: Array(13)
           .fill()
           .map((_, index) => ({
             key: index,

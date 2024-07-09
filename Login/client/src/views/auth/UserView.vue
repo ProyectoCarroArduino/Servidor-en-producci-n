@@ -4,10 +4,12 @@
       <!--<h1 class="text-center">Programación en C</h1>-->
       <h1 class="text-center">4. Variables y operaciones</h1>
       <br>
+      <br>
       <h2>4.1 Concepto de variable</h2>
       <p class="texto-personalizado">Una variable es un espacio donde se almacena la información que el programa necesita o va a necesitar, además de ello, una variable permite recuperar esa información en cualquier momento.</p>
       <p><span style="font-weight: bold;">Nota:</span> Recordar que para un programa en el lenguaje C la declaración de variables es de las primeras cosas que se digita.</p>
       <p class="texto-personalizado">Antes de hablar de los tipos de variables que se suelen implementar a menudo, se debe de tener en cuenta que en el lenguaje de programación C el uso de una variable sin definir su valor dará como resultado un error de sintaxis, es decir, que no se puede hacer uso de una variable que no tenga definido el valor.</p>
+      <br>
       <h2>4.1.1 Tipos de variables</h2>
       <p class="texto-personalizado">Entre los tipos de variables se puede encontrar los siguientes tres grupos:</p>
       <p class="texto-personalizado" style="padding-left: 20px;"><span style="font-weight: bold;">4.1.1.1. Variables para valores numéricos:</span> Son variables a las que se les asignan valores pertenecientes a los números reales. Están divididas en dos tipos:</p>
@@ -19,6 +21,7 @@
       <p class="texto-personalizado" style="padding-left: 20px;"><span style="font-weight: bold;">4.1.1.2. Variables para valores tipo carácter:</span> Estas variables permiten guardar y asignarles carácteres, los cuales son símbolos como las letras del abecedario. Solo existe un tipo de esta variable y se representa con la palabra reservada <strong>(Char)</strong>.</p>
       <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Char solo permite la declaración de un carácter, más adelante se tratará la forma en la cual se puede definir una palabra <strong>(cadena de carácteres)</strong>.</p>
       <p class="texto-personalizado" style="padding-left: 20px;"><span style="font-weight: bold;">4.1.1.3. Variables para valores de tipo estado:</span> Una variable de este tipo es la que permite definirse su propio estado verdadero o falso <strong>(true/false)</strong>. Se representa con la palabra reservada <strong>(bool)</strong>.</p>
+      <br>
       <h2>4.1.2 Declaración de una variable</h2>
       <p class="texto-personalizado">Para declarar una variable se debe de tener en cuenta su estructura básica:</p>
       <p class="text-center"><span style="font-weight: bold;">Tipo_de_variable / Nombre_de_la_variable = Valor_de_la_variable</span></p>
@@ -29,12 +32,15 @@
         <li class="texto-personalizado">Utilizar palabras reservadas.</li>
         <li class="texto-personalizado">Tener carácteres especiales como tildes, comas, etc.</li>
       </ul>
+      <br>
       <img class="centrada" src="/imagenes/Definir variables.PNG?url" alt="">
       <br> 
       <p><span style="font-weight: bold;">Nota:</span> El valor de la variable debe de ir asociado al tipo de variable que se declare.</p>
+      <br>
       <h2>4.2 Concepto de operación</h2>
       <p class="texto-personalizado">Un operador es un elemento que permite realizar acciones entre operandos <strong>(variables)</strong>.</p>
       <p><span style="font-weight: bold;">Nota:</span> El operador más importante que se usa es el de asignación, el cual se representa por el símbolo<strong>(=)</strong>.</p>
+      <br>
       <h2>4.2.1 Tipos de operadores</h2>
       <p class="texto-personalizado">Los tipos de operadores son seis según su función, los cuales son aritméticos, relacionales, de asignación, lógicos, de manejo de dirección y de Bits.</p>
       <p class="texto-personalizado" style="padding-left: 20px;"><span style="font-weight: bold;">4.2.1.1. Operadores aritméticos:</span> Son aquellos que se usan para realizar cálculos y operaciones con números reales. Entre los más comunes se pueden encontrar:</p>
