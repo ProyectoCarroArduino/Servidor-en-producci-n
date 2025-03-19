@@ -25,11 +25,12 @@ app.use(express.json());
 app.use(cookieparser());
 app.use(express.static("public"));
 app.use("/static", express.static(path.join(__dirname, "public")));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/api/auth", authRouter);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
 
 app.all("*", (req, res) => {
     res.status(404);

@@ -28,6 +28,13 @@ export interface RegisterData{
     password_confirm: string
 }
 
+export interface NewPassword{
+    email: string,
+    currentPassword : string,
+    NewPassword : string,
+    NewPasswordConfirm : string,
+}
+
 export const useAuthStore = defineStore("auth", {
     state: (): State => {
         return {
@@ -60,7 +67,12 @@ export const useAuthStore = defineStore("auth", {
                 await this.getUser()
                 return data;
             } catch (error: Error | any) {
-                throw error.response.message
+                // Manejar el error del backend o un error genérico
+                if (error.response && error.response.data && error.response.data.message) {
+                  throw new Error(error.response.data.message); // Mensaje desde el backend
+                } else {
+                  throw new Error("Error inesperado. Por favor, intente más tarde."); // Mensaje genérico
+                }
             }
         },
 
@@ -110,6 +122,19 @@ export const useAuthStore = defineStore("auth", {
                 return data;
             } catch (error: Error | any) {
                 throw error.response.message
+            }
+        },
+
+        async changePassword(payload: NewPassword) {
+            try {
+              const { data } = await useApi().post("/api/auth/changePassword", payload);
+              return data; // Mensaje de éxito
+            } catch (error: Error | any) {
+              if (error.response && error.response.data && error.response.data.message) {
+                throw new Error(error.response.data.message); // Mensaje desde el backend
+              } else {
+                throw new Error("Error inesperado. Por favor, intente más tarde."); // Mensaje genérico
+              }
             }
         }
     }

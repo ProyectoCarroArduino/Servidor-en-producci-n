@@ -11,6 +11,7 @@
               class="form-control"
               id="email"
               autocomplete="off"
+              placeholder="Ingresa tu correo electrónico"
             />
           </div>
           <div class="mb-3">
@@ -19,10 +20,14 @@
               type="password"
               class="form-control"
               id="password"
+              placeholder="Ingresa tu clave"
             />
           </div>
           <button type="submit" class="btn btn-success">Login</button>
         </form>
+        <p v-if="errorMessage" class="error text-danger mt-3">{{ errorMessage }}</p>
+        <br>
+        <router-link to="/changePassword" class="btn btn-secondary">Cambiar clave</router-link>
       </div>
     </div>
   </div>
@@ -43,15 +48,28 @@ import { useRouter } from "vue-router";
 
     const errorMessage = ref<string>("")
 
-    async function submit(){
-        await authStore.login(loginData)
-        .then(res => { 
-            router.replace({name: "user"})
-        })
-        .catch(err => {
-            errorMessage.value = err.message
-        })
+    async function submit() {
+      errorMessage.value = ""; // Limpiar mensaje de error previo
+
+      try {
+        // Intentar autenticación
+        await authStore.login(loginData);
+        // Redirigir si es exitoso
+        router.replace({ name: "user" });
+      } catch (err: any) {
+        console.error("Error al intentar iniciar sesión:", err);
+
+        // Manejo robusto del error
+        if (err && err.response && err.response.data && err.response.data.message) {
+          errorMessage.value = err.response.data.message; // Mensaje desde el backend
+        } else if (err && err.message) {
+          errorMessage.value = err.message; // Mensaje del cliente
+        } else {
+          errorMessage.value = "Error inesperado. Por favor, intente más tarde.";
+        }
+      }
     }
+    
 </script>
 
 <style scoped>
@@ -66,4 +84,10 @@ import { useRouter } from "vue-router";
   max-width: 30vw;
   margin: auto;
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
 </style>

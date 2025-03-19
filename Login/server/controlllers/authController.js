@@ -34,48 +34,57 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const {email, password} = req.body
 
-    if(!email || !password) return res.status(422).json({"message": "invalid fields"});
+    try {
 
-    const user = await User.findOne({email}).exec();
+        const {email, password} = req.body
 
-    if(!user) return res.sendStatus(401).json({message: "email o password incorrectos"});
+        if(!email || !password) return res.status(422).json({"message": "invalid fields"});
 
-    const match = await bcrypt.compare(password, user.password);
+        const user = await User.findOne({email}).exec();
 
-    if(!match) return res.status(401).json({message: "email o password incorrectos"});
+        if(!user) return res.status(401).json({message: "email o password incorrectos"});
 
-    const accessToken = jwt.sign(
-        {
-            id: user.id
-        },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-            expiresIn: "1800s"
-        }
-    )
+        const match = await bcrypt.compare(password, user.password);
 
-    const refreshToken = jwt.sign(
-        {
-            id: user.id
-        },
-        process.env.REFRESH_TOKEN_SECRET,
-        {
-            expiresIn: "1d"
-        }
-    )
+        if(!match) return res.status(401).json({ message: "Email o contraseña incorrectos" });
 
-    user.refresh_token = refreshToken
-    await user.save()
+        const accessToken = jwt.sign(
+            {
+                id: user.id
+            },
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+                expiresIn: "1800s"
+            }
+        )
 
-    res.cookie("refresh_token", refreshToken, {
-        httpOnly: true, 
-        maxAge: 24*60*60*30*1000,
-        sameSite: "None",
-        secure: true
-    })
-    res.json({access_token: accessToken});
+        const refreshToken = jwt.sign(
+            {
+                id: user.id
+            },
+            process.env.REFRESH_TOKEN_SECRET,
+            {
+                expiresIn: "1d"
+            }
+        )
+
+        user.refresh_token = refreshToken
+        await user.save()
+
+        res.cookie("refresh_token", refreshToken, {
+            httpOnly: true, 
+            maxAge: 24*60*60*30*1000,
+            sameSite: "None",
+            secure: true
+        })
+        res.json({access_token: accessToken});
+
+    } catch  (error) {
+        console.error("Error en el login:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
+    }
+
 };
 
 export const logout = async (req, res) => {
@@ -187,4 +196,44 @@ export const analyzeCode = async (req, res) => {
         return res.status(500).json({ message: "Error al analizar el código", error: err.message });
     }
 };
+
+export const changePassword = async (req, res) => {
+    const { email, currentPassword, NewPassword, NewPasswordConfirm } = req.body;
+  
+    // Validar campos
+    if (!email || !currentPassword || !NewPassword || !NewPasswordConfirm) {
+      return res.status(422).json({ message: "Todos los campos son obligatorios" });
+    }
+  
+    if (NewPassword !== NewPasswordConfirm) {
+      return res.status(422).json({ message: "La nueva clave no coincide" });
+    }
+  
+    try {
+      // Buscar el usuario por email
+      const user = await User.findOne({ email }).exec();
+  
+      if (!user) {
+        return res.status(404).json({ message: "El usuario no existe" });
+      }
+  
+      // Verificar la clave actual
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "La clave actual es incorrecta" });
+      }
+  
+      // Encriptar la nueva clave
+      const hashedPassword = await bcrypt.hash(NewPassword, 10);
+  
+      // Actualizar la clave
+      user.password = hashedPassword;
+      await user.save();
+  
+      return res.status(200).json({ message: "Clave cambiada exitosamente" });
+    } catch (error) {
+      console.error("Error al cambiar la clave:", error);
+      return res.status(500).json({ message: "Error interno del servidor" });
+    }
+  };
 

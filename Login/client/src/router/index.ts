@@ -40,6 +40,18 @@ const router = createRouter({
       //meta: {requiresAuth: true}
     },
     {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: () => import('../views/auth/changePassword.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GuiaConstruccion',
+      name: 'GuiaConstruccion',
+      component: () => import('../views/auth/GuiaConstruccion.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
       path: '/descomposicion',
       name: 'descomposicion',
       component: () => import("../views/auth/Descomposition.vue"),
@@ -169,6 +181,47 @@ const router = createRouter({
       name: 'generalizacionArrayEj',
       component: () => import("../views/auth/GeneralizationArrayEj.vue"),
     },
+    {
+      path: '/teoriaFuncionesSinpar',
+      name: 'teoriaFuncionesSinpar',
+      component: () => import("../views/auth/TheoryParameterlessFunction.vue"),
+    },
+    {
+      path: '/descomposicionFuncionesSinparEj',
+      name: 'descomposicionFuncionesSinparEj',
+      component: () => import("../views/auth/DescompositionParameterlessFunctionEj.vue"),
+    },
+    {
+      path: '/algoritmoFuncionesSinparEj',
+      name: 'algoritmoFuncionesSinparEj',
+      component: () => import("../views/auth/AlgorithmParameterlessFunctionEj.vue"),
+    },
+    {
+      path: '/abstraccionFuncionesSinparEj',
+      name: 'abstraccionFuncionesSinparEj',
+      component: () => import("../views/auth/AbstractionParameterlessFunctionEj.vue"),
+    },
+    {
+      path: '/generalizacionFuncionesSinparEj',
+      name: 'generalizacionFuncionesSinparEj',
+      component: () => import("../views/auth/GeneralizationParameterlessFunctionEj.vue"),
+    },
+    {
+      path: '/descomposicionFuncionesSinparEj2',
+      name: 'descomposicionFuncionesSinparEj2',
+      component: () => import("../views/auth/DescompositionParameterlessFunctionEj2.vue"),
+    },
+    {
+      path: '/NotaDeEjercicio1',
+      name: 'NotaDeEjercicio1',
+      component: () => import("../views/auth/NotaDeEjercicio1.vue"),
+    },
+    {
+      path: '/ConectarCablesTeoria',
+      name: 'ConectarCablesTeoria',
+      component: () => import("../views/auth/ConectarCablesTeoria.vue"),
+    },
+
   ]
 })
 
