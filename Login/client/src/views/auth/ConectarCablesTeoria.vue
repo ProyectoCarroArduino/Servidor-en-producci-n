@@ -26,6 +26,19 @@
           <p class="texto">Cautín tipo lápiz</p>
         </div>
       </div>
+      <br>
+      <div class="justify-container">
+      <iframe
+        width="560" 
+        height="315" 
+        src="https://www.youtube.com/embed/DxX0sUtk9_M?si=LSws90oVe6Lx2DaQ" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+      </div>
       <div>
         <button class="bt-validate" @click="finish">Avanzar</button>
       </div>
@@ -57,7 +70,7 @@ export default {
 
     methods: {
       finish() {
-      router.push('/descomposicion')
+      router.push('/DescomposicionConectarCables')
     },
     },
 
@@ -149,6 +162,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px; /* Espaciado superior e inferior */
 }
 
 </style>

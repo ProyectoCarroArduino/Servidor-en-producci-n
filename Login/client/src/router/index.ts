@@ -221,6 +221,26 @@ const router = createRouter({
       name: 'ConectarCablesTeoria',
       component: () => import("../views/auth/ConectarCablesTeoria.vue"),
     },
+    {
+      path: '/DescomposicionConectarCables',
+      name: 'DescomposicionConectarCables',
+      component: () => import("../views/auth/DescompositionConectarCables.vue"),
+    },
+    {
+      path: '/AlgoritmoConectarCables',
+      name: 'AlgoritmoConectarCables',
+      component: () => import("../views/auth/AlgorithmConectarCables.vue"),
+    },
+    {
+      path: '/AbstraccionConectarCables',
+      name: 'AbstraccionConectarCables',
+      component: () => import("../views/auth/AbstractionConectarCables.vue"),
+    },
+    {
+      path: '/GeneralizacionConectarCables',
+      name: 'GeneralizacionConectarCables',
+      component: () => import("../views/auth/GeneralizationConectarCables.vue"),
+    },
 
   ]
 })

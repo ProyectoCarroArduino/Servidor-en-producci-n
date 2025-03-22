@@ -40,19 +40,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/descomposicion"
+                                        href: "/DescomposicionConectarCables"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/algoritmo"
+                                        href: "/AlgoritmoConectarCables"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/abstraccion"
+                                        href: "/AbstraccionConectarCables"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/generalizacion"
+                                        href: "/GeneralizacionConectarCables"
                                     },
                                 ]
                             },

@@ -179,13 +179,18 @@ export const analyzeCode = async (req, res) => {
         // Ruta a los archivos de encabezado estándar de C
         const includePath = 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.40.33807/include';
 
-        // Ejecutar Clang en el archivo temporal
-        exec(`clang -fsyntax-only -I"${includePath}" ${tempFileName}`, async (error, stdout, stderr) => {
-            // Borrar el archivo temporal
-            await fs.unlink(tempFileName);
+        // Comando para analizar el código en C con Clang
+        const command = `clang -fsyntax-only -I"${includePath}" "${tempFileName}"`;
+
+        exec(command, async (error, stdout, stderr) => {
+            try {
+                // Borrar el archivo temporal de manera segura
+                await fs.unlink(tempFileName);
+            } catch (unlinkError) {
+                console.error("Error al eliminar el archivo:", unlinkError);
+            }
 
             if (error) {
-                // Reemplazar todas las instancias de la ruta con un nombre genérico
                 const filteredErrors = stderr.replace(new RegExp(tempFileName.replace(/\\/g, '\\\\'), 'g'), 'temp_code.c');
                 return res.json({ errors: filteredErrors });
             } else {

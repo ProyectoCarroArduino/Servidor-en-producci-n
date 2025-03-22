@@ -2,7 +2,7 @@
     <div id="user">
       <div class="card card-body mt-8, align-left, col-md-15">
         <!--<h1 class="text-center">Programación en C</h1>-->
-        <h1 class="text-center"> Guía construcción carro Arduino</h1>
+        <h1 class="text-center">Guía construcción carro Arduino</h1>
         <br>
         <br>
         <h2>Materiales:</h2>
