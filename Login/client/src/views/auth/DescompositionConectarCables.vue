@@ -18,31 +18,58 @@
         <h4 class="texto-personalizado">Seleccione el video que muestra la <strong>conexión</strong> de los cables rojo y negro al motorreductor: </h4>
         <br>
         <div class="video-selection">
-        <h2>Selecciona el video correcto</h2>
-        <br>
-        <br>
-        <div class="videos-container">
-          <div v-for="(video, index) in videos" :key="index" class="video-item">
-            <video width="320" height="180" controls>
-              <source :src="video.src" type="video/mp4">
-              Tu navegador no soporta la reproducción de videos.
-            </video>
-            <div class="option">
-              <input 
-                type="radio" 
-                :id="'video' + index" 
-                :value="index" 
-                v-model="selectedVideo"
-              />
-              <label :for="'video' + index">Seleccionar</label>
+          <br>
+          <p class="texto-personalizado">Selecciona el video correcto:</p>
+          <br>
+          <div class="videos-container">
+            <div 
+              v-for="(video, index) in videos" 
+              :key="index" 
+              class="video-item">
+              <video width="300" height="200" controls>
+                <source :src="video.src" type="video/mp4">
+                Tu navegador no soporta la reproducción de videos.
+              </video>
+              <div class="option">
+                <input 
+                  type="radio" 
+                  :id="`video${index}`" 
+                  :value="video" 
+                  v-model="selectedVideo"
+                />
+                <label :for="`video${index}`">
+                  Seleccionar
+                </label>
+              </div>
             </div>
           </div>
-        </div>
+          <br>
+          <p class="texto-personalizado">Respuesta seleccionada: {{ selectedVideo }}</p>
+          <br>
+          <button @click="checkAnswer" class="btn btn-primary">Submit</button>
+          <br>
+          <div v-if="feedbackMessage" class="respuesta">
+            <p v-if="correctVideoIndex" class="correcto alert alert-success mt-3">¡Correcto!</p>
+            <p v-else class="incorrecto alert alert-danger mt-3">{{ feedbackMessage }}</p>
+          </div>
+          <br>
+          <div v-if="evaluacionVideo !== null" class="correcto">
+            <p 
+              class="alert"
+              :class="{
+                'alert-danger': evaluacionVideo === 1,
+                'alert-success': evaluacionVideo >= 3 && evaluacionVideo <= 5
+              }">
+              Tu evaluación es: {{ evaluacionVideo }}
+            </p>
+            <br>
+          </div>
+            <p v-if="totalClicksVideo > 0" class="contador">
+              Intentos restantes: {{ maxClicksVideo - totalClicksVideo }}
+            </p>
+          </div>
         <br>
-        <button class="btn-check" @click="checkAnswer">Validar</button>
-        <p v-if="feedbackMessage" :class="feedbackClass">{{ feedbackMessage }}</p>
-      </div>
-      <br>
+        <br>
         <h4 class="texto-personalizado">Seleccione la imagen que representa la <strong>conexión de los cables al motorreductor</strong> en el simulador tinkerCAD: </h4>
         <br>
         <div class="figuras">
@@ -70,17 +97,18 @@
           <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
         </div>
         <div v-if="evaluacionV !== null" class="correcto">
-          <p class="alert alert-info">Tu evaluación es: {{ evaluacionV }}</p>
-        </div>
+            <p 
+              class="alert"
+              :class="{
+                'alert-danger': evaluacionV === 1,
+                'alert-success': evaluacionV >= 3 && evaluacionV <= 5
+              }">
+              Tu evaluación es: {{ evaluacionV }}
+            </p>
+            <br>
+          </div>
         <br>
         <div>
-          <br>
-          <br>
-          <Llamada @evaluacionLlamada="actualizarEvaluacionLlamada" />
-          <Estructura @evaluacionEstructura="actualizarEvaluacionEstructura"/>
-        </div>
-        <div>
-          <br>
           <br>
         </div>
         <br>
@@ -110,12 +138,6 @@
   import NotaDeEjercicio1 from './NotaDeEjercicio1.vue';
   import router from '@/router'
   import MenuCarro from "../../components/MenuCarro.vue";
-  import Llamada from "../../components/LlamadaFunction.vue";
-  import Estructura from "../../components/EstructuraFunction.vue";
-  import Funcion1 from '@/assets/FuncionesSinparImages/Funciones 1.png';
-  import Funcion2 from '@/assets/FuncionesSinparImages/Funciones 2.png';
-  import Funcion3 from '@/assets/FuncionesSinparImages/Funciones 3.png';
-  import Funcion4 from '@/assets/FuncionesSinparImages/Funciones 4.png';
   import Funcion5 from '@/assets/FuncionesSinparImages/Funciones 5.png';
   import Funcion6 from '@/assets/FuncionesSinparImages/Funciones 6.png';
   import Funcion7 from '@/assets/FuncionesSinparImages/Funciones 7.png';
@@ -130,20 +152,12 @@
   
     components: {
       MenuCarro,
-      Llamada,
-      Estructura,
       NotaDeEjercicio1,
     },
   
     data() {
       return {
-        funciones: [
-          { src: Funcion1, alt: 'Funcion 1' },
-          { src: Funcion2, alt: 'Funcion 2' },
-          { src: Funcion3, alt: 'Funcion 3' },
-          { src: Funcion4, alt: 'Funcion 4' },
-        ].sort(() => Math.random() - 0.5),
-  
+
         funcionesV: [
           { src: Funcion5, alt: 'Funcion 5' },
           { src: Funcion6, alt: 'Funcion 6' },
@@ -151,18 +165,7 @@
           { src: Funcion8, alt: 'Funcion 8' },
         ].sort(() => Math.random() - 0.5),
   
-  
-        respuesta: null,
-        esCorrecta: false,
-        mensajeError: '',
-        mensajesError: [
-          '¡Error! Selecciona la imagen que tenga sentido con lo solicitado, pero ten presente la teoria sobre: funciones (sin parámetros) en la parte de estructura de una función',
-          '¡Error! Identifica la imagen correcta que tiene la estructura necesaría',
-          '¡Error! Intenta tener en cuenta que la imagen seleccionada debe de resolver el problema dado',
-          '¡Error! Recuerda que debes de seleccionar la imagen que concuerde con la función prototipo que resuelva el problema',
-        ],
         
-        respuestaCorrecta: 'Funcion 1',
         respuestaVar: null,
         CorrectaVar: false,
         mensajeErrorVar: '',
@@ -174,15 +177,10 @@
         ],
   
         respuestaCorrectaV: 'Funcion 5',
-        totalClicks: 0,
         totalClicksV: 0,
-        maxClicks: 3,
         maxClicksV: 3,
-        mostrarContador: null,
         mostrarContadorV: null,
-        isBlocked: false,
         isBlockedV: false,
-        evaluacion: null,
         evaluacionV: null,
         evaluacionLlamada: null,
         evaluacionEstructura: null,
@@ -192,87 +190,46 @@
         { src: Video2, alt: 'Video 2' },
         { src: Video3, alt: 'Video 3' },
       ].sort(() => Math.random() - 0.5),
+
       correctVideoIndex: null, // Índice del video correcto
       selectedVideo: null,
       feedbackMessage: "",
-      feedbackClass: ""
-      };
-      
-      },
+      feedbackClass: "",
+      BlockedVideo: null,
+      totalClicksVideo: 0, 
+      maxClicksVideo: 3,
+      mostrarContadorVideo: null,
+      evaluacionVideo: null,
 
-      created() {
-        this.correctVideoIndex = this.videos.findIndex(video => video.src === Video1);
-      },
+      mensajesErrorVideo: [
+          '¡Error! Recuerda que debes de seleccionar la imagen que tenga la declaración de la función (laboratorio) de forma correcta',
+          '¡Error! La forma en la que estas haciendo la declaración de la función (laboratorio) no es correcta',
+          '¡Error! Intenta ir a revisar la teoria sobre la declaración de una función e intentalo de nuevo',
+          '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)',
+        ],
+
+    };
+      
+    },
   
       computed: {
       // Propiedad computada para habilitar o deshabilitar el botón
       puedeAvanzar() {
         return (
-          this.evaluacion !== null &&
           this.evaluacionV !== null &&
-          this.evaluacionLlamada !== null && // Incluye la evaluación de Llamada
-          this.evaluacionEstructura !== null
+          this.evaluacionVideo !== null
         );
       },
   
       evaluacionTotal() {
         const total =
-          (this.evaluacion ?? 0) +
           (this.evaluacionV ?? 0) +
-          (this.evaluacionLlamada ?? 0) +
-          (this.evaluacionEstructura ?? 0);
-  
-        return total / 4; // Dividimos entre el total de actividades
+          (this.evaluacionVideo ?? 0)
+        return total / 2; // Dividimos entre el total de actividades
       },
     },
   
     methods: {
-      manejarClick(funcion, index) {
-        if (this.isBlocked || this.totalClicks >= this.maxClicks) {
-          return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-        }
-  
-        const funcionSeleccionada = this.funciones[index].alt;
-        
-        if (funcionSeleccionada === this.respuestaCorrecta) {
-          this.isBlocked = true; // Bloquea clics adicionales
-          this.calcularEvaluacion();
-          this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
-          this.respuesta = funcion;
-          this.esCorrecta = true;
-          return; // Termina aquí para evitar incrementar el contador
-        }
-  
-        this.totalClicks++; // Incrementa el contador global
-        this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
-        this.respuesta = funcion;
-        this.esCorrecta = funcion === 'Funcion 1';
-  
-        if (this.totalClicks >= this.maxClicks) {
-          this.isBlocked = true; 
-          this.evaluacion = 1; // Asegura que se evalúe como 0
-          return;
-        }
-  
-        if (!this.esCorrecta) {
-          this.mensajeError = this.obtenerMensajeError();
-        }
-      },
-  
-      calcularEvaluacion() {
-        if (this.totalClicks === 0) {
-          this.evaluacion = 5;
-        } else if (this.totalClicks === 1) {
-          this.evaluacion = 4;
-        } else if (this.totalClicks === 2) {
-          this.evaluacion = 3;
-        } 
-      },
-  
-      obtenerMensajeError() {
-        const randomIndex = Math.floor(Math.random() * this.mensajesError.length);
-        return this.mensajesError[randomIndex];
-      },
   
       manejarClickVar(funcionesV, index) {
         if (this.isBlockedV || this.totalClicksV >= this.maxClicksV) {
@@ -297,7 +254,7 @@
   
         if (this.totalClicksV >= this.maxClicksV) {
           this.isBlockedV = true; 
-          this.evaluacionV = 1; // Asegura que se evalúe como 0
+          this.evaluacionV = 1; // Asegura que se evalúe como 1
           return;
         }
   
@@ -321,14 +278,6 @@
         return this.mensajesErrorVar[randomIndex];
       },
   
-      actualizarEvaluacionLlamada(evaluacion) {
-        this.evaluacionLlamada = evaluacion;
-      },
-  
-      actualizarEvaluacionEstructura(evaluacion) {
-        this.evaluacionEstructura = evaluacion;
-      },
-  
       finish() {
         router.push('/AlgoritmoConectarCables').then(() => {
           window.scrollTo(0, 0);
@@ -336,21 +285,52 @@
       },
 
       checkAnswer() {
-        if (this.selectedVideo === null) {
-          this.feedbackMessage = "Por favor, selecciona un video.";
+        if (this.BlockedVideo || this.totalClicksVideo >= this.maxClicksVideo) {
+          return;
+        }
+
+        if (!this.selectedVideo) {
+          this.feedbackMessage = "Debes seleccionar un video antes de enviar la respuesta.";
           this.feedbackClass = "error-message";
-        } else if (this.selectedVideo === this.correctVideoIndex) {
-          this.feedbackMessage = "¡Correcto! Has seleccionado el video adecuado.";
+          return;
+        }
+
+        if (this.selectedVideo.src === Video1) {
+          this.BlockedVideo = true;
+          this.calcularEvaluacionVideo();
+          this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
           this.feedbackClass = "success-message";
+          this.correctVideoIndex = true;
         } else {
-          this.feedbackMessage = "Incorrecto, intenta de nuevo.";
+          this.totalClicksVideo++;
+          this.feedbackMessage = this.obtenerMensajeErrorVideo();
           this.feedbackClass = "error-message";
+
+          if (this.totalClicksVideo >= this.maxClicksVideo) {
+            this.BlockedVideo = true;
+            this.evaluacionVideo = 1; // Puntuación mínima
+          }
         }
       },
-  
-    },
-  
-  
+
+      obtenerMensajeErrorVideo() {
+        const randomIndex = Math.floor(Math.random() * this.mensajesErrorVideo.length);
+        return this.mensajesErrorVideo[randomIndex];
+      },
+
+
+      calcularEvaluacionVideo() {
+        if (this.totalClicksVideo === 0) {
+          this.evaluacionVideo = 5;
+        } else if (this.totalClicksVideo === 1) {
+          this.evaluacionVideo = 4;
+        } else if (this.totalClicksVideo === 2) {
+          this.evaluacionVideo = 3;
+        } 
+      },
+
+
+    }
   };
   </script>
   
@@ -437,14 +417,14 @@
       text-align: justify; /* Alineación justificada */
   }
   
-  .evaluacion-final {
+.evaluacion-final {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-  }
+}
 
-  .video-selection {
+.video-selection {
   text-align: center;
 }
 
@@ -463,21 +443,6 @@
 
 .option {
   margin-top: 10px;
-}
-
-.btn-check {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-check:hover {
-  background-color: #0056b3;
 }
 
 .success-message {
