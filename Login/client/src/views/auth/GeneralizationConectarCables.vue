@@ -30,8 +30,9 @@
 </template>
 
 <script>
-import AudioChecker from "@/components/AudioCheckerParameterlessFunctionEj.vue";
+import AudioChecker from "@/components/AudioCheckerConectarCables.vue";
 import MenuCarro from "../../components/MenuCarro.vue";
+
 export default{
     components:{
         MenuCarro,

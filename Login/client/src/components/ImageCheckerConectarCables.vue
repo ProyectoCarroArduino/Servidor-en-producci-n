@@ -65,6 +65,10 @@
       <p v-if="isCorrect || attemps === maxAttemps" class="correcto alert alert-success mt-3">
         Tu evaluación final es: {{ evaluacion }}
       </p>
+      <br>
+      <p class="alert alert-primary">
+        Evaluación Algoritmo: {{ evaluacionAlgorithmStore.evaluacion.toFixed(1) }}
+      </p>
     </div>
     </template>
     
@@ -79,11 +83,21 @@
     import image7 from '@/assets/ConectarCablesImages/Conectar 7.png'
     import image8 from '@/assets/ConectarCablesImages/Conectar 8.png'
     import image9 from '@/assets/ConectarCablesImages/Conectar 9.png'
+    import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 
 
 
     export default {
       name: 'ImageOrderingModule',
+
+      setup() {
+        const evaluacionAlgorithmStore = useEvaluacionAlgorithmStore();
+        
+        return {
+          evaluacionAlgorithmStore, // devuelve todo el store, no solo el valor
+        };
+      },
+
       data() {
         return {
           /*enunciado:
@@ -185,7 +199,7 @@
           this.showPrincipal = true
           this.showResult = false
           this.shuffleImages()
-          this.inputs = Array(6)
+          this.inputs = Array(8)
             .fill()
             .map((_, index) => ({
               key: index,
@@ -193,10 +207,18 @@
               name: `input-${index + 1}`
             }))
         },
+
         finish() {
-          router.push('/abstraccionFuncionesSinparEj')
-        },
-    
+        
+        if(this.isFinishEnabled){
+        this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
+
+        router.push('/AbstraccionConectarCables').then(() => {
+          window.scrollTo(0, 0);
+        });
+        }
+      },
+
         shuffleImages() {
           // Fisher-Yates
           for (let i = this.puzzle.length - 1; i > 0; i--) {

@@ -118,7 +118,9 @@
           </p>
         </div>
         <br>
-        <NotaDeEjercicio1 :total="evaluacionTotal" />
+        <p class="alert alert-primary">
+          Evaluación Descomposición: {{ evaluacionStore.evaluacion.toFixed(1) }}
+        </p>
         <br>
         <button class="bt-validate" 
           @click="finish"
@@ -135,8 +137,7 @@
   </template>
   
   <script>
-  import NotaDeEjercicio1 from './NotaDeEjercicio1.vue';
-  import router from '@/router'
+  import router from '@/router';
   import MenuCarro from "../../components/MenuCarro.vue";
   import Funcion5 from '@/assets/FuncionesSinparImages/Funciones 5.png';
   import Funcion6 from '@/assets/FuncionesSinparImages/Funciones 6.png';
@@ -145,6 +146,7 @@
   import Video1 from '@/assets/VideosConectarCables/Video 1.mp4';
   import Video2 from '@/assets/VideosConectarCables/Video 2.mp4';
   import Video3 from '@/assets/VideosConectarCables/Video 3.mp4';
+  import { useEvaluacionStore } from '@/stores/evaluation';
 
   
   export default {
@@ -152,7 +154,13 @@
   
     components: {
       MenuCarro,
-      NotaDeEjercicio1,
+    },
+
+    setup() {
+      const evaluacionStore = useEvaluacionStore();
+      return {
+        evaluacionStore, // devuelve todo el store, no solo el valor
+      };
     },
   
     data() {
@@ -227,6 +235,7 @@
           (this.evaluacionVideo ?? 0)
         return total / 2; // Dividimos entre el total de actividades
       },
+      
     },
   
     methods: {
@@ -279,6 +288,9 @@
       },
   
       finish() {
+
+        this.evaluacionStore.evaluacion = this.evaluacionTotal;
+
         router.push('/AlgoritmoConectarCables').then(() => {
           window.scrollTo(0, 0);
         });

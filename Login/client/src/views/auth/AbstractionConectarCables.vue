@@ -45,6 +45,9 @@
               Avanzar
               </button>
             </div>
+            <p class="alert alert-primary">
+              Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
+            </p>
         </div>
         <div class="align-left col-md-3">
             <div class="temas">
@@ -58,6 +61,7 @@
 import router from '@/router';
 import axios from 'axios';
 import MenuCarro from "../../components/MenuCarro.vue";
+import { useEvaluacionAbstractionStore } from '@/stores/evaluation';
 
 export default {
     components: {
@@ -67,6 +71,13 @@ export default {
     props: {
         msg: String
     },
+
+    setup() {
+        const evaluacionAbstractionStore = useEvaluacionAbstractionStore();
+        return {
+          evaluacionAbstractionStore, // devuelve todo el store, no solo el valor
+        };
+      },
 
     data() {
         return {
@@ -193,8 +204,12 @@ return 0;
       },
 
       finish() {
-          router.push('/generalizacionFuncionesSinparEj');
-      }
+        this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
+
+        router.push('/GeneralizacionConectarCables').then(() => {
+          window.scrollTo(0, 0);
+        });
+      },
     }
 };
 </script>

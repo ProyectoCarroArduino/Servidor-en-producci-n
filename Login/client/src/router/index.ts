@@ -241,7 +241,11 @@ const router = createRouter({
       name: 'GeneralizacionConectarCables',
       component: () => import("../views/auth/GeneralizationConectarCables.vue"),
     },
-
+    {
+      path: '/EvaluacionConectarCables',
+      name: 'EvaluacionConectarCables',
+      component: () => import("../views/auth/EvaluationConectarCables.vue"),
+    },
   ]
 })
 
