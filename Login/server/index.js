@@ -30,7 +30,14 @@ app.use(bodyParser.json());
 
 app.use("/api/auth", authRouter);
 
+// Servir archivos estáticos del frontend Vue
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use("/static", express.static(path.join(__dirname, "public")));
 
+// Para manejar rutas del lado del cliente (Vue Router)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
 app.all("*", (req, res) => {
     res.status(404);
@@ -49,6 +56,7 @@ mongoose.connection.once("open", () => {
 
 app.use(errorHandler);
 
-app.listen(5000, () => console.log("http://localhost:5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 
 
