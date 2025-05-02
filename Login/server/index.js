@@ -35,8 +35,10 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // Para manejar rutas del lado del cliente (Vue Router)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
+app.use(errorHandler);
 
 app.all("*", (req, res) => {
     res.status(404);
@@ -53,7 +55,6 @@ mongoose.connection.once("open", () => {
     
 })
 
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
