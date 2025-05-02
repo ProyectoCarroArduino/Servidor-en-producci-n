@@ -24,15 +24,19 @@ const user = computed(() => {
 const getUser = async () => {
   try {
     await authStore.getUser();
-  } catch (error) {
-    if (error.response && error.response.status === 401) {
-      // Manejar la falta de autenticación, redirigir a la página de inicio de sesión, etc.
-      console.error("No autorizado. Redirigir a la página de inicio de sesión.");
-    } else if (error.message) {
-      // Manejar otros casos de error
-      console.error("Error en la solicitud:", error.message);
+  } catch (err: unknown) {
+    if (typeof err === "object" && err !== null && "response" in err) {
+      const axiosError = err as { response: { status: number } };
+      if (axiosError.response.status === 401) {
+        console.error("No autorizado. Redirigir a la página de inicio de sesión.");
+        return;
+      }
+    }
+
+    if (err instanceof Error) {
+      console.error("Error en la solicitud:", err.message);
     } else {
-      console.error("Error desconocido:", error);
+      console.error("Error desconocido:", err);
     }
   }
 };
@@ -40,6 +44,7 @@ const getUser = async () => {
     onMounted(async () => {
     await getUser();
     });
+
 </script>
 
 <style scoped>

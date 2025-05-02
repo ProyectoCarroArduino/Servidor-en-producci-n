@@ -56,6 +56,24 @@ const registerData = reactive<RegisterData>({
   password_confirm: "",
 })
 
+const emailExists = ref(false)
+
+async function checkEmailExists() {
+  if (!registerData.email) {
+    emailExists.value = false
+    return
+  }
+
+  try {
+    const response = await fetch(`/api/auth/check-email?email=${registerData.email}`)
+    const data = await response.json()
+    emailExists.value = data.exists
+  } catch (err) {
+    console.error('Error al verificar el email:', err)
+    emailExists.value = false
+  }
+}
+
 const errorMessage = ref<string>("")
 
 const isPasswordValid = ref(false);
