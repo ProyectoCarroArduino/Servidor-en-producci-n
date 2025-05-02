@@ -32,7 +32,6 @@ app.use("/api/auth", authRouter);
 
 // Servir archivos estáticos del frontend Vue
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use("/static", express.static(path.join(__dirname, "public")));
 
 // Para manejar rutas del lado del cliente (Vue Router)
 app.get('*', (req, res) => {
