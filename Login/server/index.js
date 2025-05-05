@@ -34,21 +34,28 @@ app.use("/api/auth", authRouter);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Para manejar rutas del lado del cliente (Vue Router)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+app.get('*', (req, res, next) => {
+  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      next(err); // <-- Para que el error llegue a errorHandler
+    }
+  });
 });
 
+// Manejador de errores personalizado
 app.use(errorHandler);
 
+// 404 si no se atrapó antes
 app.all("*", (req, res) => {
-    res.status(404);
+  res.status(404);
+  if (req.accepts("json")) {
+    res.json({ error: "error 404 not found" });
+  } else {
+    res.type("text").send("404 not found");
+  }
+});
 
-    if(req.accepts("json")){
-        res.json({error: "error 404 not found"});
-    }else{
-        res.type("text").send("404 not found");
-    }
-})
 
 mongoose.connection.once("open", () => {
     console.log("DB conectada");
