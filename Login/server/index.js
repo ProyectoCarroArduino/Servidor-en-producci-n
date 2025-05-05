@@ -31,12 +31,17 @@ app.use(bodyParser.json());
 app.use("/api/auth", authRouter);
 
 // Servir archivos estáticos del frontend Vue
-app.use(express.static(path.join(__dirname, '../client/dist')))
+app.use(express.static(path.join(__dirname, 'dist')));
 
-// 👉 CUALQUIER OTRA RUTA MANDA index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'))
-})
+// Para manejar rutas del lado del cliente (Vue Router)
+app.get('*', (req, res, next) => {
+  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      next(err); // <-- Para que el error llegue a errorHandler
+    }
+  });
+});
 
 // Manejador de errores personalizado
 app.use(errorHandler);
