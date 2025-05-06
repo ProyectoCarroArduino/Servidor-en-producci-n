@@ -1,0 +1,22 @@
+import{_ as m,z as p,n as b,e as _,o as i,c as n,a as e,t as c,f as C,v,g as u,A as f,h as g,j as x}from"./index-giYzRquH.js";import{M as A}from"./MenuCarro-JYstDpMv.js";import{b as y}from"./evaluation-5aw6tknN.js";const E={components:{MenuCarro:A},props:{msg:String},setup(){return{evaluacionAbstractionStore:y()}},data(){return{attempts:0,maxAttempts:3,evaluacion:null,isCorrect:!1,code:"",result:"",resultClass:"",correctCode:`#include <stdio.h>
+#include <string.h>
+
+char* ConectarCables(char cable1[], char cable2[]) {
+if ((!strcmp(cable1, "rojo") && !strcmp(cable2, "negro")) ||
+(!strcmp(cable1, "negro") && !strcmp(cable2, "rojo"))) {
+printf("Cable rojo y negro conectados.");
+} else {
+printf("Error: No se han enviado los cables correctos.");
+}
+}
+
+int main() {
+
+char cableA[] = "rojo";
+char cableB[] = "negro";
+
+printf("%s\\n", ConectarCables(cableA, cableB));
+
+return 0;
+}`}},computed:{isRetryDisabled(){return this.isCorrect||this.attempts>=this.maxAttempts},isFinishEnabled(){return this.isCorrect||this.attempts>=this.maxAttempts}},methods:{analyzeCode(){if(this.isCorrect===!0||this.attempts>=this.maxAttempts)return;this.attempts++;const d=this.code.replace(/\s+/g," ").trim(),s=this.correctCode.replace(/\s+/g," ").trim();let r="";d!==s&&(r="El código ingresado no coincide con la solución esperada. Revisa la sintaxis, espacios y elimine cualquier comentario que haya: "),p.post("http://localhost:5000/api/auth/analyze",{code:this.code}).then(o=>{let t="";o.data.errors&&(t=o.data.errors),r||t?(this.result=[r,t].filter(Boolean).join(`
+`),this.resultClass="warning"):(this.result="¡El código es correcto!",this.resultClass="success",this.isCorrect=!0),this.calcularEvaluacion()}).catch(o=>{console.error("Error al analizar el código:",o),this.result="Ha ocurrido un error al analizar el código. Inténtalo nuevamente.",this.resultClass="warning"}),this.calcularEvaluacion()},calcularEvaluacion(){this.isCorrect===!0?this.attempts===1?this.evaluacion=5:this.attempts===2?this.evaluacion=4:this.attempts===3&&(this.evaluacion=3):this.attempts===this.maxAttempts&&(this.evaluacion=1)},finish(){this.evaluacionAbstractionStore.evaluacion=this.evaluacion,b.push("/GeneralizacionConectarCables").then(()=>{window.scrollTo(0,0)})}}},z={id:"user"},j={class:"card card-body mt-8, align-left, col-md-15"},k=e("h1",{class:"text-center"},"Paso 1. Conectar cables a los motorreductores",-1),S=e("br",null,null,-1),B=e("h3",null,"Ejercicio:",-1),w=e("br",null,null,-1),M=e("p",{class:"texto-personalizado"},' Se necesita un programa en C que simule la conexión de dos cables uno rojo y otro negro a un motoreductor. Cuando se haga la conexión imrpimir el mensaje: "cable rojo y negro conectados". ',-1),N=e("p",{class:"texto-personalizado"},[e("strong",null,"Instrucciones:"),x(" Los cables deben ser variables del tipo cadena de caracter. La conexión debe ser una función del tipo cadena de caracter, la cual debe imprimir el mensaje. ")],-1),V=e("br",null,null,-1),q=e("h3",null,"Abstracción:",-1),D=e("br",null,null,-1),T={class:"hello"},F=e("br",null,null,-1),R=e("br",null,null,-1),I=["disabled"],L=e("br",null,null,-1),G=e("br",null,null,-1),H={key:0,class:"contador"},P=e("br",null,null,-1),U=e("br",null,null,-1),J={key:0,class:"correcto alert alert-success mt-3"},K=["disabled"],O={class:"alert alert-primary"},Q={class:"align-left col-md-3"},W={class:"temas"};function X(d,s,r,o,t,a){const h=_("MenuCarro");return i(),n("div",z,[e("div",j,[k,S,B,w,M,N,V,q,D,e("div",T,[e("h1",null,c(r.msg),1),C(e("textarea",{"onUpdate:modelValue":s[0]||(s[0]=l=>t.code=l),placeholder:"Escribe tu código aquí"},null,512),[[v,t.code]]),F,R,e("button",{onClick:s[1]||(s[1]=(...l)=>a.analyzeCode&&a.analyzeCode(...l)),disabled:a.isRetryDisabled}," Analizar Código ",8,I),L,G,t.attempts>0&&!t.isCorrect?(i(),n("p",H," intentos restantes: "+c(t.maxAttempts-t.attempts),1)):u("",!0),P,t.result?(i(),n("p",{key:1,class:f(t.resultClass)},c(t.result),3)):u("",!0)]),U,t.isCorrect||t.attempts>=t.maxAttempts?(i(),n("p",J," Tu evaluación final es: "+c(t.evaluacion),1)):u("",!0),e("div",null,[t.isCorrect||t.attempts===t.maxAttempts?(i(),n("button",{key:0,class:"bt-validate",disabled:!a.isFinishEnabled,onClick:s[2]||(s[2]=(...l)=>a.finish&&a.finish(...l))}," Avanzar ",8,K)):u("",!0)]),e("p",O," Evaluación Abstracción: "+c(o.evaluacionAbstractionStore.evaluacion.toFixed(1)),1)]),e("div",Q,[e("div",W,[g(h)])])])}const ee=m(E,[["render",X]]);export{ee as default};
