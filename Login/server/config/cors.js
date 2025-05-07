@@ -1,5 +1,5 @@
 // middlewares/credentials.js
-import { allowedOrigins } from "../config/allowed_origins.js";
+import { allowedOrigins } from "./allowed_origins.js";
 
 export const credentials = (req, res, next) => {
     const origin = req.headers.origin;
@@ -11,8 +11,6 @@ export const credentials = (req, res, next) => {
     }
     next();
 };
-
-import {allowedOrigins} from "./allowed_origins.js";
 
 export const corsOptions = {
     origin: (origin, callback) => {
