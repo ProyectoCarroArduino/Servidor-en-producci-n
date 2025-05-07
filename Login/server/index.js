@@ -33,34 +33,22 @@ app.use("/api/auth", authRouter);
 // Servir archivos estáticos del frontend Vue
 app.use(express.static(path.join(__dirname, 'dist')));
 
-//Servir archivos estáticos desde la carpeta assets a Render
-
-app.use('/assets', express.static(path.join(__dirname, 'dist/assets')));
-
-
 // Para manejar rutas del lado del cliente (Vue Router)
-app.get('*', (req, res, next) => {
-  const indexPath = path.join(__dirname, 'dist', 'index.html');
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      next(err); // <-- Para que el error llegue a errorHandler
-    }
-  });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-// Manejador de errores personalizado
 app.use(errorHandler);
 
-// 404 si no se atrapó antes
 app.all("*", (req, res) => {
-  res.status(404);
-  if (req.accepts("json")) {
-    res.json({ error: "error 404 not found" });
-  } else {
-    res.type("text").send("404 not found");
-  }
-});
+    res.status(404);
 
+    if(req.accepts("json")){
+        res.json({error: "error 404 not found"});
+    }else{
+        res.type("text").send("404 not found");
+    }
+})
 
 mongoose.connection.once("open", () => {
     console.log("DB conectada");
@@ -72,3 +60,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
+
+
+

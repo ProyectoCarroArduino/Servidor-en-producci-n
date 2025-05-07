@@ -1,1 +1,0 @@
-const s="/imagenes/Definir%20variables.PNG",e="/imagenes/Operadores%20aritm%C3%A9ticos.PNG",a="/imagenes/Oper%20relacionales.PNG",i="/imagenes/Oper%20l%C3%B3gicos.PNG",o="/imagenes/Oper%20management.PNG",r="/imagenes/Oper%20bits.PNG";export{s as _,e as a,a as b,i as c,o as d,r as e};
