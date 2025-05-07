@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "python": "^0.0.4",
-    "build": "cd client && npm run build && cp -r dist ../server/"
+    "python": "^0.0.4"
   }
 }
