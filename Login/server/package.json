@@ -6,7 +6,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "build": "cd ../client && npm install && npm run build && mkdir -p ../server/dist && cp -r dist/* ../server/dist/",
     "start": "node index.js"
   },
   "keywords": [],
