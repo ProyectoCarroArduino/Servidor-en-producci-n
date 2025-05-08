@@ -1,25 +1,25 @@
 // middlewares/credentials.js
 import { allowedOrigins } from "./allowed_origins.js";
 
-export const credentials = (req, res, next) => {
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Origin', origin);
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    }
-    next();
-};
-
 export const corsOptions = {
     origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin) || !origin) {
+        // Permitir solicitudes de orígenes específicos
+        if (allowedOrigins.includes(origin)) {
             callback(null, origin);
-        } else {
+        } 
+        // Permitir cualquier origen que contenga "vercel.app"
+        else if (origin && origin.includes("vercel.app")) {
+            callback(null, origin);
+        }
+        // Permitir solicitudes sin origen (como aplicaciones móviles o herramientas como Postman)
+        else if (!origin) {
+            callback(null, origin);
+        } 
+        // Rechazar otras solicitudes
+        else {
             callback("Error de CORS origin: " + origin + " No autorizado!");
         }
-    }, 
+    },
     credentials: true,
 };
 
