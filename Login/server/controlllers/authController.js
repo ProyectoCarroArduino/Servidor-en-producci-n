@@ -158,6 +158,7 @@ export const profile = async (req, res) => {
     return res.status(200).json(user);
 };
 
+
 export const analyzeCode = async (req, res) => {
     const { code } = req.body;
 
@@ -176,11 +177,9 @@ export const analyzeCode = async (req, res) => {
         // Guardar el código en un archivo temporal
         await fs.writeFile(tempFileName, code);
 
-        // Ruta a los archivos de encabezado estándar de C
-        const includePath = 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.40.33807/include';
-
         // Comando para analizar el código en C con Clang
-        const command = `clang -fsyntax-only -I"${includePath}" "${tempFileName}"`;
+        // En el contenedor Docker, clang ya estará en el PATH
+        const command = `clang -fsyntax-only "${tempFileName}"`;
 
         exec(command, async (error, stdout, stderr) => {
             try {
@@ -201,6 +200,7 @@ export const analyzeCode = async (req, res) => {
         return res.status(500).json({ message: "Error al analizar el código", error: err.message });
     }
 };
+
 
 export const changePassword = async (req, res) => {
     const { email, currentPassword, NewPassword, NewPasswordConfirm } = req.body;
