@@ -10,8 +10,10 @@ export const allowedOrigins = [
 
 
     //Production
-    "https://servidor-te-pensamiento-computacional.onrender.com",
+    //"https://servidor-te-pensamiento-computacional.onrender.com",
+    "https://servidor-te-pensamiento-computacional-en.onrender.com",
     "https://servidor-en-producci-n-ltpr-pnl8qz5sh-julian-arcilas-projects.vercel.app",
     "https://servidor-en-producci-n-ltpr.vercel.app"
+
 ]; 
 
