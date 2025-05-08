@@ -149,7 +149,7 @@ return 0;
 
       // Realizamos el análisis con el servidor
       axios
-        .post("http://localhost:5000/api/auth/analyze", { code: this.code })
+        .post(import.meta.env.VITE_API_URI_ANALYZE, { code: this.code })
         .then((response) => {
           let analyzerError = "";
 
