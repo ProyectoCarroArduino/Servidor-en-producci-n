@@ -37,6 +37,11 @@ const userSchema = new Schema({
     min: 6
   },
 
+  is_verified: { 
+    type: Boolean,       //verificar correo
+    default: false 
+  },
+
   refresh_token: String,
 
   //curso clonado desde plantilla

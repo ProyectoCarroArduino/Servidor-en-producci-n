@@ -6,4 +6,4 @@ const CourseTemplateSchema = new mongoose.Schema({
   modulos: [ModuleSchema]
 });
 
-export default mongoose.model("CourseTemplate", CourseTemplateSchema);
+export const CourseTemplate = mongoose.model("CourseTemplate", CourseTemplateSchema);

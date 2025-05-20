@@ -76,14 +76,24 @@ export const useAuthStore = defineStore("auth", {
             }
         },
 
-        async register(payload: RegisterData){
+        async register(payload: RegisterData) {
             try {
-                const {data} = await useApi().post("/api/auth/register", payload);
-                return data;
-            } catch (error: Error | any) {
-                throw error.message
+                const { data } = await useApi().post('/api/auth/register', payload)
+                return data
+            } catch (error: any) {
+                // Para el caso específico de correo duplicado (409)
+                if (error.response?.status === 409) {
+                throw new Error('Este correo ya está registrado en el sistema.');
+                }
+                // Para otros mensajes de error del backend
+                else if (error.response?.data?.message) {
+                throw new Error(error.response.data.message);
+                }
+                // Error genérico
+                throw new Error('Error inesperado al registrar. Intenta de nuevo más tarde.');
             }
         },
+
 
         async getUser(){
             try {

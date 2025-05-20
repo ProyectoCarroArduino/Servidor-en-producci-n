@@ -7,11 +7,12 @@ import { exec } from "child_process";
 //import  fs from "fs";
 import { promises as fs } from 'fs';
 import path from 'path';
-
+import { sendVerificationEmail } from '../utils/mailer.js';
+import { CourseTemplate } from '../models/CourseTemplate.js'
 
 
 export const register = async (req, res) => {
-    const { username, email, first_name, last_name, password, password_confirm } = req.body;
+    const { username, email, first_name, last_name, password, password_confirm} = req.body;
 
     if (!username || !email || !first_name || !last_name || !password || !password_confirm)
         return res.status(422).json({ message: "invalid fields" });
@@ -33,7 +34,7 @@ export const register = async (req, res) => {
         const cursoClonado = JSON.parse(JSON.stringify(plantilla.toObject()));
 
         // Crear el usuario con el curso asignado
-        await User.create({
+        const newUser = await User.create({
             email,
             username,
             password: hashedPassword,
@@ -42,12 +43,62 @@ export const register = async (req, res) => {
             curso: cursoClonado
         });
 
-        return res.sendStatus(201);
+        // Generar token de activación
+        const activationToken = jwt.sign(
+            { user_id: newUser._id },
+            process.env.ACTIVATION_TOKEN_SECRET,
+            { expiresIn: "1d" }
+        );
+
+        // Enviar correo usando las credenciales que guardaste
+        await sendVerificationEmail(
+            newUser.email,
+            activationToken,
+        );
+
+
+        return res.status(201).json({
+            message: "Cuenta creada. Revisa tu correo para activar tu cuenta."
+        });
+        
     } catch (error) {
         console.log(error);
         return res.status(400).json({ message: "no se pudo registrar" });
     }
 };
+
+export const checkEmail = async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.status(422).json({ message: "El campo email es requerido" });
+        }
+        
+        const userExists = await User.exists({ email }).exec();
+        return res.json({ exists: !!userExists });
+    } catch (error) {
+        console.error("Error al verificar email:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
+    }
+};
+
+export const checkUsername = async (req, res) => {
+    try {
+        const { username } = req.body;
+        
+        if (!username) {
+            return res.status(422).json({ message: "El campo username es requerido" });
+        }
+        
+        const userExists = await User.exists({ username }).exec();
+        return res.json({ exists: !!userExists });
+    } catch (error) {
+        console.error("Error al verificar username:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
+    }
+};
+
 
 export const login = async (req, res) => {
 
@@ -64,6 +115,10 @@ export const login = async (req, res) => {
         const match = await bcrypt.compare(password, user.password);
 
         if(!match) return res.status(401).json({ message: "Email o contraseña incorrectos" });
+
+        if (!user.is_verified) {
+            return res.status(403).json({ message: "Debes verificar tu correo antes de iniciar sesión" });
+        };
 
         const accessToken = jwt.sign(
             {
