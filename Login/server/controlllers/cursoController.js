@@ -73,22 +73,23 @@ export const registrarEvaluacion = async (req, res) => {
   }
 };
 export const obtenerProgresoCurso = async (req, res) => {
-  console.log(">> obtenerProgresoCurso ejecutándose");
+  console.log('>> [GET /api/curso/progreso] Entrando en obtenerProgresoCurso');
+  console.log('Usuario autenticado:', req.user);
 
   const userId = req.user.id;
 
   try {
     const user = await User.findById(userId);
     if (!user) {
-      console.log("Usuario no encontrado");
+      console.log('>> Usuario no encontrado en DB para ID:', userId);
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    console.log("Curso cargado para usuario:", user.email || user._id);
+    console.log('>> Curso del usuario recuperado correctamente');
     res.status(200).json({ curso: user.curso });
 
   } catch (err) {
-    console.error("Error al obtener el curso:", err.message);
-    res.status(500).json({ message: "Error interno del servidor" });
+    console.error('>> Error en obtenerProgresoCurso:', err.message);
+    res.status(500).json({ message: 'Error interno del servidor' });
   }
 };

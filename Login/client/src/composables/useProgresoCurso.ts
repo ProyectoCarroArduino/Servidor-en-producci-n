@@ -13,7 +13,7 @@ export function useProgresoCurso() {
     error.value = null
 
     try {
-      const { data } = await api.get('/api/curso/progreso')
+      const { data } = await api.get('/api/curso/progreso') // '/api'
       curso.value = data.curso
     } catch (err: any) {
       error.value = err.response?.data?.message || 'Error al obtener el progreso del curso'
@@ -22,10 +22,5 @@ export function useProgresoCurso() {
     }
   }
 
-  return {
-    curso,
-    cargando,
-    error,
-    cargarCurso
-  }
+  return { curso, cargando, error, cargarCurso }
 }

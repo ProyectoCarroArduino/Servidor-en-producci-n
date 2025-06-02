@@ -16,6 +16,12 @@
         <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
             <router-link :to="{name: 'GuiaConstruccion'}" class="nav-link-active" aria-current="page">Construcción carro Arduino</router-link>
         </li>
+        <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
+            <router-link :to="{name: 'EncuestaTAM'}" class="nav-link-active" aria-current="page">Encuesta</router-link>
+        </li>
+        <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
+            <router-link :to="{name: 'ResultadosEncuesta'}" class="nav-link-active" aria-current="page">GraficasTAM</router-link>
+        </li>
       </ul>
       <ul class="navbar-nav mx-2 mb-2 mb-lg-0 ml-auto">
         <li v-if="isAuthenticated" class="nav-item dropdown">

@@ -37,7 +37,7 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('../views/auth/ProfileView.vue'),
+      component: () => import('../views/auth/ProgresoCurso.vue'),
       //meta: {requiresAuth: true}
     },
     {
@@ -51,6 +51,16 @@ const router = createRouter({
       name: 'changePassword',
       component: () => import('../views/auth/changePassword.vue'),
       //meta: {requiresAuth: true}
+    },
+    {
+      path: '/EncuestaTAM',
+      name: 'EncuestaTAM',
+      component: () => import("../views/auth/EncuestaTAMCopy.vue"),
+    } ,
+    {
+      path: '/resultados',
+      name: 'ResultadosEncuesta',
+      component: () => import('../views/auth/ResultadosEncuesta.vue')
     },
     {
       path: '/GuiaConstruccion',

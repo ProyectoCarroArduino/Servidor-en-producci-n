@@ -14,6 +14,7 @@ import authRouter from "./routes/api/auth.js";
 import bodyParser from "body-parser";
 import cursoRouter from "./routes/api/cursoRoutes.js";
 import { authentication } from "./middlewares/authentication.js";
+import encuestaRouter from "./routes/api/encuesta.js";
 
 
 
@@ -32,6 +33,9 @@ app.use(express.static("public"));
 app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use("/api/encuesta", encuestaRouter);  // Ruta para registrar la encuesta
+console.log('Ruta /api/encuesta registrada');
 
 app.use("/api/auth", authRouter);
 app.use("/api/curso", cursoRouter); //Ruta para la evaluacion desde la bd
