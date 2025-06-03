@@ -152,7 +152,7 @@ export default {
       }
 
       const formDataJson = JSON.stringify(this.formData);
-      fetch('http://localhost:5000/api/encuesta/responder', {
+      fetch('https://serverproductionoficial.vercel.app/api/encuesta/responder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
