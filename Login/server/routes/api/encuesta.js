@@ -1,6 +1,6 @@
 // routes/api/encuesta.js
 import express from 'express';
-import { registrarRespuesta, obtenerResumen } from '../../controlllers/EncuestaController';
+import { registrarRespuesta, obtenerResumen } from '../../controlllers/EncuestaController.js';
 
 const router = express.Router();
 
