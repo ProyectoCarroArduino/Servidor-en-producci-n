@@ -80,7 +80,7 @@ const buildPieData = (obj) => {
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://serverproductionoficial.vercel.app/api/encuesta/resumen');
+    const res = await fetch('https://servidor-de-produccion-oficial.onrender.com/api/encuesta/resumen');
     const data = await res.json();
 
     // Datos para gráfico de barras por categoría
