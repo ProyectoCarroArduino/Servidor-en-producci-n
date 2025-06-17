@@ -1,12 +1,19 @@
-// routes/api/encuesta.js
 import express from 'express';
-import { registrarRespuesta, obtenerResumen } from '../../controlllers/EncuestaController.js';
+import {
+  registrarRespuesta,
+  obtenerResumen,
+  verificarRespuesta
+} from '../../controlllers/encuestaController.js';
+
+import { authentication } from '../../middlewares/authentication.js';
+import { auth } from '../../middlewares/auth.js';
 
 const router = express.Router();
 
-router.post('/responder', registrarRespuesta);
+router.use(authentication); // añade req.user desde JWT si hay token
 
-// Nueva ruta para enviar los resultados estadísticos al frontend
-router.get('/resumen', obtenerResumen);
+router.post('/responder', auth, registrarRespuesta);
+router.get('/verificar', auth, verificarRespuesta);
+router.get('/resumen', obtenerResumen); // pública
 
 export default router;
