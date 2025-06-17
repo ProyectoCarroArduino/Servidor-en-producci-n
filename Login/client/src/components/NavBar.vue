@@ -22,6 +22,12 @@
         <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
             <router-link :to="{name: 'ResultadosEncuesta'}" class="nav-link-active" aria-current="page">GraficasTAM</router-link>
         </li>
+        <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
+            <router-link :to="{name: 'Conceptos'}" class="nav-link-active" aria-current="page">Conceptos y Referencias</router-link>
+        </li>
+        <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
+            <router-link :to="{name: 'AdminConceptos'}" class="nav-link-active" aria-current="page">Admin Conceptos</router-link>
+        </li>
       </ul>
       <ul class="navbar-nav mx-2 mb-2 mb-lg-0 ml-auto">
         <li v-if="isAuthenticated" class="nav-item dropdown">
