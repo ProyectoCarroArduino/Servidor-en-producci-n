@@ -3,7 +3,7 @@ import {
   registrarRespuesta,
   obtenerResumen,
   verificarRespuesta
-} from '../../controlllers/encuestaController.js';
+} from '../../controlllers/EncuestaController.js';
 
 import { authentication } from '../../middlewares/authentication.js';
 import { auth } from '../../middlewares/auth.js';
