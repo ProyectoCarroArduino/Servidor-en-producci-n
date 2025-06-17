@@ -15,12 +15,11 @@ import bodyParser from "body-parser";
 import cursoRouter from "./routes/api/cursoRoutes.js";
 import { authentication } from "./middlewares/authentication.js";
 import encuestaRouter from "./routes/api/encuesta.js";
-
-
-
+import glosarioRouter from "./routes/api/glosario.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 
 const app = express();
 
@@ -40,7 +39,12 @@ console.log('Ruta /api/encuesta registrada');
 app.use("/api/auth", authRouter);
 app.use("/api/curso", cursoRouter); //Ruta para la evaluacion desde la bd
 console.log('Ruta /api/curso registrada')
-app.use(errorHandler);
+app.use("/api/glosario", glosarioRouter);
+
+
+
+
+
 
 app.all("*", (req, res) => {
     res.status(404);

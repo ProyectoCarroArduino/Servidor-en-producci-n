@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { useAuthStore } from '@/stores/auth'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,13 +19,13 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/auth/LoginView.vue'),
-      meta: {requiresAuth: false}
+      //meta: {requiresGuest: true}
     },
     {
       path: '/register',
       name: 'register',
       component: () => import('../views/auth/RegisterView.vue'),
-      meta: {requiresAuth: false}
+      //meta: {requiresGuest: true}
     },
     {
       path: '/user',
@@ -41,26 +40,25 @@ const router = createRouter({
       //meta: {requiresAuth: true}
     },
     {
-      path: '/verify-email',
-      name: 'verifyEmail',
-      component: () => import('../views/auth/VerifyEmail.vue'),
-      //meta: {requiresAuth: true}
-    },
-    {
-      path: '/changePassword',
-      name: 'changePassword',
-      component: () => import('../views/auth/changePassword.vue'),
-      //meta: {requiresAuth: true}
-    },
-    {
       path: '/EncuestaTAM',
       name: 'EncuestaTAM',
       component: () => import("../views/auth/EncuestaTAMCopy.vue"),
     } ,
     {
-      path: '/resultados',
-      name: 'ResultadosEncuesta',
-      component: () => import('../views/auth/ResultadosEncuesta.vue')
+      path: '/Conceptos',
+      name: 'Conceptos',
+      component: () => import("../views/auth/GlosarioReferencias.vue"),
+    } ,
+    {
+      path: '/Conceptos/Admin',
+      name: 'AdminConceptos',
+      component: () => import("../views/auth/ConceptosAdmin.vue"),
+    } ,
+    {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: () => import('../views/auth/changePassword.vue'),
+      //meta: {requiresAuth: true}
     },
     {
       path: '/GuiaConstruccion',
@@ -263,6 +261,11 @@ const router = createRouter({
       name: 'EvaluacionConectarCables',
       component: () => import("../views/auth/EvaluationConectarCables.vue"),
     },
+    {
+      path: '/resultados',
+      name: 'ResultadosEncuesta',
+      component: () => import('../views/auth/ResultadosEncuesta.vue')
+    } 
   ]
 })
 
