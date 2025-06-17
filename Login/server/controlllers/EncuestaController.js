@@ -1,10 +1,26 @@
-// controlllers/encuestaController.js
 import { Respuestas } from '../models/Respuestas.js';
 
+// Registrar una respuesta (solo una vez por usuario)
 export async function registrarRespuesta(req, res) {
   try {
-    const nuevaRespuesta = new Respuestas(req.body);
+    const userId = req.user?._id;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'Usuario no autenticado' });
+    }
+
+    const yaRespondio = await Respuestas.findOne({ userId });
+    if (yaRespondio) {
+      return res.status(400).json({ message: 'Ya has respondido la encuesta TAM.' });
+    }
+
+    const nuevaRespuesta = new Respuestas({
+      ...req.body,
+      userId
+    });
+
     await nuevaRespuesta.save();
+
     res.status(201).json({ message: 'Respuesta registrada exitosamente' });
   } catch (error) {
     console.error('Error al guardar la respuesta:', error);
@@ -12,11 +28,11 @@ export async function registrarRespuesta(req, res) {
   }
 }
 
+// Obtener resumen estadístico de todas las respuestas
 export async function obtenerResumen(req, res) {
   try {
     const respuestas = await Respuestas.find();
 
-    // Si no hay respuestas aún
     if (!respuestas.length) {
       return res.json({
         categorias: {
@@ -31,10 +47,9 @@ export async function obtenerResumen(req, res) {
       });
     }
 
-    // Promedio general de cada categoría (suma de todos los valores dividido total de respuestas)
     const calcularPromedioCategoria = (lista) => {
       const total = lista.reduce((sum, arr) => sum + arr.reduce((a, b) => a + b, 0), 0);
-      const cantidad = lista.length * 3; // 3 preguntas por categoría
+      const cantidad = lista.length * 3;
       return (total / cantidad).toFixed(2);
     };
 
@@ -43,7 +58,6 @@ export async function obtenerResumen(req, res) {
     const actitud = calcularPromedioCategoria(respuestas.map(r => r.attitude));
     const intencion = calcularPromedioCategoria(respuestas.map(r => r.intention));
 
-    // Conteos demográficos
     const contarPorCampo = (campo) => {
       const conteo = {};
       respuestas.forEach((r) => {
@@ -75,3 +89,20 @@ export async function obtenerResumen(req, res) {
   }
 }
 
+// Verificar si un usuario ya respondió la encuesta
+export async function verificarRespuesta(req, res) {
+  try {
+    const userId = req.user?._id;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'Usuario no autenticado' });
+    }
+
+    const respuesta = await Respuestas.findOne({ userId });
+
+    res.status(200).json({ yaRespondio: !!respuesta });
+  } catch (error) {
+    console.error('Error al verificar respuesta:', error);
+    res.status(500).json({ error: 'Error al verificar estado de encuesta' });
+  }
+}
