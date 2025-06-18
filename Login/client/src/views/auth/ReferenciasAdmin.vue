@@ -33,49 +33,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useApi } from '@/composables/useApi'
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
-const api = useApi()
-
-const conceptos = ref([])
+const conceptos = ref([]);
 const nuevo = ref({
   termino: '',
   definicion: ''
-})
+});
 
+// Cargar conceptos al iniciar
 const cargarConceptos = async () => {
-  try {
-    const res = await api.get('/api/glosario')
-    conceptos.value = res.data.conceptos || []
-  } catch (err) {
-    console.error('Error al cargar conceptos:', err)
-  }
-}
+  const res = await axios.get('/api/glosario');
+  conceptos.value = res.data;
+};
 
+// Crear nuevo concepto
 const crearConcepto = async () => {
-  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return
+  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
 
   try {
-    await api.post('/api/glosario/concepto', nuevo.value)
-    await cargarConceptos()
-    nuevo.value.termino = ''
-    nuevo.value.definicion = ''
+    await axios.post('/api/glosario', nuevo.value);
+    await cargarConceptos();
+    nuevo.value.termino = '';
+    nuevo.value.definicion = '';
   } catch (err) {
-    console.error('Error al crear concepto:', err)
-    alert(err.response?.data?.message || 'Error al crear concepto.')
+    console.error('Error al crear concepto:', err);
   }
-}
+};
 
+// Eliminar un concepto
 const eliminarConcepto = async (id) => {
-  if (!confirm('¿Eliminar este concepto?')) return
+  if (!confirm('¿Eliminar este concepto?')) return;
   try {
-    await api.delete(`/api/glosario/concepto/${id}`)
-    await cargarConceptos()
+    await axios.delete(`/api/glosario/${id}`);
+    await cargarConceptos();
   } catch (err) {
-    console.error('Error al eliminar:', err)
+    console.error('Error al eliminar:', err);
   }
-}
+};
 
-onMounted(cargarConceptos)
+onMounted(cargarConceptos);
 </script>
