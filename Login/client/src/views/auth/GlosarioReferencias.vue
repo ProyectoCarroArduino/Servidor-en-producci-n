@@ -1,154 +1,77 @@
 <template>
-  <div class="glosario-container">
-    <h1>📘 Glosario y Referencias</h1>
+  <div class="p-6 bg-white rounded shadow max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">📘 Glosario de Conceptos</h1>
 
-    <!-- Buscador -->
-    <div class="buscador">
-      <input v-model="busqueda" placeholder="Buscar término..." />
-    </div>
-
-    <!-- Conceptos -->
-    <section>
-      <h2>Conceptos Clave</h2>
-      <div class="tarjetas">
-        <div v-for="concepto in conceptosFiltrados" :key="concepto.termino" class="tarjeta">
-          <h3>{{ concepto.termino }}</h3>
-          <p>{{ concepto.definicion }}</p>
-        </div>
+    <!-- Formulario para agregar nuevo concepto -->
+    <form @submit.prevent="crearConcepto" class="mb-6 space-y-4">
+      <div>
+        <label class="block text-sm font-medium">Término</label>
+        <input v-model="nuevo.termino" type="text" class="w-full border rounded px-3 py-1" required />
       </div>
-    </section>
-
-    <!-- Referencias -->
-    <section>
-      <h2>Referencias</h2>
-      <div class="tarjetas">
-        <div v-for="ref in referencias" :key="ref.nombre" class="tarjeta">
-          <div class="referencia-header">
-            <span class="icono">{{ iconoPorTipo(ref.tipo) }}</span>
-            <strong>{{ ref.nombre }}</strong>
-            <span class="tipo">({{ ref.tipo }})</span>
-          </div>
-          <a :href="ref.enlace" target="_blank">{{ ref.enlace }}</a>
-          <p>{{ ref.descripcion }}</p>
-        </div>
+      <div>
+        <label class="block text-sm font-medium">Definición</label>
+        <textarea v-model="nuevo.definicion" class="w-full border rounded px-3 py-1" required />
       </div>
-    </section>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar concepto</button>
+    </form>
+
+    <hr class="mb-4">
+
+    <!-- Lista de conceptos -->
+    <ul class="list-disc pl-6 space-y-2">
+      <li v-for="concepto in conceptos" :key="concepto._id" class="flex justify-between items-start">
+        <div>
+          <strong>{{ concepto.termino }}:</strong> {{ concepto.definicion }}
+        </div>
+        <button
+          @click="eliminarConcepto(concepto._id)"
+          class="text-red-600 hover:underline text-sm ml-4"
+        >Eliminar</button>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useApiPrivate } from '@/composables/useApi'
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
-const conceptos = ref([])
-const referencias = ref([])
-const busqueda = ref('')
+const conceptos = ref([]);
+const nuevo = ref({
+  termino: '',
+  definicion: ''
+});
 
-const api = useApiPrivate()
+// Cargar conceptos al iniciar
+const cargarConceptos = async () => {
+  const res = await axios.get('/api/glosario');
+  conceptos.value = res.data;
+};
 
-onMounted(async () => {
+// Crear nuevo concepto
+const crearConcepto = async () => {
+  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
+
   try {
-    const res = await api.get('/api/glosario')
-    conceptos.value = res.data?.conceptos || []
-    referencias.value = res.data?.referencias || []
+    await axios.post('/api/glosario', nuevo.value);
+    await cargarConceptos();
+    nuevo.value.termino = '';
+    nuevo.value.definicion = '';
   } catch (err) {
-    console.error('Error al cargar glosario:', err)
+    console.error('Error al crear concepto:', err);
   }
-})
+};
 
-const conceptosFiltrados = computed(() => {
-  return conceptos.value.filter(c =>
-    c.termino.toLowerCase().includes(busqueda.value.toLowerCase())
-  )
-})
-
-const iconoPorTipo = (tipo) => {
-  switch (tipo) {
-    case 'Lectura': return '📖'
-    case 'Video': return '🎥'
-    case 'Sitio Web': return '🌐'
-    case 'Curso': return '🎓'
-    default: return '🔗'
+// Eliminar un concepto
+const eliminarConcepto = async (id) => {
+  if (!confirm('¿Eliminar este concepto?')) return;
+  try {
+    await axios.delete(`/api/glosario/${id}`);
+    await cargarConceptos();
+  } catch (err) {
+    console.error('Error al eliminar:', err);
   }
-}
+};
+
+onMounted(cargarConceptos);
 </script>
-
-<style scoped>
-.glosario-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: sans-serif;
-}
-
-h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.4rem;
-  margin: 1.5rem 0 0.5rem;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 0.3rem;
-}
-
-.buscador input {
-  width: 100%;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.tarjetas {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.tarjeta {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  background: #fafafa;
-  transition: box-shadow 0.2s ease;
-}
-
-.tarjeta:hover {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.tarjeta h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
-}
-
-.tarjeta a {
-  display: block;
-  color: #1d4ed8;
-  text-decoration: none;
-  margin: 0.3rem 0;
-}
-
-.tarjeta a:hover {
-  text-decoration: underline;
-}
-
-.referencia-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.2rem;
-}
-
-.icono {
-  font-size: 1.2rem;
-}
-
-.tipo {
-  font-size: 0.9rem;
-  color: #666;
-}
-</style>
