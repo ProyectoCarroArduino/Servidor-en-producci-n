@@ -37,38 +37,40 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';
+import { ref, computed, onMounted } from 'vue'
+import { useApiPrivate } from '@/composables/useApi'
 
-const conceptos = ref([]);
-const referencias = ref([]);
-const busqueda = ref('');
+const conceptos = ref([])
+const referencias = ref([])
+const busqueda = ref('')
+
+const api = useApiPrivate()
 
 onMounted(async () => {
   try {
-    const res = await axios.get('/api/glosario');
-    conceptos.value = res.data?.conceptos || [];
-    referencias.value = res.data?.referencias || [];
+    const res = await api.get('/api/glosario')
+    conceptos.value = res.data?.conceptos || []
+    referencias.value = res.data?.referencias || []
   } catch (err) {
-    console.error('Error al cargar glosario:', err);
+    console.error('Error al cargar glosario:', err)
   }
-});
+})
 
 const conceptosFiltrados = computed(() => {
   return conceptos.value.filter(c =>
     c.termino.toLowerCase().includes(busqueda.value.toLowerCase())
-  );
-});
+  )
+})
 
 const iconoPorTipo = (tipo) => {
   switch (tipo) {
-    case 'Lectura': return '📖';
-    case 'Video': return '🎥';
-    case 'Sitio Web': return '🌐';
-    case 'Curso': return '🎓';
-    default: return '🔗';
+    case 'Lectura': return '📖'
+    case 'Video': return '🎥'
+    case 'Sitio Web': return '🌐'
+    case 'Curso': return '🎓'
+    default: return '🔗'
   }
-};
+}
 </script>
 
 <style scoped>
