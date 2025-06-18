@@ -33,45 +33,52 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { ref, onMounted } from 'vue'
+import { useApiPrivate } from '@/composables/useApi'
 
-const conceptos = ref([]);
+const conceptos = ref([])
 const nuevo = ref({
   termino: '',
   definicion: ''
-});
+})
+
+const api = useApiPrivate()
 
 // Cargar conceptos al iniciar
 const cargarConceptos = async () => {
-  const res = await axios.get('/api/glosario');
-  conceptos.value = res.data;
-};
+  try {
+    const res = await api.get('/api/glosario')
+    conceptos.value = res.data
+  } catch (err) {
+    console.error('Error al cargar conceptos:', err)
+  }
+}
 
 // Crear nuevo concepto
 const crearConcepto = async () => {
-  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
+  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return
 
   try {
-    await axios.post('/api/glosario', nuevo.value);
-    await cargarConceptos();
-    nuevo.value.termino = '';
-    nuevo.value.definicion = '';
+    await api.post('/api/glosario', nuevo.value)
+    await cargarConceptos()
+    nuevo.value.termino = ''
+    nuevo.value.definicion = ''
   } catch (err) {
-    console.error('Error al crear concepto:', err);
+    console.error('Error al crear concepto:', err)
   }
-};
+}
 
 // Eliminar un concepto
 const eliminarConcepto = async (id) => {
-  if (!confirm('¿Eliminar este concepto?')) return;
+  if (!confirm('¿Eliminar este concepto?')) return
   try {
-    await axios.delete(`/api/glosario/${id}`);
-    await cargarConceptos();
+    await api.delete(`/api/glosario/${id}`)
+    await cargarConceptos()
   } catch (err) {
-    console.error('Error al eliminar:', err);
+    console.error('Error al eliminar:', err)
   }
-};
+}
 
-onMounted(cargarConceptos);
+onMounted(cargarConceptos)
 </script>
+
