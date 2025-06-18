@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import { useApiPrivate } from '@/composables/useApi'
+
 export default {
   data() {
     return {
@@ -143,13 +145,8 @@ export default {
   methods: {
     async verificarSiYaRespondio() {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('/api/encuesta/verificar', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        const data = await response.json();
+        const api = useApiPrivate();
+        const { data } = await api.get('/api/encuesta/verificar');
         this.yaRespondio = data.yaRespondio;
       } catch (error) {
         console.error('Error al verificar encuesta:', error);
@@ -171,31 +168,21 @@ export default {
       }
 
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('/api/encuesta/responder', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify(this.formData)
-        });
+        const api = useApiPrivate();
+        await api.post('/api/encuesta/responder', this.formData);
 
-        const data = await response.json();
-
-        if (response.ok) {
-          alert('¡Gracias por completar la encuesta!');
-          this.yaRespondio = true;
-        } else {
-          alert(data.message || 'Hubo un problema al enviar la encuesta.');
-        }
+        alert('¡Gracias por completar la encuesta!');
+        this.yaRespondio = true;
       } catch (error) {
+        const message = error.response?.data?.message || 'Hubo un problema al enviar la encuesta.';
+        alert(message);
         console.error('Error al enviar encuesta:', error);
       }
     }
   }
 };
 </script>
+
 
 <style scoped>
 form {
