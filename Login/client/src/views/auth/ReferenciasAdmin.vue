@@ -34,7 +34,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useApi, useApiPrivate } from '@/composables/useApi'
+import { useApi } from '@/composables/useApi'
 
 const conceptos = ref([])
 const nuevo = ref({
