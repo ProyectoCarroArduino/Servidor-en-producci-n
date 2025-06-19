@@ -44,7 +44,7 @@ const nuevo = ref({
 
 // Cargar conceptos al iniciar
 const cargarConceptos = async () => {
-  const res = await axios.get('/api/glosario');
+  const res = await axios.get('https://servidor-de-produccion-oficial.onrender.com/api/glosario');
   conceptos.value = res.data;
 };
 
@@ -53,7 +53,7 @@ const crearConcepto = async () => {
   if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
 
   try {
-    await axios.post('/api/glosario', nuevo.value);
+    await axios.post('https://servidor-de-produccion-oficial.onrender.com/api/glosario', nuevo.value);
     await cargarConceptos();
     nuevo.value.termino = '';
     nuevo.value.definicion = '';
@@ -66,7 +66,7 @@ const crearConcepto = async () => {
 const eliminarConcepto = async (id) => {
   if (!confirm('¿Eliminar este concepto?')) return;
   try {
-    await axios.delete(`/api/glosario/${id}`);
+    await axios.delete(`https://servidor-de-produccion-oficial.onrender.com/api/glosario/${id}`);
     await cargarConceptos();
   } catch (err) {
     console.error('Error al eliminar:', err);
