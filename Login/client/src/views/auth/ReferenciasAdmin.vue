@@ -12,10 +12,12 @@
         <label class="block text-sm font-medium">Definición</label>
         <textarea v-model="nuevo.definicion" class="w-full border rounded px-3 py-1" required />
       </div>
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Agregar concepto</button>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Agregar concepto
+      </button>
     </form>
 
-    <hr class="mb-4">
+    <hr class="mb-4" />
 
     <!-- Lista de conceptos -->
     <ul class="list-disc pl-6 space-y-2">
@@ -37,14 +39,11 @@ import { ref, onMounted } from 'vue';
 import { useApiPrivate } from '@/composables/useApi';
 
 const conceptos = ref([]);
-const nuevo = ref({
-  termino: '',
-  definicion: ''
-});
+const nuevo = ref({ termino: '', definicion: '' });
 
 const api = useApiPrivate();
 
-// Cargar conceptos al iniciar
+// Obtener conceptos desde el backend
 const cargarConceptos = async () => {
   try {
     const res = await api.get('/api/glosario');
@@ -54,7 +53,7 @@ const cargarConceptos = async () => {
   }
 };
 
-// Crear nuevo concepto
+// Crear un nuevo concepto
 const crearConcepto = async () => {
   if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
 
@@ -68,9 +67,10 @@ const crearConcepto = async () => {
   }
 };
 
-// Eliminar un concepto
+// Eliminar un concepto por ID
 const eliminarConcepto = async (id) => {
   if (!confirm('¿Eliminar este concepto?')) return;
+
   try {
     await api.delete(`/api/glosario/concepto/${id}`);
     await cargarConceptos();
