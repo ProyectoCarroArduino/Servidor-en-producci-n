@@ -34,7 +34,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { useApiPrivate } from '@/composables/useApi';
 
 const conceptos = ref([]);
 const nuevo = ref({
@@ -42,10 +42,16 @@ const nuevo = ref({
   definicion: ''
 });
 
+const api = useApiPrivate();
+
 // Cargar conceptos al iniciar
 const cargarConceptos = async () => {
-  const res = await axios.get('https://servidor-de-produccion-oficial.onrender.com/api/glosario');
-  conceptos.value = res.data;
+  try {
+    const res = await api.get('/api/glosario');
+    conceptos.value = res.data?.conceptos || [];
+  } catch (err) {
+    console.error('Error al cargar conceptos:', err);
+  }
 };
 
 // Crear nuevo concepto
@@ -53,7 +59,7 @@ const crearConcepto = async () => {
   if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
 
   try {
-    await axios.post('https://servidor-de-produccion-oficial.onrender.com/api/glosario', nuevo.value);
+    await api.post('/api/glosario/concepto', nuevo.value);
     await cargarConceptos();
     nuevo.value.termino = '';
     nuevo.value.definicion = '';
@@ -66,10 +72,10 @@ const crearConcepto = async () => {
 const eliminarConcepto = async (id) => {
   if (!confirm('¿Eliminar este concepto?')) return;
   try {
-    await axios.delete(`https://servidor-de-produccion-oficial.onrender.com/api/glosario/${id}`);
+    await api.delete(`/api/glosario/concepto/${id}`);
     await cargarConceptos();
   } catch (err) {
-    console.error('Error al eliminar:', err);
+    console.error('Error al eliminar concepto:', err);
   }
 };
 
