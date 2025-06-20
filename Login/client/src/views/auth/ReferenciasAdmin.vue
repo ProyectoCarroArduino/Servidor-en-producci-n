@@ -48,8 +48,8 @@ const logError = (label, err) => {
   console.error(label, err?.response?.data || err?.message || err);
 };
 
-// URL base para backend
-const baseURL = 'https://servidor-de-produccion-oficial.onrender.com';
+// Usar variable de entorno
+const baseURL = import.meta.env.VITE_API_URL;
 const token = localStorage.getItem('token');
 
 // Cargar conceptos al iniciar
