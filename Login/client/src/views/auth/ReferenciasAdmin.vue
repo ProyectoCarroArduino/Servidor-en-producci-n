@@ -42,36 +42,75 @@ const nuevo = ref({
   definicion: ''
 });
 
+// === DEBUG ===
+const log = console.log;
+const logError = (label, err) => {
+  console.error(label, err?.response?.data || err?.message || err);
+};
+
+// URL base para backend
+const baseURL = 'https://servidor-de-produccion-oficial.onrender.com';
+const token = localStorage.getItem('token');
+
 // Cargar conceptos al iniciar
 const cargarConceptos = async () => {
-  const res = await axios.get('https://servidor-de-produccion-oficial.onrender.com/api/glosario');
-  conceptos.value = res.data;
+  log('[Glosario] Iniciando carga de conceptos...');
+  try {
+    const res = await axios.get(`${baseURL}/api/glosario`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    log('[Glosario] Conceptos recibidos:', res.data);
+    conceptos.value = res.data;
+  } catch (err) {
+    logError('[Glosario] Error al cargar conceptos:', err);
+  }
 };
 
 // Crear nuevo concepto
 const crearConcepto = async () => {
-  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) return;
+  log('[Glosario] Enviando nuevo concepto:', nuevo.value);
+  if (!nuevo.value.termino.trim() || !nuevo.value.definicion.trim()) {
+    log('[Glosario] Campos incompletos. No se enviará.');
+    return;
+  }
 
   try {
-    await axios.post('https://servidor-de-produccion-oficial.onrender.com/api/glosario', nuevo.value);
+    const res = await axios.post(`${baseURL}/api/glosario`, nuevo.value, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    log('[Glosario] Concepto creado con éxito:', res.data);
     await cargarConceptos();
     nuevo.value.termino = '';
     nuevo.value.definicion = '';
   } catch (err) {
-    console.error('Error al crear concepto:', err);
+    logError('[Glosario] Error al crear concepto:', err);
   }
 };
 
 // Eliminar un concepto
 const eliminarConcepto = async (id) => {
   if (!confirm('¿Eliminar este concepto?')) return;
+
+  log('[Glosario] Eliminando concepto con ID:', id);
   try {
-    await axios.delete(`https://servidor-de-produccion-oficial.onrender.com/api/glosario/${id}`);
+    const res = await axios.delete(`${baseURL}/api/glosario/concepto/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    log('[Glosario] Concepto eliminado:', res.data);
     await cargarConceptos();
   } catch (err) {
-    console.error('Error al eliminar:', err);
+    logError('[Glosario] Error al eliminar concepto:', err);
   }
 };
 
-onMounted(cargarConceptos);
+onMounted(() => {
+  log('[Glosario] Componente montado. Cargando conceptos...');
+  cargarConceptos();
+});
 </script>
