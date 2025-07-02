@@ -45,12 +45,13 @@ const userSchema = new Schema({
   refresh_token: String,
 
   //curso clonado desde plantilla
-  curso: {
-    nombre: String,
-    modulos: [ModuleSchema]
-  }
-
-},
+  curso: [
+      {
+        nombre: String,
+        modulos: [ModuleSchema]
+      }
+    ]
+  },
 {
   virtuals: {
     full_name: {
