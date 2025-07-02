@@ -5,28 +5,39 @@ import CourseTemplate from './models/CourseTemplate.js';
 
 async function sincronizarUsuarios() {
   try {
-    await connectManual(); // Conexión a la base de datos
+    await connectManual();
 
-    // Obtener la plantilla actualizada
-    const plantilla = await CourseTemplate.findOne();
-    if (!plantilla) throw new Error('No se encontró una plantilla de curso');
+    const plantillas = await CourseTemplate.find();
+    if (plantillas.length === 0) throw new Error('No hay plantillas de curso registradas');
 
-    const cursoClonado = JSON.parse(JSON.stringify(plantilla.toObject()));
-
-    // Actualizar el curso para todos los usuarios
     const usuarios = await User.find();
 
     for (const user of usuarios) {
-      user.curso = cursoClonado;
+      if (!Array.isArray(user.curso)) {
+        user.curso = [];
+      }
+
+      for (const plantilla of plantillas) {
+        const cursoClonado = JSON.parse(JSON.stringify(plantilla.toObject()));
+        const index = user.curso.findIndex(c => c.nombre === cursoClonado.nombre);
+
+        if (index === -1) {
+          user.curso.push(cursoClonado);
+          console.log(`AÑADIDIO: Curso nuevo "${cursoClonado.nombre}" asignado a ${user.email}`);
+        } else {
+          user.curso[index] = cursoClonado;
+          console.log(`ACTUALIZADO: Curso "${cursoClonado.nombre}" actualizado para ${user.email}`);
+        }
+      }
+
       await user.save();
-      console.log(`Curso actualizado para ${user.email}`);
     }
 
     console.log(`Sincronización completa. Usuarios actualizados: ${usuarios.length}`);
   } catch (error) {
     console.error('Error al sincronizar:', error.message);
   } finally {
-    await mongoose.disconnect(); // Cierra la conexión correctamente
+    await mongoose.disconnect();
   }
 }
 

@@ -1,26 +1,38 @@
-import { ref } from 'vue'
-import { useApiPrivate } from '@/composables/useApi'
+import { ref } from 'vue';
+import { useApiPrivate } from '@/composables/useApi';
 
 export function useProgresoCurso() {
-  const curso = ref<any | null>(null)
-  const cargando = ref(false)
-  const error = ref<string | null>(null)
+  const cursos = ref<any[]>([]);
+  const cursoSeleccionado = ref<any | null>(null);
+  const cargando = ref(false);
+  const error = ref<string | null>(null);
 
-  const api = useApiPrivate()
+  const api = useApiPrivate();
 
-  async function cargarCurso() {
-    cargando.value = true
-    error.value = null
+  async function cargarCursos() {
+    cargando.value = true;
+    error.value = null;
 
     try {
-      const { data } = await api.get('/api/curso/progreso') // '/api'
-      curso.value = data.curso
+      const { data } = await api.get('/api/curso/progreso');
+      cursos.value = data.cursos || [];
+
+      // Opcional: selecciona automáticamente el primer curso si hay uno solo
+      if (cursos.value.length === 1) {
+        cursoSeleccionado.value = cursos.value[0];
+      }
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Error al obtener el progreso del curso'
+      error.value = err.response?.data?.message || 'Error al obtener el progreso de los cursos';
     } finally {
-      cargando.value = false
+      cargando.value = false;
     }
   }
 
-  return { curso, cargando, error, cargarCurso }
+  return {
+    cursos,
+    cursoSeleccionado,
+    cargando,
+    error,
+    cargarCursos
+  };
 }

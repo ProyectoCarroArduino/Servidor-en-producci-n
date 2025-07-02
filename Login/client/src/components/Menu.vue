@@ -121,7 +121,7 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: ""
+                                        href: "/CB_Descomposicion1"
                                     },
                                     {
                                         label: "Algoritmo"
@@ -1145,7 +1145,10 @@ export default {
                         ],
                     },
                ]
-            }
+            },{
+               label: "Encuesta" ,
+               href: "/EncuestaTAM"
+            },
     
     ]
     

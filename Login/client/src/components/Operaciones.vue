@@ -1,166 +1,172 @@
 <template>
   <div>
-    <h4 class="texto-personalizado">Selecciona los elementos <strong>(variables)</strong> que se deben usar en la variable: <strong>"int area = "</strong> para poder hallar el área de un triángulo.</h4>
-    <p class="texto-personalizado"><strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.</p>
+    <!-- SUBEJERCICIO 6 -->
+    <h4 class="texto-personalizado">
+      6. Selecciona los elementos <strong>(variables)</strong> que se deben usar en la variable: <strong>"int area = "</strong> para poder hallar el área de un triángulo.
+    </h4>
+    <p class="texto-personalizado">
+      <strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.
+    </p>
+    <p v-if="intentosRestantes > 0 && resultadoValidacion !== 'correcto'" class="contador">
+      Intentos restantes: {{ intentosRestantes }}
+    </p>
+
     <div class="flex-container">
       <div ref="todoList" class="kanban-board kanban-column gray-background">
-        <article
-          v-for="todo in todos"
-          :key="todo"
-          class="kanban-item"
-        >
+        <article v-for="todo in todos" :key="todo" class="kanban-item">
           <span class="kanban-handle"></span>
           <p>{{ todo }}</p>
         </article>
       </div>
       <div ref="doneList" class="kanban-board kanban-column gray-background2">
-        <article
-          v-for="done in dones"
-          :key="done"
-          class="kanban-item"
-        >
+        <article v-for="done in dones" :key="done" class="kanban-item">
           <span class="kanban-handle"></span>
           <p>{{ done }}</p>
         </article>
       </div>
     </div>
+
     <div v-if="resultadoValidacion === 'correcto'">
       <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
     </div>
     <div v-else-if="resultadoValidacion === 'incorrecto'">
       <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
     </div>
-    <button @click="enviarOrden">Enviar Orden</button>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h4 class="texto-personalizado">Selecciona las operaciones que se deben usar en la variable: <strong>"int area = base _____ altura _____ 2 ="</strong> para poder hallar el área de un triángulo.</h4>
-    <p class="texto-personalizado"><strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.</p>
+
+    <button
+      @click="enviarOrden"
+      :disabled="intentosRestantes <= 0 || resultadoValidacion === 'correcto'"
+    >
+      Enviar Orden
+    </button>
+
+    <br /><br /><br />
+
+    <!-- SUBEJERCICIO 7 -->
+    <h4 class="texto-personalizado">
+      7. Selecciona las operaciones que se deben usar en la variable: <strong>"int area = base _____ altura _____ 2 ="</strong> para poder hallar el área de un triángulo.
+    </h4>
+    <p class="texto-personalizado">
+      <strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.
+    </p>
+    <p v-if="intentos7 > 0 && resultadoValidacionDones2 !== 'correcto'" class="contador">
+      Intentos restantes: {{ intentos7 }}
+    </p>
+
     <div class="flex-container">
       <div ref="todoList2" class="kanban-board kanban-column gray-background">
-        <article
-          v-for="todo2 in todos2"
-          :key="todo2"
-          class="kanban-item"
-        >
+        <article v-for="todo2 in todos2" :key="todo2" class="kanban-item">
           <span class="kanban-handle"></span>
           <p>{{ todo2 }}</p>
         </article>
       </div>
       <div ref="doneList2" class="kanban-board kanban-column gray-background2">
-        <article
-          v-for="done2 in dones2"
-          :key="done2"
-          class="kanban-item"
-        >
+        <article v-for="done2 in dones2" :key="done2" class="kanban-item">
           <span class="kanban-handle"></span>
           <p>{{ done2 }}</p>
         </article>
       </div>
     </div>
+
     <div v-if="resultadoValidacionDones2 === 'correcto'">
       <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
     </div>
     <div v-else-if="resultadoValidacionDones2 === 'incorrecto'">
       <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuestaDones2 }}</p>
     </div>
-    <button @click="enviarOrdenDones2">Enviar Orden</button>
+
+    <button
+      @click="enviarOrdenDones2"
+      :disabled="intentos7 <= 0 || resultadoValidacionDones2 === 'correcto'"
+    >
+      Enviar Orden
+    </button>
   </div>
 </template>
+
 
 <script>
 import { animations } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+import { reactive, toRefs, onMounted } from "vue";
+import { useEvaluacionSubejercicio } from "@/composables/useEvaluacionSubejercicio";
 
 export default {
-  name: 'Variables',
-
-  data() {
-    return {
-      ordenCorrecto: ["base", "altura"],
-      respuestasIncorrectas: [
-        "¡Error! Revisa la formula para poder determinar cuales son los elementos necesarios",
-        "¡Error! Ten presente el orden en el que los elementos están asignados en la formula",
-        "¡Error! No olvides que en el cuadro gris solo tienen que estar los elementos que se usan en la formula y el orden correcto en el que se usan",
-        "¡Error! Considera si los elementos que estas agregando son los adecuados para la formula ",
-      ],
-      mensajeRespuesta: "",
-      resultadoValidacion: null,
-
-      ordenCorrectoDones2: ["multiplicar", "dividir"],
-      respuestasIncorrectasDones2: [
-        "¡Error! Ten en cuenta el orden correcto de las operaciones en la formula",
-        "¡Error! Recuerda que son las operaciones que se usan en la formula para hallar el área de un triángulo",
-        "¡Error! Vuelve a revisar la formula y ubica de la forma correcta las operaciones necesarias",
-        "¡Error! No olvides que en el cuadro gris solo tienen que estar las operaciones que se usan en la formula y el orden correcto en el que se usan",
-      ],
-      mensajeRespuestaDones2: "",
-      resultadoValidacionDones2: null,
-
-    };
-  },
+  name: "Operaciones",
 
   setup() {
+    // Subejercicio 6 - variables para "int area = "
+    const evaluacion6Raw = reactive(
+      useEvaluacionSubejercicio({
+        cursoNombre: 'Guía Programación en C', // Añadido
+        modulo: '1. Conceptos basicos',
+        submodulo: '1.1 Introduccion a C',
+        ejercicio: 'Ejercicio 1',
+        categoria: "descomposicion",
+        subejercicio: "Subejercicio 6",
+      })
+    );
+
+    // Subejercicio 7 - operaciones para fórmula
+    const evaluacion7Raw = reactive(
+      useEvaluacionSubejercicio({
+        cursoNombre: 'Guía Programación en C', // Añadido
+        modulo: '1. Conceptos basicos',
+        submodulo: '1.1 Introduccion a C',
+        ejercicio: 'Ejercicio 1',
+        categoria: "descomposicion",
+        subejercicio: "Subejercicio 7",
+      })
+    );
+
+    onMounted(() => {
+      evaluacion6Raw.obtenerIntentos();
+      evaluacion7Raw.obtenerIntentos();
+    });
 
     const [todoList, todos] = useDragAndDrop(
-      [
-        "ancho",
-        "altura",
-        "diametro",
-        "ángulo",
-        "cateto opuesto",
-      ].sort(() => Math.random() - 0.5),
+      ["ancho", "altura", "diametro", "ángulo", "cateto opuesto"].sort(() => Math.random() - 0.5),
       {
         plugins: [animations()],
         group: "kanbanGroup1",
-        dragHandle: ".kanban-handle"
+        dragHandle: ".kanban-handle",
       }
     );
 
-    const [doneList, dones] = useDragAndDrop(
-      [
-        "fuerza",
-        "base",
-        "X2",
-      ],
-      {
-        plugins: [animations()],
-        group: "kanbanGroup1",
-        dragHandle: ".kanban-handle"
-      }
-    );
+    const [doneList, dones] = useDragAndDrop(["fuerza", "base", "X2"], {
+      plugins: [animations()],
+      group: "kanbanGroup1",
+      dragHandle: ".kanban-handle",
+    });
 
     const [todoList2, todos2] = useDragAndDrop(
-      [
-        "sumar",
-        "restar",
-        "factorizar",
-        "multiplicar",
-        "integrar",
-        "calcular",
-      ].sort(() => Math.random() - 0.5),
+      ["sumar", "restar", "factorizar", "multiplicar", "integrar", "calcular"].sort(() => Math.random() - 0.5),
       {
         plugins: [animations()],
         group: "kanbanGroup2",
-        dragHandle: ".kanban-handle"
+        dragHandle: ".kanban-handle",
       }
     );
 
-    const [doneList2, dones2] = useDragAndDrop(
-      [
-        "limite",
-        "dividir",
-        "transformar",
-      ],
-      {
-        plugins: [animations()],
-        group: "kanbanGroup2",
-        dragHandle: ".kanban-handle"
-      }
-    );  
+    const [doneList2, dones2] = useDragAndDrop(["limite", "dividir", "transformar"], {
+      plugins: [animations()],
+      group: "kanbanGroup2",
+      dragHandle: ".kanban-handle",
+    });
 
     return {
+      // Evaluación Sub 6
+      ...toRefs(evaluacion6Raw),
+      registrarEvaluacion6: evaluacion6Raw.registrarEvaluacion,
+      obtenerIntentos6: evaluacion6Raw.obtenerIntentos,
+
+      // Evaluación Sub 7
+      intentos7: evaluacion7Raw.intentosRestantes,
+      nota7: evaluacion7Raw.notaActual,
+      registrarEvaluacion7: evaluacion7Raw.registrarEvaluacion,
+      obtenerIntentos7: evaluacion7Raw.obtenerIntentos,
+
+      // Kanban
       todoList,
       todos,
       doneList,
@@ -172,38 +178,61 @@ export default {
     };
   },
 
-  methods: {
-    
-    validarOrden(arr) {
-      for (let i = 0; i < this.ordenCorrecto.length; i++) {
-        if (arr[i] !== this.ordenCorrecto[i]) {
-          this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
-          return 'incorrecto';
-        }
-      }
-      return 'correcto';
-    },
-    enviarOrden() {
-      this.resultadoValidacion = this.validarOrden(this.dones);
-    },
-
-    validarOrdenDones2(arr) {
-      for (let i = 0; i < this.ordenCorrectoDones2.length; i++) {
-        if (arr[i] !== this.ordenCorrectoDones2[i]) {
-          this.mensajeRespuestaDones2 = this.respuestasIncorrectasDones2[Math.floor(Math.random() * this.respuestasIncorrectasDones2.length)];
-          return 'incorrecto';
-        }
-      }
-      return 'correcto';
-    },
-    enviarOrdenDones2() {
-      this.resultadoValidacionDones2 = this.validarOrdenDones2(this.dones2);
-    },
-
+  data() {
+    return {
+      ordenCorrecto: ["base", "altura"],
+      ordenCorrectoDones2: ["multiplicar", "dividir"],
+      resultadoValidacion: null,
+      resultadoValidacionDones2: null,
+      mensajeRespuesta: "",
+      mensajeRespuestaDones2: "",
+      respuestasIncorrectas: [
+        "¡Error! Revisa la fórmula para determinar qué elementos son necesarios.",
+        "¡Error! Ten presente el orden correcto para definir la variable.",
+      ],
+      respuestasIncorrectasDones2: [
+        "¡Error! Revisa el orden de operaciones en la fórmula del área.",
+        "¡Error! Considera si estás seleccionando las operaciones correctas.",
+      ],
+    };
   },
 
+  methods: {
+    async enviarOrden() {
+      const esCorrecto = this.dones.every((item, i) => item === this.ordenCorrecto[i]);
+      this.resultadoValidacion = esCorrecto ? "correcto" : "incorrecto";
+      if (!esCorrecto) {
+        this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
+      }
+
+      const intentos = this.intentosRestantes;
+      const nota = esCorrecto
+        ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
+        : (intentos <= 1 ? 1 : 1);
+
+      await this.registrarEvaluacion6(nota);
+      await this.obtenerIntentos6();
+    },
+
+    async enviarOrdenDones2() {
+      const esCorrecto = this.dones2.every((item, i) => item === this.ordenCorrectoDones2[i]);
+      this.resultadoValidacionDones2 = esCorrecto ? "correcto" : "incorrecto";
+      if (!esCorrecto) {
+        this.mensajeRespuestaDones2 = this.respuestasIncorrectasDones2[Math.floor(Math.random() * this.respuestasIncorrectasDones2.length)];
+      }
+
+      const intentos = this.intentos7;
+      const nota = esCorrecto
+        ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
+        : (intentos <= 1 ? 1 : 1);
+
+      await this.registrarEvaluacion7(nota);
+      await this.obtenerIntentos7();
+    },
+  },
 };
 </script>
+
 
 <style scoped>
 

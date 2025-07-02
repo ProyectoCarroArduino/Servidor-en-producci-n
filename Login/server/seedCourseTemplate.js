@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import CourseTemplate from './models/CourseTemplate.js';
-import { connectManual } from './config/connectManual.js'; // IMPORTAR CONEXIÓN MANUAL
+import { connectManual } from './config/connectManual.js';
 
 function generarCategoria(subejerciciosCount = 1) {
   const subejercicios = Array.from({ length: subejerciciosCount }, (_, i) => ({
@@ -28,35 +28,75 @@ function generarEjercicio(nombre, config = {}) {
     }
   };
 }
+ 
+// CONFIGURACIÓN CENTRAL
 
-const plantillaCurso = {
-  nombre: 'Guía Construcción Carro Arduino',
-  modulos: [
-    {
-      nombre: '1. Fase de ensamblaje',
+// Guía Construcción Carro Arduino 
+// Guía Programación en C
+const cursoConfig = {
+  nombreCurso: 'Guía Construcción Carro Arduino',
+  modulo: {
+    nombre: '1. Fase de ensamblaje',
+    nota: 0,
+    submodulo: {
+      nombre: '1.2 Conectar soportes de los motoreductores al chasis',
       nota: 0,
-      submodulos: [
-        {
-          nombre: '1.1 Conectar cables a los motorreductores',
-          nota: 0,
-          ejercicios: [
-            generarEjercicio('Ejercicio 1', { descomposicion: 2 }), // Descomposición con 2 subejercicios
-            generarEjercicio('Ejercicio 2') // Todas las categorías con 1 subejercicio
-          ]
-        }
+      ejercicios: [
+        generarEjercicio('Ejercicio 1', { descomposicion: 2 }),
       ]
     }
-  ]
+  }
 };
 
 async function runSeed() {
   try {
-    await connectManual(); //
-    await CourseTemplate.deleteMany();
-    const creada = await CourseTemplate.create(plantillaCurso);
-    console.log('Plantilla creada con éxito. ID:', creada._id);
+    await connectManual();
+
+    const { nombreCurso, modulo } = cursoConfig;
+    const { nombre: nombreModulo, submodulo } = modulo;
+
+    let plantilla = await CourseTemplate.findOne({ nombre: nombreCurso });
+
+    if (!plantilla) {
+      // Crear nueva plantilla desde cero
+      plantilla = new CourseTemplate({
+        nombre: nombreCurso,
+        modulos: [
+          {
+            nombre: nombreModulo,
+            nota: 0,
+            submodulos: [submodulo]
+          }
+        ]
+      });
+      await plantilla.save();
+      console.log('Plantilla creada con nuevo módulo y submódulo.');
+    } else {
+      // Buscar módulo existente
+      const moduloExistente = plantilla.modulos.find(m => m.nombre === nombreModulo);
+
+      if (moduloExistente) {
+        const existeSubmodulo = moduloExistente.submodulos.some(sub => sub.nombre === submodulo.nombre);
+        if (!existeSubmodulo) {
+          moduloExistente.submodulos.push(submodulo);
+          await plantilla.save();
+          console.log('Submódulo agregado al módulo existente.');
+        } else {
+          console.log('El submódulo ya existe. No se agregó nada.');
+        }
+      } else {
+        // Módulo no existe, lo agregamos con el submódulo
+        plantilla.modulos.push({
+          nombre: nombreModulo,
+          nota: 0,
+          submodulos: [submodulo]
+        });
+        await plantilla.save();
+        console.log('Módulo nuevo con submódulo agregado.');
+      }
+    }
   } catch (error) {
-    console.error('Error al crear plantilla:', error.message);
+    console.error('Error al actualizar plantilla:', error.message);
   } finally {
     await mongoose.disconnect();
   }
