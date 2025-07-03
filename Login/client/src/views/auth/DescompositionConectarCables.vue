@@ -150,6 +150,7 @@ setup() {
 
   // Sub. Imagen - Descomposición
   const evaluacionImagenRaw = reactive(useEvaluacionSubejercicio({
+    cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '1. Fase de ensamblaje',
     submodulo: '1.1 Conectar cables a los motorreductores',
     ejercicio: 'Ejercicio 1',
@@ -157,8 +158,8 @@ setup() {
     subejercicio: 'Subejercicio 1'
   }));
 
-  // Sub. Video - Descomposición
   const evaluacionVideoRaw = reactive(useEvaluacionSubejercicio({
+    cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '1. Fase de ensamblaje',
     submodulo: '1.1 Conectar cables a los motorreductores',
     ejercicio: 'Ejercicio 1',
