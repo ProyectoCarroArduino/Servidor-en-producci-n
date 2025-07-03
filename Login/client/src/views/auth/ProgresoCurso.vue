@@ -30,12 +30,17 @@ interface Modulo {
   submodulos: Submodulo[]
 }
 
-const { curso, cargando, error, cargarCurso } = useProgresoCurso()
+interface Curso {
+  nombre: string
+  modulos: Modulo[]
+}
+
+const { cursos, cargando, error, cargarCursos } = useProgresoCurso()
 const rootRef = ref<HTMLElement | null>(null)
 const estanExpandidos = ref(false)
 
 onMounted(() => {
-  cargarCurso()
+  cargarCursos()
 })
 
 function formatearFecha(fecha: string | null) {
@@ -60,7 +65,6 @@ function calcularNotaPromedio(notas: (number | null | undefined)[]): number | nu
 }
 
 // 🔧 Funciones de cálculo
-
 function obtenerNotaEjercicio(e: Ejercicio): number | null {
   return calcularNotaPromedio((Object.values(e.categorias) as Categoria[]).map(c => c.nota))
 }
@@ -100,87 +104,110 @@ function alternarTodos() {
       <div v-if="cargando">Cargando progreso...</div>
       <div v-else-if="error" class="text-red-600">{{ error }}</div>
 
-      <div v-else-if="curso">
-        <div v-for="(modulo, mi) in curso.modulos" :key="mi" class="mb-6 border rounded-md bg-white shadow">
-          <details>
-            <summary class="cursor-pointer p-3 bg-indigo-100 text-indigo-800 text-lg font-semibold">
-              {{ modulo.nombre }}
-              <span :class="'ml-2 text-sm ' + claseNota(obtenerNotaModulo(modulo))">
-                (Nota: {{ obtenerNotaModulo(modulo) ?? '—' }})
-              </span>
-            </summary>
+      <!-- Lista de cursos -->
+      <div v-else-if="cursos.length > 0">
+        <div
+          v-for="(curso, ci) in cursos"
+          :key="ci"
+          class="mb-10 border-2 border-indigo-300 p-4 rounded-lg bg-indigo-50"
+        >
+          <h2 class="text-2xl font-bold text-indigo-900 mb-4">
+            {{ curso.nombre }}
+          </h2>
 
-            <div v-for="(submodulo, si) in modulo.submodulos" :key="si" class="mb-4">
-              <details>
-                <summary class="cursor-pointer text-indigo-700 font-medium bg-indigo-50 px-3 py-2 rounded">
-                  {{ submodulo.nombre }}
-                  <span :class="'ml-2 text-sm ' + claseNota(obtenerNotaSubmodulo(submodulo))">
-                    (Nota: {{ obtenerNotaSubmodulo(submodulo) ?? '—' }})
-                  </span>
-                </summary>
+          <!-- Módulos -->
+          <div v-for="(modulo, mi) in curso.modulos" :key="mi" class="mb-6 border rounded-md bg-white shadow">
+            <details>
+              <summary class="cursor-pointer p-3 bg-indigo-100 text-indigo-800 text-lg font-semibold">
+                {{ modulo.nombre }}
+                <span :class="'ml-2 text-sm ' + claseNota(obtenerNotaModulo(modulo))">
+                  (Nota: {{ obtenerNotaModulo(modulo) ?? '—' }})
+                </span>
+              </summary>
 
-                <div class="nivel-submodulo mt-2">
-                  <div v-for="(ejercicio, ei) in submodulo.ejercicios" :key="ei" class="mb-3">
-                    <details>
-                      <summary class="cursor-pointer text-gray-700 font-semibold bg-gray-100 px-2 py-1 rounded">
-                        {{ ejercicio.nombre }}
-                        <span :class="'ml-2 text-sm ' + claseNota(obtenerNotaEjercicio(ejercicio))">
-                          (Nota: {{ obtenerNotaEjercicio(ejercicio) ?? '—' }})
-                        </span>
-                      </summary>
+              <!-- Submódulos -->
+              <div v-for="(submodulo, si) in modulo.submodulos" :key="si" class="mb-4">
+                <details>
+                  <summary class="cursor-pointer text-indigo-700 font-medium bg-indigo-50 px-3 py-2 rounded">
+                    {{ submodulo.nombre }}
+                    <span :class="'ml-2 text-sm ' + claseNota(obtenerNotaSubmodulo(submodulo))">
+                      (Nota: {{ obtenerNotaSubmodulo(submodulo) ?? '—' }})
+                    </span>
+                  </summary>
 
-                      <div class="nivel-ejercicio mt-2">
-                        <div v-for="(categoria, catNombre) in ejercicio.categorias" :key="catNombre" class="mb-4">
-                          <details>
-                            <summary class="cursor-pointer text-gray-800 bg-white rounded px-2 py-1 border">
-                              {{ String(catNombre).toUpperCase() }} –
-                              <span :class="claseNota(categoria.nota)">
-                                Nota: {{ categoria.nota?.toFixed(2) ?? '—' }}
-                              </span>
-                              –
-                              Último intento: {{ formatearFecha(categoria.ultimo_intento) }}
-                            </summary>
+                  <!-- Ejercicios -->
+                  <div class="nivel-submodulo mt-2">
+                    <div v-for="(ejercicio, ei) in submodulo.ejercicios" :key="ei" class="mb-3">
+                      <details>
+                        <summary class="cursor-pointer text-gray-700 font-semibold bg-gray-100 px-2 py-1 rounded">
+                          {{ ejercicio.nombre }}
+                          <span :class="'ml-2 text-sm ' + claseNota(obtenerNotaEjercicio(ejercicio))">
+                            (Nota: {{ obtenerNotaEjercicio(ejercicio) ?? '—' }})
+                          </span>
+                        </summary>
 
-                            <div class="nivel-categoria mt-3">
-                              <div class="nivel-tabla">
-                                <table class="w-full table-auto border-collapse text-sm rounded overflow-hidden shadow-sm">
-                                  <thead class="bg-gray-200 text-gray-700">
-                                    <tr>
-                                      <th class="p-2 border text-left">Subejercicio</th>
-                                      <th class="p-2 border text-center">Nota</th>
-                                      <th class="p-2 border text-center">Intentos restantes</th>
-                                      <th class="p-2 border text-center">Último intento</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr
-                                      v-for="(sub, idx) in categoria.subejercicios"
-                                      :key="idx"
-                                      class="bg-white even:bg-gray-50"
-                                    >
-                                      <td class="p-2 border">{{ sub.nombre }}</td>
-                                      <td class="p-2 border text-center" :class="claseNota(sub.nota)">{{ sub.nota }}</td>
-                                      <td class="p-2 border text-center">{{ sub.intentos_restantes }}</td>
-                                      <td class="p-2 border text-center">{{ formatearFecha(sub.ultimo_intento) }}</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                        <!-- Categorías -->
+                        <div class="nivel-ejercicio mt-2">
+                          <div
+                            v-for="(categoria, catNombre) in ejercicio.categorias"
+                            :key="catNombre"
+                            class="mb-4"
+                          >
+                            <details>
+                              <summary class="cursor-pointer text-gray-800 bg-white rounded px-2 py-1 border">
+                                {{ String(catNombre).toUpperCase() }} –
+                                <span :class="claseNota(categoria.nota)">
+                                  Nota: {{ categoria.nota?.toFixed(2) ?? '—' }}
+                                </span>
+                                –
+                                Último intento: {{ formatearFecha(categoria.ultimo_intento) }}
+                              </summary>
+
+                              <!-- Subejercicios -->
+                              <div class="nivel-categoria mt-3">
+                                <div class="nivel-tabla">
+                                  <table class="w-full table-auto border-collapse text-sm rounded overflow-hidden shadow-sm">
+                                    <thead class="bg-gray-200 text-gray-700">
+                                      <tr>
+                                        <th class="p-2 border text-left">Subejercicio</th>
+                                        <th class="p-2 border text-center">Nota</th>
+                                        <th class="p-2 border text-center">Intentos restantes</th>
+                                        <th class="p-2 border text-center">Último intento</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr
+                                        v-for="(sub, idx) in categoria.subejercicios"
+                                        :key="idx"
+                                        class="bg-white even:bg-gray-50"
+                                      >
+                                        <td class="p-2 border">{{ sub.nombre }}</td>
+                                        <td class="p-2 border text-center" :class="claseNota(sub.nota)">
+                                          {{ sub.nota ?? '—' }}
+                                        </td>
+                                        <td class="p-2 border text-center">{{ sub.intentos_restantes }}</td>
+                                        <td class="p-2 border text-center">{{ formatearFecha(sub.ultimo_intento) }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
-                            </div>
-                          </details>
+                            </details>
+                          </div>
                         </div>
-                      </div>
-                    </details>
+                      </details>
+                    </div>
                   </div>
-                </div>
-              </details>
-            </div>
-          </details>
+                </details>
+              </div>
+            </details>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .nivel-submodulo {
