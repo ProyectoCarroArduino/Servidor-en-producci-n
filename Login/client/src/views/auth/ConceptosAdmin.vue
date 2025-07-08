@@ -8,9 +8,10 @@
     <!-- AGREGAR CONCEPTO -->
     <section>
       <h2>Nuevo Concepto</h2>
-      <form @submit.prevent="agregarConcepto">
+      <form @submit.prevent="crearConcepto">
         <input v-model="nuevoConcepto.termino" placeholder="Término" required />
         <textarea v-model="nuevoConcepto.definicion" placeholder="Definición" required></textarea>
+        <input v-model="nuevoConcepto.imagen" placeholder="URL de imagen (opcional)" />
         <button type="submit">Agregar Concepto</button>
       </form>
     </section>
@@ -18,7 +19,7 @@
     <!-- AGREGAR REFERENCIA -->
     <section>
       <h2>Nueva Referencia</h2>
-      <form @submit.prevent="agregarReferencia">
+      <form @submit.prevent="crearReferencia">
         <input v-model="nuevaReferencia.nombre" placeholder="Nombre" required />
         <select v-model="nuevaReferencia.tipo">
           <option>Lectura</option>
@@ -38,11 +39,11 @@
       <div class="inline-form">
         <select v-model="idConceptoSeleccionado">
           <option disabled value="">Seleccione un concepto</option>
-          <option v-for="c in conceptos" :value="c._id" :key="c._id">
+          <option v-for="c in conceptos" :key="c._id" :value="c._id">
             {{ c.termino }}
           </option>
         </select>
-        <button @click="eliminarConcepto" :disabled="!idConceptoSeleccionado">Eliminar</button>
+        <button @click="eliminarConceptoSeleccionado" :disabled="!idConceptoSeleccionado">Eliminar</button>
       </div>
     </section>
 
@@ -52,106 +53,102 @@
       <div class="inline-form">
         <select v-model="idReferenciaSeleccionada">
           <option disabled value="">Seleccione una referencia</option>
-          <option v-for="r in referencias" :value="r._id" :key="r._id">
+          <option v-for="r in referencias" :key="r._id" :value="r._id">
             {{ r.nombre }} ({{ r.tipo }})
           </option>
         </select>
-        <button @click="eliminarReferencia" :disabled="!idReferenciaSeleccionada">Eliminar</button>
+        <button @click="eliminarReferenciaSeleccionada" :disabled="!idReferenciaSeleccionada">Eliminar</button>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { ref, onMounted } from 'vue'
+import { useConceptos } from '@/composables/useConceptos'
 
-const conceptos = ref([]);
-const referencias = ref([]);
+const {
+  conceptos,
+  referencias,
+  cargarContenido,
+  agregarConcepto,
+  eliminarConcepto,
+  agregarReferencia,
+  eliminarReferencia,
+  cargando,
+  error
+} = useConceptos()
 
-const nuevoConcepto = ref({ termino: '', definicion: '' });
-const nuevaReferencia = ref({ nombre: '', tipo: 'Lectura', enlace: '', descripcion: '' });
+const nuevoConcepto = ref({ termino: '', definicion: '', imagen: '' })
+const nuevaReferencia = ref({ nombre: '', tipo: 'Lectura', enlace: '', descripcion: '' })
 
-const idConceptoSeleccionado = ref('');
-const idReferenciaSeleccionada = ref('');
+const idConceptoSeleccionado = ref('')
+const idReferenciaSeleccionada = ref('')
 
 // Mensaje de estado
-const mensaje = ref('');
-const tipoMensaje = ref(''); // 'success' o 'error'
+const mensaje = ref('')
+const tipoMensaje = ref('') // 'success' o 'error'
 
-const mostrarMensaje = (texto, tipo = 'success') => {
-  mensaje.value = texto;
-  tipoMensaje.value = tipo;
+function mostrarMensaje(texto, tipo = 'success') {
+  mensaje.value = texto
+  tipoMensaje.value = tipo
   setTimeout(() => {
-    mensaje.value = '';
-    tipoMensaje.value = '';
-  }, 3000);
-};
+    mensaje.value = ''
+    tipoMensaje.value = ''
+  }, 3000)
+}
 
-const cargarDatos = async () => {
+async function crearConcepto() {
   try {
-    const res = await axios.get('/api/glosario');
-    conceptos.value = res.data?.conceptos || [];
-    referencias.value = res.data?.referencias || [];
-  } catch (err) {
-    mostrarMensaje('Error al cargar los datos', 'error');
-  }
-};
-
-const agregarConcepto = async () => {
-  if (!nuevoConcepto.value.termino || !nuevoConcepto.value.definicion) return;
-  try {
-    await axios.post('/api/glosario/concepto', nuevoConcepto.value);
-    nuevoConcepto.value = { termino: '', definicion: '' };
-    await cargarDatos();
-    mostrarMensaje('Concepto agregado con éxito');
+    await agregarConcepto(nuevoConcepto.value)
+    nuevoConcepto.value = { termino: '', definicion: '', imagen: '' }
+    mostrarMensaje('Concepto agregado con éxito')
   } catch {
-    mostrarMensaje('Error al agregar el concepto', 'error');
+    mostrarMensaje('Error al agregar el concepto', 'error')
   }
-};
+}
 
-const eliminarConcepto = async () => {
-  if (!idConceptoSeleccionado.value) return;
-  const confirmar = confirm('¿Estás seguro de eliminar este concepto?');
-  if (!confirmar) return;
+async function crearReferencia() {
   try {
-    await axios.delete(`/api/glosario/concepto/${idConceptoSeleccionado.value}`);
-    idConceptoSeleccionado.value = '';
-    await cargarDatos();
-    mostrarMensaje('Concepto eliminado con éxito');
+    await agregarReferencia(nuevaReferencia.value)
+    nuevaReferencia.value = { nombre: '', tipo: 'Lectura', enlace: '', descripcion: '' }
+    mostrarMensaje('Referencia agregada con éxito')
   } catch {
-    mostrarMensaje('Error al eliminar el concepto', 'error');
+    mostrarMensaje('Error al agregar la referencia', 'error')
   }
-};
+}
 
-const agregarReferencia = async () => {
-  if (!nuevaReferencia.value.nombre || !nuevaReferencia.value.enlace) return;
+async function eliminarConceptoSeleccionado() {
+  if (!idConceptoSeleccionado.value) return
+  const confirmar = confirm('¿Estás seguro de eliminar este concepto?')
+  if (!confirmar) return
+
   try {
-    await axios.post('/api/glosario/referencia', nuevaReferencia.value);
-    nuevaReferencia.value = { nombre: '', tipo: 'Lectura', enlace: '', descripcion: '' };
-    await cargarDatos();
-    mostrarMensaje('Referencia agregada con éxito');
+    await eliminarConcepto(idConceptoSeleccionado.value)
+    idConceptoSeleccionado.value = ''
+    mostrarMensaje('Concepto eliminado con éxito')
   } catch {
-    mostrarMensaje('Error al agregar la referencia', 'error');
+    mostrarMensaje('Error al eliminar el concepto', 'error')
   }
-};
+}
 
-const eliminarReferencia = async () => {
-  if (!idReferenciaSeleccionada.value) return;
-  const confirmar = confirm('¿Estás seguro de eliminar esta referencia?');
-  if (!confirmar) return;
+async function eliminarReferenciaSeleccionada() {
+  if (!idReferenciaSeleccionada.value) return
+  const confirmar = confirm('¿Estás seguro de eliminar esta referencia?')
+  if (!confirmar) return
+
   try {
-    await axios.delete(`/api/glosario/referencia/${idReferenciaSeleccionada.value}`);
-    idReferenciaSeleccionada.value = '';
-    await cargarDatos();
-    mostrarMensaje('Referencia eliminada con éxito');
+    await eliminarReferencia(idReferenciaSeleccionada.value)
+    idReferenciaSeleccionada.value = ''
+    mostrarMensaje('Referencia eliminada con éxito')
   } catch {
-    mostrarMensaje('Error al eliminar la referencia', 'error');
+    mostrarMensaje('Error al eliminar la referencia', 'error')
   }
-};
+}
 
-onMounted(cargarDatos);
+onMounted(cargarContenido)
 </script>
+
 
 <style scoped>
 .admin-glosario {

@@ -11,8 +11,9 @@
     <section>
       <h2>Conceptos Clave</h2>
       <div class="tarjetas">
-        <div v-for="concepto in conceptosFiltrados" :key="concepto.termino" class="tarjeta">
+        <div v-for="concepto in conceptosFiltrados" :key="concepto._id" class="tarjeta">
           <h3>{{ concepto.termino }}</h3>
+          <img v-if="concepto.imagen" :src="concepto.imagen" alt="Imagen del concepto" class="imagen-concepto" />
           <p>{{ concepto.definicion }}</p>
         </div>
       </div>
@@ -22,7 +23,7 @@
     <section>
       <h2>Referencias</h2>
       <div class="tarjetas">
-        <div v-for="ref in referencias" :key="ref.nombre" class="tarjeta">
+        <div v-for="ref in referencias" :key="ref._id" class="tarjeta">
           <div class="referencia-header">
             <span class="icono">{{ iconoPorTipo(ref.tipo) }}</span>
             <strong>{{ ref.nombre }}</strong>
@@ -38,31 +39,21 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useApiPrivate } from '@/composables/useApi'
+import { useConceptos } from '@/composables/useConceptos'
 
-const conceptos = ref([])
-const referencias = ref([])
+const { conceptos, referencias, cargarContenido } = useConceptos()
+
 const busqueda = ref('')
 
-const api = useApiPrivate()
+onMounted(cargarContenido)
 
-onMounted(async () => {
-  try {
-    const res = await api.get('/api/glosario')
-    conceptos.value = res.data?.conceptos || []
-    referencias.value = res.data?.referencias || []
-  } catch (err) {
-    console.error('Error al cargar glosario:', err)
-  }
-})
-
-const conceptosFiltrados = computed(() => {
-  return conceptos.value.filter(c =>
+const conceptosFiltrados = computed(() =>
+  conceptos.value.filter(c =>
     c.termino.toLowerCase().includes(busqueda.value.toLowerCase())
   )
-})
+)
 
-const iconoPorTipo = (tipo) => {
+const iconoPorTipo = tipo => {
   switch (tipo) {
     case 'Lectura': return '📖'
     case 'Video': return '🎥'
@@ -74,6 +65,12 @@ const iconoPorTipo = (tipo) => {
 </script>
 
 <style scoped>
+.imagen-concepto {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
 .glosario-container {
   max-width: 800px;
   margin: 0 auto;

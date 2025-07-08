@@ -27,6 +27,15 @@ export const agregarConcepto = async (req, res) => {
     const documento = await GlosarioReferencias.findOne();
     if (!documento) return res.status(404).json({ error: 'Contenido no encontrado' });
 
+    // Validación: verificar si la imagen es una URL válida
+    if (req.body.imagen && typeof req.body.imagen === 'string') {
+      const esUrlValida = /^https?:\/\/.+/i.test(req.body.imagen.trim());
+      if (!esUrlValida) {
+        return res.status(400).json({ error: 'La URL de la imagen no es válida' });
+      }
+    }
+
+
     documento.conceptos.push(req.body);
     await documento.save();
     res.status(201).json(req.body);
