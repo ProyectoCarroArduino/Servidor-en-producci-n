@@ -94,7 +94,7 @@ export default {
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
         modulo: '1. Fase de ensamblaje',
-        submodulo: '1. Conectar cables a los motorreductores',
+        submodulo: '1.1 Conectar cables a los motorreductores',
         ejercicio: 'Ejercicio 1',
         categoria: 'generalizacion',
         subejercicio: 'Subejercicio 1'
