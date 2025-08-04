@@ -1,0 +1,82 @@
+<template>
+    <div id="user">
+        <div class="card card-body mt-8, align-left, col-md-15">
+            <h1 class="text-center">Paso 2. Ensamblar soportes de los motorreductores al chasis</h1>
+            <br>
+            <br>
+            <h2>Ejercicio:</h2>
+            <br>
+            <p class="texto-personalizado">Se necesita un programa en C que simule el ajuste de un soporte para motorreductor al chasis. 
+                Para ello se debe tener en cuenta que para atornillar el soporte <strong>se necesitan exactamente dos tornillos y dos tuercas</strong>, y que cada tornillo debe tener una tuerca correspondiente para ser ajustada.
+                El programa deberá <strong>solicitar al usuario</strong> el número de tornillos y tuercas que se necesitan para ajustar el soporte. Finalmente, el programa deberá <strong>imprimir</strong>
+                cuántas veces se ha atornillado un tornillo y se ha ajustado una tuerca.</p>
+            <br>
+            <p class="texto-personalizado"><strong>Instrucciones:</strong></p>
+            <ul>
+                <li><p class="texto-personalizado"> <strong>Los tornillos y tuercas deben ser variables del tipo entero (int).</strong></p></li>
+                <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo int llamada "ajustarSoporte" que reciba el número de tornillos y tuercas como parámetros.</strong></p></li>
+                <li><p class="texto-personalizado"> <strong>Validar que el número de tuercas y tornillos sea exactamente dos (2)</strong></p></li>
+                <li><p class="texto-personalizado"> <strong>Implementar un ciclo (for) que itere, y en cada iteración atornille un tornillo y ajuste una tuerca.</strong></p></li>
+                <li><p class="texto-personalizado"> <strong>En cada iteración, imprimir el siguiente mensaje: "Se ha atornillado n tornillo(s) y ajustado n tuerca(s)". 
+                    Entiendase (n) como el número de veces que se ha realizado el proceso.</strong></p></li>
+                <li><p class="texto-personalizado"> <strong>Al final el programa deberá imprimir el número de veces que se ha atornillado un tornillo y se ha ajustado una tuerca.</strong></p></li>
+                </ul>
+            <hr class="my-4" />
+            <br>
+            <h3>Generalización:</h3>
+            <br>
+            <p class="texto-personalizado">Teniendo en cuenta las <strong>didácticas</strong> anteriores generalice el paso a paso de la definición de la función <strong>(ajustarSoporte)</strong>:</p>
+            <br>
+            <p class="texto-personalizado"><strong>Instrucciones:</strong> Ingrese el orden correcto de los audios</p>
+            <br>
+            <AudioChecker/>
+        </div>
+        <div class="align-left col-md-3">
+            <div class="temas">
+                <MenuCarro />
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import AudioChecker from "@/components/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarSoportesMotorreductores/Ejercicio/AudioCheckerEnsamblarSoportesMotorreductores.vue";
+import MenuCarro from "@/components/MenuCarro.vue";
+
+export default{
+    components:{
+        MenuCarro,
+        AudioChecker
+    },
+}
+</script >
+
+
+
+<style>
+
+#user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.card {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+.texto-personalizado {
+    font-family: Arial, sans-serif; /* Tipo de letra */
+    font-size: 18px; /* Tamaño de fuente */
+    text-align: justify; /* Alineación justificada */
+}
+
+.temas {
+  position: fixed;
+  margin-top: -245px;
+}
+
+</style>

@@ -1,0 +1,39 @@
+# Dependencias
+node_modules/
+/client/node_modules/
+/server/node_modules/
+
+# Archivos de entorno
+.env
+.env.local
+/client/.env
+/client/.env.local
+/server/.env
+/server/.env.development
+/server/.env.production
+
+# Archivos compilados
+/client/dist/
+/client/build/
+/server/dist/
+/server/build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de editor
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
