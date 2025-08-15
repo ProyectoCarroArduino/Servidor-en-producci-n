@@ -154,9 +154,9 @@ import Funcion5 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte1
 import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
 import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
 import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
-import Video1 from '@/assets/VideosEnsamblarSoportesMotorreductores/Video1.mp4';
-import Video2 from '@/assets/VideosEnsamblarSoportesMotorreductores/Video2.mp4';
-import Video3 from '@/assets/VideosEnsamblarSoportesMotorreductores/Video3.mp4';
+import Video1 from '@/assets/VideosConectarCables/Video 1.mp4';
+import Video2 from '@/assets/VideosConectarCables/Video 2.mp4';
+import Video3 from '@/assets/VideosConectarCables/Video 3.mp4';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
