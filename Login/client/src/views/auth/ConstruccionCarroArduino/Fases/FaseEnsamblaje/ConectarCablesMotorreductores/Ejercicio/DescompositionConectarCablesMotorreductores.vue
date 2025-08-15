@@ -6,11 +6,11 @@
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión de dos cables, uno rojo y otro negro a un motorreductor. 
+      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión <strong>(soldar)</strong> de dos cables, uno rojo y otro negro a un motorreductor. 
         El programa debe verificar que los cables sean "rojo" y "negro" <strong>(en cualquier orden)</strong> y si es así, debe imprimir el mensaje: "Cable rojo y negro conectados". 
         Si los cables no son los correctos, debe mostrar un mensaje de error: "Error: No se han enviado los cables correctos"</p>
       <br>
-      <p class="texto-personalizado"><strong>Instrucciones:</strong></p>
+      <p class="texto-personalizado"><strong> Requisitos:</strong></p>
       <ul>
           <li><p class="texto-personalizado"> <strong>Debe declararse la función prototipo "ConectarCables".</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Los cables deben ser variables del tipo cadena de caracter (string).</strong></p></li>
@@ -237,10 +237,10 @@ setup() {
         evaluacionV: null,
         mensajeErrorVar: '',
         mensajesErrorVar: [
-          '¡Error! Recuerda que debes de seleccionar la imagen que tenga la declaración de la función (laboratorio) de forma correcta',
-          '¡Error! La forma en la que estás haciendo la declaración de la función (laboratorio) no es correcta',
-          '¡Error! Intenta ir a revisar la teoría sobre la declaración de una función e inténtalo de nuevo',
-          '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)'
+          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que se stán haciendo dos conexiones.',
+          '¡Error! Debes seleccionar la imagen que simule la conexión de los cables, pero que además los colores sean los mencionados en el enunciado del ejericio. ',
+          '¡Error! Intenta ampliar la imagen y darte cuenta de que los colores de los cables coinciden con el color del terminal. ',
+          '¡Error! Ten en cuenta que para conectar los cables el color del terminal y el color del cable deben ser identicos. '
         ],
 
         videos: [
@@ -258,10 +258,10 @@ setup() {
         correctVideoIndex: null,
         mostrarContadorVideo: null,
         mensajesErrorVideo: [
-          '¡Error! Recuerda que debes de seleccionar el video correcto.',
-          '¡Error! Esa no es la conexión adecuada.',
-          '¡Error! Intenta revisar el video nuevamente.',
-          '¡Error! Esa conexión no es válida en este caso.'
+          '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de conexión o soldamiento. ',
+          '¡Error! Desbes tener en cuenta que para la conexión de los cables el material indispensable es el cautín tipo lápiz.  ',
+          '¡Error! Intenta revisar el video de la teoria del paso a paso y comprender en qué momento se empieza a soldar los cables al motorredcutor.  ',
+          '¡Error! El video es del paso a paso, pero no es el proceso de conexión o soldamiento de los cables al motorreductor. '
         ]
       };
     },
@@ -385,7 +385,7 @@ setup() {
     const notaFinal = (this.evaluacionV + this.evaluacionVideo) / 2;
     this.evaluacionStore.evaluacion = notaFinal;
 
-    this.$router.push('/AlgoritmoConectarCables').then(() => {
+    this.$router.push('/AlgoritmoConectarCablesMotorreductores').then(() => {
       window.scrollTo(0, 0);
     });
   }

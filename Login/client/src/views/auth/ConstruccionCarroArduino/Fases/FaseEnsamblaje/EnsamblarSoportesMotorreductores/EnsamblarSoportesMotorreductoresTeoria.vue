@@ -130,7 +130,7 @@
       <iframe
         width="560" 
         height="315" 
-        src="https://www.youtube.com/embed/DxX0sUtk9_M?si=LSws90oVe6Lx2DaQ" 
+        src="https://www.youtube.com/embed/YODGDPKZ6Tg?si=bhSFSV9H7G9ZKtYv" 
         title="YouTube video player" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -171,7 +171,7 @@ export default {
 
     methods: {
       finish() {
-      router.push('/DescomposicionConectarCables')
+      router.push('/DescomposicionEnsamblarSoportesMotorreductores')
     },
     },
 

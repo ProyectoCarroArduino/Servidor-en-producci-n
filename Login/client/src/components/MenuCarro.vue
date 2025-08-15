@@ -91,6 +91,39 @@ export default {
                             },
                         ]
                     },
+
+                    {
+                        label: "Paso 3. Ensamblar motorreductores a los soportes:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarMotorreductoresSoportesTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionEnsamblarSoportesMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
                 ]
             },
     

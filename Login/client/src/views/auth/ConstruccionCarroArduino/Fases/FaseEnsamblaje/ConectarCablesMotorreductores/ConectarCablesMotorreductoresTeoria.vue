@@ -148,7 +148,7 @@ export default {
 
     methods: {
       finish() {
-      router.push('/DescomposicionConectarCables')
+      router.push('/DescomposicionConectarCablesMotorreductores')
     },
     },
 

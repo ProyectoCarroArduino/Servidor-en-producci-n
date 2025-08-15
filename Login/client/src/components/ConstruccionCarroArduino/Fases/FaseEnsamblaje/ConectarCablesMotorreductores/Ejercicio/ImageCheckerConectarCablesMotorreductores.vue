@@ -6,7 +6,7 @@
     </p>
     <br>
      <p class="texto-personalizado">
-      <strong>Objetivo:</strong> {{ instruccion }}
+      <strong> Instrucciones:</strong> {{ instruccion }}
     </p>
     <br>
     <!-- Imagenes para ordenar -->
@@ -259,7 +259,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/AbstraccionConectarCables').then(() => {
+        router.push('/AbstraccionConectarCablesMotorreductores').then(() => {
           window.scrollTo(0, 0);
         });
       }

@@ -11,7 +11,7 @@
             El programa deberá <strong>solicitar al usuario</strong> el número de tornillos y tuercas que se necesitan para ajustar el soporte. Finalmente, el programa deberá <strong>imprimir</strong>
             cuántas veces se ha atornillado un tornillo y se ha ajustado una tuerca.</p>
         <br>
-         <p class="texto-personalizado"><strong>Instrucciones:</strong></p>
+         <p class="texto-personalizado"><strong> Requisitos:</strong></p>
         <ul>
             <li><p class="texto-personalizado"> <strong>Los tornillos y tuercas deben ser variables del tipo entero (int).</strong></p></li>
             <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo int llamada "ajustarSoporte" que reciba el número de tornillos y tuercas como parámetros.</strong></p></li>
@@ -30,6 +30,10 @@
         Intentos restantes: {{ intentosDisponibles }}
       </p>
       <br>
+      <p class="texto-personalizado">
+      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
+      </p>
+      <br>
       <div class="hello">
         <h1>{{ msg }}</h1>
         <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
@@ -37,7 +41,7 @@
         <br>
         <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
         <br>
-
+  
         <br>
         <p v-if="result" :class="resultClass">{{ result }}</p>
       </div>
@@ -229,7 +233,7 @@ int main() {
 
     finish() {
       this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
-      router.push('/GeneralizacionConectarCables').then(() => {
+      router.push('/GeneralizacionEnsamblarSoportesMotorreductores').then(() => {
         window.scrollTo(0, 0);
       });
     }

@@ -73,13 +73,15 @@
 
 <script>
 import router from '@/router';
-import audio1 from '@/assets/FuncionesSinparAudios/Funcion 1.mp3';
-import audio2 from '@/assets/FuncionesSinparAudios/Funcion 2.mp3';
-import audio3 from '@/assets/FuncionesSinparAudios/Funcion 3.mp3';
-import audio4 from '@/assets/FuncionesSinparAudios/Funcion 4.mp3';
-import audio5 from '@/assets/FuncionesSinparAudios/Funcion 5.mp3';
-import audio6 from '@/assets/FuncionesSinparAudios/Funcion 6.mp3';
-import audio7 from '@/assets/FuncionesSinparAudios/Funcion 7.mp3';
+import audio1 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio1.mp3';  
+import audio2 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio2.mp3';
+import audio3 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio3.mp3';
+import audio4 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio4.mp3';
+import audio5 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio5.mp3';
+import audio6 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio6.mp3';
+import audio7 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio7.mp3';
+import audio8 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio8.mp3';
+import audio9 from '@/assets/AudiosEnsamblarSoportesMotorreductores/Audio9.mp3'; 
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -128,19 +130,21 @@ export default {
         { id: 4, src: audio4 },
         { id: 5, src: audio5 },
         { id: 6, src: audio6 },
-        { id: 7, src: audio7 }
+        { id: 7, src: audio7 },
+        { id: 8, src: audio8 },
+        { id: 9, src: audio9 },
       ],
       evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(7).fill().map((_, index) => ({
+      inputs: Array(9).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 7,
+      numSteps: 9,
       feedbackMessage: '',
       feedbackClass: ''
     };
@@ -156,7 +160,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 7
+          input.value <= 9
       );
     },
     isFinishEnabled() {
@@ -227,7 +231,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/EvaluacionConectarCables').then(() => {
+        router.push('/EnsamblarMotorreductoresSoportesTeoria').then(() => {
           window.scrollTo(0, 0);
         });
       }

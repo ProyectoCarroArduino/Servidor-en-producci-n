@@ -6,11 +6,11 @@
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión de dos cables, uno rojo y otro negro a un motorreductor. 
+      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión <strong>(soldar)</strong> de dos cables, uno rojo y otro negro a un motorreductor. 
         El programa debe verificar que los cables sean "rojo" y "negro" <strong>(en cualquier orden)</strong> y si es así, debe imprimir el mensaje: "Cable rojo y negro conectados". 
         Si los cables no son los correctos, debe mostrar un mensaje de error: "Error: No se han enviado los cables correctos"</p>
       <br>
-      <p class="texto-personalizado"><strong>Instrucciones:</strong></p>
+      <p class="texto-personalizado"><strong> Requisitos:</strong></p>
       <ul>
           <li><p class="texto-personalizado"> <strong>Debe declararse la función prototipo "ConectarCables".</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Los cables deben ser variables del tipo cadena de caracter (string).</strong></p></li>
@@ -26,6 +26,10 @@
       <!-- Intentos de Video -->
       <p v-if="intentosDisponibles !== null" class="alert alert-info">
         Intentos restantes: {{ intentosDisponibles }}
+      </p>
+      <br>
+      <p class="texto-personalizado">
+      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
       </p>
       <br>
       <div class="hello">
@@ -218,7 +222,7 @@ void ConectarCables(char cable1[], char cable2[]) {
 
     finish() {
       this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
-      router.push('/GeneralizacionConectarCables').then(() => {
+      router.push('/GeneralizacionConectarCablesMotorreductores').then(() => {
         window.scrollTo(0, 0);
       });
     }

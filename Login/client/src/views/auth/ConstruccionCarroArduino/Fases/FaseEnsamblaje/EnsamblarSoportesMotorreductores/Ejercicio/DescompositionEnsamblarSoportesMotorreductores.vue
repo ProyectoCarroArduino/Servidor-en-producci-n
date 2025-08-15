@@ -11,7 +11,7 @@
         El programa deberá <strong>solicitar al usuario</strong> el número de tornillos y tuercas que se necesitan para ajustar el soporte. Finalmente, el programa deberá <strong>imprimir</strong>
         cuántas veces se ha atornillado un tornillo y se ha ajustado una tuerca.</p>
       <br>
-      <p class="texto-personalizado"><strong>Instrucciones:</strong></p>
+      <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
           <li><p class="texto-personalizado"> <strong>Los tornillos y tuercas deben ser variables del tipo entero (int).</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo int llamada "ajustarSoporte" que reciba el número de tornillos y tuercas como parámetros.</strong></p></li>
@@ -154,9 +154,9 @@ import Funcion5 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte1
 import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
 import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
 import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
-import Video1 from '@/assets/VideosConectarCables/Video 1.mp4';
-import Video2 from '@/assets/VideosConectarCables/Video 2.mp4';
-import Video3 from '@/assets/VideosConectarCables/Video 3.mp4';
+import Video1 from '@/assets/VideosEnsamblarSoportesMotorreductores/Video1.mp4';
+import Video2 from '@/assets/VideosEnsamblarSoportesMotorreductores/Video2.mp4';
+import Video3 from '@/assets/VideosEnsamblarSoportesMotorreductores/Video3.mp4';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -242,10 +242,11 @@ setup() {
         evaluacionV: null,
         mensajeErrorVar: '',
         mensajesErrorVar: [
-          '¡Error! Recuerda que debes de seleccionar la imagen que tenga la declaración de la función (laboratorio) de forma correcta',
-          '¡Error! La forma en la que estás haciendo la declaración de la función (laboratorio) no es correcta',
-          '¡Error! Intenta ir a revisar la teoría sobre la declaración de una función e inténtalo de nuevo',
-          '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)'
+          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que el soporte tiene dos espacios para atornillar.',
+          '¡Error! Debes seleccionar la imagen que simula el soporte para motorreductor y que además tenga dos espacios para atornillar. ',
+          '¡Error! Intenta ir a la página de la teoria del paso a paso y ver la forma que tiene el soporte. ',
+          '¡Error! Ten en cuenta que el soporte es similar al de la imagen de lod materiales necesarios del paso. '
+          
         ],
 
         videos: [
@@ -263,10 +264,10 @@ setup() {
         correctVideoIndex: null,
         mostrarContadorVideo: null,
         mensajesErrorVideo: [
-          '¡Error! Recuerda que debes de seleccionar el video correcto.',
-          '¡Error! Esa no es la conexión adecuada.',
-          '¡Error! Intenta revisar el video nuevamente.',
-          '¡Error! Esa conexión no es válida en este caso.'
+          '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de ajustamiento del soporte. ',
+          '¡Error! Desbes tener en cuenta que para el ajuste del soporte se necesita tener dos tornillos y cada uno debe de tener una tuerca. ',
+          '¡Error! Intenta revisar el video de la teoria del paso a paso y comprender en qué momento se empieza a ajustar el soporte.  ',
+          '¡Error! El video es del paso a paso, pero no es el proceso de ajustar el soporte para motorreductor. '
         ]
       };
     },
@@ -390,7 +391,7 @@ setup() {
     const notaFinal = (this.evaluacionV + this.evaluacionVideo) / 2;
     this.evaluacionStore.evaluacion = notaFinal;
 
-    this.$router.push('/AlgoritmoConectarCables').then(() => {
+    this.$router.push('/AlgoritmoEnsamblarSoportesMotorreductores').then(() => {
       window.scrollTo(0, 0);
     });
   }

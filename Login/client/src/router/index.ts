@@ -291,6 +291,16 @@ const router = createRouter({
       name: 'GeneralizacionEnsamblarSoportesMotorreductores',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarSoportesMotorreductores/Ejercicio/GeneralizationEnsamblarSoportesMotorreductores.vue"),
     },
+    {
+      path: '/EnsamblarMotorreductoresSoportesTeoria',
+      name: 'EnsamblarMotorreductoresSoportesTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/EnsamblarMotorreductoresSoportesTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionEnsamblarMotorreductoresSoportes',
+      name: 'DescomposicionEnsamblarMotorreductoresSoportes',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/Ejercicio/DescompositionEnsamblarMotorreductoresSoportes.vue"),
+    },
   ]
 })
 

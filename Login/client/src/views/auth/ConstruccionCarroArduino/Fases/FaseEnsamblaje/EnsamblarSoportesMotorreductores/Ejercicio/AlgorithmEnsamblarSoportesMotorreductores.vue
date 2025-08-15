@@ -11,7 +11,7 @@
                 El programa deberá <strong>solicitar al usuario</strong> el número de tornillos y tuercas que se necesitan para ajustar el soporte. Finalmente, el programa deberá <strong>imprimir</strong>
                 cuántas veces se ha atornillado un tornillo y se ha ajustado una tuerca.</p>
             <br>
-            <p class="texto-personalizado"><strong>Instrucciones:</strong></p>
+            <p class="texto-personalizado"><strong> Requisitos:</strong></p>
             <ul>
                 <li><p class="texto-personalizado"> <strong>Los tornillos y tuercas deben ser variables del tipo entero (int).</strong></p></li>
                 <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo int llamada "ajustarSoporte" que reciba el número de tornillos y tuercas como parámetros.</strong></p></li>
