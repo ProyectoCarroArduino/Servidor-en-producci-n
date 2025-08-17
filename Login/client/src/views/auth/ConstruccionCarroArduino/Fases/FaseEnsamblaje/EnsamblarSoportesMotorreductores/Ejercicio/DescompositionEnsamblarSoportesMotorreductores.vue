@@ -34,10 +34,14 @@
       <br>
       <div class="videos-container">
         <div v-for="(video, index) in videos" :key="index" class="video-item">
-          <video width="300" height="200" controls>
-            <source :src="video.src" type="video/mp4">
-            Tu navegador no soporta la reproducción de videos.
-          </video>
+          <iframe
+            width="300"
+            height="200"
+            :src="video.src"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
           <div class="option">
             <input type="radio" :id="`video${index}`" :value="video" v-model="selectedVideo" />
             <label :for="`video${index}`">Seleccionar</label>
@@ -154,9 +158,6 @@ import Funcion5 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte1
 import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
 import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
 import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
-import Video1 from '@/assets/VideosConectarCables/Video 1.mp4';
-import Video2 from '@/assets/VideosConectarCables/Video 2.mp4';
-import Video3 from '@/assets/VideosConectarCables/Video 3.mp4';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -250,9 +251,9 @@ setup() {
         ],
 
         videos: [
-          { src: Video1, alt: 'Video 1' },
-          { src: Video2, alt: 'Video 2' },
-          { src: Video3, alt: 'Video 3' },
+          { src: "https://www.youtube.com/embed/VzUpCmrKC6E?si=gi4CtrxcZEAh4rc9", alt: 'Video 1' },
+          { src: "https://www.youtube.com/embed/IhoLSJ6vEiQ?si=3v4HuaTQzpSKkmTp", alt: 'Video 2' },
+          { src: "https://www.youtube.com/embed/--53vWBO79I?si=zQDIneq7dsRQ20fi", alt: 'Video 3' },
         ].sort(() => Math.random() - 0.5),
 
         selectedVideo: null,
@@ -337,7 +338,7 @@ setup() {
     return;
   }
 
-  if (this.selectedVideo.src === Video1) {
+  if (this.selectedVideo.src === "https://www.youtube.com/embed/VzUpCmrKC6E?si=gi4CtrxcZEAh4rc9") {
     this.correctVideoIndex = true;
     this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
     this.feedbackClass = "success-message";

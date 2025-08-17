@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/User.js";
 
-export async function verifyEmail(req, res, next) {
+export async function verifyEmail(req, res) {
   const { token } = req.query;
   if (!token) {
     return res.status(400).json({ error: "Token faltante" });
@@ -20,9 +20,8 @@ export async function verifyEmail(req, res, next) {
     user.is_verified = true;
     await user.save();
 
-    // ponemos el mensaje en res.locals para que la ruta lo envíe
-    res.locals.verifyMessage = "Cuenta verificada con éxito.";
-    next();
+    // ✅ Ahora sí enviamos respuesta
+    return res.json({ message: "Cuenta verificada con éxito." });
   } catch (err) {
     return res.status(400).json({ error: "Token inválido o expirado." });
   }

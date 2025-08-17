@@ -4,7 +4,6 @@
       <div class="card card-body mt-4">
         <h5 class="card-title">Register</h5>
         <form @submit.prevent="submit">
-          <p v-if="errorMessage" class="error-message text-danger mb-4">{{ errorMessage }}</p>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input v-model="registerData.username" type="text" class="form-control" id="username" autocomplete="off">
@@ -33,6 +32,13 @@
             <span v-if="shouldShowRepasswordError" class="text-danger">La contraseña debe tener al menos 6 caracteres</span>
           </div>
           <button type="submit" class="btn btn-success">Register</button>
+          <br>
+          <br>
+          <br>
+          <!-- mensaje de error -->
+          <p v-if="errorMessage" class="error-message text-danger mb-4">{{ errorMessage }}</p>
+          <!-- mensaje de éxito -->
+          <p v-if="successMessage" class="text-success mb-4">{{ successMessage }}</p>
         </form>
       </div>
     </div>
@@ -75,6 +81,7 @@ async function checkEmailExists() {
 }
 
 const errorMessage = ref<string>("")
+const successMessage = ref<string>("")
 
 const isPasswordValid = ref(false);
 
@@ -90,28 +97,28 @@ const isFormValid = computed(() => {
   return isPasswordValid.value
 });
 
-async function submit(){
-
+async function submit() {
   isPasswordValid.value = registerData.password.length >= 6;
   
-  if (!isPasswordValid.value){
-    // Si la contraseña no es válida, puedes manejarlo según tus necesidades
-    return;
-  }
+  if (!isPasswordValid.value) return;
 
   await authStore.register(registerData)
-    .then(res => {
-      router.replace({name: "login"})
+    .then(() => {
+      // mostrar mensaje de éxito
+      successMessage.value = "Se ha enviado un mensaje de verificación al correo proporcionado";
+      errorMessage.value = "";
+
+      // esperar 10 segundos y redirigir al login
+      setTimeout(() => {
+        router.replace({ name: "login" })
+      }, 10000);
     })
     .catch(err => {
       errorMessage.value = err.message
+      successMessage.value = ""
     })
 }
-
 </script>
-
-
-
 
 <style scoped>
 #register {

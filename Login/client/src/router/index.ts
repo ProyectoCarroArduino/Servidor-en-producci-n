@@ -40,6 +40,12 @@ const router = createRouter({
       //meta: {requiresAuth: true}
     },
     {
+      path: '/verify-email',
+      name: 'verifyEmail',
+      component: () => import('../views/auth/VerifyEmail.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
       path: '/EncuestaTAM',
       name: 'EncuestaTAM',
       component: () => import("../views/auth/EncuestaTAMCopy.vue"),
