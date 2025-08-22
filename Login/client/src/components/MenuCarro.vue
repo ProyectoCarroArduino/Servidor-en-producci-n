@@ -110,15 +110,48 @@ export default {
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoEnsamblarSoportesMotorreductores"
+                                        href: "/AlgoritmoEnsamblarMotorreductoresSoportes"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionEnsamblarSoportesMotorreductores"
+                                        href: "/AbstraccionEnsamblarMotorreductoresSoportes"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionEnsamblarSoportesMotorreductores"
+                                        href: "/GeneralizaciónEnsamblarMotorreductoresSoportes"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 4. Ensamblar ruedas a los motorreductores:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarRuedasMotorreductoresTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionEnsamblarRuedasMotorreductores"
                                     },
                                 ]
                             },

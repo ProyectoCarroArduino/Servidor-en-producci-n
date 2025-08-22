@@ -8,8 +8,8 @@
       <p class="texto-personalizado">Para este paso los materiales necesarios son una unidad de soporte para un motorreductor, dos tornillos pequeños de estrella y dos tuercas pequeñas, 
         el chasis del carro y un pequeño destornillador tipo estrella.</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anterioemente corresponden al <strong>ensamblamiento</strong> de un
-        soporte para motorredcutor al chasis, y para la construcción del carro se <strong>necesitan ensamblar</strong> cuatro soportes para motorreductores al chasis, es decir, 
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden al <strong>ensamblaje</strong> de un
+        soporte para motorredcutor al chasis, y para la construcción del carro se <strong>necesitan ensamblar</strong> cuatro soportes para motorreductor al chasis, es decir, 
         el paso a paso que se va a explicar a continuación <strong>se debe</strong> repetir cuatro veces.</p> 
       <br>
       <div class="contenedor">

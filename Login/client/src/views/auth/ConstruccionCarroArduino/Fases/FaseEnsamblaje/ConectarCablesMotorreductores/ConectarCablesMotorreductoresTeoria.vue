@@ -8,7 +8,7 @@
       <p class="texto-personalizado">Para este paso los materiales necesarios son una unidad de motorreductor <strong>(puede o no tener caja reductora)</strong> dos cables de teléfono
       <strong>(el color puede ser el que se guste, pero preferible que sean negro y rojo)</strong>, alicates, pinzas o pelacables, un cautín tipo lapiz y un pedazo de estaño.</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anterioemente corresponden a la <strong>conexión</strong> de un
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden a la <strong>conexión</strong> de un
         motorreductor, y para la construcción del carro se <strong>necesitan conectar</strong> cuatro motorreductores, es decir, el paso a paso que se va a explicar a continuación
         <strong>se debe</strong> repetir cuatro veces. </p>
       <br>
@@ -148,7 +148,10 @@ export default {
 
     methods: {
       finish() {
-      router.push('/DescomposicionConectarCablesMotorreductores')
+      router.push('/DescomposicionConectarCablesMotorreductores').then(() => {
+          window.scrollTo(0, 0);
+        });
+     
     },
     },
 

@@ -7,8 +7,8 @@
       <br>
       <p class="texto-personalizado">En este paso los materiales necesarios son un motorreductor ya soldado, un tornillo largo para poder atornillar el soporte y el motorreductor, una tuerca que fije el tornillo largo y un destornillador pequeño.</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anterioemente corresponden al <strong>ensamblamiento</strong> de un
-        motorreductor ya soldado <strong>(conectado)</strong> a un soporte para motorreductor, y para la construcción del carro se <strong>necesitan ensamblar</strong> cuatro motorreductores ya conectados a los soportes para motorreductor, es decir, 
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden al <strong>ensamblaje</strong> de un
+        motorreductor a un soporte para motorreductor, y para la construcción del carro se <strong>necesitan ensamblar</strong> cuatro motorreductores a los soportes para motorreductor, es decir, 
         el paso a paso que se va a explicar a continuación <strong>se debe</strong> repetir cuatro veces.</p> 
       <br>
       <div class="contenedor">
@@ -85,7 +85,7 @@
       <iframe
         width="560" 
         height="315" 
-        src="https://www.youtube.com/embed/DxX0sUtk9_M?si=LSws90oVe6Lx2DaQ" 
+        src="https://www.youtube.com/embed/3E8wnECNZ88?si=qroYybpweY33brAZ" 
         title="YouTube video player" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { connectManual } from './config/connectManual.js';
 import { User } from './models/User.js';
-import CourseTemplate from './models/CourseTemplate.js';
+import {CourseTemplate} from './models/CourseTemplate.js';
 
 async function sincronizarUsuarios() {
   try {

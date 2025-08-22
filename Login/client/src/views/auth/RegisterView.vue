@@ -2,36 +2,36 @@
   <div id="register">
     <div class="container">
       <div class="card card-body mt-4">
-        <h5 class="card-title">Register</h5>
+        <h5 class="card-title">Registro de usuario</h5>
         <form @submit.prevent="submit">
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
+            <label for="username" class="form-label">Nombre de usuario</label>
             <input v-model="registerData.username" type="text" class="form-control" id="username" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label for="first_name" class="form-label">First Name</label>
+            <label for="first_name" class="form-label">Primer nombre</label>
             <input v-model="registerData.first_name" type="text" class="form-control" id="first_name" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label for="last_name" class="form-label">Last Name</label>
+            <label for="last_name" class="form-label">Apellido</label>
             <input v-model="registerData.last_name" type="text" class="form-control" id="last_name" autocomplete="off">
           </div>
           <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
+            <label for="email" class="form-label">Dirección de correo electrónico (Gmail)</label>
             <input v-model="registerData.email" @input="checkEmailExists" type="email" class="form-control" id="email" autocomplete="off">
             <span v-if="emailExists" class="text-danger">Ya existe un usuario con este correo</span>
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Contraseña</label>
             <input v-model="registerData.password" type="password" class="form-control" id="password">
             <span v-if="shouldShowPasswordError" class="text-danger">La contraseña debe tener al menos 6 caracteres</span>
           </div>
           <div class="mb-3">
-            <label for="password_confirm" class="form-label">Confirm Password</label>
+            <label for="password_confirm" class="form-label">Confirmar contraseña</label>
             <input v-model="registerData.password_confirm" type="password" class="form-control" id="password_confirm">
             <span v-if="shouldShowRepasswordError" class="text-danger">La contraseña debe tener al menos 6 caracteres</span>
           </div>
-          <button type="submit" class="btn btn-success">Register</button>
+          <button type="submit" class="btn btn-success">Registrar</button>
           <br>
           <br>
           <br>

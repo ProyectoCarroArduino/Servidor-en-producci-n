@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import CourseTemplate from './models/CourseTemplate.js';
+import {CourseTemplate} from './models/CourseTemplate.js';
 import { connectManual } from './config/connectManual.js';
 
 function generarCategoria(subejerciciosCount = 1) {
@@ -36,10 +36,10 @@ function generarEjercicio(nombre, config = {}) {
 const cursoConfig = {
   nombreCurso: 'Guía Construcción Carro Arduino',
   modulo: {
-    nombre: '1. Fase de ensamblaje',
+    nombre: '2. Fase de montaje del circuito en el Arduino UNO',
     nota: 0,
     submodulo: {
-      nombre: '1.2 Conectar soportes de los motoreductores al chasis',
+      nombre: '2.1 Montaje del Arduino UNO en el soporte',
       nota: 0,
       ejercicios: [
         generarEjercicio('Ejercicio 1', { descomposicion: 2 }),

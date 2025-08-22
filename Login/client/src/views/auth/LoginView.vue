@@ -2,10 +2,10 @@
   <div id="login">
     <div class="container">
       <div class="card card-body mt-8">
-        <h5 class="card-title">Login</h5>
+        <h5 class="card-title">Ingresar</h5>
         <form @submit.prevent="submit">
           <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
+            <label for="email" class="form-label">Dirección de correo electrónico</label>
             <input v-model="loginData.email"
               type="email"
               class="form-control"
@@ -15,7 +15,7 @@
             />
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Contraseña</label>
             <input v-model="loginData.password"
               type="password"
               class="form-control"
@@ -23,7 +23,7 @@
               placeholder="Ingresa tu clave"
             />
           </div>
-          <button type="submit" class="btn btn-success">Login</button>
+          <button type="submit" class="btn btn-success">Ingresar</button>
         </form>
         <p v-if="errorMessage" class="error text-danger mt-3">{{ errorMessage }}</p>
         <br>

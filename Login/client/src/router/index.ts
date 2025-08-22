@@ -307,6 +307,52 @@ const router = createRouter({
       name: 'DescomposicionEnsamblarMotorreductoresSoportes',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/Ejercicio/DescompositionEnsamblarMotorreductoresSoportes.vue"),
     },
+    {
+      path: '/AlgoritmoEnsamblarMotorreductoresSoportes',
+      name: 'AlgoritmoEnsamblarMotorreductoresSoportes',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/Ejercicio/AlgorithmEnsamblarMotorreductoresSoportes.vue"),
+    },
+    {
+      path: '/AbstraccionEnsamblarMotorreductoresSoportes',
+      name: 'AbstraccionEnsamblarMotorreductoresSoportes',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/Ejercicio/AbstractionEnsamblarMotorreductoresSoportes.vue"),
+    },
+    {
+      path: '/GeneralizaciónEnsamblarMotorreductoresSoportes',
+      name: 'GeneralizaciónEnsamblarMotorreductoresSoportes',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/Ejercicio/GeneralizationEnsamblarMotorreductoresSoportes.vue"),
+    },
+    {
+      path: '/EnsamblarMotorreductoresSoportesTeoria',
+      name: 'EnsamblarMotorreductoresSoportesTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/EnsamblarMotorreductoresSoportesTeoria.vue"),
+    },
+    {
+      path: '/EnsamblarRuedasMotorreductoresTeoria',
+      name: 'EnsamblarRuedasMotorreductoresTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarRuedasMotorreductores/EnsamblarRuedasMotorreductoresTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionEnsamblarRuedasMotorreductores',
+      name: 'DescomposicionEnsamblarRuedasMotorreductores',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarRuedasMotorreductores/Ejercicio/DescompositionEnsamblarRuedasMotorreductores.vue"),
+    },
+    {
+      path: '/AlgoritmoEnsamblarRuedasMotorreductores',
+      name: 'AlgoritmoEnsamblarRuedasMotorreductores',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarRuedasMotorreductores/Ejercicio/AlgorithmEnsamblarRuedasMotorreductores.vue"),
+    },
+    {
+      path: '/AbstraccionEnsamblarRuedasMotorreductores',
+      name: 'AbstraccionEnsamblarRuedasMotorreductores',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarRuedasMotorreductores/Ejercicio/AbstractionEnsamblarRuedasMotorreductores.vue"),
+    },
+    {
+      path: '/GeneralizacionEnsamblarRuedasMotorreductores',
+      name: 'GeneralizacionEnsamblarRuedasMotorreductores',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarRuedasMotorreductores/Ejercicio/GeneralizationEnsamblarRuedasMotorreductores.vue"),
+    },
+    
   ]
 })
 

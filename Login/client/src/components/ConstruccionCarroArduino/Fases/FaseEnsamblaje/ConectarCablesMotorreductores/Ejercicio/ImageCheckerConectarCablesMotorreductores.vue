@@ -155,7 +155,7 @@ export default {
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 4,
+      numSteps: 6,
       feedbackMessage: '',
       feedbackClass: '',
       isCorrect: false,

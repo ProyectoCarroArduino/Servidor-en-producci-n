@@ -57,7 +57,10 @@
   
       methods: {
         finish() {
-        router.push('/ConectarCablesTeoria')
+        router.push('/ConectarCablesMotorreductoresTeoria').then(() => {
+          window.scrollTo(0, 0);
+        });  
+        
       },
       },
   

@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="appNavbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-            <router-link :to="{name: 'home'}" class="nav-link-active" aria-current="page">Home</router-link>
+            <router-link :to="{name: 'home'}" class="nav-link-active" aria-current="page">Inicio</router-link>
         </li>
         <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
             <router-link :to="{name: 'user'}" class="nav-link-active" aria-current="page">Programación C</router-link>
@@ -35,14 +35,14 @@
             {{user.username}}
           </a>
           <ul class="dropdown-menu">
-            <li><router-link :to="{name: 'profile'}" class="dropdown-item">Profile</router-link></li>
+            <li><router-link :to="{name: 'profile'}" class="dropdown-item">Perfil</router-link></li>
             <li><hr class="dropdown-divider"></li>
-            <li><button @click="logout" class="dropdown-item btn btn-danger">Logout</button></li>
+            <li><button @click="logout" class="dropdown-item btn btn-danger">Cerrar sesión</button></li>
           </ul>
         </li>
           <li v-else class="nav-item">
-            <router-link :to="{ name: 'login' }" class="nav-link" aria-current="page">Login</router-link>
-            <router-link :to="{ name: 'register' }" class="nav-link ml-2" aria-current="page">Register</router-link>
+            <router-link :to="{ name: 'login' }" class="nav-link" aria-current="page">Ingresar</router-link>
+            <router-link :to="{ name: 'register' }" class="nav-link ml-2" aria-current="page">Registrar</router-link>
           </li>
       </ul>
     </div>

@@ -6,20 +6,20 @@
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule el ajuste de un soporte para motorreductor al chasis. 
-        Para ello se debe tener en cuenta que para atornillar el soporte <strong>se necesitan exactamente dos tornillos y dos tuercas</strong>, y que cada tornillo debe tener una tuerca correspondiente para ser ajustada.
-        El programa deberá <strong>solicitar al usuario</strong> el número de tornillos y tuercas que se necesitan para ajustar el soporte. Finalmente, el programa deberá <strong>imprimir</strong>
-        cuántas veces se ha atornillado un tornillo y se ha ajustado una tuerca.</p>
+      <p class="texto-personalizado">Se necesita un programa en C que simule un ensamblador de motorreductores a sus soportes. El ensamblador deberá ensamblar <strong>cuatro</strong> motorreductores a sus soportes, <strong>uno por cada motorreductor</strong>. 
+        Para ello se debe tener en cuenta que por cada motorreductor que se requiere ensamblar a su soporte <strong>se va a necesitar específicamente un tornillo largo y una tuerca pequeña</strong>. En el proceso de ensamblaje del motorreductor al soporte este se debe ajustar, 
+        es por eso que <strong>mientras</strong> se atornilla el tornillo largo la tuerca pequeña se debe ajustar. </p>
+      <p class="texto-personalizado">El programa deberá <strong>solicitar al usuario</strong> el número de veces que se va a ensamblar un motorreductor y su soporte, también deberá <strong>proveer</strong> el número de tornillos largos y tuercas pequeñas que se requieran para el proceso de ensamblaje. 
+        Al final el programa deberá <strong>imprimir</strong> el número de veces que se ha utilizado el ensamblador.</p>
       <br>
       <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>Los tornillos y tuercas deben ser variables del tipo entero (int).</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo int llamada "ajustarSoporte" que reciba el número de tornillos y tuercas como parámetros.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Validar que el número de tuercas y tornillos sea exactamente dos (2)</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Implementar un ciclo (for) que itere, y en cada iteración atornille un tornillo y ajuste una tuerca.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>En cada iteración, imprimir el siguiente mensaje: "Se ha atornillado n tornillo(s) y ajustado n tuerca(s)". 
-            Entiendase (n) como el número de veces que se ha realizado el proceso.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Al final el programa deberá imprimir el número de veces que se ha atornillado un tornillo y se ha ajustado una tuerca.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Los tornillos largos y tuercas pequeñas deben ser variables del tipo entero (int).</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo entera llamada “Ensamblador” que debe recibir el número de veces que se va a utilizar el ensamblador, el número de tornillos largos y tuercas pequeñas como parámetros.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Implementar un ciclo (do while) que atornille un tornillo largo y ajuste una tuerca pequeña cada vez que se use el ensamblador.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>En cada itereración se debe validar que el número de tornillos largos y tuercas pequeñas sea mayor a cero (0), si no es así imprimir el mensaje: “Materiales agotados en stock” y descuente en uno el número de veces que el ensamblador hizo el proceso de ensamblaje.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>En cada iteración, decrementar en uno los tornillos largos y las tuercas pequeñas.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Al final el programa deberá imprimir el número de veces que se ha utilizado o ha realizado el proceso el ensamblador.</strong></p></li>
         </ul>
       <hr class="my-4" />
       <br>
@@ -34,10 +34,14 @@
       <br>
       <div class="videos-container">
         <div v-for="(video, index) in videos" :key="index" class="video-item">
-          <video width="300" height="200" controls>
-            <source :src="video.src" type="video/mp4">
-            Tu navegador no soporta la reproducción de videos.
-          </video>
+          <iframe
+            width="300"
+            height="200"
+            :src="video.src"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
           <div class="option">
             <input type="radio" :id="`video${index}`" :value="video" v-model="selectedVideo" />
             <label :for="`video${index}`">Seleccionar</label>
@@ -154,9 +158,6 @@ import Funcion5 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte1
 import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
 import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
 import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
-import Video1 from '@/assets/VideosConectarCables/Video 1.mp4';
-import Video2 from '@/assets/VideosConectarCables/Video 2.mp4';
-import Video3 from '@/assets/VideosConectarCables/Video 3.mp4';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -250,9 +251,9 @@ setup() {
         ],
 
         videos: [
-          { src: Video1, alt: 'Video 1' },
-          { src: Video2, alt: 'Video 2' },
-          { src: Video3, alt: 'Video 3' },
+          { src: "https://www.youtube.com/embed/v1w2Q0nIGVc?si=UDcaidsZh3T9Bgai", alt: 'Video 1' },
+          { src: "https://www.youtube.com/embed/HS006h4d7Q4?si=JlaHEDPqQXFZltat", alt: 'Video 2' },
+          { src: "https://www.youtube.com/embed/hJ6zD_Ju7Os?si=2R_7PcF_j_joO4t9", alt: 'Video 3' },
         ].sort(() => Math.random() - 0.5),
 
         selectedVideo: null,
@@ -337,7 +338,7 @@ setup() {
     return;
   }
 
-  if (this.selectedVideo.src === Video1) {
+  if (this.selectedVideo.src === "https://www.youtube.com/embed/v1w2Q0nIGVc?si=UDcaidsZh3T9Bgai") {
     this.correctVideoIndex = true;
     this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
     this.feedbackClass = "success-message";
