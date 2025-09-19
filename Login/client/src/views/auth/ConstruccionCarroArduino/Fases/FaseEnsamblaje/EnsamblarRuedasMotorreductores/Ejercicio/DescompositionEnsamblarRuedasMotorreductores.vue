@@ -155,7 +155,7 @@
 <script>
 import router from '@/router';
 import MenuCarro from "@/components/MenuCarro.vue";
-import Funcion5 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte1.png';
+import Funcion5 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/RuedasSimulado1.png';
 import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
 import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
 import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
@@ -177,7 +177,7 @@ setup() {
   const evaluacionImagenRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '1. Fase de ensamblaje',
-    submodulo: '1.2 Conectar soportes de los motoreductores al chasis',
+    submodulo: '1.4 Ensamblar ruedas a los motorreductores',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 1'
@@ -186,7 +186,7 @@ setup() {
   const evaluacionVideoRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '1. Fase de ensamblaje',
-    submodulo: '1.2 Conectar soportes de los motoreductores al chasis',
+    submodulo: '1.4 Ensamblar ruedas a los motorreductores',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 2'
@@ -393,7 +393,7 @@ setup() {
     const notaFinal = (this.evaluacionV + this.evaluacionVideo) / 2;
     this.evaluacionStore.evaluacion = notaFinal;
 
-    this.$router.push('/AlgoritmoEnsamblarSoportesMotorreductores').then(() => {
+    this.$router.push('/AlgoritmoEnsamblarRuedasMotorreductores').then(() => {
       window.scrollTo(0, 0);
     });
   }

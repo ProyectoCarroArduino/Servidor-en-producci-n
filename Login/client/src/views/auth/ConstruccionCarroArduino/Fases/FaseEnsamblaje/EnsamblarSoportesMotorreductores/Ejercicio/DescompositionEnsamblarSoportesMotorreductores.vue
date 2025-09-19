@@ -29,7 +29,7 @@
       <br>
       <!-- Video -->
       <h3>Descomposición - Sub. Video</h3>
-      <p class="texto-personalizado">Selecciona el video que muestra el ensamblaje del motorredcutor al chasis:</p>
+      <p class="texto-personalizado">Selecciona el video que muestra el ensamblaje del motorreductor al chasis:</p>
       <br>
       <div class="videos-container">
         <div v-for="(video, index) in videos" :key="index" class="video-item">
@@ -48,7 +48,7 @@
         </div>
       </div>
       <br>
-      <button @click="checkAnswer" class="btn btn-primary mt-2">Submit</button>
+      <button @click="checkAnswer" class="btn btn-primary mt-2">Enviar</button>
 
       <div v-if="feedbackMessage" class="respuesta">
         <p :class="{

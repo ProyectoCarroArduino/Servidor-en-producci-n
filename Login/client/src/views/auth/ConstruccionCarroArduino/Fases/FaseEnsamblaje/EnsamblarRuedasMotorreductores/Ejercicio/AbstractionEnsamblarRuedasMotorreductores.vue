@@ -100,7 +100,7 @@ export default {
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
         modulo: '1. Fase de ensamblaje',
-        submodulo: '1.1 Conectar cables a los motorreductores',
+        submodulo: '1.4 Ensamblar ruedas a los motorreductores',
         ejercicio: 'Ejercicio 1',
         categoria: 'abstraccion',
         subejercicio: 'Subejercicio 1'
@@ -244,7 +244,7 @@ int main() {
 
     finish() {
       this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
-      router.push('/GeneralizacionConectarCablesMotorreductores').then(() => {
+      router.push('/GeneralizacionEnsamblarRuedasMotorreductores').then(() => {
         window.scrollTo(0, 0);
       });
     }

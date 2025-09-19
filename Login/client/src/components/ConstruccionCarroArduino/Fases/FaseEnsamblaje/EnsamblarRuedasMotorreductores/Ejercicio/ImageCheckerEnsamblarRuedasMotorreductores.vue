@@ -112,7 +112,7 @@ export default {
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
         modulo: '1. Fase de ensamblaje',
-        submodulo: '1.2 Conectar soportes de los motoreductores al chasis',
+        submodulo: '1.4 Ensamblar ruedas a los motorreductores',
         ejercicio: 'Ejercicio 1',
         categoria: 'algoritmo',
         subejercicio: 'Subejercicio 1'
@@ -162,7 +162,7 @@ export default {
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 8,
+      numSteps: 9,
       feedbackMessage: '',
       feedbackClass: '',
       isCorrect: false,
@@ -266,7 +266,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/AbstraccionSoportesMotorreductores').then(() => {
+        router.push('/AbstraccionEnsamblarRuedasMotorreductores').then(() => {
           window.scrollTo(0, 0);
         });
       }

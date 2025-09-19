@@ -237,7 +237,7 @@ setup() {
         evaluacionV: null,
         mensajeErrorVar: '',
         mensajesErrorVar: [
-          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que se stán haciendo dos conexiones.',
+          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que se están haciendo dos conexiones.',
           '¡Error! Debes seleccionar la imagen que simule la conexión de los cables, pero que además los colores sean los mencionados en el enunciado del ejericio. ',
           '¡Error! Intenta ampliar la imagen y darte cuenta de que los colores de los cables coinciden con el color del terminal. ',
           '¡Error! Ten en cuenta que para conectar los cables el color del terminal y el color del cable deben ser identicos. '

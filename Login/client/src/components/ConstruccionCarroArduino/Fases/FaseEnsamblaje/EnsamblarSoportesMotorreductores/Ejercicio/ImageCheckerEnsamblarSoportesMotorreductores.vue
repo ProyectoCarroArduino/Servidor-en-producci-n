@@ -150,18 +150,19 @@ export default {
         { id: 4, src: image4 },
         { id: 5, src: image5 },
         { id: 6, src: image6 },
-        { id: 7, src: image7 },
+        
       ],
       bad: [
+        { id: 7, src: image7 },
         { id: 8, src: image8 },
         { id: 9, src: image9 },
       ],
-      inputs: Array(7).fill().map((_, index) => ({
+      inputs: Array(6).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 7,
+      numSteps: 9,
       feedbackMessage: '',
       feedbackClass: '',
       isCorrect: false,
@@ -172,7 +173,7 @@ export default {
   },
 
   created() {
-    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 2), this.correct);
+    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 3), this.correct);
     this.shuffleImages();
   },
 
@@ -265,7 +266,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/AbstraccionSoportesMotorreductores').then(() => {
+        router.push('/AbstraccionEnsamblarSoportesMotorreductores').then(() => {
           window.scrollTo(0, 0);
         });
       }

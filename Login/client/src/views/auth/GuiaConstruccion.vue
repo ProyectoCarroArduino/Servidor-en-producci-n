@@ -9,12 +9,12 @@
         <br>
         <ul>
           <li><p class="texto-personalizado"> <strong>Placa Arduino UNO</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Chasis carro Arduino</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Base en 3D para placa Arduino UNO</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Base en 3D para módulo L298N</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Cuatro soportes para motorredcutor en 3D</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Carcasa en 3D</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Tapa en acrílico transparente</strong></p></li>
+          <li><p class="texto-personalizado" style="color: red;"> <strong>Chasis carro Arduino</strong></p></li>
+          <li><p class="texto-personalizado" style="color: red;"> <strong>Base en 3D para placa Arduino UNO</strong></p></li>
+          <li><p class="texto-personalizado" style="color: red;"> <strong>Base en 3D para módulo L298N</strong></p></li>
+          <li><p class="texto-personalizado" style="color: red;"> <strong>Cuatro soportes para motorredcutor en 3D</strong></p></li>
+          <li><p class="texto-personalizado" style="color: red;"> <strong>Carcasa en 3D</strong></p></li>
+          <li><p class="texto-personalizado" style="color: red;"> <strong>Tapa en acrílico transparente</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Cuatro ruedas para motorredcutor</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Cuatro motorredcutores TT de doble eje</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Módulo controlador de motores L298N o Puente H</strong></p></li>
@@ -30,7 +30,7 @@
         <br>
         <p class="texto-personalizado">Algunos otros materiales de uso general como destornilladores, alicates, pinzas, bisturí, corta frios, cautín tipo lápiz, etc también son necesarios. 
         Al principio de cada paso se menciona qué materiales son necesarios para el desarrollo de este.</p>
-        <p><span style="font-weight: bold;">Nota:</span> Los materiales que están de color rojo se adquieren en una tienda electrónica de confianza, y algunos otros también se pueden adquirir en internet. 
+        <p><span style="font-weight: bold;">Nota:</span> Los materiales que están de color <strong style="color: red;">rojo</strong> se adquieren en una tienda electrónica de confianza, y algunos otros también se pueden adquirir en internet. 
         Es necesario contar con los materiales correctos para poder seguir la guía detalladamente, de no ser así el proceso puede ser difícil y en algunos pasos podría obstruir el avance.</p>
         <p class="texto-personalizado">Nombre y número de contacto de la tienda especializada en electrónica en donde se adquirieron los materiales necesarios señalados en rojo: <strong>Milton Ojeda 3005527396</strong>.</p>
         <div>

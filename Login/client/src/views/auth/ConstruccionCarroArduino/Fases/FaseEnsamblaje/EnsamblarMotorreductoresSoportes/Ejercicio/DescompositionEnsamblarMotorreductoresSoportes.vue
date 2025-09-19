@@ -74,9 +74,10 @@
       <br>
       <!-- Imagen -->
       <h3>Descomposición - Sub. Imagen</h3>
-      <p class="texto-personalizado">Selecciona la imagen correcta que muestra la simulación hecha en TinkerCAD del soporte para motorreductor que tiene dos espacios para atornillar:</p>
+      <p class="texto-personalizado">Selecciona la imagen correcta que muestra la simulación hecha en TinkerCAD del motorreductor ensamblado o ajustado al soporte:</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> El soporte correcto es <strong>similar</strong> al mostrado en los materiales necesarios para realizar este paso.</p>
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> El motorreductor debe estar en el medio del soporte y a los dos elementos los debe unir un tornillo largo de color <strong>gris</strong>, 
+      el cual debe tener una pequeña tuerca en uno de los extremos.</p>
       <br>
       <br>
       <div class="figuras">
@@ -154,10 +155,10 @@
 <script>
 import router from '@/router';
 import MenuCarro from "@/components/MenuCarro.vue";
-import Funcion5 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte1.png';
-import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
-import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
-import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
+import Funcion5 from '@/assets/ImagenesEnsamblarMotorreductoresSoportes/MotorreductorSimulado1.png';
+import Funcion6 from '@/assets/ImagenesEnsamblarMotorreductoresSoportes/MotorreductorSimulado2.png';
+import Funcion7 from '@/assets/ImagenesEnsamblarMotorreductoresSoportes/MotorreductorSimulado3.png';
+import Funcion8 from '@/assets/ImagenesEnsamblarMotorreductoresSoportes/MotorreductorSimulado4.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -176,7 +177,7 @@ setup() {
   const evaluacionImagenRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '1. Fase de ensamblaje',
-    submodulo: '1.2 Conectar soportes de los motoreductores al chasis',
+    submodulo: '1.3 Ensamblar motorreductores a los soportes',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 1'
@@ -185,7 +186,7 @@ setup() {
   const evaluacionVideoRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '1. Fase de ensamblaje',
-    submodulo: '1.2 Conectar soportes de los motoreductores al chasis',
+    submodulo: '1.3 Ensamblar motorreductores a los soportes',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 2'
@@ -392,7 +393,7 @@ setup() {
     const notaFinal = (this.evaluacionV + this.evaluacionVideo) / 2;
     this.evaluacionStore.evaluacion = notaFinal;
 
-    this.$router.push('/AlgoritmoEnsamblarSoportesMotorreductores').then(() => {
+    this.$router.push('/AlgoritmoEnsamblarMotorreductoresSoportes').then(() => {
       window.scrollTo(0, 0);
     });
   }

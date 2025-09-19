@@ -55,7 +55,7 @@ import { useRouter } from "vue-router";
         // Intentar autenticación
         await authStore.login(loginData);
         // Redirigir si es exitoso
-        router.replace({ name: "user" });
+        router.replace({ name: "home" });
       } catch (err: any) {
         console.error("Error al intentar iniciar sesión:", err);
 
