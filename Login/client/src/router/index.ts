@@ -321,12 +321,7 @@ const router = createRouter({
       path: '/GeneralizaciónEnsamblarMotorreductoresSoportes',
       name: 'GeneralizaciónEnsamblarMotorreductoresSoportes',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/Ejercicio/GeneralizationEnsamblarMotorreductoresSoportes.vue"),
-    },
-    {
-      path: '/EnsamblarMotorreductoresSoportesTeoria',
-      name: 'EnsamblarMotorreductoresSoportesTeoria',
-      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarMotorreductoresSoportes/EnsamblarMotorreductoresSoportesTeoria.vue"),
-    },
+    },  
     {
       path: '/EnsamblarRuedasMotorreductoresTeoria',
       name: 'EnsamblarRuedasMotorreductoresTeoria',
@@ -352,7 +347,26 @@ const router = createRouter({
       name: 'GeneralizacionEnsamblarRuedasMotorreductores',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseEnsamblaje/EnsamblarRuedasMotorreductores/Ejercicio/GeneralizationEnsamblarRuedasMotorreductores.vue"),
     },
-    
+    {
+      path: '/MontarArduinoUNOSoporteTeoria',
+      name: 'MontarArduinoUNOSoporteTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/MontarArduinoUNOSoporteTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionMontarArduinoUNOSoporte',
+      name: 'DescomposicionMontarArduinoUNOSoporte',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/Ejercicio/DescompositionMontarArduinoUNOSoporte.vue"),
+    },
+    {
+      path: '/AlgoritmoMontarArduinoUNOSoporte',
+      name: 'AlgoritmoMontarArduinoUNOSoporte',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/Ejercicio/AlgorithmMontarArduinoUNOSoporte.vue"),
+    },
+    {
+      path: '/AbstractionMontarArduinoUNOSoporte',
+      name: 'AbstractionMontarArduinoUNOSoporte',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/Ejercicio/AbstractionMontarArduinoUNOSoporte.vue"),
+    },
   ]
 })
 

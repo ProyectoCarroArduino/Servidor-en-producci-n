@@ -159,6 +159,144 @@ export default {
                     },
                 ]
             },
+
+            {
+                label: "2. Fase de montaje del circuito en el Arduino UNO:",
+                icon: "",
+                children: [
+                    {
+                        label: "Paso 1. Montar Arduino UNO en el soporte:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/MontarArduinoUNOSoporteTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionMontarArduinoUNOSoporte"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoMontarArduinoUNOSoporte"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstractionMontarArduinoUNOSoporte"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionConectarCablesMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 2. Ensamblar soportes de los motorreductores al chasis:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarSoportesMotorreductoresTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionEnsamblarSoportesMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 3. Ensamblar motorreductores a los soportes:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarMotorreductoresSoportesTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizaciónEnsamblarMotorreductoresSoportes"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 4. Ensamblar ruedas a los motorreductores:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarRuedasMotorreductoresTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionEnsamblarRuedasMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                ]
+            },
     
     ]
     
