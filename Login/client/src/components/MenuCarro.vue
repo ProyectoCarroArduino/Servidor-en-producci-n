@@ -190,7 +190,7 @@ export default {
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionConectarCablesMotorreductores"
+                                        href: "/GeneralizacionMontarArduinoUNOSoporte"
                                     },
                                 ]
                             },
@@ -198,24 +198,24 @@ export default {
                     },
 
                     {
-                        label: "Paso 2. Ensamblar soportes de los motorreductores al chasis:",
+                        label: "Paso 2. Montar módulo Bluetooth HC-06 al Arduino UNO:",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/EnsamblarSoportesMotorreductoresTeoria",
+                                href: "/MontarModuloBluetoothHC06Teoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionEnsamblarSoportesMotorreductores"
+                                        href: "/DescomposicionMontarModuloBluetoothHC06"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoEnsamblarSoportesMotorreductores"
+                                        href: "/AlgoritmoMontarModuloBluetoothHC06"
                                     },
                                     {
                                         label: "Abstracción",

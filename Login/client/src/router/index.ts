@@ -367,6 +367,26 @@ const router = createRouter({
       name: 'AbstractionMontarArduinoUNOSoporte',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/Ejercicio/AbstractionMontarArduinoUNOSoporte.vue"),
     },
+    {
+      path: '/GeneralizacionMontarArduinoUNOSoporte',
+      name: 'GeneralizacionMontarArduinoUNOSoporte',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/Ejercicio/GeneralizationMontarArduinoUNOSoporte.vue"),
+    },
+    {
+      path: '/MontarModuloBluetoothHC06Teoria',
+      name: 'MontarModuloBluetoothHC06Teoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/MontarModuloBluetoothHC06Teoria.vue"),
+    },
+    {
+      path: '/DescomposicionMontarModuloBluetoothHC06',
+      name: 'DescomposicionMontarModuloBluetoothHC06',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/Ejercicio/DescompositionMontarModuloBluetoothHC06.vue"),
+    },
+    {
+      path: '/AlgoritmoMontarModuloBluetoothHC06',
+      name: 'AlgoritmoMontarModuloBluetoothHC06',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/Ejercicio/AlgorithmMontarModuloBluetoothHC06.vue"),
+    },
   ]
 })
 

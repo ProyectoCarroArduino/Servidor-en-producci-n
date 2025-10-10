@@ -8,7 +8,7 @@
       <p class="texto-personalizado">Para este paso los materiales que se usarán son el soporte para placa Arduino y el Arduino UNO.</p>
       <br>
       <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden al <strong>montaje</strong> de una
-        placa Arduino UNO a su soporte, y para la construcción del carro se <strong>solo necesitan hacer el montaje</strong> de una sola placa, es decir, que 
+        placa Arduino UNO a su soporte, y para la construcción del carro <strong>solo se necesita hacer el montaje</strong> de una sola placa Arduino UNO, es decir, que 
         el paso a paso que se va a explicar a continuación <strong>se debe</strong> repetir solo una vez.</p> 
       <br>
       <div class="contenedor">

@@ -73,14 +73,14 @@
 
 <script>
 import router from '@/router'; 
-import audio1 from '@/assets/AudiosConectarCablesMotorreductores/Audio1.mp3';  
-import audio2 from '@/assets/AudiosConectarCablesMotorreductores/Audio2.mp3';
-import audio3 from '@/assets/AudiosConectarCablesMotorreductores/Audio3.mp3';
-import audio4 from '@/assets/AudiosConectarCablesMotorreductores/Audio4.mp3';
-import audio5 from '@/assets/AudiosConectarCablesMotorreductores/Audio5.mp3';
-import audio6 from '@/assets/AudiosConectarCablesMotorreductores/Audio6.mp3';
-import audio7 from '@/assets/AudiosConectarCablesMotorreductores/Audio7.mp3';
-import audio8 from '@/assets/AudiosConectarCablesMotorreductores/Audio8.mp3'; 
+import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';  
+import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
+import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
+import audio4 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio4.mp3';
+import audio5 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio5.mp3';
+import audio6 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio6.mp3';
+import audio7 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio7.mp3';
+import audio8 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio8.mp3'; 
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -94,8 +94,8 @@ export default {
     const evaluacionGeneralizationRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '1. Fase de ensamblaje',
-        submodulo: '1.1 Conectar cables a los motorreductores',
+        modulo: '2. Fase de montaje del circuito en el Arduino UNO',
+        submodulo: '2.1 Montaje del Arduino UNO en el soporte',
         ejercicio: 'Ejercicio 1',
         categoria: 'generalizacion',
         subejercicio: 'Subejercicio 1'
