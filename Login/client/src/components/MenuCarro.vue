@@ -231,13 +231,13 @@ export default {
                     },
 
                     {
-                        label: "Paso 3. Ensamblar motorreductores a los soportes:",
+                        label: "Paso 3. Montar puente H (módulo L298N) y conectarlo al Arduino UNO:",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/EnsamblarMotorreductoresSoportesTeoria",
+                                href: "/MontarModuloPuenteHL298NTeoria",
                             },
                             {
                                 label: "Ejercicio:",
@@ -263,39 +263,7 @@ export default {
                         ]
                     },
 
-                    {
-                        label: "Paso 4. Ensamblar ruedas a los motorreductores:",
-                        icon: "",
-                        children: [
-                            {
-                                label: "Teoria",
-                                icon: "",
-                                href: "/EnsamblarRuedasMotorreductoresTeoria",
-                            },
-                            {
-                                label: "Ejercicio:",
-                                children: [
-                                    {
-                                        label: "Descomposición",
-                                        href: "/DescomposicionEnsamblarRuedasMotorreductores"
-                                    },
-                                    {
-                                        label: "Algoritmo",
-                                        href: "/AlgoritmoEnsamblarRuedasMotorreductores"
-                                    },
-                                    {
-                                        label: "Abstracción",
-                                        href: "/AbstraccionEnsamblarRuedasMotorreductores"
-                                    },
-                                    {
-                                        label: "Generalización",
-                                        href: "/GeneralizacionEnsamblarRuedasMotorreductores"
-                                    },
-                                ]
-                            },
-                        ]
-                    },
-                ]
+                ],
             },
     
     ]
