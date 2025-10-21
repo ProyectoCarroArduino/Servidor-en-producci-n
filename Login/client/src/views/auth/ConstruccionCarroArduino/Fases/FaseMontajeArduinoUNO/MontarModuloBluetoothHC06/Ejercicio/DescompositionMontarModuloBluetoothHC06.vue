@@ -6,21 +6,23 @@
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule un ensamblador de ruedas. El ensamblador deberá ensamblar <strong>todas</strong> las ruedas que el usuario solicite. 
-        Para ello se debe tener en cuenta que por cada rueda ensamblada <strong>se va a necesitar específicamente una rueda de carro y un disco encoder</strong>.</p>
-      <p class="texto-personalizado">El programa deberá <strong>solicitar al usuario</strong> el número de ruedas que se van a ensamblar, y el número de ruedas y discos encoder disponibles en bodega. 
-        Al final el programa deberá <strong>imprimir</strong> el número de ruedas y de discos encoder que se han ensamblado. 
-        Además, deberá <strong>imprimir</strong> las existencias de ruedas y discos encoder que quedaron en bodega después del proceso de ensamblaje.</p>
+      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión de los pines VCC y GND de un módulo bluetooth HC-06 a los pines alimentación de una placa Arduino UNO. La placa tiene que tener disponibles <strong>todos</strong> sus pines de alimentación para efectuar el montaje o conexión del módulo. 
+        Se debe tener en cuenta que la placa cuenta con los siguientes pines de alimentación: <strong>(3.3V, 5V, GND, GND, VIN)</strong> y, para que el dispositivo esté conectado o montado <strong>tiene</strong> que tener su pin VCC conectado a un pin de <strong>alimentación (3.3V, 5V, VIN)</strong>
+        y su pin GND a uno de los dos pines de <strong>alimentación (GND)</strong>.</p>
+      <p class="texto-personalizado">El programa deberá <strong>solicitar al usuario</strong> a qué pin de la placa Arduino UNO quiere conectar los pines VCC y GND del módulo HC-06, así mismo el programa <strong>deberá validar</strong> 
+        que los dos pines VCC y GND del módulo estén conectados a los respectivos pines de alimentación de la placa Arduino para el correcto funcionamiento.</p>
+      <p class="texto-personalizado">Al final el programa <strong>deberá imprimir</strong> qué pines de alimentación de la placa Arduino UNO se están utilizando para el montaje del módulo bluetooth HC-06.</p>
       <br>
       <br>
       <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>La cantidad de ruedas a ensamblar, ruedas y discos encoder disponibles deben ser variables del tipo entero (int).</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo entera llamada “ensambladorRuedas” que debe recibir la cantidad de ruedas que se quieren ensamblar, el número de ruedas y discos encoder disponibles en la bodega como parámetros.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Implementar un ciclo (for) que ensamble una rueda y un disco encoder y los descuente en cada iteración.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>En cada iteración se debe validar que el número de ruedas y discos encoder sea mayor a cero (0), si no es así imprimir el mensaje: “No hay materiales suficientes en bodega” y se debe terminar el ciclo.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>La función ensambladorRuedas debe retornar el número de ruedas ensambladas.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Al final, el programa deberá imprimir el número de ruedas ensambladas y, ruedas y discos encoder que quedaron en bodega después del proceso de ensamblaje.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “ModuloHC06”, la cual deberá de encargarse de la asignación de los pines VCC y GND a los pines de alimentación de la placa Arduino UNO y la validación de la asignación de pines para el correcto funcionamiento.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Implementar dos variables de tipo entera (int) llamadas opcion_vcc y opcion_gnd.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Se debe mostrar un menú que permita la visualización de los pines de alimentación de la placa Arduino UNO.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Se debe validar que el pin VCC del módulo HC-06 esté conectado a uno de los pines de alimentación (3.3V, 5V, VIN) de la placa Arduino UNO, y así mismo el pin GND del módulo también esté conectado a uno de los dos pines GND de la placa.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Si el pin VCC del módulo HC-06 no está conectado a uno de alimentación correspondiente de la placa Arduino UNO imprimir el mensaje de error: “El pin VCC debe conectarse a 3.3V (1), 5V (2) o VIN (5).”.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Si el pin GND del módulo HC-06 no está conectado a uno de los dos pines GND de la placa Arduino UNO imprimir el mensaje de error: “El pin GND debe conectarse a GND1 (3) o GND2 (4).”.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Al final, el programa deberá imprimir los pines que se están utilizando para la conexión. La impresión debe hacerse llamando a la función ModuloHC06 en el case 1 del menú del código que se ha desarrollado en el anterior paso.</strong></p></li>
         </ul>
       <hr class="my-4" />
       <br>

@@ -219,11 +219,11 @@ export default {
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionEnsamblarSoportesMotorreductores"
+                                        href: "/AbstraccionMontarModuloBluetoothHC06"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionEnsamblarSoportesMotorreductores"
+                                        href: "/GeneralizacionMontarModuloBluetoothHC06"
                                     },
                                 ]
                             },

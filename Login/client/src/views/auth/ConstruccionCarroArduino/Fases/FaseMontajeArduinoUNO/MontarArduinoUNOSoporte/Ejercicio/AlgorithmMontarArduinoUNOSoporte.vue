@@ -6,23 +6,22 @@
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule un ensamblador de ruedas. El ensamblador deberá ensamblar <strong>todas</strong> las ruedas que el usuario solicite. 
-        Para ello se debe tener en cuenta que por cada rueda ensamblada <strong>se va a necesitar específicamente una rueda de carro y un disco encoder</strong>.</p>
-      <p class="texto-personalizado">El programa deberá <strong>solicitar al usuario</strong> el número de ruedas que se van a ensamblar, y el número de ruedas y discos encoder disponibles en bodega. 
-        Al final el programa deberá <strong>imprimir</strong> el número de ruedas y de discos encoder que se han ensamblado. 
-        Además, deberá <strong>imprimir</strong> las existencias de ruedas y discos encoder que quedaron en bodega después del proceso de ensamblaje.</p>
+      <p class="texto-personalizado">Se necesita un programa en C que simule una placa Arduino UNO. En la placa se deberá poder <strong>montar</strong> los componentes: <strong>Modulo Bluetooth HC-06 y Modulo L298N/puente H</strong>. Se debe tener en cuenta que para el montaje de algún componente a la placa Arduino UNO, este debe ir conectado a los pines correspondientes. 
+        Sin embargo, para este ejercicio <strong>no se van a solicitar las conexiones</strong> a los pines de la placa para ningún módulo.</p>
+      <p class="texto-personalizado">El programa deberá poder <strong>dar al usuario</strong> la opción de que ingrese a algunos de los dos componentes para posteriormente hacer la conexión o montaje de este a la placa Arduino UNO. Además, <strong>debe proporcionar</strong> una forma de salir del programa si no se  quiere seleccionar ninguno de los dos componentes.</p>
+      <p class="texto-personalizado">Al final el programa <strong>deberá imprimir</strong> qué componente se ha seleccionado para posteriormente hacer el montaje.</p>
       <br>
       <br>
       <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>La cantidad de ruedas a ensamblar, ruedas y discos encoder disponibles deben ser variables del tipo entero (int).</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo entera llamada “ensambladorRuedas” que debe recibir la cantidad de ruedas que se quieren ensamblar, el número de ruedas y discos encoder disponibles en la bodega como parámetros.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Implementar un ciclo (for) que ensamble una rueda y un disco encoder y los descuente en cada iteración.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>En cada iteración se debe validar que el número de ruedas y discos encoder sea mayor a cero (0), si no es así imprimir el mensaje: “No hay materiales suficientes en bodega” y se debe terminar el ciclo.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>La función ensambladorRuedas debe retornar el número de ruedas ensambladas.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Al final, el programa deberá imprimir el número de ruedas ensambladas y, ruedas y discos encoder que quedaron en bodega después del proceso de ensamblaje.</strong></p></li>
-       </ul>
-        <hr class="my-4" />
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “ArduinoUNO” donde se maneje toda la simulación de la placa Arduino UNO.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Implementar una variable tipo entera (int) llamada opcion.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Se debe de mostrar un menú que permita la visualización de los componentes que se van a montar a la placa y la opción de salir.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>El menú debe mostrar un mensaje de error que diga lo siguiente: “Opción inválida. Saliendo...” si se ha seleccionado una opción inválida.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Al final el programa deberá imprimir el nombre del componente que el usuario ha seleccionado para montar a la placa Arduino UNO.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>No se debe solicitar los pines de conexión ni validar la asignación de estos para un correcto funcionamiento en el ejercicio (por el momento).</strong></p></li>
+        </ul>
+      <hr class="my-4" />
             <br>
             <h3>Algoritmo:</h3>
             <br>

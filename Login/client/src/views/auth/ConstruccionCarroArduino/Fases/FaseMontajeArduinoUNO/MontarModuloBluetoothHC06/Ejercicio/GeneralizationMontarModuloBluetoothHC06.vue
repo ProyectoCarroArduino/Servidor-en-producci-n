@@ -26,25 +26,30 @@
         </ul>
       <hr class="my-4" />
             <br>
-            <h3>Algoritmo:</h3>
+            <h3>Generalización:</h3>
             <br>
-            <ImageChecker/>
+            <p class="texto-personalizado">Teniendo en cuenta las <strong>didácticas</strong> anteriores generalice el paso a paso de la definición de la función <strong>(ensambladorRuedas)</strong>:</p>
+            <br>
+            <p class="texto-personalizado"><strong>Instrucciones:</strong> Ingrese el orden correcto de los audios</p>
+            <br>
+            <AudioChecker/>
         </div>
         <div class="align-left col-md-3">
             <div class="temas">
-                <NavMenu />
+                <MenuCarro />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import ImageChecker from "@/components/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/ImageCheckerMontarModuloBluetoothHC06.vue";
-import NavMenu from "@/components/MenuCarro.vue";
+import AudioChecker from "@/components/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/AudioCheckerMontarArduinoUNOSoporte.vue";
+import MenuCarro from "@/components/MenuCarro.vue";
+
 export default{
     components:{
-        NavMenu, 
-        ImageChecker
+        MenuCarro,
+        AudioChecker
     },
 }
 </script >

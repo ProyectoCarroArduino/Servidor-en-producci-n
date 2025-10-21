@@ -388,6 +388,16 @@ const router = createRouter({
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/Ejercicio/AlgorithmMontarModuloBluetoothHC06.vue"),
     },
     {
+      path: '/AbstraccionMontarModuloBluetoothHC06',
+      name: 'AbstraccionMontarModuloBluetoothHC06',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/Ejercicio/AbstractionMontarModuloBluetoothHC06.vue"),
+    },
+    {
+      path: '/GeneralizacionMontarModuloBluetoothHC06',
+      name: 'GeneralizacionMontarModuloBluetoothHC06',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloBluetoothHC06/Ejercicio/GeneralizationMontarModuloBluetoothHC06.vue"),
+    },
+    {
       path: '/MontarModuloPuenteHL298NTeoria',
       name: 'MontarModuloPuenteHL298NTeoria',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/MontarModuloPuenteHL298NTeoria.vue"),
