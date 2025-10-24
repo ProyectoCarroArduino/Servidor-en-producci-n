@@ -338,7 +338,7 @@ setup() {
     return;
   }
 
-  if (this.selectedVideo.src === "https://www.youtube.com/embed/ZLfHJ2C2_-w?si=NAHfcHm7gTuah2Z6") {
+  if (this.selectedVideo.src === "https://www.youtube.com/embed/He4uEzRf01A?si=g0JNbgGokYr0fhTq") {
     this.correctVideoIndex = true;
     this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
     this.feedbackClass = "success-message";
@@ -392,7 +392,7 @@ setup() {
     const notaFinal = (this.evaluacionV + this.evaluacionVideo) / 2;
     this.evaluacionStore.evaluacion = notaFinal;
 
-    this.$router.push('/AlgoritmoEnsamblarRuedasMotorreductores').then(() => {
+    this.$router.push('/AlgoritmoMontarArduinoUNOSoporte').then(() => {
       window.scrollTo(0, 0);
     });
   }

@@ -99,11 +99,11 @@
         además, <strong>se necesita cortar</strong> el extremo del cable en donde <strong>no se encuentra el pin macho</strong>, posteriormente se debe <strong>quitar la cobertura</strong> 
         de este con la ayuda de los alicates o las pinzas.</p>
       <br>   
-      <div class="contenedordos">
-        <div class="imagen-item-dos">
+      <div class="contenedordosV1">
+        <div class="imagen-item-dosV1">
           <img src="@/assets/ImagenesMontarModuloL298N/CortarPinHembra.png" alt="CortarPinHembra">
         </div>
-        <div class="imagen-item-dos">
+        <div class="imagen-item-dosV1">
           <img src="@/assets/ImagenesMontarModuloL298N/CableCortado.png" alt="CableCortado">
         </div>
       </div>
@@ -114,14 +114,16 @@
       <p class="texto-personalizado">Lo siguiente será <strong>enrollar esos cables pequeños</strong>, después se van a conectar al pin GND del módulo L298N, lo que significa que <strong>se debe desatornillar este pin e introducir</strong> 
        el cable dentro y luego <strong>volver a atornillar</strong> para evitar fallos. </p>
       <br>
-      <div class="contenedordos">
-        <div class="imagen-item-dos">
+      <br>
+      <div class="contenedordosV2">
+        <div class="imagen-item-dosV2">
           <img src="@/assets/ImagenesMontarModuloL298N/DesatornillarPinGND.png" alt="DesatornillarPinGND">
         </div>
-        <div class="imagen-item-dos">
+        <div class="imagen-item-dosV2">
           <img src="@/assets/ImagenesMontarModuloL298N/PinGNDCableado.png" alt="PinGNDCableado">
         </div>
       </div>
+      <br>
       <br>
       <br>
       <p class="texto-personalizado">Ya para finalizar se conecta la parte del cable que tiene pin a uno de los <strong>dos pines GND</strong> de la placa Arduino.</p> 
@@ -153,7 +155,7 @@
       <iframe
         width="560" 
         height="315" 
-        src="https://www.youtube.com/embed/mlPdQHwn98E?si=0MTGBZC0rRqo0hPi" 
+        src="https://www.youtube.com/embed/X9DwB9A9yVg?si=YYn9tT-SRyhXB3gC" 
         title="YouTube video player" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -194,7 +196,7 @@ export default {
 
     methods: {
     finish() {
-      router.push('/DescomposicionMontarModuloBluetoothHC06').then(() => {
+      router.push('/DescomposicionMontarModuloPuenteHL298N').then(() => {
         window.scrollTo(0, 0);
       });
     },
@@ -239,7 +241,7 @@ export default {
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
     max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 35%;
+    width: 30%;
 }
 
 .centradados {
@@ -255,7 +257,7 @@ export default {
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
     max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 50%;
+    width: 65%;
 }
 
 .centradacuatro {
@@ -263,7 +265,7 @@ export default {
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
     max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 75%;
+    width: 70%;
 }
 
 .temas {
@@ -328,7 +330,7 @@ export default {
 
 .imagen-item-dos {
   text-align: center;
-  width: 21%;
+  width: 18%;
   position: relative;
 }
 
@@ -346,6 +348,65 @@ export default {
   height: 100%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
+
+.contenedordosV1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+  flex-wrap: nowrap;
+}
+
+.imagen-item-dosV1 {
+  text-align: center;
+  width: 22%;
+  position: relative;
+}
+
+.imagen-item-dosV1::before {
+  content: "";
+  display: block;
+  padding-top: 100%; /* Esto hace que el contenedor tenga una relación de aspecto de 4:3 */
+}
+
+.imagen-item-dosV1 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
+}
+
+.contenedordosV2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+  flex-wrap: nowrap;
+}
+
+.imagen-item-dosV2 {
+  text-align: center;
+  width: 20%;
+  position: relative;
+}
+
+.imagen-item-dosV2::before {
+  content: "";
+  display: block;
+  padding-top: 100%; /* Esto hace que el contenedor tenga una relación de aspecto de 4:3 */
+}
+
+.imagen-item-dosV2 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 115%;
+  object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
+}
+
 
 .contenedortres {
   display: flex;

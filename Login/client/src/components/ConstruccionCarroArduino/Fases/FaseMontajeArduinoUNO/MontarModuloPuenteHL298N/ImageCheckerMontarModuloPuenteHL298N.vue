@@ -89,15 +89,15 @@
 
 <script>
 import router from '@/router';
-import image1 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo1.png';
-import image2 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo2.png';
-import image3 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo3.png';
-import image4 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo4.png';
-import image5 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo5.png';
-import image6 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo6.png';
-import image7 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo7.png';
-import image8 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo8.png';
-import image9 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo9.png';
+import image1 from '@/assets/ImagenesMontarModuloL298N/Algoritmo1.png';
+import image2 from '@/assets/ImagenesMontarModuloL298N/Algoritmo2.png';
+import image3 from '@/assets/ImagenesMontarModuloL298N/Algoritmo3.png';
+import image4 from '@/assets/ImagenesMontarModuloL298N/Algoritmo4.png';
+import image5 from '@/assets/ImagenesMontarModuloL298N/Algoritmo5.png';
+import image6 from '@/assets/ImagenesMontarModuloL298N/Algoritmo6.png';
+import image7 from '@/assets/ImagenesMontarModuloL298N/Algoritmo7.png';
+import image8 from '@/assets/ImagenesMontarModuloL298N/Algoritmo8.png';
+import image9 from '@/assets/ImagenesMontarModuloL298N/Algoritmo9.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -112,7 +112,7 @@ export default {
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
         modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-        submodulo: '2.2 Montaje del módulo Bluetooth HC-06 al Arduino UNO',
+        submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
         ejercicio: 'Ejercicio 1',
         categoria: 'algoritmo',
         subejercicio: 'Subejercicio 1'
@@ -267,7 +267,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/AbstraccionMontarModuloBluetoothHC06').then(() => {
+        router.push('/AbstraccionMontarModuloPuenteHL298N').then(() => {
           window.scrollTo(0, 0);
         });
       }

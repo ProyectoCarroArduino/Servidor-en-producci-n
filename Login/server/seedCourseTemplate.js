@@ -39,7 +39,7 @@ const cursoConfig = {
     nombre: '2. Fase de montaje del circuito en el Arduino UNO',
     nota: 0,
     submodulo: {
-      nombre: '2.1 Montaje del Arduino UNO en el soporte',
+      nombre: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
       nota: 0,
       ejercicios: [
         generarEjercicio('Ejercicio 1', { descomposicion: 2 }),

@@ -266,7 +266,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/AbstraccionConectarCablesMotorreductores').then(() => {
+        router.push('/AbstractionMontarArduinoUNOSoporte').then(() => {
           window.scrollTo(0, 0);
         });
       }

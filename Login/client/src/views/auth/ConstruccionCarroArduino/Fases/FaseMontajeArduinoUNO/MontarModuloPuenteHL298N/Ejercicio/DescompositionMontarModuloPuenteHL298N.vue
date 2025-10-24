@@ -1,12 +1,12 @@
 <template>
   <div id="user">
     <div class="card card-body mt-8 align-left col-md-15">
-      <h1 class="text-center">Paso 2. Montar módulo Bluetooth HC-06 al Arduino UNO</h1>
+      <h1 class="text-center">Paso 3. Montar puente H (módulo L298N) y conectarlo al Arduino UNO</h1>
       <br>
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión de los pines VCC y GND de un módulo bluetooth HC-06 a los pines de alimentación de una placa Arduino UNO. La placa tiene que tener disponibles <strong>todos</strong> sus pines de alimentación para efectuar el montaje o conexión del módulo. 
+      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión de los pines VCC y GND de un módulo bluetooth HC-06 a los pines alimentación de una placa Arduino UNO. La placa tiene que tener disponibles <strong>todos</strong> sus pines de alimentación para efectuar el montaje o conexión del módulo. 
         Se debe tener en cuenta que la placa cuenta con los siguientes pines de alimentación: <strong>(3.3V, 5V, GND, GND, VIN)</strong> y, para que el dispositivo esté conectado o montado <strong>tiene</strong> que tener su pin VCC conectado a un pin de <strong>alimentación (3.3V, 5V, VIN)</strong>
         y su pin GND a uno de los dos pines de <strong>alimentación (GND)</strong>.</p>
       <p class="texto-personalizado">El programa deberá <strong>solicitar al usuario</strong> a qué pin de la placa Arduino UNO quiere conectar los pines VCC y GND del módulo HC-06, así mismo el programa <strong>deberá validar</strong> 
@@ -33,9 +33,9 @@
       <br>
       <!-- Video -->
       <h3>Descomposición - Sub. Video</h3>
-      <p class="texto-personalizado">Selecciona el video que muestra el montaje del modulo bluetooth HC-06 a la placa Arduino UNO:</p>
+      <p class="texto-personalizado">Selecciona el video que muestra el montaje del modulo L298N (Puente H) a la placa Arduino UNO:</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> El video del montaje <strong>solo debe contener</strong> la parte de la conexión de los cables anteriormente conectados al módulo bluetooth HC-06 a la <strong>placa Arduino UNO</strong>.</p>
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> El video del montaje <strong>solo debe contener</strong> la parte de la conexión de los cables anteriormente conectados al módulo L298N (Puente H) a la <strong>placa Arduino UNO</strong>.</p>
       <br>  
       <div class="videos-container">
         <div v-for="(video, index) in videos" :key="index" class="video-item">
@@ -79,7 +79,7 @@
       <br>
       <!-- Imagen -->
       <h3>Descomposición - Sub. Imagen</h3>
-      <p class="texto-personalizado">Selecciona la imagen correcta que muestra la simulación hecha en Fritzing del montaje del módulo bluetooth HC06 a la placa Arduino UNO:</p>
+      <p class="texto-personalizado">Selecciona la imagen correcta que muestra la simulación hecha en Fritzing del montaje del módulo L298N (Puente H) a la placa Arduino UNO:</p>
       <br>
       <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> La imagen correcta es <strong>similar</strong> a la mostrada en <strong>el esquema de los pines a los que se van a conectar los cables</strong>  
         en la teoría para realizar este paso.</p>
@@ -160,10 +160,10 @@
 <script>
 import router from '@/router';
 import MenuCarro from "@/components/MenuCarro.vue";
-import Funcion5 from '@/assets/ImagenesMontarModuloBluetoothHC06/Simulacion1.png';
-import Funcion6 from '@/assets/ImagenesMontarModuloBluetoothHC06/Simulacion2.png';
-import Funcion7 from '@/assets/ImagenesMontarModuloBluetoothHC06/Simulacion3.png';
-import Funcion8 from '@/assets/ImagenesMontarModuloBluetoothHC06/Simulacion4.png';
+import Funcion5 from '@/assets/ImagenesMontarModuloL298N/Simulacion1.png';
+import Funcion6 from '@/assets/ImagenesMontarModuloL298N/Simulacion2.png';
+import Funcion7 from '@/assets/ImagenesMontarModuloL298N/Simulacion3.png';
+import Funcion8 from '@/assets/ImagenesMontarModuloL298N/Simulacion4.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -182,7 +182,7 @@ setup() {
   const evaluacionImagenRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-    submodulo: '2.2 Montaje del módulo Bluetooth HC-06 al Arduino UNO',
+    submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 1'
@@ -191,7 +191,7 @@ setup() {
   const evaluacionVideoRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
     modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-    submodulo: '2.2 Montaje del módulo Bluetooth HC-06 al Arduino UNO',
+    submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 2'
@@ -257,9 +257,9 @@ setup() {
         ],
 
         videos: [
-          { src: "https://www.youtube.com/embed/24agP2uQk6U?si=FKRxYmnJWutzig8H", alt: 'Video 1' },
-          { src: "https://www.youtube.com/embed/QS1vjMHMbTk?si=waQGP5IrFAGQePPm", alt: 'Video 2' },
-          { src: "https://www.youtube.com/embed/QjIb_NAzekQ?si=6E-9xDYwpcgXDdju", alt: 'Video 3' },
+          { src: "https://www.youtube.com/embed/0TdObXx0YS4?si=6srXsWFKgPNSS-L3", alt: 'Video 1' },
+          { src: "https://www.youtube.com/embed/NHbuevQR7qo?si=jgyLv4TODuvl9aTr", alt: 'Video 2' },
+          { src: "https://www.youtube.com/embed/svsvOCv2AP4?si=Cmsvx64XvEkwqazY", alt: 'Video 3' },
         ].sort(() => Math.random() - 0.5),
 
         selectedVideo: null,
@@ -344,7 +344,7 @@ setup() {
     return;
   }
 
-  if (this.selectedVideo.src === "https://www.youtube.com/embed/24agP2uQk6U?si=FKRxYmnJWutzig8H") {
+  if (this.selectedVideo.src === "https://www.youtube.com/embed/0TdObXx0YS4?si=6srXsWFKgPNSS-L3") {
     this.correctVideoIndex = true;
     this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
     this.feedbackClass = "success-message";
@@ -398,7 +398,7 @@ setup() {
     const notaFinal = (this.evaluacionV + this.evaluacionVideo) / 2;
     this.evaluacionStore.evaluacion = notaFinal;
 
-    this.$router.push('/AlgoritmoMontarModuloBluetoothHC06').then(() => {
+    this.$router.push('/AlgoritmoMontarModuloPuenteHL298N').then(() => {
       window.scrollTo(0, 0);
     });
   }

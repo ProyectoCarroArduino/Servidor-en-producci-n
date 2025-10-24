@@ -95,7 +95,7 @@ export default {
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
         modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-        submodulo: '2.1 Montaje del Arduino UNO en el soporte',
+        submodulo: '2.2 Montaje del módulo Bluetooth HC-06 al Arduino UNO',
         ejercicio: 'Ejercicio 1',
         categoria: 'generalizacion',
         subejercicio: 'Subejercicio 1'
@@ -229,7 +229,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/MontarModuloBluetoothHC06Teoria').then(() => {
+        router.push('/MontarModuloPuenteHL298NTeoria').then(() => {
           window.scrollTo(0, 0);
         });
       }

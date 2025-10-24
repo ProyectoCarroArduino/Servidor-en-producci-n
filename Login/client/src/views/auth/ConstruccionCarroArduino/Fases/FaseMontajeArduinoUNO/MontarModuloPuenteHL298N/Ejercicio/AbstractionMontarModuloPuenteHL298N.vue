@@ -1,25 +1,28 @@
 <template>
   <div id="user">
     <div class="card card-body mt-8 align-left col-md-15">
-      <h1 class="text-center">Paso 1. Montar Arduino UNO en el soporte</h1>
+      <h1 class="text-center">Paso 3. Montar puente H (módulo L298N) y conectarlo al Arduino UNO</h1>
       <br>
       <br>
       <h2>Ejercicio:</h2>
       <br>
-      <p class="texto-personalizado">Se necesita un programa en C que simule una placa Arduino UNO. En la placa se deberá poder <strong>montar</strong> los componentes: <strong>Modulo Bluetooth HC-06 y Modulo L298N/puente H</strong>. Se debe tener en cuenta que para el montaje de algún componente a la placa Arduino UNO, este debe ir conectado a los pines correspondientes. 
-        Sin embargo, para este ejercicio <strong>no se van a solicitar las conexiones</strong> a los pines de la placa para ningún módulo.</p>
-      <p class="texto-personalizado">El programa deberá poder <strong>dar al usuario</strong> la opción de que ingrese a algunos de los dos componentes para posteriormente hacer la conexión o montaje de este a la placa Arduino UNO. Además, <strong>debe proporcionar</strong> una forma de salir del programa si no se  quiere seleccionar ninguno de los dos componentes.</p>
-      <p class="texto-personalizado">Al final el programa <strong>deberá imprimir</strong> qué componente se ha seleccionado para posteriormente hacer el montaje.</p>
+      <p class="texto-personalizado">Se necesita un programa en C que simule la conexión de los pines VCC y GND de un módulo bluetooth HC-06 a los pines alimentación de una placa Arduino UNO. La placa tiene que tener disponibles <strong>todos</strong> sus pines de alimentación para efectuar el montaje o conexión del módulo. 
+        Se debe tener en cuenta que la placa cuenta con los siguientes pines de alimentación: <strong>(3.3V, 5V, GND, GND, VIN)</strong> y, para que el dispositivo esté conectado o montado <strong>tiene</strong> que tener su pin VCC conectado a un pin de <strong>alimentación (3.3V, 5V, VIN)</strong>
+        y su pin GND a uno de los dos pines de <strong>alimentación (GND)</strong>.</p>
+      <p class="texto-personalizado">El programa deberá <strong>solicitar al usuario</strong> a qué pin de la placa Arduino UNO quiere conectar los pines VCC y GND del módulo HC-06, así mismo el programa <strong>deberá validar</strong> 
+        que los dos pines VCC y GND del módulo estén conectados a los respectivos pines de alimentación de la placa Arduino para el correcto funcionamiento.</p>
+      <p class="texto-personalizado">Al final el programa <strong>deberá imprimir</strong> qué pines de alimentación de la placa Arduino UNO se están utilizando para el montaje del módulo bluetooth HC-06.</p>
       <br>
       <br>
       <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “ArduinoUNO” donde se maneje toda la simulación de la placa Arduino UNO.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Implementar una variable tipo entera (int) llamada opcion.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Se debe de mostrar un menú que permita la visualización de los componentes que se van a montar a la placa y la opción de salir.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>El menú debe mostrar un mensaje de error que diga lo siguiente: “Opción inválida. Saliendo...” si se ha seleccionado una opción inválida.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Al final el programa deberá imprimir el nombre del componente que el usuario ha seleccionado para montar a la placa Arduino UNO.</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>No se debe solicitar los pines de conexión ni validar la asignación de estos para un correcto funcionamiento en el ejercicio (por el momento).</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “ModuloHC06”, la cual deberá de encargarse de la asignación de los pines VCC y GND a los pines de alimentación de la placa Arduino UNO y la validación de la asignación de pines para el correcto funcionamiento.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Implementar dos variables de tipo entera (int) llamadas opcion_vcc y opcion_gnd.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Se debe mostrar un menú que permita la visualización de los pines de alimentación de la placa Arduino UNO.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Se debe validar que el pin VCC del módulo HC-06 esté conectado a uno de los pines de alimentación (3.3V, 5V, VIN) de la placa Arduino UNO, y así mismo el pin GND del módulo también esté conectado a uno de los dos pines GND de la placa.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Si el pin VCC del módulo HC-06 no está conectado a uno de alimentación correspondiente de la placa Arduino UNO imprimir el mensaje de error: “El pin VCC debe conectarse a 3.3V (1), 5V (2) o VIN (5).”.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Si el pin GND del módulo HC-06 no está conectado a uno de los dos pines GND de la placa Arduino UNO imprimir el mensaje de error: “El pin GND debe conectarse a GND1 (3) o GND2 (4).”.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Al final, el programa deberá imprimir los pines que se están utilizando para la conexión. La impresión debe hacerse llamando a la función ModuloHC06 en el case 1 del menú del código que se ha desarrollado en el anterior paso.</strong></p></li>
         </ul>
       <hr class="my-4" />
       <br>
@@ -99,7 +102,7 @@ export default {
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
         modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-        submodulo: '2.1 Montaje del Arduino UNO en el soporte',
+        submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
         ejercicio: 'Ejercicio 1',
         categoria: 'abstraccion',
         subejercicio: 'Subejercicio 1'
@@ -135,38 +138,74 @@ export default {
       correctCode: `#include <stdio.h>
 
 
-void ArduinoUNO() {
-    int opcion;
 
-    printf("--- Simulación de placa Arduino UNO ---\n");
-    printf("Componentes disponibles para montar:\n");
-    printf("1. Módulo Bluetooth HC-06\n");
-    printf("2. Módulo L298N / Puente H\n");
-    printf("3. Salir\n");
-    printf("Seleccione una opción (1-3): ");
-    scanf("%d", &opcion);
 
-     
-    printf("\n--- Pines disponibles para conexión: 0 al 13 (digitales), A0 al A5 (analógicos) ---\n");
+void ModuloHC06(){
+    int opcion_vcc; 
+    int opcion_gnd;
+    int vcc_valido = 0;
+    int gnd_valido = 0;
 
-    switch(opcion) {
-        case 1:
-            printf("Has seleccionado montar el componente: Módulo Bluetooth HC-06\n");
-            break;
-        case 2:
-            printf("Has seleccionado montar el componente: Módulo L298N / Puente H\n");
-            break;
-        case 3:
-            printf("No se montará ningún componente. Saliendo del programa...\n");
-            break;
-        default:
-            printf("Opción inválida. Saliendo...\n");
+
+
+
+    printf("Pines de alimentación disponibles en la placa Arduino UNO:\n");
+    printf(" 1. 3.3V\n");
+    printf(" 2. 5V\n");
+    printf(" 3. GND1\n");
+    printf(" 4. GND2\n");
+    printf(" 5. VIN\n");
+
+
+    printf("\Seleccione el pin al que desea conectar el pin VCC del módulo HC-06 (1-5): ");
+    scanf("%d", &opcion_vcc);
+
+
+    printf("Seleccione el pin al que desea conectar el pin GND del módulo HC-06 (1-5): ");
+    scanf("%d", &opcion_gnd);
+
+
+    if (opcion_vcc == 1 || opcion_vcc == 2 || opcion_vcc == 5) {
+        vcc_valido = 1;
+    }
+
+
+    if (opcion_gnd == 3 || opcion_gnd == 4) {
+        gnd_valido = 1;
+    }
+
+
+    if (vcc_valido && gnd_valido) {
+        printf("El modulo HC-06 esta conectado de la siguiente forma:\n");
+
+
+        switch (opcion_vcc) {
+            case 1: printf("  VCC -> 3.3V\n"); break;
+            case 2: printf("  VCC -> 5V\n"); break;
+            case 5: printf("  VCC -> VIN\n"); break;
+        }
+
+
+        switch (opcion_gnd) {
+            case 3: printf("  GND -> GND1\n"); break;
+            case 4: printf("  GND -> GND2\n"); break;
+        }
+
+
+    } else {
+        printf("Error en la conexión.\n");
+        if (!vcc_valido)
+            printf("El pin VCC debe conectarse a 3.3V (1), 5V (2) o VIN (5).\n");
+        if (!gnd_valido)
+            printf("El pin GND debe conectarse a GND1 (3) o GND2 (4).\n");
     }
 }
 
- 
+
+
+
 int main() {
-    ArduinoUNO();   
+    ModuloHC06();
     return 0;
 }`
     };
@@ -238,7 +277,7 @@ int main() {
 
     finish() {
       this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
-      router.push('/GeneralizacionMontarArduinoUNOSoporte').then(() => {
+      router.push('/GeneralizacionMontarModuloPuenteHL298N').then(() => {
         window.scrollTo(0, 0);
       });
     }

@@ -402,6 +402,26 @@ const router = createRouter({
       name: 'MontarModuloPuenteHL298NTeoria',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/MontarModuloPuenteHL298NTeoria.vue"),
     },
+    {
+      path: '/DescomposicionMontarModuloPuenteHL298N',
+      name: 'DescomposicionMontarModuloPuenteHL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/Ejercicio/DescompositionMontarModuloPuenteHL298N.vue"),
+    },
+    {
+      path: '/AlgoritmoMontarModuloPuenteHL298N',
+      name: 'AlgoritmoMontarModuloPuenteHL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/Ejercicio/AlgorithmMontarModuloPuenteHL298N.vue"),
+    },
+    {
+      path: '/AbstraccionMontarModuloPuenteHL298N',
+      name: 'AbstraccionMontarModuloPuenteHL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/Ejercicio/AbstractionMontarModuloPuenteHL298N.vue"),
+    },
+    {
+      path: '/GeneralizacionMontarModuloPuenteHL298N',
+      name: 'GeneralizacionMontarModuloPuenteHL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/Ejercicio/GeneralizationMontarModuloPuenteHL298N.vue"),
+    },
   ]
 })
 

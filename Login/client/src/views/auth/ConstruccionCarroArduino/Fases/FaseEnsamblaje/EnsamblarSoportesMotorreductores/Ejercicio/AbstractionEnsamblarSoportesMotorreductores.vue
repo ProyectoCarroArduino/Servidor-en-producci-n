@@ -232,7 +232,7 @@ int main() {
 
     finish() {
       this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
-      router.push('/GeneralizacionEnsamblarSoportesMotorreductores').then(() => {
+      router.push('/GeneralizacionMontarArduinoUNOSoporte').then(() => {
         window.scrollTo(0, 0);
       });
     }
