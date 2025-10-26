@@ -387,11 +387,11 @@ export default {
 
 .menu {
     position: fixed;
-    top: 64px; /* 🔹 altura de tu navbar (ajústala si tu navbar es más alto) */
+    top: 52px; /* 🔹 altura de tu navbar (ajústala si tu navbar es más alto) */
     right: 0; /* 🔹 lo mueve al lado derecho */
     height: calc(100vh - 64px); /* 🔹 ocupa toda la pantalla menos el alto del navbar */
-    width: 336px;
-    border-left: 1px solid #ececec; /* 🔹 borde en el lado izquierdo del menú */
+    width: 475px;
+    border-left: 0px solid #ececec; /* 🔹 borde en el lado izquierdo del menú */
     transition: all 0.3s ease;
     overflow-y: auto;
     font-weight: bold;

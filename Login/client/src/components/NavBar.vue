@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <router-link class="navbar-brand" :to="{name: 'home'}">Navbar</router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#appNavbar" aria-controls="appNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,5 +83,24 @@ async function logout(){
   }
 }
 </script>
+
+<style>
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+</style>
+
+
 
 
