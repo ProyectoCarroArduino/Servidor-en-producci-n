@@ -383,48 +383,53 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .menu {
-    position: fixed;
-    top: 52px; /* 🔹 altura de tu navbar (ajústala si tu navbar es más alto) */
-    right: 0; /* 🔹 lo mueve al lado derecho */
-    height: calc(100vh - 64px); /* 🔹 ocupa toda la pantalla menos el alto del navbar */
-    width: 475px;
-    border-left: 0px solid #ececec; /* 🔹 borde en el lado izquierdo del menú */
-    transition: all 0.3s ease;
-    overflow-y: auto;
-    font-weight: bold;
-    background-color: rgb(235, 241, 243);
-    z-index: 999; /* 🔹 asegura que quede encima del contenido, pero debajo del navbar */
+  position: fixed;
+  top: 52px;
+  right: 0;
+  height: calc(100vh - 52px);
+  background-color: rgb(235, 241, 243);
+  font-weight: bold;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  z-index: 999;
+
+  /* 🔹 AJUSTE DE ANCHO */
+  /* Mínimo 180px, ideal 18vw, máximo 320px */
+  width: clamp(180px, 18vw, 320px);
+
+  /* 🔹 SEPARACIÓN del contenido principal (empuja hacia la izquierda) */
+  padding-left: 10px; 
+  box-sizing: border-box;
 }
 
-/* 🔹 En pantallas medianas (como laptops de 16") */
-@media (max-width: 1200px) {
+/* Laptops medianas */
+@media (max-width: 1300px) {
   .menu {
-    width: 26vw;
-    max-width: 300px;
+    width: clamp(160px, 20vw, 280px);
   }
 }
 
-/* 🔹 En pantallas pequeñas (tablets o laptops de 13-14") */
-@media (max-width: 992px) {
+/* Tablets */
+@media (max-width: 900px) {
   .menu {
-    width: 30vw;
-    max-width: 260px;
-  }
-}
-
-/* 🔹 En pantallas muy pequeñas (por ejemplo, móviles o tablets verticales) */
-@media (max-width: 768px) {
-  .menu {
-    position: fixed;
+    position: relative;
     width: 100%;
     height: auto;
-    top: var(--navbar-height);
+    top: 0;
     border-left: none;
-    border-top: 1px solid #333;
+    border-top: 1px solid #ccc;
   }
 }
+
+/* Celulares */
+@media (max-width: 600px) {
+  .menu {
+    display: none;
+  }
+}
+
 
 </style>

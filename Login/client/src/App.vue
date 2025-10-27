@@ -32,6 +32,22 @@ import NavBar from "./components/NavBar.vue";
   box-sizing: border-box;
 }
 
+.layout {
+  display: flex;
+}
+
+@media (max-width: 1400px) {
+  .app-content {
+    margin-right: 320px;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-content {
+    margin-right: 0;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
