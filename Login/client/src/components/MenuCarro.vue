@@ -399,4 +399,32 @@ export default {
     z-index: 999; /* 🔹 asegura que quede encima del contenido, pero debajo del navbar */
 }
 
+/* 🔹 En pantallas medianas (como laptops de 16") */
+@media (max-width: 1200px) {
+  .menu {
+    width: 26vw;
+    max-width: 300px;
+  }
+}
+
+/* 🔹 En pantallas pequeñas (tablets o laptops de 13-14") */
+@media (max-width: 992px) {
+  .menu {
+    width: 30vw;
+    max-width: 260px;
+  }
+}
+
+/* 🔹 En pantallas muy pequeñas (por ejemplo, móviles o tablets verticales) */
+@media (max-width: 768px) {
+  .menu {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    top: var(--navbar-height);
+    border-left: none;
+    border-top: 1px solid #333;
+  }
+}
+
 </style>
