@@ -1,6 +1,7 @@
 <template>
   <div id="user">
-    <div class="card card-body mt-8, align-left, col-md-15">
+  <div class="contenedor-general">
+    <div class="tarjeta-contenido card card-body mt-8 align-left col-md-15">
       <!--<h1 class="text-center">Programación en C</h1>-->
       <h1 class="text-center">Paso 1. Montar Arduino UNO en el soporte </h1>
       <br>
@@ -61,11 +62,12 @@
         <button class="bt-validate" @click="finish">Avanzar</button>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="tarjeta-menu col-md-3">
       <div class="temas">
         <MenuCarro />
       </div>
     </div>
+  </div>
 </div>
 </template>
 
@@ -103,8 +105,37 @@ export default {
 #user {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 75vh;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 0px;
+}
+
+/* Contenedor general que agrupa contenido y menú */
+.contenedor-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Cada tarjeta conserva su propia altura */
+  width: 100%;
+  gap: 0px;
+}
+
+/* Tarjeta principal (contenido) */
+.tarjeta-contenido {
+  background-color: #111;
+  border-radius: 10px;
+  color: white;
+  padding: 25px;
+  margin-top: 10px; /* 🔹 Ajusta el espacio superior */
+  flex-grow: 1;
+}
+
+/* Tarjeta lateral (menú) */
+.tarjeta-menu {
+  width: 300px;
+  background-color: #0d1b2a;
+  border-radius: 10px;
+  padding: 15px;
+  flex-shrink: 0; /* Evita que el menú se comprima */
 }
 
 .card {
@@ -146,7 +177,24 @@ export default {
 
 .temas {
   position: sticky;
-  margin-top: -245px;
+  top: 20px;
+}
+
+/* 🔁 Adaptación responsiva */
+@media (max-width: 992px) {
+  .contenedor-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tarjeta-contenido,
+  .tarjeta-menu {
+    width: 100%;
+  }
+
+  .tarjeta-menu {
+    margin-top: 20px;
+  }
 }
 
 .letras {

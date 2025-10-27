@@ -401,7 +401,7 @@ export default {
   width: clamp(180px, 18vw, 320px);
 
   /* 🔹 SEPARACIÓN del contenido principal (empuja hacia la izquierda) */
-  padding-left: 10px; 
+  padding-left: 0px; 
   box-sizing: border-box;
 }
 
