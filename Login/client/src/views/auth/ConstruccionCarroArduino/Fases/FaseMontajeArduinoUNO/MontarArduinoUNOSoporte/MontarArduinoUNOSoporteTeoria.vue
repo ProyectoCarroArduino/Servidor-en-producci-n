@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 #user {
   display: flex;
@@ -110,32 +110,40 @@ export default {
   margin-top: 0px;
 }
 
-/* Contenedor general que agrupa contenido y menú */
+/* Contenedor general */
 .contenedor-general {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start; /* Cada tarjeta conserva su propia altura */
+  align-items: flex-start;
+  gap: 20px;
   width: 100%;
-  gap: 0px;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-/* Tarjeta principal (contenido) */
+/* Contenido principal */
 .tarjeta-contenido {
   background-color: #111;
-  border-radius: 10px;
   color: white;
-  padding: 25px;
-  margin-top: 10px; /* 🔹 Ajusta el espacio superior */
-  flex-grow: 1;
+  border-radius: 10px;
+  padding: 2rem;
+  flex: 1 1 700px; /* crece hasta 700px pero puede reducirse */
+  min-width: 350px;
+  max-width: 1000px;
 }
 
-/* Tarjeta lateral (menú) */
+/* Menú lateral */
 .tarjeta-menu {
-  width: 300px;
   background-color: #0d1b2a;
   border-radius: 10px;
-  padding: 15px;
-  flex-shrink: 0; /* Evita que el menú se comprima */
+  padding: 1rem;
+  flex: 0 1 280px;
+  max-width: 300px;
+  min-width: 250px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
 }
 
 .card {
@@ -180,20 +188,17 @@ export default {
   top: 20px;
 }
 
-/* 🔁 Adaptación responsiva */
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 992px) {
   .contenedor-general {
     flex-direction: column;
     align-items: center;
   }
 
-  .tarjeta-contenido,
   .tarjeta-menu {
+    position: static;
     width: 100%;
-  }
-
-  .tarjeta-menu {
-    margin-top: 20px;
+    max-width: none;
   }
 }
 
