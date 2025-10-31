@@ -1,7 +1,7 @@
 <template>
   <div id="user">
-  <div class="contenedor-general">
-    <div class="tarjeta-contenido card card-body mt-8 align-left col-md-15">
+  <div class="layout-general"> 
+    <div class="contenido">
       <!--<h1 class="text-center">Programación en C</h1>-->
       <h1 class="text-center">Paso 1. Montar Arduino UNO en el soporte </h1>
       <br>
@@ -62,11 +62,11 @@
         <button class="bt-validate" @click="finish">Avanzar</button>
       </div>
     </div>
-    <div class="tarjeta-menu col-md-3">
-      <div class="temas">
+    <aside class="menu-lateral">
+      <div>
         <MenuCarro />
       </div>
-    </div>
+    </aside>
   </div>
 </div>
 </template>
@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 #user {
   display: flex;
@@ -110,40 +110,32 @@ export default {
   margin-top: 0px;
 }
 
-/* Contenedor general */
-.contenedor-general {
+.layout-general {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
+  gap: 2rem;
 }
 
 /* Contenido principal */
-.tarjeta-contenido {
-  background-color: #111;
-  color: white;
-  border-radius: 10px;
-  padding: 2rem;
-  flex: 1 1 700px; /* crece hasta 700px pero puede reducirse */
-  min-width: 350px;
-  max-width: 1000px;
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  max-width: 70%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
 }
 
 /* Menú lateral */
-.tarjeta-menu {
+.menu-lateral {
+  flex: 0 0 280px;
   background-color: #0d1b2a;
   border-radius: 10px;
   padding: 1rem;
-  flex: 0 1 280px;
-  max-width: 300px;
-  min-width: 250px;
   position: sticky;
   top: 20px;
-  align-self: flex-start;
+  height: fit-content;
 }
 
 .card {
@@ -188,17 +180,14 @@ export default {
   top: 20px;
 }
 
-/* RESPONSIVE BREAKPOINTS */
+/* Versión responsive */
 @media (max-width: 992px) {
-  .contenedor-general {
+  .layout-general {
     flex-direction: column;
-    align-items: center;
   }
-
-  .tarjeta-menu {
-    position: static;
-    width: 100%;
-    max-width: none;
+  .contenido,
+  .menu-lateral {
+    max-width: 100%;
   }
 }
 
