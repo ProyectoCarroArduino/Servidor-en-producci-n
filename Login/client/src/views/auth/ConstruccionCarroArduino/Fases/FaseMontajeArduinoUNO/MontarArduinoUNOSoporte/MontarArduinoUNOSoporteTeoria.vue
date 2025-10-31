@@ -1,7 +1,7 @@
 <template>
   <div id="user">
   <div class="layout-general"> 
-    <div class="contenido">
+    <main class="contenido">
       <!--<h1 class="text-center">Programación en C</h1>-->
       <h1 class="text-center">Paso 1. Montar Arduino UNO en el soporte </h1>
       <br>
@@ -61,7 +61,7 @@
       <div>
         <button class="bt-validate" @click="finish">Avanzar</button>
       </div>
-    </div>
+    </main>
     <aside class="menu-lateral">
       <div>
         <MenuCarro />
@@ -75,11 +75,13 @@
 import router from '@/router';
 import MenuCarro from "@/components/MenuCarro.vue";
 import NavBar from '@/components/NavBar.vue';
+import LayoutMenu from '@/components/LayoutConMenu.vue';
 import Moto from '@/assets/imagenesCarro/Moto.png';
 export default {
     components: {
         NavBar,
-        MenuCarro
+        MenuCarro,
+        LayoutMenu,
     },
 
     data() {
@@ -123,7 +125,7 @@ export default {
 /* Contenido principal */
 .contenido {
   flex: 1; /* Ocupa el resto del espacio disponible */
-  max-width: 70%; /* Ajusta este valor según quieras */
+  max-width: 82%; /* Ajusta este valor según quieras */
   overflow-x: hidden;
 }
 
