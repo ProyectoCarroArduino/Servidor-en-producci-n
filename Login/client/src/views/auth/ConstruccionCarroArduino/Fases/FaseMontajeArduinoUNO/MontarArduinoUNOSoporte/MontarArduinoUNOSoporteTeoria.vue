@@ -1,5 +1,5 @@
 <template>
-  <div id="user">
+  <div>
   <div class="layout-general"> 
     <main class="contenido">
       <!--<h1 class="text-center">Programación en C</h1>-->
@@ -114,10 +114,11 @@ export default {
 
 .layout-general {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   width: 100%;
   padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
   box-sizing: border-box;
   gap: 2rem;
 }
@@ -125,6 +126,7 @@ export default {
 /* Contenido principal */
 .contenido {
   flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
   max-width: 82%; /* Ajusta este valor según quieras */
   overflow-x: hidden;
 }
@@ -132,7 +134,7 @@ export default {
 /* Menú lateral */
 .menu-lateral {
   flex: 0 0 280px;
-  background-color: #0d1b2a;
+  background-color: transparent;
   border-radius: 10px;
   padding: 1rem;
   position: sticky;
@@ -186,11 +188,22 @@ export default {
 @media (max-width: 992px) {
   .layout-general {
     flex-direction: column;
+    align-items: center;
   }
-  .contenido,
+
+  .contenido {
+    flex: 1;
+    max-width: 70%;
+  }
   .menu-lateral {
     max-width: 100%;
   }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
 }
 
 .letras {
