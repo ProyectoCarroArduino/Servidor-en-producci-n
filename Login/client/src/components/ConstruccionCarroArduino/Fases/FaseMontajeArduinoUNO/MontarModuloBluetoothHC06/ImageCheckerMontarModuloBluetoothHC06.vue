@@ -95,9 +95,6 @@ import image3 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo3.png';
 import image4 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo4.png';
 import image5 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo5.png';
 import image6 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo6.png';
-import image7 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo7.png';
-import image8 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo8.png';
-import image9 from '@/assets/ImagenesMontarModuloBluetoothHC06/Algoritmo9.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -140,7 +137,7 @@ export default {
 
   data() {
     return {
-      instruccion: 'Ingrese el orden correcto del algoritmo',
+      instruccion: 'Ingrese el orden correcto del pseudocódigo',
       puzzle: [],
       evaluacion: null,
       correct: [
@@ -148,22 +145,17 @@ export default {
         { id: 2, src: image2 },
         { id: 3, src: image3 },
         { id: 4, src: image4 },
-        { id: 5, src: image5 },
-        { id: 6, src: image6 },
-        { id: 7, src: image7 },
-        { id: 8, src: image8 },
-        { id: 9, src: image9 },
-        
       ],
       bad: [
-        
+        { id: 5, src: image5 },
+        { id: 6, src: image6 },
       ],
-      inputs: Array(9).fill().map((_, index) => ({
+      inputs: Array(4).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 9,
+      numSteps: 6,
       feedbackMessage: '',
       feedbackClass: '',
       isCorrect: false,
@@ -174,7 +166,7 @@ export default {
   },
 
   created() {
-    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 0), this.correct);
+    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 2), this.correct);
     this.shuffleImages();
   },
 
@@ -184,7 +176,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 9
+          input.value <= 6
       );
     },
     isFinishEnabled() {
