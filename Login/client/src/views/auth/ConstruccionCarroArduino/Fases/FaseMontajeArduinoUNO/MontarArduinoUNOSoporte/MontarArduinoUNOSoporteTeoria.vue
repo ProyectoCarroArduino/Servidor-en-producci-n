@@ -193,7 +193,7 @@ export default {
 
   .contenido {
     flex: 1;
-    max-width: 100%;
+    max-width: 120%;
   }
   .menu-lateral {
     max-width: 100%;
