@@ -24,11 +24,13 @@ import NavBar from "./components/NavBar.vue";
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1050;
+  z-index: 1030;
 }
 
 .app-content {
   padding-top: var(--navbar-height);
+  padding-left: 1rem;
+  padding-right: 1rem;
   box-sizing: border-box;
 }
 

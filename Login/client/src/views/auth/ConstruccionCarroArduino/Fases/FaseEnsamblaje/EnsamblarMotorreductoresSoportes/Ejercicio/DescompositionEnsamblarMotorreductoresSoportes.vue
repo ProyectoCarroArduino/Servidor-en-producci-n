@@ -49,8 +49,9 @@
         </div>
       </div>
       <br>
-      <button @click="checkAnswer" class="btn btn-primary mt-2">Submit</button>
-
+      <div class="button-center">
+        <button @click="checkAnswer" class="btn btn-primary mt-2">Enviar</button>
+      </div>
       <div v-if="feedbackMessage" class="respuesta">
         <p :class="{
           'correcto alert alert-success mt-3': correctVideoIndex,
@@ -509,6 +510,12 @@ setup() {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.button-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .option {

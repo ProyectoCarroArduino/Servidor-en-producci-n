@@ -62,6 +62,14 @@ export default{
   height: 75vh;
 }
 
+.centrada {
+    display: flex;
+    margin: 0 auto; /* Esto centra horizontalmente la imagen */
+    max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    width: 45%;
+}
+
 .card {
   max-width: 100%;
   margin: auto;

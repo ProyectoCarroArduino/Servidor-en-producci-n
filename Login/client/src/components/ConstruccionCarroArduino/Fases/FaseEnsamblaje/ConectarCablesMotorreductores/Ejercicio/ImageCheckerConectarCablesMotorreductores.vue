@@ -137,25 +137,22 @@ export default {
 
   data() {
     return {
-      instruccion: 'Ingrese el orden correcto del algoritmo',
+      instruccion: 'Ingrese el orden correcto del pseudocódigo',
       puzzle: [],
       evaluacion: null,
       correct: [
         { id: 1, src: image1 },
         { id: 2, src: image2 },
-        { id: 3, src: image3 },
-        { id: 4, src: image4 },
       ],
       bad: [
-        { id: 5, src: image5 },
-        { id: 6, src: image6 },
+        { id: 3, src: image3 },
       ],
-      inputs: Array(4).fill().map((_, index) => ({
+      inputs: Array(2).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 6,
+      numSteps: 3,
       feedbackMessage: '',
       feedbackClass: '',
       isCorrect: false,
@@ -166,7 +163,7 @@ export default {
   },
 
   created() {
-    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 2), this.correct);
+    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 1), this.correct);
     this.shuffleImages();
   },
 
@@ -176,7 +173,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 6
+          input.value <= 3
       );
     },
     isFinishEnabled() {
