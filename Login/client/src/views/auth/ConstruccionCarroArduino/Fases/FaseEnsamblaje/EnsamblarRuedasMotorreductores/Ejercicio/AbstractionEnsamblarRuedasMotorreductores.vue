@@ -1,6 +1,6 @@
 <template>
-  <div id="user">
-    <div class="card card-body mt-8 align-left col-md-15">
+  <div id="layout-general">
+    <main class="contenido">
       <h1 class="text-center">Paso 4. Ensamblar ruedas a los motorreductores</h1>
       <br>
       <br>
@@ -66,13 +66,13 @@
       <p class="alert alert-primary">
         Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
       </p>
-    </div>
+    </main>
 
-    <div class="align-left col-md-3">
-      <div class="temas">
+    <aside class="menu-lateral">
+      <div>
         <MenuCarro />
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
@@ -156,11 +156,7 @@ int ensambladorRuedas(int ruedasSolicitadas, int ruedasDisponibles, int discosDi
 }
 
 int main() {
-    int ruedasSolicitadas;
-    int ruedasDisponibles; 
-    int discosDisponibles;
-    int ruedasEnsambladas;
-
+    int ruedasSolicitadas, ruedasDisponibles, discosDisponibles, resultado;
     
     printf("Ingrese el número de ruedas a ensamblar: ");
     scanf("%d", &ruedasSolicitadas);
@@ -169,7 +165,7 @@ int main() {
     printf("Ingrese el número de discos encoder disponibles en bodega: ");
     scanf("%d", &discosDisponibles);
 
-    ruedasEnsambladas = ensambladorRuedas(ruedasSolicitadas, ruedasDisponibles, discosDisponibles);
+    resultado = ensambladorRuedas(ruedasSolicitadas, ruedasDisponibles, discosDisponibles);
 
     printf("Ruedas ensambladas: %d\n", ruedasEnsambladas);
 
@@ -259,6 +255,58 @@ int main() {
   justify-content: center;
   align-items: center;
   height: 75vh;
+}
+
+  .layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
 }
 
 .card {

@@ -1,6 +1,6 @@
 <template>
-  <div id="user">
-    <div class="card card-body mt-8 align-left col-md-15">
+  <div id="layout-general">
+    <main class="contenido">
       <h1 class="text-center">Paso 3. Ensamblar motorreductores a los soportes</h1>
       <br>
       <br>
@@ -49,9 +49,7 @@
         </div>
       </div>
       <br>
-      <div class="button-center">
-        <button @click="checkAnswer" class="btn btn-primary mt-2">Enviar</button>
-      </div>
+      <button @click="checkAnswer" class="btn btn-primary w-100 mt-2 d-block mx-auto">Enviar</button>
       <div v-if="feedbackMessage" class="respuesta">
         <p :class="{
           'correcto alert alert-success mt-3': correctVideoIndex,
@@ -132,6 +130,7 @@
       </p>
 
       <!-- Botón avanzar solo si ambas evaluaciones están completas -->
+      <br>
       <button
         class="bt-validate"
         @click="finish"
@@ -139,14 +138,14 @@
       >
         Avanzar
       </button>
-    </div>
+    </main>
 
     <!-- Menú lateral -->
-    <div class="align-left col-md-3">
-      <div class="temas">
+    <aside class="menu-lateral">
+      <div>
         <MenuCarro />
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
@@ -245,10 +244,10 @@ setup() {
         evaluacionV: null,
         mensajeErrorVar: '',
         mensajesErrorVar: [
-          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que el soporte tiene dos espacios para atornillar.',
-          '¡Error! Debes seleccionar la imagen que simula el soporte para motorreductor y que además tenga dos espacios para atornillar. ',
-          '¡Error! Intenta ir a la página de la teoria del paso a paso y ver la forma que tiene el soporte. ',
-          '¡Error! Ten en cuenta que el soporte es similar al de la imagen de lod materiales necesarios del paso. '
+          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que el motorreductor está encajado y lo sostiene un tornillo largo. ',
+          '¡Error! Debes seleccionar la imagen que simula el ensamblamiento o ajustamiento del motorredcutor al soporte. ',
+          '¡Error! Intenta seleccionar la imagen en la que el soporte esta siendo fijado por un tornillo largo de color gris. ',
+          '¡Error! Ten en cuenta que el motorredcutor se fija de la misma forma que en la teoria, es decir, que necesita un tornillo largo. '
           
         ],
 
@@ -267,10 +266,10 @@ setup() {
         correctVideoIndex: null,
         mostrarContadorVideo: null,
         mensajesErrorVideo: [
-          '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de ajustamiento del soporte. ',
-          '¡Error! Desbes tener en cuenta que para el ajuste del soporte se necesita tener dos tornillos y cada uno debe de tener una tuerca. ',
-          '¡Error! Intenta revisar el video de la teoria del paso a paso y comprender en qué momento se empieza a ajustar el soporte.  ',
-          '¡Error! El video es del paso a paso, pero no es el proceso de ajustar el soporte para motorreductor. '
+          '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de ensamblamiento o ajustamiento del motorreductor al soporte. ',
+          '¡Error! Desbes tener en cuenta que para el ensamblamiento del motorreductor, este debe estar fijado y sostenido por un tornillo largo. ',
+          '¡Error! Intenta revisar el video de la teoria del paso a paso y comprender en qué momento se empieza a ensamblar el motorreductor al soporte.  ',
+          '¡Error! El video es del paso a paso, pero no es el proceso de ensamblar el motorredcutor al soporte. '
         ]
       };
     },
@@ -408,6 +407,59 @@ setup() {
   #app {
     text-align: center;
   }
+
+  .layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
+}
+
   .figuras {
     display: flex;
     justify-content: center;

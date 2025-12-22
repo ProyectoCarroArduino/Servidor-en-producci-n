@@ -1,6 +1,6 @@
 <template>
-  <div id="user">
-    <div class="card card-body mt-8 align-left col-md-15">
+  <div id="layout-general">
+    <main class="contenido">
       <h1 class="text-center">Paso 4. Ensamblar ruedas a los motorreductores</h1>
       <br>
       <br>
@@ -31,7 +31,7 @@
       <br>
       <!-- Video -->
       <h3>Descomposición - Sub. Video</h3>
-      <p class="texto-personalizado">Selecciona el video que muestra el ensamblaje del motorredcutor al chasis:</p>
+      <p class="texto-personalizado">Selecciona el video que muestra el ensamblaje de la rueda al motorredcutor:</p>
       <br>
       <div class="videos-container">
         <div v-for="(video, index) in videos" :key="index" class="video-item">
@@ -50,7 +50,7 @@
         </div>
       </div>
       <br>
-      <button @click="checkAnswer" class="btn btn-primary mt-2">Submit</button>
+      <button @click="checkAnswer" class="btn btn-primary w-100 mt-2 d-block mx-auto">Enviar</button>
 
       <div v-if="feedbackMessage" class="respuesta">
         <p :class="{
@@ -75,9 +75,9 @@
       <br>
       <!-- Imagen -->
       <h3>Descomposición - Sub. Imagen</h3>
-      <p class="texto-personalizado">Selecciona la imagen correcta que muestra la simulación hecha en TinkerCAD del soporte para motorreductor que tiene dos espacios para atornillar:</p>
+      <p class="texto-personalizado">Selecciona la imagen correcta que muestra el resultado de la simulación hecha en TinkerCAD del ensamblaje de la rueda al motorreductor:</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> El soporte correcto es <strong>similar</strong> al mostrado en los materiales necesarios para realizar este paso.</p>
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> La imagen correcta <strong>debe</strong> tener una rueda ajustado a la parte <strong>blanca(eje)</strong> del motorreductor. </p>
       <br>
       <br>
       <div class="figuras">
@@ -138,14 +138,14 @@
       >
         Avanzar
       </button>
-    </div>
+    </main>
 
     <!-- Menú lateral -->
-    <div class="align-left col-md-3">
-      <div class="temas">
+    <aside class="menu-lateral">
+      <div>
         <MenuCarro />
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
@@ -156,9 +156,9 @@
 import router from '@/router';
 import MenuCarro from "@/components/MenuCarro.vue";
 import Funcion5 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/RuedasSimulado1.png';
-import Funcion6 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte2.png';
-import Funcion7 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte3.png';
-import Funcion8 from '@/assets/ImagenesEnsamblarSoportesMotorreductores/Soporte4.png';
+import Funcion6 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/RuedasSimulado2.png';
+import Funcion7 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/RuedasSimulado3.png';
+import Funcion8 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/RuedasSimulado4.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -244,10 +244,10 @@ setup() {
         evaluacionV: null,
         mensajeErrorVar: '',
         mensajesErrorVar: [
-          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que el soporte tiene dos espacios para atornillar.',
-          '¡Error! Debes seleccionar la imagen que simula el soporte para motorreductor y que además tenga dos espacios para atornillar. ',
-          '¡Error! Intenta ir a la página de la teoria del paso a paso y ver la forma que tiene el soporte. ',
-          '¡Error! Ten en cuenta que el soporte es similar al de la imagen de lod materiales necesarios del paso. '
+          '¡Error! Recuerda que debes de seleccionar la imagen donde se evidencie que el motorrecutor tenga ensamblada o ajustada una rueda.',
+          '¡Error! Debes seleccionar la imagen que en la que se evidencie el resultado final del paso. ',
+          '¡Error! Intenta ir a la página de la teoria del paso a paso y ver que se espera como resultado de realizarlo. ',
+          '¡Error! Ten en cuenta que la rueda debe estar ajustada a la parte blanca(eje) del motorreductor. '
           
         ],
 
@@ -266,10 +266,10 @@ setup() {
         correctVideoIndex: null,
         mostrarContadorVideo: null,
         mensajesErrorVideo: [
-          '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de ajustamiento del soporte. ',
-          '¡Error! Desbes tener en cuenta que para el ajuste del soporte se necesita tener dos tornillos y cada uno debe de tener una tuerca. ',
-          '¡Error! Intenta revisar el video de la teoria del paso a paso y comprender en qué momento se empieza a ajustar el soporte.  ',
-          '¡Error! El video es del paso a paso, pero no es el proceso de ajustar el soporte para motorreductor. '
+          '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de ensamblamiento de la rueda al motorreductor. ',
+          '¡Error! Desbes tener en cuenta que para el ensamblaje de la rueda al motorreductor, esta debe estar ajustada a la parte blanca(eje). ',
+          '¡Error! Intenta revisar el video de la teoria del paso a paso y comprender en qué momento se empieza a ensamblar la rueda al motorreductor.  ',
+          '¡Error! El video es del paso a paso, pero no es el proceso de ensamblar la rueda al motorreductor. '
         ]
       };
     },
@@ -407,6 +407,59 @@ setup() {
   #app {
     text-align: center;
   }
+
+  .layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
+}
+
   .figuras {
     display: flex;
     justify-content: center;

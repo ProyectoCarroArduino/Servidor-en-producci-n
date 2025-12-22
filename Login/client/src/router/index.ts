@@ -422,6 +422,31 @@ const router = createRouter({
       name: 'GeneralizacionMontarModuloPuenteHL298N',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarModuloPuenteHL298N/Ejercicio/GeneralizationMontarModuloPuenteHL298N.vue"),
     },
+    {
+      path: '/ConectarFuentePoderBorneraMachoTeoria',
+      name: 'ConectarFuentePoderBorneraMachoTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarFuentePoderBorneraMacho/ConectarFuentePoderBorneraMachoTeroia.vue"),
+    },
+    {
+      path: '/DescomposicionConectarFuentePoderBorneraMacho',
+      name: 'DescomposicionConectarFuentePoderBorneraMacho',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarFuentePoderBorneraMacho/Ejercicio/DescompositionConectarFuentePoderBorneraMacho.vue"),
+    },
+    {
+      path: '/AlgoritmoConectarFuentePoderBorneraMacho',
+      name: 'AlgoritmoConectarFuentePoderBorneraMacho',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarFuentePoderBorneraMacho/Ejercicio/AlgorithmConectarFuentePoderBorneraMacho.vue"),
+    },
+    {
+      path: '/AbstraccionConectarFuentePoderBorneraMacho',
+      name: 'AbstraccionConectarFuentePoderBorneraMacho',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarFuentePoderBorneraMacho/Ejercicio/AbstractionConectarFuentePoderBorneraMacho.vue"),
+    },
+    {
+      path: '/GeneralizacionConectarFuentePoderBorneraMacho',
+      name: 'GeneralizacionConectarFuentePoderBorneraMacho',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarFuentePoderBorneraMacho/Ejercicio/GeneralizationConectarFuentePoderBorneraMacho.vue"),
+    },
   ]
 })
 

@@ -272,32 +272,32 @@ export default {
                 icon: "",
                 children: [
                     {
-                        label: "Paso 1. Montar Arduino UNO en el soporte:",
+                        label: "Paso 1. Conectar la fuente de poder a la bornera macho:",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/MontarArduinoUNOSoporteTeoria",
+                                href: "/ConectarFuentePoderBorneraMachoTeoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionMontarArduinoUNOSoporte"
+                                        href: "/DescomposicionConectarFuentePoderBorneraMacho"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoMontarArduinoUNOSoporte"
+                                        href: "/AlgoritmoConectarFuentePoderBorneraMacho"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstractionMontarArduinoUNOSoporte"
+                                        href: "/AbstraccionConectarFuentePoderBorneraMacho"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionMontarArduinoUNOSoporte"
+                                        href: "/GeneralizacionConectarFuentePoderBorneraMacho"
                                     },
                                 ]
                             },

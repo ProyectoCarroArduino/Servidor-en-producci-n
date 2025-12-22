@@ -78,9 +78,6 @@ import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
 import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
 import audio4 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio4.mp3';
 import audio5 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio5.mp3';
-import audio6 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio6.mp3';
-import audio7 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio7.mp3';
-import audio8 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio8.mp3'; 
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -128,21 +125,18 @@ export default {
         { id: 3, src: audio3 },
         { id: 4, src: audio4 },
         { id: 5, src: audio5 },
-        { id: 6, src: audio6 },
-        { id: 7, src: audio7 },
-        { id: 8, src: audio8 },
       ],
       evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(8).fill().map((_, index) => ({
+      inputs: Array(5).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 8,
+      numSteps: 5,
       feedbackMessage: '',
       feedbackClass: ''
     };
@@ -158,7 +152,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 8
+          input.value <= 5
       );
     },
     isFinishEnabled() {

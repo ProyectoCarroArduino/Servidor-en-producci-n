@@ -77,9 +77,6 @@ import audio1 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 1.mp3'
 import audio2 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 2.mp3';
 import audio3 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 3.mp3';
 import audio4 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 4.mp3';
-import audio5 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 5.mp3';
-import audio6 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 6.mp3';
-import audio7 from '@/assets/AudiosEnsamblarMotorreductoresSoportes/Audio 7.mp3'; 
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -126,21 +123,18 @@ export default {
         { id: 2, src: audio2 },
         { id: 3, src: audio3 },
         { id: 4, src: audio4 },
-        { id: 5, src: audio5 },
-        { id: 6, src: audio6 },
-        { id: 7, src: audio7 },         
       ],
       evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(7).fill().map((_, index) => ({
+      inputs: Array(4).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 7,
+      numSteps: 4,
       feedbackMessage: '',
       feedbackClass: ''
     };
@@ -156,7 +150,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 7
+          input.value <= 4
       );
     },
     isFinishEnabled() {

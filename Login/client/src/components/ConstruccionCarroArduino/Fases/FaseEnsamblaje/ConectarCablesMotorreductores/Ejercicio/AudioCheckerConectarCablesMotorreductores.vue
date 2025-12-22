@@ -76,11 +76,6 @@ import router from '@/router';
 import audio1 from '@/assets/AudiosConectarCablesMotorreductores/Audio1.mp3';  
 import audio2 from '@/assets/AudiosConectarCablesMotorreductores/Audio2.mp3';
 import audio3 from '@/assets/AudiosConectarCablesMotorreductores/Audio3.mp3';
-import audio4 from '@/assets/AudiosConectarCablesMotorreductores/Audio4.mp3';
-import audio5 from '@/assets/AudiosConectarCablesMotorreductores/Audio5.mp3';
-import audio6 from '@/assets/AudiosConectarCablesMotorreductores/Audio6.mp3';
-import audio7 from '@/assets/AudiosConectarCablesMotorreductores/Audio7.mp3';
-import audio8 from '@/assets/AudiosConectarCablesMotorreductores/Audio8.mp3'; 
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -126,23 +121,18 @@ export default {
         { id: 1, src: audio1 },
         { id: 2, src: audio2 },
         { id: 3, src: audio3 },
-        { id: 4, src: audio4 },
-        { id: 5, src: audio5 },
-        { id: 6, src: audio6 },
-        { id: 7, src: audio7 },
-        { id: 8, src: audio8 },
       ],
       evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(8).fill().map((_, index) => ({
+      inputs: Array(3).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 8,
+      numSteps: 3,
       feedbackMessage: '',
       feedbackClass: ''
     };
@@ -158,7 +148,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 8
+          input.value <= 3
       );
     },
     isFinishEnabled() {

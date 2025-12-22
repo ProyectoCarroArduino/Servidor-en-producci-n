@@ -145,12 +145,12 @@ export default {
         { id: 2, src: image2 },
         { id: 3, src: image3 },
         { id: 4, src: image4 },
+        { id: 5, src: image5 },
       ],
       bad: [
-        { id: 5, src: image5 },
         { id: 6, src: image6 },
       ],
-      inputs: Array(4).fill().map((_, index) => ({
+      inputs: Array(5).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
@@ -166,7 +166,7 @@ export default {
   },
 
   created() {
-    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 2), this.correct);
+    this.puzzle = this.puzzle.concat(this.getImages(this.correct, 1), this.correct);
     this.shuffleImages();
   },
 

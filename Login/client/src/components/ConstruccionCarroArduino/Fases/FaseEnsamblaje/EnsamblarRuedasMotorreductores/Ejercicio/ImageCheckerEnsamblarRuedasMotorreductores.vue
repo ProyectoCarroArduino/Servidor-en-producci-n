@@ -48,7 +48,7 @@
 
     <!-- Mensaje de error si las entradas no son válidas -->
     <div class="message mt-2" v-if="showErrorMessage">
-      <p class="alert alert-warning">¡Verifica los datos ingresados!</p>
+      <p class="alert alert-warning">¡Verifica el orden ingresado!</p>
     </div>
 
     <!-- Retroalimentación -->
@@ -95,9 +95,6 @@ import image3 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo3.p
 import image4 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo4.png';
 import image5 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo5.png';
 import image6 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo6.png';
-import image7 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo7.png';
-import image8 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo8.png';
-import image9 from '@/assets/ImagenesEnsamblarRuedasMotorreductores/Algoritmo9.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -140,7 +137,7 @@ export default {
 
   data() {
     return {
-      instruccion: 'Ingrese el orden correcto del algoritmo',
+      instruccion: 'Ingrese el orden correcto del pseudocódigo (Pseint)',
       puzzle: [],
       evaluacion: null,
       correct: [
@@ -149,20 +146,17 @@ export default {
         { id: 3, src: image3 },
         { id: 4, src: image4 },
         { id: 5, src: image5 },
-        { id: 6, src: image6 },
-        { id: 7, src: image7 },
-        { id: 8, src: image8 },
       ],
       bad: [
         
-        { id: 9, src: image9 },
+        { id: 6, src: image6 },
       ],
-      inputs: Array(8).fill().map((_, index) => ({
+      inputs: Array(5).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 9,
+      numSteps: 6,
       feedbackMessage: '',
       feedbackClass: '',
       isCorrect: false,
@@ -183,7 +177,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 9
+          input.value <= 6
       );
     },
     isFinishEnabled() {

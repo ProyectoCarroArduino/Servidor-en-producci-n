@@ -12,9 +12,9 @@
       <br>
       <p class="texto-personalizado"><strong> Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>Debe declararse la función prototipo "ConectarCables".</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe declararse la función prototipo "conectarCables".</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Los cables deben ser variables del tipo cadena de carácter (string).</strong></p></li>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada "ConectarCables" que reciba dos cables como parámetros.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada "conectarCables" que reciba dos cables como parámetros.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Dentro de la función tipo void se debe verificar si los cables son rojo y negro <strong>(sin importar el orden)</strong>.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Si los cables son correctos se debe de impirmir el mensaje: "Cable rojo y negro conectados".</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Si los cables no son los correctos se debe de imprimir un mensaje de error: "Error: No se han enviado los cables correctos".</strong></p></li>
@@ -121,6 +121,7 @@
       </p>
 
       <!-- Botón avanzar solo si ambas evaluaciones están completas -->
+      <br>
       <button
         class="bt-validate"
         @click="finish"

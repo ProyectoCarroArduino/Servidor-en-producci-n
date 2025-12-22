@@ -16,7 +16,7 @@
       <br>
       <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “ModuloHC06”, la cual deberá de encargarse de la asignación de los pines VCC y GND a los pines de alimentación de la placa Arduino UNO y la validación de la asignación de pines para el correcto funcionamiento.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “moduloHC06”, la cual deberá de encargarse de la asignación de los pines VCC y GND a los pines de alimentación de la placa Arduino UNO y la validación de la asignación de pines para el correcto funcionamiento.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Implementar dos variables de tipo entera (int) llamadas opcion_vcc y opcion_gnd.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Se debe mostrar un menú que permita la visualización de los pines de alimentación de la placa Arduino UNO.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Se debe validar que el pin VCC del módulo HC-06 esté conectado a uno de los pines de alimentación (3.3V, 5V, VIN) de la placa Arduino UNO, y así mismo el pin GND del módulo también esté conectado a uno de los dos pines GND de la placa.</strong></p></li>
@@ -28,7 +28,7 @@
             <br>
             <h3>Generalización:</h3>
             <br>
-            <p class="texto-personalizado">Teniendo en cuenta las <strong>didácticas</strong> anteriores generalice el paso a paso de la definición de la función <strong>(ModuloHC06)</strong>:</p>
+            <p class="texto-personalizado">Teniendo en cuenta las <strong>didácticas</strong> anteriores generalice el paso a paso de la definición de la función <strong>(moduloHC06)</strong>:</p>
             <br>
             <img class="centrada" src="@/assets/ImagenesMontarModuloBluetoothHC06/CodigoGeneralizacion.png" alt="CodigoGeneralizacion">
             <br>

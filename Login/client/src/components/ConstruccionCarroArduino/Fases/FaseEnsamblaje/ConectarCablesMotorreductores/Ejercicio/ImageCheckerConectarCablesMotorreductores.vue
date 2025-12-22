@@ -48,7 +48,7 @@
 
     <!-- Mensaje de error si las entradas no son válidas -->
     <div class="message mt-2" v-if="showErrorMessage">
-      <p class="alert alert-warning">¡Verifica los datos ingresados!</p>
+      <p class="alert alert-warning">¡Verifica el orden ingresado!</p>
     </div>
 
     <!-- Retroalimentación -->
@@ -92,9 +92,6 @@ import router from '@/router';
 import image1 from '@/assets/ImagenesConectarCablesMotorreductores/Algoritmo1.png';
 import image2 from '@/assets/ImagenesConectarCablesMotorreductores/Algoritmo2.png';
 import image3 from '@/assets/ImagenesConectarCablesMotorreductores/Algoritmo3.png';
-import image4 from '@/assets/ImagenesConectarCablesMotorreductores/Algoritmo4.png';
-import image5 from '@/assets/ImagenesConectarCablesMotorreductores/Algoritmo5.png';
-import image6 from '@/assets/ImagenesConectarCablesMotorreductores/Algoritmo6.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -137,7 +134,7 @@ export default {
 
   data() {
     return {
-      instruccion: 'Ingrese el orden correcto del pseudocódigo',
+      instruccion: 'Ingrese el orden correcto del pseudocódigo (Pseint)',
       puzzle: [],
       evaluacion: null,
       correct: [

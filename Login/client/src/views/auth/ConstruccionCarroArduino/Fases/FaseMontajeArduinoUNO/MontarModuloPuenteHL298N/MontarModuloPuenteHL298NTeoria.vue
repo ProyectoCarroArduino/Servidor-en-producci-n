@@ -1,6 +1,6 @@
 <template>
-  <div id="user">
-    <div class="card card-body mt-8, align-left, col-md-15">
+  <div id="layout-general">
+    <main class="contenido">
       <!--<h1 class="text-center">Programación en C</h1>-->
       <h1 class="text-center">Paso 3. Montar puente H (módulo L298N) y conectarlo al Arduino UNO</h1>
       <br>
@@ -168,12 +168,12 @@
       <div>
         <button class="bt-validate" @click="finish">Avanzar</button>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="temas">
+    </main>
+    <aside class="menu-lateral">
+      <div>
         <MenuCarro />
       </div>
-    </div>
+    </aside>
 </div>
 </template>
 
@@ -213,6 +213,58 @@ export default {
   justify-content: center;
   align-items: center;
   height: 75vh;
+}
+
+  .layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
 }
 
 .card {

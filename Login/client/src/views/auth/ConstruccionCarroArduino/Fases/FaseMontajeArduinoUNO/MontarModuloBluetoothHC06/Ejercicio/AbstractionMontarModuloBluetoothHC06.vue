@@ -1,6 +1,6 @@
 <template>
-  <div id="user">
-    <div class="card card-body mt-8 align-left col-md-15">
+  <div id="layout-general">
+    <main class="contenido">
       <h1 class="text-center">Paso 2. Montar módulo Bluetooth HC-06 al Arduino UNO</h1>
       <br>
       <br>
@@ -16,7 +16,7 @@
       <br>
       <p class="texto-personalizado"><strong>Requisitos:</strong></p>
       <ul>
-          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “ModuloHC06”, la cual deberá de encargarse de la asignación de los pines VCC y GND a los pines de alimentación de la placa Arduino UNO y la validación de la asignación de pines para el correcto funcionamiento.</strong></p></li>
+          <li><p class="texto-personalizado"> <strong>Debe implementarse una función tipo void llamada “moduloHC06”, la cual deberá de encargarse de la asignación de los pines VCC y GND a los pines de alimentación de la placa Arduino UNO y la validación de la asignación de pines para el correcto funcionamiento.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Implementar dos variables de tipo entera (int) llamadas opcion_vcc y opcion_gnd.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Se debe mostrar un menú que permita la visualización de los pines de alimentación de la placa Arduino UNO.</strong></p></li>
           <li><p class="texto-personalizado"> <strong>Se debe validar que el pin VCC del módulo HC-06 esté conectado a uno de los pines de alimentación (3.3V, 5V, VIN) de la placa Arduino UNO, y así mismo el pin GND del módulo también esté conectado a uno de los dos pines GND de la placa.</strong></p></li>
@@ -68,13 +68,13 @@
       <p class="alert alert-primary">
         Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
       </p>
-    </div>
+    </main>
 
-    <div class="align-left col-md-3">
-      <div class="temas">
+    <aside class="menu-lateral">
+      <div>
         <MenuCarro />
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
@@ -140,13 +140,10 @@ export default {
 
 
 
-void ModuloHC06(){
-    int opcion_vcc; 
-    int opcion_gnd;
+void moduloHC06(){
+    int opcion_vcc, opcion_gnd;
     int vcc_valido = 0;
     int gnd_valido = 0;
-
-
 
 
     printf("Pines de alimentación disponibles en la placa Arduino UNO:\n");
@@ -205,7 +202,7 @@ void ModuloHC06(){
 
 
 int main() {
-    ModuloHC06();
+    moduloHC06();
     return 0;
 }`
     };
@@ -292,6 +289,58 @@ int main() {
   justify-content: center;
   align-items: center;
   height: 75vh;
+}
+
+  .layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
 }
 
 .card {
