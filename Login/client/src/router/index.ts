@@ -447,6 +447,67 @@ const router = createRouter({
       name: 'GeneralizacionConectarFuentePoderBorneraMacho',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarFuentePoderBorneraMacho/Ejercicio/GeneralizationConectarFuentePoderBorneraMacho.vue"),
     },
+    {
+      path: '/PrepararBorneraHembraConexionTeoria',
+      name: 'PrepararBorneraHembraConexionTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/PrepararBorneraHembraConexion/PrepararBorneraHembraConexionTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionPrepararBorneraHembraConexion',
+      name: 'DescomposicionPrepararBorneraHembraConexion',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/PrepararBorneraHembraConexion/Ejercicio/DescompositionPrepararBorneraHembraConexion.vue"),
+    },
+    {
+      path: '/AlgoritmoPrepararBorneraHembraConexion',
+      name: 'AlgoritmoPrepararBorneraHembraConexion',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/PrepararBorneraHembraConexion/Ejercicio/AlgorithmPrepararBorneraHembraConexion.vue"),
+    },
+    {
+      path: '/AbstraccionPrepararBorneraHembraConexion',
+      name: 'AbstraccionPrepararBorneraHembraConexion',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/PrepararBorneraHembraConexion/Ejercicio/AbstractionPrepararBorneraHembraConexion.vue"),
+    },
+    {
+      path: '/GeneralizacionPrepararBorneraHembraConexion',
+      name: 'GeneralizacionPrepararBorneraHembraConexion',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/PrepararBorneraHembraConexion/Ejercicio/GeneralizationPrepararBorneraHembraConexion.vue"),
+    },
+    {
+      path: '/GeneralizacionPrepararBorneraHembraConexion',
+      name: 'GeneralizacionPrepararBorneraHembraConexion',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/PrepararBorneraHembraConexion/Ejercicio/GeneralizationPrepararBorneraHembraConexion.vue"),
+    },
+    {
+      path: '/ConectarBorneraHembraPuenteHTeoria',
+      name: 'ConectarBorneraHembraPuenteHTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/ConectarBorneraHembraPuenteHTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionConectarBorneraHembraPuenteH',
+      name: 'DescomposicionConectarBorneraHembraPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/Ejercicio/DescompositionConectarBorneraHembraPuenteH.vue"),
+    },
+    {
+      path: '/AlgoritmoConectarBorneraHembraPuenteH',
+      name: 'AlgoritmoConectarBorneraHembraPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/Ejercicio/AlgorithmConectarBorneraHembraPuenteH.vue"),
+    },
+    {
+      path: '/AbstraccionConectarBorneraHembraPuenteH',
+      name: 'AbstraccionConectarBorneraHembraPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/Ejercicio/AbstractionConectarBorneraHembraPuenteH.vue"),
+    },
+    {
+      path: '/GeneralizacionConectarBorneraHembraPuenteH',
+      name: 'GeneralizacionConectarBorneraHembraPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/Ejercicio/GeneralizationConectarBorneraHembraPuenteH.vue"),
+    },
+    {
+      path: '/DesplazarCircuitoChasisTeoria',
+      name: 'DesplazarCircuitoChasisTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasis/DesplazarCircuitoChasisTeoria.vue"),
+    },
+
   ]
 })
 

@@ -221,7 +221,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/PrepararBorneraHembraConexionTeoria').then(() => {
+        router.push('/ConectarBorneraHembraPuenteHTeoria').then(() => {
           window.scrollTo(0, 0);
         });
       }

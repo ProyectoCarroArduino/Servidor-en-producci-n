@@ -77,6 +77,7 @@ import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';
 import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
 import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
 import audio4 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio4.mp3';
+import audio5 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio4.mp3';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
@@ -123,18 +124,19 @@ export default {
         { id: 2, src: audio2 },
         { id: 3, src: audio3 },
         { id: 4, src: audio4 },
+        { id: 5, src: audio5 },
       ],
       evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(4).fill().map((_, index) => ({
+      inputs: Array(5).fill().map((_, index) => ({
         key: index,
         value: null,
         name: `input-${index + 1}`
       })),
-      numSteps: 4,
+      numSteps: 5,
       feedbackMessage: '',
       feedbackClass: ''
     };
@@ -150,7 +152,7 @@ export default {
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 4
+          input.value <= 5
       );
     },
     isFinishEnabled() {
@@ -221,7 +223,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/PrepararBorneraHembraConexionTeoria').then(() => {
+        router.push('/DesplazarCircuitoChasisTeoria').then(() => {
           window.scrollTo(0, 0);
         });
       }

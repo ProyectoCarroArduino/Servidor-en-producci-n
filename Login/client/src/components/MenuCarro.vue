@@ -305,32 +305,32 @@ export default {
                     },
 
                     {
-                        label: "Paso 2. Montar módulo Bluetooth HC-06 al Arduino UNO:",
+                        label: "Paso 2. Preparar la bornera hembra para conexión:",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/MontarModuloBluetoothHC06Teoria",
+                                href: "/PrepararBorneraHembraConexionTeoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionMontarModuloBluetoothHC06"
+                                        href: "/DescomposicionPrepararBorneraHembraConexion"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoMontarModuloBluetoothHC06"
+                                        href: "/AlgoritmoPrepararBorneraHembraConexion"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionMontarModuloBluetoothHC06"
+                                        href: "/AbstraccionPrepararBorneraHembraConexion"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionMontarModuloBluetoothHC06"
+                                        href: "/GeneralizacionPrepararBorneraHembraConexion"
                                     },
                                 ]
                             },
@@ -338,32 +338,32 @@ export default {
                     },
 
                     {
-                        label: "Paso 3. Montar puente H (módulo L298N) y conectarlo al Arduino UNO:",
+                        label: "Paso 3. Conectar bornera tipo hembra al puente H (módulo L298N):",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/MontarModuloPuenteHL298NTeoria",
+                                href: "/ConectarBorneraHembraPuenteHTeoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionMontarModuloPuenteHL298N"
+                                        href: "/DescomposicionConectarBorneraHembraPuenteH"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoMontarModuloPuenteHL298N"
+                                        href: "/AlgoritmoConectarBorneraHembraPuenteH"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionMontarModuloPuenteHL298N"
+                                        href: "/AbstraccionConectarBorneraHembraPuenteH"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionMontarModuloPuenteHL298N"
+                                        href: "/GeneralizacionConectarBorneraHembraPuenteH"
                                     },
                                 ]
                             },
@@ -372,6 +372,145 @@ export default {
 
                 ],
             },
+
+                       {
+                label: "4. Montaje del circuito al chasis:",
+                icon: "",
+                children: [
+                    {
+                        label: "Paso 1. Desplazar circuito al chasis:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/DesplazarCircuitoChasisTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionConectarCablesMotorreductores"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoConectarCablesMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionConectarCablesMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionConectarCablesMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 2. Ensamblar soportes de los motorreductores al chasis:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarSoportesMotorreductoresTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarSoportesMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionEnsamblarSoportesMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 3. Ensamblar motorreductores a los soportes:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarMotorreductoresSoportesTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarMotorreductoresSoportes"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizaciónEnsamblarMotorreductoresSoportes"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 4. Ensamblar ruedas a los motorreductores:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/EnsamblarRuedasMotorreductoresTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionEnsamblarRuedasMotorreductores"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionEnsamblarRuedasMotorreductores"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                ]
+            },
+
     
     ]
     

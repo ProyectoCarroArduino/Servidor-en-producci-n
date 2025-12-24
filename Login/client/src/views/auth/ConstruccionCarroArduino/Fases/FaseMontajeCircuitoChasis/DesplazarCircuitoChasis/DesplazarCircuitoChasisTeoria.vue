@@ -2,83 +2,57 @@
   <div id="layout-general">
     <main class="contenido">
       <!--<h1 class="text-center">Programación en C</h1>-->
-      <h1 class="text-center">Paso 1. Conectar la fuente de poder a la bornera macho</h1>
+      <h1 class="text-center">Paso 1. Desplazar circuito al chasis</h1>
       <br>
       <br>
-      <p class="texto-personalizado">Para este paso los materiales necesarios son un portapilas X3 modelo 18650, tres pilas de litio o 3,7V, una bornera tipo macho, pelacables o alicates y un destornillador pequeño tipo estrella.</p>
+      <p class="texto-personalizado">Para este paso los materiales necesarios son una bornera tipo hembra ya preparada, un puente H (módulo L298N) y un destornillador pequeño tipo estrella.</p>
       <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden a la <strong>conexión</strong> de la
-        fuente de poder a una bornera de tipo macho, y para la construcción del carro se <strong>necesitan conectar</strong> solo una fuente de poder a una bornera tipo macho, es decir, el paso a paso que se va a explicar a continuación
-        <strong>se debe</strong>repetir solo una vez. </p>
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden a la <strong>conexión</strong> de una
+        bornera de tipo hembra al puente H (módulo L298N), y para la construcción del carro <strong>solo se necesita conectar</strong> una bornera tipo hembra, es decir, el paso a paso que se va a explicar a continuación
+        <strong>se debe</strong>repetir solo una vez.</p>
       <br>
       <div class="contenedor">
         <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/PortapilasModelo18650.png" alt="PortapilasModelo18650">
-          <p class="texto">Portapilas X3 modelo 18650</p>
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/BorneraHembra.png" alt="BorneraHembra">
+          <p class="texto">Bornera tipo hembra</p>
         </div>
         <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/PilasLitio.png" alt="PilasLitio">
-          <p class="texto">Pilas de litio</p>
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/PuenteH.png" alt="PuenteH">
+          <p class="texto">Módulo puente H (módulo L298N)</p>
         </div>
         <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/BorneraMacho.png" alt="BorneraMacho">
-          <p class="texto">Bornera tipo macho</p>
-        </div>
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/AlicatesPelacables.png" alt="AlicatesPelacables">
-          <p class="texto">Alicates/pelacables</p>
-        </div>
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/DestornilladorPequeno.png" alt="DestornilladorPequeno">
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/DestornilladorPequeno.png" alt="DestornilladorPequeno">
           <p class="texto">Destornillador pequeño</p>
         </div>
       </div>
       <br>
-      <p class="texto-personalizado">Antes de empezar con el paso <strong>se debe</strong> asegurar de que el portapilas ya tiene conectadas las pilas o baterías de 3,7V, en este caso se están utilizando <strong>tres</strong>, 
-      las cuales van a proveer el voltaje y la corriente necesaria para el funcionamiento del circuito.</p>
-      <br>
-      <p class="texto-personalizado">Lo primero que se hace es tomar el portapilas y hacer <strong>lo mismo</strong> que se hizo con los cables que fueron conectados a los motorreductores, es decir, arrancar la cobertura de los dos cables teniendo cuidado de <strong>no dañar</strong> los cables internos. 
-        En este caso el portapilas <strong>ya tiene</strong> la cobertura de los dos cables arrancada y posteriormente se han enrollado los pequeños cables de cobre.</p>
-      <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Tener en cuenta que algunos portapilas <strong>vienen</strong> con estos cables ya enrollados cuando se arranca la cobertura, otros ya han sido enrollados y su cobertura arrancada debido a <strong>previo uso</strong> y, 
-      otros simplemente <strong>vienen de fábrica</strong>, a estos últimos se les tiene que quitar la cobertura y enrrollar los cables pequeños del cable rojo y negro para poder conectar a la bornera tipo macho.</p>
+      <p class="texto-personalizado">Lo único que se debe de hacer es conectar los dos cables <strong>(negros, gris o azul oscuro)</strong> que se han conectado al pin (terminal) <strong>negativo</strong> de la bornera tipo hembra al pin <strong>GND</strong> del módulo L298N o puente H. 
+        El proceso de conexión de los dos cables al pin GND del módulo L298N <strong>requiere</strong> el uso del destornillador pequeño tipo estrella para aflojar el pin GND, luego se <strong>conectarán</strong> los cables enrollados.</p>
       <br>
       <div class="contenedordos">
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/QuitarCables.png" alt="QuitarCables">
+          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
         </div>
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/CablesQuitados.png" alt="CablesQuitados">
+          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/TerminalPositivoConectado.png" alt="TerminalPositivoConectado">
         </div>
       </div>
       <br>
       <br>
+      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe de recordar que ya <strong>hay un cable en el pin GND</strong>, el cual es el que se conectó al pin <strong>GND</strong> de la placa Arduino, así que con mucho cuidado se van a introducir los dos cables <strong>junto</strong> al cable que ya está en el pin y, 
+      al final se volverá a ajustar el pin atornillando de nuevo.</p>
       <br>
-      <p class="texto-personalizado">Luego se procederá a preparar los cables para la conexión a la bornera de tipo macho, para poder hacer esto se van a <strong>enrollar los cables internos</strong> de los dos cables rojo y negro. 
-        Adicional <strong>se puede soldar</strong> los cables enrollados para que cuando se vaya a conectar a la bornera macho ningún cable pequeño vaya a quedar fuera del pin de conexión.</p>
+      <p class="texto-personalizado">Adicional a esto se puede <strong>soldar</strong> los dos cables negros de la bornera hembra y el cable negro que se ha conectado anterioemente del módulo L298N a la placa Arduino, esto se debe a que los tres cables <strong>deben</strong> estar conectados al pin GND del módulo L298N.</p>
       <br>
-      <img class="centrada" src="@/assets/ImagenesConectarFuentePoderBorneraMacho/CablesEnrrolladosSoldados.png" alt="CablesEnrrolladosSoldados">
-      <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> <strong>No comprar</strong> portapilas que tenga el conector a la placa Arduino directamente, ya que estos <strong>no vienen</strong> separados por cable rojo y negro, 
-      lo que significaría que el proceso de preparación para la conexión sería más complejo.</p>
-      <br>
-      <p class="texto-personalizado">Una vez se tienen preparados los cables del portapilas se procede a hacer la conexión a la bornera de tipo macho, la cual es la que <strong>tiene un conector</strong> en su centro. La bornera tiene <strong>dos terminales</strong> una positiva y otra negativa. 
-        En la parte superior se pueden ver los símbolos que representan las dos terminales, el cable rojo <strong>deberá ir</strong> a donde se encuentra el símbolo <strong>(+)</strong> y el cable negro <strong>deberá ir</strong> a donde se encuentra el símbolo <strong>(-)</strong>. </p>
-      <br>
-      <img class="centrada" src="@/assets/ImagenesConectarFuentePoderBorneraMacho/PinesBorneraMacho.png" alt="PinesBorneraMacho">
-      <br>
-      <br>
-      <p class="texto-personalizado">Por último se procede a hacer <strong>la conexión</strong> de los cables a la bornera tipo macho, para ello se va a usar un destornillador pequeño tipo estrella para aflojar los terminales y <strong>poder introducir</strong> los cables dentro, 
-        cuando ya se hayan introducido los cables se vuelve a usar el destornillador pequeño para <strong>ajustar el puerto</strong>, así evitando que en el futuro funcione mal.</p>
-      <br>
-      <div class="contenedordosv2">
-        <div class="imagen-item-dosv2">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/ConectarBorneraMacho.png" alt="ConectarBorneraMacho">
+      <div class="contenedordos">
+        <div class="imagen-item-dos">
+          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
         </div>
-        <div class="imagen-item-dosv2">
-          <img src="@/assets/ImagenesConectarFuentePoderBorneraMacho/BorneraMachoConectada.png" alt="BorneraMachoConectada">
+        <div class="imagen-item-dos">
+          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/TerminalPositivoConectado.png" alt="TerminalPositivoConectado">
         </div>
       </div>
+      <br>
       <br>
       <br>
       <h2>Video del paso:</h2>
@@ -88,7 +62,7 @@
       <iframe
         width="560" 
         height="315" 
-        src="https://www.youtube.com/embed/mfY1akMiDTk?si=GyV21fGPdFElTbJX" 
+        src="https://www.youtube.com/embed/GADroHyutZI?si=OmiMePFQLm6ICJ98" 
         title="YouTube video player" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -129,7 +103,7 @@ export default {
 
     methods: {
       finish() {
-      router.push('/DescomposicionConectarFuentePoderBorneraMacho').then(() => {
+      router.push('/DescomposicionConectarBorneraHembraPuenteH').then(() => {
           window.scrollTo(0, 0);
         });
      
@@ -311,8 +285,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 90%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
 
@@ -342,6 +316,35 @@ export default {
   left: 0;
   width: 155%;
   height: 105%;
+  object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
+}
+
+.contenedortres {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  flex-wrap: nowrap;
+}
+
+.imagen-item-tres {
+  text-align: center;
+  width: 25%;
+  position: relative;
+}
+
+.imagen-item-tres::before {
+  content: "";
+  display: block;
+  padding-top: 100%; /* Esto hace que el contenedor tenga una relación de aspecto de 4:3 */
+}
+
+.imagen-item-tres img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 115%;
+  height: 80%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
 
