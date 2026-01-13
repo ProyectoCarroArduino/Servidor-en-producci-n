@@ -507,7 +507,34 @@ const router = createRouter({
       name: 'DesplazarCircuitoChasisTeoria',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasis/DesplazarCircuitoChasisTeoria.vue"),
     },
+    
 
+    // RUTAS CONCEPTOS BASICOS
+    {
+      path: '/CBTeoria',
+      name: 'CBTeoria',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/CB_Teoria.vue"),
+    },
+    {
+      path: '/CBDescomposicion1',
+      name: 'CBDescomposicion1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/1/CB_Descomposicion1.vue"),
+    },
+    {
+      path: '/CBAlgoritmo1',
+      name: 'CBAlgoritmo1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/1/CB_Algoritmo1.vue"),
+    },
+    {
+      path: '/CBAbstraccion1',
+      name: 'CBAbstraccion1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/1/CB_Abstracion1.vue"),
+    },
+    {
+      path: '/CBGeneralizacion1',
+      name: 'CBGeneralizacion1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/1/CB_Generalizacion1.vue"),
+    },
   ]
 })
 

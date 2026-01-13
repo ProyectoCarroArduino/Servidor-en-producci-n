@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useProgresoCurso } from '@/composables/useProgresoCurso'
+import { useAuthStore } from '@/stores/auth'
 
 interface Subejercicio {
   nombre: string
@@ -36,12 +37,26 @@ interface Curso {
 }
 
 const { cursos, cargando, error, cargarCursos } = useProgresoCurso()
+const authStore = useAuthStore()
 const rootRef = ref<HTMLElement | null>(null)
 const estanExpandidos = ref(false)
-
-onMounted(() => {
-  cargarCursos()
+const user = computed(() => authStore.userDetail)
+const nombreCompleto = computed(() => {
+  const partes = [user.value?.first_name, user.value?.last_name].filter(Boolean)
+  return partes.join(' ')
 })
+
+onMounted(async () => {
+  await Promise.all([cargarCursos(), cargarUsuario()])
+})
+
+async function cargarUsuario() {
+  try {
+    await authStore.getUser()
+  } catch (err) {
+    console.error('Error al obtener el usuario:', err)
+  }
+}
 
 function formatearFecha(fecha: string | null) {
   if (!fecha) return '—'
@@ -98,6 +113,24 @@ function alternarTodos() {
           <span v-if="estanExpandidos">🔽 Contraer todo</span>
           <span v-else>🔼 Expandir todo</span>
         </button>
+      </div>
+
+      <!-- Informacion del usuario -->
+      <div class="mb-6 rounded-lg border border-indigo-200 bg-white p-4 shadow-sm">
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div>
+            <p class="text-xs uppercase tracking-wide text-gray-500">Username</p>
+            <p class="text-base font-semibold text-gray-900">{{ user.username || 'Sin datos' }}</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wide text-gray-500">Email</p>
+            <p class="text-base font-semibold text-gray-900 break-all">{{ user.email || 'Sin datos' }}</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wide text-gray-500">Nombre completo</p>
+            <p class="text-base font-semibold text-gray-900">{{ nombreCompleto || 'Sin datos' }}</p>
+          </div>
+        </div>
       </div>
 
       <!-- Cuerpo -->
