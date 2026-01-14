@@ -44,6 +44,7 @@
       <br>
       <p class="texto-personalizado">Adicional a esto se puede <strong>soldar</strong> los dos cables negros de la bornera hembra y el cable negro que se ha conectado anterioemente del módulo L298N a la placa Arduino, esto se debe a que los tres cables <strong>deben</strong> estar conectados al pin GND del módulo L298N.</p>
       <br>
+      
       <div class="contenedordos">
         <div class="imagen-item-dos">
           <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
