@@ -36,10 +36,10 @@ function generarEjercicio(nombre, config = {}) {
 const cursoConfig = {
   nombreCurso: 'Guía Construcción Carro Arduino',
   modulo: {
-    nombre: '2. Fase de montaje del circuito en el Arduino UNO',
+    nombre: '6. Fase de ingresar código de control y movimento',
     nota: 0,
     submodulo: {
-      nombre: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
+      nombre: '6.1 Ingresar código de control y movimiento en el Arduino UNO:',
       nota: 0,
       ejercicios: [
         generarEjercicio('Ejercicio 1', { descomposicion: 2 }),

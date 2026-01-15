@@ -112,10 +112,11 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        white-space: nowrap;
+        align-items: flex-start;
+        white-space: normal;
         user-select: none;
-        height: 50px;
-        padding: 0 20px;
+        min-height: 50px;
+        padding: 10px 20px;
         box-sizing: border-box;
         color: #3a3939;
         transition: all .3s ease;
@@ -123,9 +124,30 @@ export default {
         border-top: 1px solid #dddcdccc;
         > div {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
         }
+
+        .right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            min-width: 20px;
+            margin-left: 10px;
+            /* ✅ mueve la flecha más hacia el borde derecho */
+        }
+
+        span {
+            white-space: normal; /* 🔹 Permite varias líneas */
+            word-wrap: break-word; /* 🔹 Rompe palabras largas si es necesario */
+            overflow: visible;
+            text-overflow: unset;
+            display: inline-block;
+            flex: 1; /* 🔹 Asegura que use el espacio disponible */
+        }
+
         i {
             font-size: 20px;
             color: #6e6e6e;

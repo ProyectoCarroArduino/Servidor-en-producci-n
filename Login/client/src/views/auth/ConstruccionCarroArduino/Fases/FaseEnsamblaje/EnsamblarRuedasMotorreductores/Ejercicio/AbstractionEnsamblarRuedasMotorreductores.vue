@@ -167,7 +167,7 @@ int main() {
 
     resultado = ensambladorRuedas(ruedasSolicitadas, ruedasDisponibles, discosDisponibles);
 
-    printf("Ruedas ensambladas: %d\n", ruedasEnsambladas);
+    printf("Ruedas ensambladas: %d\n", resultado);
 
     return 0;
 }`

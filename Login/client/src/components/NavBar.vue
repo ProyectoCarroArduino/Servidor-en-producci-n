@@ -11,7 +11,7 @@
             <router-link :to="{name: 'home'}" class="nav-link-active" aria-current="page">Inicio</router-link>
         </li>
         <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
-            <router-link :to="{name: 'user'}" class="nav-link-active" aria-current="page">Programación C</router-link>
+            <router-link :to="{name: 'ConceptoCTeoria'}" class="nav-link-active" aria-current="page">Programación C</router-link>
         </li>
         <li v-if="isAuthenticated" class="nav-item" style="margin-left: 20px;">
             <router-link :to="{name: 'GuiaConstruccion'}" class="nav-link-active" aria-current="page">Construcción carro Arduino</router-link>

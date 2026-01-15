@@ -67,6 +67,174 @@ const router = createRouter({
       //meta: {requiresAuth: true}
     },
     {
+      path: '/ConceptoCTeoria',
+      name: 'ConceptoCTeoria',
+      component: () => import('../views/auth/ProgramacionC/Temas/ConceptoC/ConecptoCTeoria.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/VariablesOperacionesCTeoria',
+      name: 'VariablesOperacionesCTeoria',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/VariablesOperacionesCTeoria.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjemplo',
+      name: 'DescomposicionVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/DescompositionVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjemplo',
+      name: 'AlgoritmoVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/AlgorithmVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjemplo',
+      name: 'AbstraccionVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/AbstractionVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjemplo',
+      name: 'GeneralizacionVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/GeneralizationVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjercicio1',
+      name: 'DescomposicionVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/DescompositionVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjercicio1',
+      name: 'AlgoritmoVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/AlgorithmVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjercicio1',
+      name: 'AbstraccionVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/AbstractionVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjercicio1',
+      name: 'GeneralizacionVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/GeneralizationVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjercicio2',
+      name: 'DescomposicionVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/DescompositionVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjercicio2',
+      name: 'AlgoritmoVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/AlgorithmVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjercicio2',
+      name: 'AbstraccionVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/AbstractionVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjercicio2',
+      name: 'GeneralizacionVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/GeneralizationVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjercicio3',
+      name: 'DescomposicionVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/DescompositionVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjercicio3',
+      name: 'AlgoritmoVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/AlgorithmVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjercicio3',
+      name: 'AbstraccionVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/AbstractionVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjercicio3',
+      name: '/GeneralizacionVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/GeneralizationVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/SwitchCaseCTeoria',
+      name: 'SwitchCaseCTeoria',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/SwitchCaseCTeoria.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionSwitchCaseCEjemplo',
+      name: 'DescomposicionSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/DescompositionSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoSwitchCaseCEjemplo',
+      name: 'AlgoritmoSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/AlgorithmSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionSwitchCaseCEjemplo',
+      name: 'AbstraccionSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/AbstractionSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionSwitchCaseCEjemplo',
+      name: 'GeneralizacionSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/GeneralizationSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionSwitchCaseCEjercicio1',
+      name: 'DescomposicionSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/DescompositionSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoSwitchCaseCEjercicio1',
+      name: 'AlgoritmoSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/AlgorithmSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionSwitchCaseCEjercicio1',
+      name: 'AbstraccionSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/AbstractionSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionSwitchCaseCEjercicio1',
+      name: 'GeneralizacionSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/GeneralizationSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionSwitchCaseCEjercicio2',
+      name: 'DescomposicionSwitchCaseCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio2/DescompositionSwitchCaseCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
       path: '/GuiaConstruccion',
       name: 'GuiaConstruccion',
       component: () => import('../views/auth/GuiaConstruccion.vue'),
@@ -503,9 +671,154 @@ const router = createRouter({
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/Ejercicio/GeneralizationConectarBorneraHembraPuenteH.vue"),
     },
     {
-      path: '/DesplazarCircuitoChasisTeoria',
-      name: 'DesplazarCircuitoChasisTeoria',
-      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasis/DesplazarCircuitoChasisTeoria.vue"),
+      path: '/PrepararCablesConexionModuloL298NTeoria',
+      name: 'PrepararCablesConexionModuloL298NTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/PrepararCablesConexionModuloL298N/PrepararCablesConexionModuloL298NTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionPrepararCablesConexionModuloL298N',
+      name: 'DescomposicionPrepararCablesConexionModuloL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/PrepararCablesConexionModuloL298N/Ejercicio/DescompositionPrepararCablesConexionModuloL298N.vue"),
+    },
+    {
+      path: '/AlgoritmoPrepararCablesConexionModuloL298N',
+      name: 'AlgoritmoPrepararCablesConexionModuloL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/PrepararCablesConexionModuloL298N/Ejercicio/AlgorithmPrepararCablesConexionModuloL298N.vue"),
+    },
+    {
+      path: '/AbstraccionPrepararCablesConexionModuloL298N',
+      name: 'AbstraccionPrepararCablesConexionModuloL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/PrepararCablesConexionModuloL298N/Ejercicio/AbstractionPrepararCablesConexionModuloL298N.vue"),
+    },
+    {
+      path: '/GeneralizacionPrepararCablesConexionModuloL298N',
+      name: 'GeneralizacionPrepararCablesConexionModuloL298N',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/PrepararCablesConexionModuloL298N/Ejercicio/GeneralizationPrepararCablesConexionModuloL298N.vue"),
+    },
+    {
+      path: '/DesplazarCircuitoChasisParte1Teoria',
+      name: 'DesplazarCircuitoChasisParte1Teoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte1/DesplazarCircuitoChasisParte1Teoria.vue"),
+    },
+    {
+      path: '/DescomposicionDesplazarCircuitoChasisParte1',
+      name: 'DescomposicionDesplazarCircuitoChasisParte1',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte1/Ejercicio/DescompositionDesplazarCircuitoChasisParte1.vue"),
+    },
+    {
+      path: '/AlgoritmoDesplazarCircuitoChasisParte1',
+      name: 'AlgoritmoDesplazarCircuitoChasisParte1',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte1/Ejercicio/AlgorithmDesplazarCircuitoChasisParte1.vue"),
+    },
+    {
+      path: '/AbstraccionDesplazarCircuitoChasisParte1',
+      name: 'AbstraccionDesplazarCircuitoChasisParte1',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte1/Ejercicio/AbstractionDesplazarCircuitoChasisParte1.vue"),
+    },
+    {
+      path: '/GeneralizacionDesplazarCircuitoChasisParte1',
+      name: 'GeneralizacionDesplazarCircuitoChasisParte1',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte1/Ejercicio/GeneralizationDesplazarCircuitoChasisParte1.vue"),
+    },
+    {
+      path: '/ConectarMotorreductoresPuenteHTeoria',
+      name: 'ConectarMotorreductoresPuenteHTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/ConectarMotorreductoresPuenteH/ConectarMotorreductoresPuenteHTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionConectarMotorreductoresPuenteH',
+      name: 'DescomposicionConectarMotorreductoresPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/ConectarMotorreductoresPuenteH/Ejercicio/DescompositionConectarMotorreductoresPuenteH.vue"),
+    },
+    {
+      path: '/AlgoritmoConectarMotorreductoresPuenteH',
+      name: 'AlgoritmoConectarMotorreductoresPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/ConectarMotorreductoresPuenteH/Ejercicio/AlgorithmConectarMotorreductoresPuenteH.vue"),
+    },
+    {
+      path: '/AbstraccionConectarMotorreductoresPuenteH',
+      name: 'AbstraccionConectarMotorreductoresPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/ConectarMotorreductoresPuenteH/Ejercicio/AbstractionConectarMotorreductoresPuenteH.vue"),
+    },
+    {
+      path: '/GeneralizacionConectarMotorreductoresPuenteH',
+      name: 'GeneralizacionConectarMotorreductoresPuenteH',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/ConectarMotorreductoresPuenteH/Ejercicio/GeneralizationConectarMotorreductoresPuenteH.vue"),
+    },
+    {
+      path: '/DesplazarCircuitoChasisParte2Teoria',
+      name: 'DesplazarCircuitoChasisParte2Teoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte2/DesplazarCircuitoChasisParte2Teoria.vue"),
+    },
+    {
+      path: '/DescomposicionDesplazarCircuitoChasisParte2',
+      name: 'DescomposicionDesplazarCircuitoChasisParte2',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte2/Ejercicio/DescompositionDesplazarCircuitoChasisParte2.vue"),
+    },
+    {
+      path: '/AlgoritmoDesplazarCircuitoChasisParte2',
+      name: 'AlgoritmoDesplazarCircuitoChasisParte2',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte2/Ejercicio/AlgorithmDesplazarCircuitoChasisParte2.vue"),
+    },
+    {
+      path: '/AbstraccionDesplazarCircuitoChasisParte2',
+      name: 'AbstraccionDesplazarCircuitoChasisParte2',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte2/Ejercicio/AbstractionDesplazarCircuitoChasisParte2.vue"),
+    },
+    {
+      path: '/GeneralizacionDesplazarCircuitoChasisParte2',
+      name: 'GeneralizacionDesplazarCircuitoChasisParte2',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte2/Ejercicio/GeneralizationDesplazarCircuitoChasisParte2.vue"),
+    },
+    {
+      path: '/ConectarFuenteEnergiaInterruptor4PinesTeoria',
+      name: 'ConectarFuenteEnergiaInterruptor4PinesTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarFuenteEnergiaInterruptor4Pines/ConectarFuenteEnergiaInterruptor4PinesTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionConectarFuenteEnergiaInterruptor4Pines',
+      name: 'DescomposicionConectarFuenteEnergiaInterruptor4Pines',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarFuenteEnergiaInterruptor4Pines/Ejercicio/DescompositionConectarFuenteEnergiaInterruptor4Pines.vue"),
+    },
+    {
+      path: '/AlgoritmoConectarFuenteEnergiaInterruptor4Pines',
+      name: 'AlgoritmoConectarFuenteEnergiaInterruptor4Pines',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarFuenteEnergiaInterruptor4Pines/Ejercicio/AlgorithmConectarFuenteEnergiaInterruptor4Pines.vue"),
+    },
+    {
+      path: '/AbstractionConectarFuenteEnergiaInterruptor4Pines',
+      name: 'AbstractionConectarFuenteEnergiaInterruptor4Pines',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarFuenteEnergiaInterruptor4Pines/Ejercicio/AbstractionConectarFuenteEnergiaInterruptor4Pines.vue"),
+    },
+    {
+      path: '/GeneralizacionConectarFuenteEnergiaInterruptor4Pines',
+      name: 'GeneralizacionConectarFuenteEnergiaInterruptor4Pines',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarFuenteEnergiaInterruptor4Pines/Ejercicio/GeneralizationConectarFuenteEnergiaInterruptor4Pines.vue"),
+    },
+    {
+      path: '/ConectarInterruptor4PinesModulosTeoria',
+      name: 'ConectarInterruptor4PinesModulosTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarInterruptor4PinesModulos/ConectarInterruptor4PinesModulosTeoria.vue"),
+    },
+    {
+      path: '/DescomposicionConectarInterruptor4PinesModulos',
+      name: 'DescomposicionConectarInterruptor4PinesModulos',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarInterruptor4PinesModulos/Ejercicio/DescompositionConectarInterruptor4PinesModulos.vue"),
+    },
+    {
+      path: '/AlgoritmoConectarInterruptor4PinesModulos',
+      name: 'AlgoritmoConectarInterruptor4PinesModulos',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarInterruptor4PinesModulos/Ejercicio/AlgorithmConectarInterruptor4PinesModulos.vue"),
+    },
+    {
+      path: '/AbstraccionConectarInterruptor4PinesModulos',
+      name: 'AbstraccionConectarInterruptor4PinesModulos',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarInterruptor4PinesModulos/Ejercicio/AbstractionConectarInterruptor4PinesModulos.vue"),
+    },
+    {
+      path: '/GeneralizacionConectarInterruptor4PinesModulos',
+      name: 'GeneralizacionConectarInterruptor4PinesModulos',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarInterruptor4Pines/ConectarInterruptor4PinesModulos/Ejercicio/GeneralizationConectarInterruptor4PinesModulos.vue"),
     },
     
 
