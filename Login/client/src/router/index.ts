@@ -764,12 +764,12 @@ const router = createRouter({
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseConectarFuentePoderCircuito/ConectarBorneraHembraPuenteH/Ejercicio/GeneralizationConectarBorneraHembraPuenteH.vue"),
       meta: {requiresAuth: true},
     },
-    {
-      path: '/DesplazarCircuitoChasisTeoria',
-      name: 'DesplazarCircuitoChasisTeoria',
-      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasis/DesplazarCircuitoChasisTeoria.vue"),
-      meta: {requiresAuth: true},
-    },
+    //{
+    //  path: '/DesplazarCircuitoChasisTeoria',
+    //  name: 'DesplazarCircuitoChasisTeoria',
+    //  component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasis/DesplazarCircuitoChasisTeoria.vue"),
+    //  meta: {requiresAuth: true},
+    //},
     
 
     // RUTAS CONCEPTOS BASICOS
