@@ -673,9 +673,9 @@ export default {
 
 .menu {
   position: fixed;
-  top: 52px;
+  top: 80px;
   right: 0;
-  height: calc(100vh - 52px);
+  height: calc(100vh - 80px);
   background-color: rgb(235, 241, 243);
   font-weight: bold;
   overflow-y: auto;

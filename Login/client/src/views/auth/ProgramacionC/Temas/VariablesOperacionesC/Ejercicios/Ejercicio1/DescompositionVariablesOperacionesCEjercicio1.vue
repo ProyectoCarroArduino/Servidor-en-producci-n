@@ -109,6 +109,8 @@ import router from '@/router'
 import Menu from "@/components/Menu.vue";
 import DragAndDrop1Checker from "@/components/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/DragAndDrop1CheckerVariablesOperacionesCEjercicio1.vue";
 import DragAndDrop2Checker from "@/components/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/DragAndDrop2CheckerVariablesOperacionesCEjercicio1.vue";
+import { reactive, toRefs, onMounted } from 'vue';
+import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
 import Figura1 from '@/assets/ImagenesVariablesOperacionesC/Codigo9.png';
 import Figura2 from '@/assets/ImagenesVariablesOperacionesC/Codigo10.png';
 import Figura3 from '@/assets/ImagenesVariablesOperacionesC/Codigo11.png';
@@ -125,6 +127,48 @@ export default {
     Menu,
     DragAndDrop1Checker,
     DragAndDrop2Checker,
+  },
+
+    setup() {
+    const evaluacion1Raw = reactive(useEvaluacionSubejercicio({
+      cursoNombre: 'Guía Programación en C', // Añadido
+      modulo: '4. Conceptos basicos',
+      submodulo: '',
+      ejercicio: 'Ejercicio 1',
+      categoria: 'descomposicion',
+      subejercicio: 'Subejercicio 1'
+    }));
+
+    const evaluacion2Raw = reactive(useEvaluacionSubejercicio({
+      cursoNombre: 'Guía Programación en C', // Añadido
+      modulo: '1. Conceptos basicos',
+       submodulo: '',
+      ejercicio: 'Ejercicio 1',
+      categoria: 'descomposicion',
+      subejercicio: 'Subejercicio 2'
+    }));
+
+    const evaluacion1 = toRefs(evaluacion1Raw);
+    const evaluacion2 = toRefs(evaluacion2Raw);
+
+    onMounted(() => {
+      evaluacion1Raw.obtenerIntentos();
+      evaluacion2Raw.obtenerIntentos();
+    });
+
+    return {
+      // Sub 1
+      ...evaluacion1,
+      registrarEvaluacion1: evaluacion1Raw.registrarEvaluacion,
+      obtenerIntentos1: evaluacion1Raw.obtenerIntentos,
+
+      // Sub 2
+      nota2: evaluacion2.notaActual,
+      intentos2: evaluacion2.intentosRestantes,
+      registrarEvaluacion2: evaluacion2Raw.registrarEvaluacion,
+      obtenerIntentos2: evaluacion2Raw.obtenerIntentos,
+
+    };
   },
 
   data() {
@@ -205,7 +249,7 @@ export default {
   },
 
   methods: {
-    manejarClick(funcion, index) {
+    manejarClick(figura, index) {
       if (this.isBlocked || this.totalClicks >= this.maxClicks) {
         return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
       }
@@ -235,6 +279,7 @@ export default {
       if (!this.esCorrecta) {
         this.mensajeError = this.obtenerMensajeError();
       }
+
     },
 
     calcularEvaluacion() {

@@ -161,15 +161,20 @@ export default {
             }
         }
     }
-    &:hover {
-        background-color: #d2e2f7;
-        cursor: pointer;
+    .label {
+    transition: background-color .3s ease;
+    }
+
+    .label:hover {
+    background-color: rgba(46, 209, 198, 0.35);
+    cursor: pointer;
     }
     .items-container {
         width: 100%;
         overflow: hidden;
         transition: height .3s ease;
     }
+    
 }
 
 </style>

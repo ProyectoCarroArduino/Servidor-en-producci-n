@@ -34,15 +34,15 @@ function generarEjercicio(nombre, config = {}) {
 // Guía Construcción Carro Arduino 
 // Guía Programación en C
 const cursoConfig = {
-  nombreCurso: 'Guía Construcción Carro Arduino',
+  nombreCurso: 'Guía Programación en C',
   modulo: {
-    nombre: '6. Fase de ingresar código de control y movimento',
+    nombre: '4. Variables y operaciones',
     nota: 0,
     submodulo: {
-      nombre: '6.1 Ingresar código de control y movimiento en el Arduino UNO:',
+      nombre: '',
       nota: 0,
       ejercicios: [
-        generarEjercicio('Ejercicio 1', { descomposicion: 2 }),
+        generarEjercicio('Ejercicio 1', { descomposicion: 4 }),
       ]
     }
   }

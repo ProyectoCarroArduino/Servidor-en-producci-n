@@ -299,14 +299,13 @@ import heroImage from "@/assets/GuiaProgramacion/GuiaProgramacionC.png";
 }
 
 .menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
   position: sticky;
-  top: 110px;
-  align-self: start;
-  padding: 16px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(11, 31, 51, 0.12);
-  box-shadow: 0 18px 34px rgba(11, 31, 51, 0.1);
+  top: 20px;
+  height: fit-content;
 }
 
 @keyframes fade-slide {
