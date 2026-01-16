@@ -177,8 +177,8 @@ setup() {
   // Sub. Imagen - Descomposición
   const evaluacionImagenRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-    modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-    submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
+    modulo: '3. Fase de Conectar fuente de poder al circuito',
+    submodulo: '3.1 Conectar la fuente de poder a la bornera macho:',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 1'
@@ -186,8 +186,8 @@ setup() {
 
   const evaluacionVideoRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-    modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-    submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
+    modulo: '3. Fase de Conectar fuente de poder al circuito',
+    submodulo: '3.1 Conectar la fuente de poder a la bornera macho:',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 2'
@@ -340,7 +340,7 @@ setup() {
     return;
   }
 
-  if (this.selectedVideo.src === "https://www.youtube.com/embed/0TdObXx0YS4?si=6srXsWFKgPNSS-L3") {
+  if (this.selectedVideo.src === "https://www.youtube.com/embed/Uq2ebUjxX_Q?si=k49C9f6PkP0oT7dx") {
     this.correctVideoIndex = true;
     this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
     this.feedbackClass = "success-message";

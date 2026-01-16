@@ -31,10 +31,10 @@
       <br>
       <div class="contenedordos">
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/ConectarGND.png" alt="ConectarGND">
         </div>
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/TerminalPositivoConectado.png" alt="TerminalPositivoConectado">
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/DosCableasConectados.png" alt="DosCableasConectados">
         </div>
       </div>
       <br>
@@ -46,12 +46,19 @@
       <br>
       <div class="contenedordos">
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/SoldarCables.png" alt="SoldarCables">
         </div>
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/TerminalPositivoConectado.png" alt="TerminalPositivoConectado">
+          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/CablesSoldados.png" alt="CablesSoldados">
         </div>
       </div>
+      <br>
+      <br>
+      <br>
+      <h3>Cables soldados conectados al pin GND:</h3>
+      <br>
+      <br>
+      <img class="centrada" src="@/assets/ImagenesConectarBorneraHembraPuenteH/TresCablesConectados.png" alt="TresCablesConectados">
       <br>
       <br>
       <br>
@@ -286,7 +293,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 110%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
 

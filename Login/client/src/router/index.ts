@@ -69,6 +69,174 @@ const router = createRouter({
       component: () => import('../views/auth/changePassword.vue'),
     },
     {
+      path: '/ConceptoCTeoria',
+      name: 'ConceptoCTeoria',
+      component: () => import('../views/auth/ProgramacionC/Temas/ConceptoC/ConecptoCTeoria.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/VariablesOperacionesCTeoria',
+      name: 'VariablesOperacionesCTeoria',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/VariablesOperacionesCTeoria.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjemplo',
+      name: 'DescomposicionVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/DescompositionVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjemplo',
+      name: 'AlgoritmoVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/AlgorithmVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjemplo',
+      name: 'AbstraccionVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/AbstractionVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjemplo',
+      name: 'GeneralizacionVariablesOperacionesCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/GeneralizationVariablesOperacionesCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjercicio1',
+      name: 'DescomposicionVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/DescompositionVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjercicio1',
+      name: 'AlgoritmoVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/AlgorithmVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjercicio1',
+      name: 'AbstraccionVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/AbstractionVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjercicio1',
+      name: 'GeneralizacionVariablesOperacionesCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio1/GeneralizationVariablesOperacionesCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjercicio2',
+      name: 'DescomposicionVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/DescompositionVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjercicio2',
+      name: 'AlgoritmoVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/AlgorithmVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjercicio2',
+      name: 'AbstraccionVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/AbstractionVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjercicio2',
+      name: 'GeneralizacionVariablesOperacionesCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio2/GeneralizationVariablesOperacionesCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionVariablesOperacionesCEjercicio3',
+      name: 'DescomposicionVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/DescompositionVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoVariablesOperacionesCEjercicio3',
+      name: 'AlgoritmoVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/AlgorithmVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionVariablesOperacionesCEjercicio3',
+      name: 'AbstraccionVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/AbstractionVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionVariablesOperacionesCEjercicio3',
+      name: '/GeneralizacionVariablesOperacionesCEjercicio3',
+      component: () => import('../views/auth/ProgramacionC/Temas/VariablesOperacionesC/Ejercicios/Ejercicio3/GeneralizationVariablesOperacionesCEjercicio3.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/SwitchCaseCTeoria',
+      name: 'SwitchCaseCTeoria',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/SwitchCaseCTeoria.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionSwitchCaseCEjemplo',
+      name: 'DescomposicionSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/DescompositionSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoSwitchCaseCEjemplo',
+      name: 'AlgoritmoSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/AlgorithmSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionSwitchCaseCEjemplo',
+      name: 'AbstraccionSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/AbstractionSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionSwitchCaseCEjemplo',
+      name: 'GeneralizacionSwitchCaseCEjemplo',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/GeneralizationSwitchCaseCEjemplo.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionSwitchCaseCEjercicio1',
+      name: 'DescomposicionSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/DescompositionSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoSwitchCaseCEjercicio1',
+      name: 'AlgoritmoSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/AlgorithmSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionSwitchCaseCEjercicio1',
+      name: 'AbstraccionSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/AbstractionSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionSwitchCaseCEjercicio1',
+      name: 'GeneralizacionSwitchCaseCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/GeneralizationSwitchCaseCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionSwitchCaseCEjercicio2',
+      name: 'DescomposicionSwitchCaseCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio2/DescompositionSwitchCaseCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
       path: '/GuiaConstruccion',
       name: 'GuiaConstruccion',
       component: () => import('../views/auth/GuiaConstruccion.vue'),

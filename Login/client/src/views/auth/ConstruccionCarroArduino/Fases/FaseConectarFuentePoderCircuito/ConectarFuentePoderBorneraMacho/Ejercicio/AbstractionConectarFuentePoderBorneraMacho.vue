@@ -98,8 +98,8 @@ export default {
     const evaluacionRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-        submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
+        modulo: '3. Fase de Conectar fuente de poder al circuito',
+        submodulo: '3.1 Conectar la fuente de poder a la bornera macho:',
         ejercicio: 'Ejercicio 1',
         categoria: 'abstraccion',
         subejercicio: 'Subejercicio 1'

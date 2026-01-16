@@ -70,7 +70,7 @@
           <img src="@/assets/ImagenesMontarModuloL298N/ConectarPines.png" alt="ConectarPines">
         </div>
         <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesMontarModuloL298N/CableJumperPinesL298N.png" alt="ableJumperPinesL298N">
+          <img src="@/assets/ImagenesMontarModuloL298N/CableJumperPinesL298N.png" alt="CableJumperPinesL298N">
         </div>
       </div>
       <br>
@@ -109,17 +109,18 @@
       </div>
       <br>
       <br>
+      <br>
       <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Tener mucho cuidado de no dañar los pequeños cables internos de cobre.</p>
       <br>
       <p class="texto-personalizado">Lo siguiente será <strong>enrollar esos cables pequeños</strong>, después se van a conectar al pin GND del módulo L298N, lo que significa que <strong>se debe desatornillar este pin e introducir</strong> 
        el cable dentro y luego <strong>volver a atornillar</strong> para evitar fallos. </p>
       <br>
       <br>
-      <div class="contenedordosV2">
-        <div class="imagen-item-dosV2">
+      <div class="contenedordosV1">
+        <div class="imagen-item-dosV1">
           <img src="@/assets/ImagenesMontarModuloL298N/DesatornillarPinGND.png" alt="DesatornillarPinGND">
         </div>
-        <div class="imagen-item-dosV2">
+        <div class="imagen-item-dosV1">
           <img src="@/assets/ImagenesMontarModuloL298N/PinGNDCableado.png" alt="PinGNDCableado">
         </div>
       </div>
@@ -128,26 +129,33 @@
       <br>
       <p class="texto-personalizado">Ya para finalizar se conecta la parte del cable que tiene pin a uno de los <strong>dos pines GND</strong> de la placa Arduino.</p> 
       <br>
-      <div class="contenedor">
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesMontarModuloL298N/ModuloL298N.png" alt="ModuloL298N">
-          <p class="texto">Módulo Puente H (módulo L298N)</p>
+      <div class="contenedordosV2">
+        <div class="imagen-item-dosV2">
+          <img src="@/assets/ImagenesMontarModuloL298N/ConectarGNDPlaca.png" alt="ConectarGNDPlaca">
         </div>
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesMontarModuloBluetoothHC06/ArduinoUNO.png" alt="ArduinoUNO">
-          <p class="texto">Placa Arduino UNO</p>
-        </div>
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesMontarModuloBluetoothHC06/CablesJumperMH.png" alt="CablesJumperMH">
-          <p class="texto">Cables jumper tipo macho hembra</p>
+        <div class="imagen-item-dosV2">
+          <img src="@/assets/ImagenesMontarModuloL298N/ConectarPinMacho.png" alt="ConectarPinMacho">
         </div>
       </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h3>Todos los pines conectados a la placa Arduino UNO:</h3>
+      <br>
+      <br>
+      <img class="centrada" src="@/assets/ImagenesMontarModuloL298N/TodosCablesConectados.png" alt="TodosCablesConectados">
       <br>
       <br>
       <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> El pin GND del Arduino se <strong>debe desconectar momentáneamente</strong> en la (Fase de montaje del circuito en el chasis) 
       para <strong>evitar que los cables se dañen</strong> cuando se esté desplazando el circuito al chasis.</p>
       <br>
       <br>  
+      <br>
       <h2>Video del paso:</h2>
       <br>
       <br>
@@ -293,7 +301,7 @@ export default {
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
     max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 30%;
+    width: 25%;
 }
 
 .centradados {
@@ -396,7 +404,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 150%;
+  width: 152%;
   height: 100%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
@@ -425,7 +433,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 95%;
   height: 110%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
@@ -440,7 +448,7 @@ export default {
 
 .imagen-item-dosV2 {
   text-align: center;
-  width: 20%;
+  width: 18%;
   position: relative;
 }
 
@@ -454,8 +462,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 115%;
+  width: 148%;
+  height: 150%;
   object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
 }
 

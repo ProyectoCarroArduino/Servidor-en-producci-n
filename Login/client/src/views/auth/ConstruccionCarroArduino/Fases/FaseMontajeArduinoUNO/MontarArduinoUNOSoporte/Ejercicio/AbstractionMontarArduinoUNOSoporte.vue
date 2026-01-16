@@ -135,7 +135,7 @@ export default {
       correctCode: `#include <stdio.h>
 
 
-void ArduinoUNO() {
+void arduinoUNO() {
     int opcion;
 
     printf("--- Simulación de placa Arduino UNO ---\n");
@@ -166,7 +166,7 @@ void ArduinoUNO() {
 
  
 int main() {
-    ArduinoUNO();   
+    arduinoUNO();   
     return 0;
 }`
     };

@@ -52,7 +52,7 @@
       <br>
       <p class="texto-personalizado">Respuesta seleccionada: {{ selectedOptiona }}</p>
       <br>
-      <button @click="submitForma" class="btn btn-primary">Submit</button>
+      <button @click="submitForma" class="btn btn-primary">Enviar</button>
       <br>
       <div v-if="respuestaAr" class="respuesta">
         <p v-if="esCorrectaAr" class="correcto alert alert-success mt-3">¡Correcto!</p>
@@ -80,6 +80,7 @@
     <div v-else-if="resultadoValidacion === 'incorrecto'">
       <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
     </div>
+    <br>
     <button @click="enviarOrden" class="btn btn-primary">Enviar Orden</button>
     </div>
     <br>

@@ -374,36 +374,36 @@ export default {
             },
 
                        {
-                label: "4. Montaje del circuito al chasis:",
+                label: "4. Fase de Montaje del circuito al chasis:",
                 icon: "",
                 children: [
                     {
-                        label: "Paso 1. Desplazar circuito al chasis:",
+                        label: "Preparar cables de los motorreductores para la conexión al módulo L298N (puente H):",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/DesplazarCircuitoChasisTeoria",
+                                href: "/PrepararCablesConexionModuloL298NTeoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionConectarCablesMotorreductores"
+                                        href: "/DescomposicionPrepararCablesConexionModuloL298N"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoConectarCablesMotorreductores"
+                                        href: "/AlgoritmoPrepararCablesConexionModuloL298N"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionConectarCablesMotorreductores"
+                                        href: "/AbstraccionPrepararCablesConexionModuloL298N"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionConectarCablesMotorreductores"
+                                        href: "/GeneralizacionPrepararCablesConexionModuloL298N"
                                     },
                                 ]
                             },
@@ -411,32 +411,32 @@ export default {
                     },
 
                     {
-                        label: "Paso 2. Ensamblar soportes de los motorreductores al chasis:",
+                        label: "Paso 2. Desplazar circuito al chasis parte 1:",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/EnsamblarSoportesMotorreductoresTeoria",
+                                href: "/DesplazarCircuitoChasisParte1Teoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionEnsamblarSoportesMotorreductores"
+                                        href: "/DescomposicionDesplazarCircuitoChasisParte1"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoEnsamblarSoportesMotorreductores"
+                                        href: "/AlgoritmoDesplazarCircuitoChasisParte1"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionEnsamblarSoportesMotorreductores"
+                                        href: "/AbstraccionDesplazarCircuitoChasisParte1"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionEnsamblarSoportesMotorreductores"
+                                        href: "/GeneralizacionDesplazarCircuitoChasisParte1"
                                     },
                                 ]
                             },
@@ -444,32 +444,32 @@ export default {
                     },
 
                     {
-                        label: "Paso 3. Ensamblar motorreductores a los soportes:",
+                        label: "Paso 3. Conectar los motorreductores al módulo L298N (puente H):",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/EnsamblarMotorreductoresSoportesTeoria",
+                                href: "/ConectarMotorreductoresPuenteHTeoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionEnsamblarMotorreductoresSoportes"
+                                        href: "/DescomposicionConectarMotorreductoresPuenteH"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoEnsamblarMotorreductoresSoportes"
+                                        href: "/AlgoritmoConectarMotorreductoresPuenteH"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionEnsamblarMotorreductoresSoportes"
+                                        href: "/AbstraccionConectarMotorreductoresPuenteH"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizaciónEnsamblarMotorreductoresSoportes"
+                                        href: "/GeneralizacionConectarMotorreductoresPuenteH"
                                     },
                                 ]
                             },
@@ -477,38 +477,185 @@ export default {
                     },
 
                     {
-                        label: "Paso 4. Ensamblar ruedas a los motorreductores:",
+                        label: "Paso 4. Desplazar circuito al chasis parte 2:",
                         icon: "",
                         children: [
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/EnsamblarRuedasMotorreductoresTeoria",
+                                href: "/DesplazarCircuitoChasisParte2Teoria",
                             },
                             {
                                 label: "Ejercicio:",
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionEnsamblarRuedasMotorreductores"
+                                        href: "/DescomposicionDesplazarCircuitoChasisParte2"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoEnsamblarRuedasMotorreductores"
+                                        href: "/AlgoritmoDesplazarCircuitoChasisParte2"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionEnsamblarRuedasMotorreductores"
+                                        href: "/AbstraccionDesplazarCircuitoChasisParte2"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionEnsamblarRuedasMotorreductores"
+                                        href: "/GeneralizacionDesplazarCircuitoChasisParte2"
                                     },
                                 ]
                             },
                         ]
                     },
                 ]
+            },
+
+
+            {
+                label: "5. Fase de conectar interruptor de cuatro (4) pines:",
+                icon: "",
+                children: [
+                    {
+                        label: "Paso 1. Conectar fuente de energía al interruptor de 4 pines:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/ConectarFuenteEnergiaInterruptor4PinesTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstractionConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 2. Conectar interruptor de 4 pines a la placa Arduino y al módulo L298N:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/ConectarInterruptor4PinesModulosTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionConectarInterruptor4PinesModulos"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoConectarInterruptor4PinesModulos"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionConectarInterruptor4PinesModulos"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionConectarInterruptor4PinesModulos"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                ],
+            },
+
+             {
+                label: "6. Fase de ingresar código de control y movimiento:",
+                icon: "",
+                children: [
+                    {
+                        label: "Paso 1. Ingresar código de control y movimiento en el Arduino UNO:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/ConectarFuenteEnergiaInterruptor4PinesTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstractionConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionConectarFuenteEnergiaInterruptor4Pines"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                    {
+                        label: "Paso 2. Hacer pruebas de movimiento:",
+                        icon: "",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/ConectarInterruptor4PinesModulosTeoria",
+                            },
+                            {
+                                label: "Ejercicio:",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionConectarInterruptor4PinesModulos"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoConectarInterruptor4PinesModulos"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionConectarInterruptor4PinesModulos"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionConectarInterruptor4PinesModulos"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+
+                ],
             },
 
     
