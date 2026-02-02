@@ -15,8 +15,12 @@
       <h4 class="texto-personalizado">
         1. Seleccione la figura a la cual el problema está solicitando hallar el <strong>área</strong>:
       </h4>
-      <p v-if="intentosRestantes !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosRestantes }}
+      <p
+        v-if="intentosRestantes !== null"
+        class="alert"
+        :class="(intentosRestantes === 1 || (intentosRestantes === 0 && notaActual === 1)) ? 'alert-danger' : 'alert-info'"
+      >
+        Intentos restantes: {{ intentosRestantes }} | Nota actual: {{ notaActual !== null ? notaActual : '-' }}
       </p>
       <div class="figuras">
         <div v-for="figura in figuras" :key="figura.alt" class="figura" @click="intentosRestantes > 0 && manejarClick(figura.alt)">
@@ -33,8 +37,12 @@
       <h4 class="texto-personalizado">
         2. Seleccione una medida <strong>"variable"</strong> que pueda identificar en la descripción del problema:
       </h4>
-      <p v-if="intentos2 !== null" class="alert alert-info">
-        Intentos restantes: {{ intentos2 }}
+      <p
+        v-if="intentos2 !== null"
+        class="alert"
+        :class="(intentos2 === 1 || (intentos2 === 0 && nota2 === 1)) ? 'alert-danger' : 'alert-info'"
+      >
+        Intentos restantes: {{ intentos2 }} | Nota actual: {{ nota2 !== null ? nota2 : '-' }}
       </p>
       <div class="figuras">
         <div v-for="figura in figurasV" :key="figura.alt" class="figura" @click="intentos2 > 0 && manejarClickVar(figura.alt)">
@@ -51,8 +59,12 @@
       <h4 class="texto-personalizado">
         3. Seleccione otra medida <strong>"variable"</strong> identificable en el problema:
       </h4>
-      <p v-if="intentos3 !== null" class="alert alert-info">
-        Intentos restantes: {{ intentos3 }}
+      <p
+        v-if="intentos3 !== null"
+        class="alert"
+        :class="(intentos3 === 1 || (intentos3 === 0 && nota3 === 1)) ? 'alert-danger' : 'alert-info'"
+      >
+        Intentos restantes: {{ intentos3 }} | Nota actual: {{ nota3 !== null ? nota3 : '-' }}
       </p>
       <div class="figuras">
         <div v-for="figura in figurasV2" :key="figura.alt" class="figura" @click="intentos3 > 0 && manejarClickVar2(figura.alt)">

@@ -7,8 +7,12 @@
     <p class="texto-personalizado">
       <strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.
     </p>
-    <p v-if="intentosRestantes !== null" class="alert alert-info">
-      Intentos restantes: {{ intentosRestantes }}
+    <p
+      v-if="intentosRestantes !== null"
+      class="alert"
+      :class="(intentosRestantes === 1 || (intentosRestantes === 0 && notaActual === 1)) ? 'alert-danger' : 'alert-info'"
+    >
+      Intentos restantes: {{ intentosRestantes }} | Nota actual: {{ notaActual !== null ? notaActual : '-' }}
     </p>
 
     <div class="flex-container">
@@ -50,8 +54,12 @@
     <p class="texto-personalizado">
       <strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.
     </p>
-    <p v-if="intentos7 !== null" class="alert alert-info">
-      Intentos restantes: {{ intentos7 }}
+    <p
+      v-if="intentos7 !== null"
+      class="alert"
+      :class="(intentos7 === 1 || (intentos7 === 0 && nota7 === 1)) ? 'alert-danger' : 'alert-info'"
+    >
+      Intentos restantes: {{ intentos7 }} | Nota actual: {{ nota7 !== null ? nota7 : '-' }}
     </p>
 
     <div class="flex-container">

@@ -1,8 +1,12 @@
-<template>
+﻿<template>
   <div>
     <!-- Mostrar intentos disponibles -->
-    <p v-if="intentosDisponiblesAlgorithm !== null" class="alert alert-info">
-      Intentos restantes: {{ intentosDisponiblesAlgorithm }}
+    <p
+      v-if="intentosDisponiblesAlgorithm !== null"
+      class="alert"
+      :class="(intentosDisponiblesAlgorithm === 1 || (intentosDisponiblesAlgorithm === 0 && notaActualAlgorithm === 1)) ? 'alert-danger' : 'alert-info'"
+    >
+      Intentos restantes: {{ intentosDisponiblesAlgorithm }} | Nota actual: {{ notaActualAlgorithm !== null ? notaActualAlgorithm : '-' }}
     </p>
     <br>
      <p class="texto-personalizado">
@@ -56,27 +60,9 @@
       <p :class="feedbackClass">{{ feedbackMessage }}</p>
     </div>
 
-    <!-- Nota obtenida -->
-    <div v-if="evaluacion !== null" class="correcto mt-3">
-      <p
-        class="alert"
-        :class="{
-          'alert-danger': evaluacion === 1,
-          'alert-success': evaluacion >= 3
-        }"
-      >
-        Tu evaluación (algoritmo): {{ evaluacion }}
-      </p>
-    </div>
-
-    <!-- Nota global del store -->
-    <p class="alert alert-primary mt-3">
-      Evaluación Algoritmo (global): {{ evaluacionAlgorithmStore.evaluacion.toFixed(1) }}
-    </p>
-
     <!-- Botón avanzar (solo si completó o ya no hay intentos) -->
     <button
-      class="bt-validate mt-3"
+      class="btn btn-primary mt-3"
       @click="finish"
       :disabled="evaluacion === null || (intentosDisponiblesAlgorithm > 0 && !isCorrect)"
     >
@@ -212,6 +198,8 @@ export default {
   this.showErrorMessage = false;
   this.showResult = false;
   this.isCorrect = false;
+  this.feedbackMessage = '';
+  this.feedbackClass = '';
 
   // Validar entradas
   const entradasValidas = this.inputs.every((input) => {
@@ -229,6 +217,9 @@ export default {
     const inputValue = Number.parseInt(input.value, 10);
     return this.puzzle[inputValue - 1].id === this.correct[index].id;
   });
+
+  this.feedbackMessage = this.isCorrect ? 'Correcto!' : 'Incorrecto. Intenta de nuevo.';
+  this.feedbackClass = this.isCorrect ? 'alert alert-success' : 'alert alert-danger';
 
   // Calcular evaluación SOLO si es correcta o si se acabaron los intentos
   const intentosAntesDeRegistrar = this.intentosDisponiblesAlgorithm;
@@ -278,17 +269,6 @@ export default {
       margin-left: 10px;
       border-radius: 5px;
       text-align: center;
-    }
-    
-    button {
-      margin: auto;
-      width: calc(100% / 3);
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
     }
     
     .algoritmos {
@@ -395,13 +375,6 @@ export default {
       text-align: center;
     }
     
-    .bt-validate {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1%;
-    }
-    
     .texto-personalizado {
         font-family: Arial, sans-serif; /* Tipo de letra */
         font-size: 18px; /* Tamaño de fuente */
@@ -435,3 +408,4 @@ export default {
     }
     </style>
     
+

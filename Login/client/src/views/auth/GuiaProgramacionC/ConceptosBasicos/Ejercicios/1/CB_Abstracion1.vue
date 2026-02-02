@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div id="layout-general" class="layout-general">
     <main class="contenido">
       <h1 class="text-center">Paso 1. Montar Arduino UNO en el soporte</h1>
@@ -26,8 +26,12 @@
       <h3>Abstracción:</h3>
       <br>
       <!-- Intentos -->
-      <p v-if="intentosDisponibles !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponibles }}
+      <p
+        v-if="intentosDisponibles !== null"
+        class="alert"
+        :class="(intentosDisponibles === 1 || (intentosDisponibles === 0 && notaActual === 1)) ? 'alert-danger' : 'alert-info'"
+      >
+        Intentos restantes: {{ intentosDisponibles }} | Nota actual: {{ notaActual !== null ? notaActual : '-' }}
       </p>
       <br>
       <p class="texto-personalizado">
@@ -39,7 +43,7 @@
         <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
         <br>
         <br>
-        <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
+        <button @click="analyzeCode" :disabled="isRetryDisabled" class="btn btn-primary">Analizar Código</button>
         <br>
 
         <br>
@@ -47,13 +51,9 @@
       </div>
 
       <br>
-      <p v-if="isCorrect || intentosDisponibles <= 0" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
-
       <div>
         <button
-          class="bt-validate"
+          class="btn btn-primary"
           v-if="isCorrect || intentosDisponibles <= 0"
           :disabled="!isFinishEnabled"
           @click="finish"
@@ -61,10 +61,6 @@
           Avanzar
         </button>
       </div>
-
-      <p class="alert alert-primary">
-        Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
-      </p>
     </main>
 
     <aside class="menu-lateral">
@@ -341,3 +337,4 @@ textarea {
   font-size: 15px;
 }
 </style>
+

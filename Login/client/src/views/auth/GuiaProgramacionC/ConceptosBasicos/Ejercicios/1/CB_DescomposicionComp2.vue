@@ -5,8 +5,12 @@
       4. De acuerdo al tema de <strong>declaración de una variable</strong>,
       ordene de manera que la variable esté bien definida:
     </h4>
-    <p v-if="intentosRestantes !== null" class="alert alert-info">
-      Intentos restantes: {{ intentosRestantes }}
+    <p
+      v-if="intentosRestantes !== null"
+      class="alert"
+      :class="(intentosRestantes === 1 || (intentosRestantes === 0 && notaActual === 1)) ? 'alert-danger' : 'alert-info'"
+    >
+      Intentos restantes: {{ intentosRestantes }} | Nota actual: {{ notaActual !== null ? notaActual : '-' }}
     </p>
 
     <div>
@@ -48,8 +52,12 @@
       5. De acuerdo al tema de <strong>declaración de una variable</strong>,
       ordene de forma que la variable esté bien definida:
     </h4>
-    <p v-if="intentos5 !== null" class="alert alert-info">
-      Intentos restantes: {{ intentos5 }}
+    <p
+      v-if="intentos5 !== null"
+      class="alert"
+      :class="(intentos5 === 1 || (intentos5 === 0 && nota5 === 1)) ? 'alert-danger' : 'alert-info'"
+    >
+      Intentos restantes: {{ intentos5 }} | Nota actual: {{ nota5 !== null ? nota5 : '-' }}
     </p>
 
     <div>

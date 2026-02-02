@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div id="layout-general">
     <main class="contenido">
       <h1 class="text-center">Paso 1. Montar Arduino UNO en el soporte</h1>
@@ -24,8 +24,12 @@
       <hr class="my-4" />
       <br>
       <!-- Intentos de Video -->
-      <p v-if="intentosDisponiblesVideo !== null" class="alert alert-info">
-        Intentos video restantes: {{ intentosDisponiblesVideo }}
+      <p
+        v-if="intentosDisponiblesVideo !== null"
+        class="alert"
+        :class="(intentosDisponiblesVideo === 1 || (intentosDisponiblesVideo === 0 && notaActualVideo === 1)) ? 'alert-danger' : 'alert-info'"
+      >
+        Intentos video restantes: {{ intentosDisponiblesVideo }} | Nota actual: {{ notaActualVideo !== null ? notaActualVideo : '-' }}
       </p>
       <br>
       <!-- Video -->
@@ -57,19 +61,16 @@
           'incorrecto alert alert-danger mt-3': !correctVideoIndex
         }">{{ feedbackMessage }}</p>
       </div>
-
-      <div v-if="evaluacionVideo !== null" class="correcto">
-        <p class="alert" :class="{
-          'alert-danger': evaluacionVideo === 1,
-          'alert-success': evaluacionVideo >= 3 && evaluacionVideo <= 5
-        }">Tu evaluación (video): {{ evaluacionVideo }}</p>
-      </div>
       <br>
       <hr class="my-4" />
       <br>
       <!-- Intentos de Imagen -->
-      <p v-if="intentosDisponiblesImagen !== null" class="alert alert-info">
-        Intentos imagen restantes: {{ intentosDisponiblesImagen }}
+      <p
+        v-if="intentosDisponiblesImagen !== null"
+        class="alert"
+        :class="(intentosDisponiblesImagen === 1 || (intentosDisponiblesImagen === 0 && notaActualImagen === 1)) ? 'alert-danger' : 'alert-info'"
+      >
+        Intentos imagen restantes: {{ intentosDisponiblesImagen }} | Nota actual: {{ notaActualImagen !== null ? notaActualImagen : '-' }}
       </p>
       <br>
       <!-- Imagen -->
@@ -84,14 +85,8 @@
           v-for="(funcion, index) in funcionesV"
           :key="funcion.alt"
           class="figura"
-          @click="manejarClickVar(funcion.alt, index)"
+          @click="manejarClickVar(funcion.alt)"
         >
-          <div
-            v-if="totalClicksV > 0 && mostrarContadorV === index"
-            class="contador-imagen"
-          >
-            {{ intentosDisponiblesImagen - totalClicksV }}
-          </div>
           <img :src="funcion.src" :alt="funcion.alt"
                :style="{ pointerEvents: isBlockedV ? 'none' : 'auto', opacity: isBlockedV ? 0.5 : 1 }" />
         </div>
@@ -102,36 +97,12 @@
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
       </div>
-
-      <!-- Nota imagen -->
-      <div v-if="evaluacionV !== null" class="correcto">
-        <p class="alert" :class="{
-          'alert-danger': evaluacionV === 1,
-          'alert-success': evaluacionV >= 3 && evaluacionV <= 5
-        }">Tu evaluación (imagen): {{ evaluacionV }}</p>
-      </div>
-
-      <!-- Retroalimentación opcional -->
-      <div v-if="isBlockedV" class="alert alert-info mt-3">
-        Evaluación del subejercicio de imagen registrada.
-      </div>
       <br>
       <hr class="my-4" />
 
-      <!-- Evaluación combinada -->
-      <div v-if="puedeAvanzar" class="evaluacion-final">
-        <p class="alert alert-primary">
-          Evaluación total: {{ evaluacionTotal.toFixed(1) }}
-        </p>
-      </div>
-
-      <p class="alert alert-primary">
-        Evaluación Descomposición: {{ evaluacionStore.evaluacion.toFixed(1) }}
-      </p>
-
       <!-- Botón avanzar solo si ambas evaluaciones están completas -->
       <button
-        class="bt-validate"
+        class="btn btn-primary"
         @click="finish"
         :disabled="evaluacionV === null || evaluacionVideo === null"
       >
@@ -216,11 +187,13 @@ setup() {
 
     // Imagen
     intentosDisponiblesImagen: evaluacionImagen.intentosRestantes,
+    notaActualImagen: evaluacionImagen.notaActual,
     obtenerIntentosImagen: evaluacionImagen.obtenerIntentos,
     registrarEvaluacionImagen: evaluacionImagen.registrarEvaluacion,
 
     // Video
     intentosDisponiblesVideo: evaluacionVideo.intentosRestantes,
+    notaActualVideo: evaluacionVideo.notaActual,
     obtenerIntentosVideo: evaluacionVideo.obtenerIntentos,
     registrarEvaluacionVideo: evaluacionVideo.registrarEvaluacion,
   };
@@ -235,8 +208,6 @@ setup() {
         ].sort(() => Math.random() - 0.5),
 
         respuestaCorrectaV: 'Funcion 5',
-        totalClicksV: 0,
-        mostrarContadorV: null,
         isBlockedV: false,
         respuestaVar: null,
         CorrectaVar: false,
@@ -258,12 +229,8 @@ setup() {
 
         selectedVideo: null,
         feedbackMessage: "",
-        feedbackClass: "",
-        BlockedVideo: null,
-        totalClicksVideo: 0,
         evaluacionVideo: null,
         correctVideoIndex: null,
-        mostrarContadorVideo: null,
         mensajesErrorVideo: [
           '¡Error! Recuerda que debes de seleccionar el video donde se evidencie el proceso de ajustamiento del soporte. ',
           '¡Error! Desbes tener en cuenta que para el ajuste del soporte se necesita tener dos tornillos y cada uno debe de tener una tuerca. ',
@@ -273,36 +240,27 @@ setup() {
       };
     },
 
-    computed: {
-      puedeAvanzar() {
-        return this.evaluacionV !== null && this.evaluacionVideo !== null;
-      },
-      evaluacionTotal() {
-        const total = (this.evaluacionV ?? 0) + (this.evaluacionVideo ?? 0);
-        return total / 2;
-      }
-    },
-
     methods: {
   // --- Subejercicio de Imagen ---
-  async manejarClickVar(funcionSeleccionada, index) {
+  async manejarClickVar(funcionSeleccionada) {
   if (this.intentosDisponiblesImagen <= 0) return;
 
-  this.mostrarContadorV = index;
   this.respuestaVar = funcionSeleccionada;
+  const esCorrecta = funcionSeleccionada === this.respuestaCorrectaV;
+  this.CorrectaVar = esCorrecta;
 
-  if (funcionSeleccionada === this.respuestaCorrectaV) {
-    this.CorrectaVar = true;
-  } else {
-    this.totalClicksV++;
-    this.CorrectaVar = false;
+  if (!esCorrecta) {
     this.mensajeErrorVar = this.obtenerMensajeErrorVar();
   }
 
-  this.calcularEvaluacionVar();
+  const intentos = this.intentosDisponiblesImagen;
+  const nota = esCorrecta
+    ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
+    : 1;
+  this.evaluacionV = nota;
 
   try {
-    await this.registrarEvaluacionImagen(this.evaluacionV);
+    await this.registrarEvaluacionImagen(nota);
     await this.obtenerIntentosImagen();
 
     // Solo bloquear si ya no quedan intentos
@@ -318,11 +276,6 @@ setup() {
 }
 ,
 
-  calcularEvaluacionVar() {
-    const intentos = this.totalClicksV;
-    this.evaluacionV = intentos === 0 ? 5 : intentos === 1 ? 4 : 3;
-  },
-
   obtenerMensajeErrorVar() {
     const i = Math.floor(Math.random() * this.mensajesErrorVar.length);
     return this.mensajesErrorVar[i];
@@ -333,49 +286,34 @@ setup() {
   if (this.intentosDisponiblesVideo <= 0) return;
 
   if (!this.selectedVideo) {
+    this.correctVideoIndex = false;
     this.feedbackMessage = "Debes seleccionar un video antes de enviar la respuesta.";
-    this.feedbackClass = "error-message";
     return;
   }
 
-  if (this.selectedVideo.src === "https://www.youtube.com/embed/He4uEzRf01A?si=g0JNbgGokYr0fhTq") {
-    this.correctVideoIndex = true;
-    this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
-    this.feedbackClass = "success-message";
-    this.calcularEvaluacionVideo();
-  } else {
-    this.totalClicksVideo++;
-    this.correctVideoIndex = false;
-    this.feedbackMessage = this.obtenerMensajeErrorVideo();
-    this.feedbackClass = "error-message";
+  const esCorrecto = this.selectedVideo.src === "https://www.youtube.com/embed/He4uEzRf01A?si=g0JNbgGokYr0fhTq";
+  this.correctVideoIndex = esCorrecto;
+  this.feedbackMessage = esCorrecto
+    ? "¡Correcto! Seleccionaste el video adecuado."
+    : this.obtenerMensajeErrorVideo();
 
-    if (this.totalClicksVideo >= this.intentosDisponiblesVideo) {
-      this.evaluacionVideo = 1;
-    } else {
-      this.calcularEvaluacionVideo();
-    }
-  }
+  const intentos = this.intentosDisponiblesVideo;
+  const nota = esCorrecto
+    ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
+    : 1;
+  this.evaluacionVideo = nota;
 
   try {
-    await this.registrarEvaluacionVideo(this.evaluacionVideo);
+    await this.registrarEvaluacionVideo(nota);
     await this.obtenerIntentosVideo();
 
     // Solo bloquear si ya no quedan intentos
-    if (this.intentosDisponiblesVideo <= 0) {
-      this.BlockedVideo = true;
-    }
-
     console.log("✔ Video evaluado y estado actualizado");
   } catch (err) {
     console.error("Error registrando evaluación video:", err);
     alert("Hubo un problema al guardar la evaluación del video.");
   }
 },
-
-  calcularEvaluacionVideo() {
-    const intentos = this.totalClicksVideo;
-    this.evaluacionVideo = intentos === 0 ? 5 : intentos === 1 ? 4 : 3;
-  },
 
   obtenerMensajeErrorVideo() {
     const i = Math.floor(Math.random() * this.mensajesErrorVideo.length);
@@ -488,17 +426,6 @@ setup() {
     margin-top: 20px;
   }
   
-  .contador-imagen {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  font-size: 14px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  }
-  
   .correcto {
     font-size: 20px;
     color: green;
@@ -539,13 +466,6 @@ setup() {
       text-align: justify; /* Alineación justificada */
   }
   
-.evaluacion-final {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-
 .video-selection {
   text-align: center;
 }
@@ -567,14 +487,6 @@ setup() {
   margin-top: 10px;
 }
 
-.success-message {
-  color: green;
-  font-weight: bold;
-}
-
-.error-message {
-  color: red;
-  font-weight: bold;
-}
-  
 </style>
+
+
