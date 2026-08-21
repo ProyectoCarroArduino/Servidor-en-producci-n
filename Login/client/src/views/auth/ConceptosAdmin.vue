@@ -157,7 +157,8 @@ onMounted(cargarContenido)
   padding: 2rem;
   background: #fff;
   border-radius: 8px;
-  font-family: sans-serif;
+  /* Tipografia del tema (theme.css): Sora para el contenido de la vista */
+  font-family: var(--ec-font);
 }
 
 .admin-glosario h1 {
@@ -197,6 +198,8 @@ onMounted(cargarContenido)
   border-radius: 4px;
   font-size: 1rem;
   flex: 1;
+  /* Los controles de formulario no heredan la fuente: hay que declararla */
+  font-family: var(--ec-font-ui);
 }
 
 .admin-glosario textarea {
@@ -206,6 +209,7 @@ onMounted(cargarContenido)
 
 .admin-glosario button {
   padding: 0.5rem 1rem;
+  font-family: var(--ec-font-ui);
   background: #2d6cdf;
   color: white;
   font-weight: bold;
@@ -230,6 +234,7 @@ onMounted(cargarContenido)
   padding: 0.75rem;
   margin-bottom: 1rem;
   border-radius: 4px;
+  font-family: var(--ec-font-ui);
   font-weight: bold;
   text-align: center;
 }

@@ -15,5 +15,16 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  // Solo aplica a `vite dev`: en produccion el frontend se sirve desde Vercel
+  // contra el backend publicado, asi que este proxy no interviene.
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   }
 })

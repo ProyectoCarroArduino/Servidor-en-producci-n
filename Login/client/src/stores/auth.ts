@@ -95,6 +95,18 @@ export const useAuthStore = defineStore("auth", {
         },
 
 
+        async checkEmail(email: string): Promise<boolean> {
+            try {
+                const { data } = await useApi().get("/api/auth/check-email", { params: { email } })
+                return !!data?.exists
+            } catch (error) {
+                // Si la consulta falla no bloqueamos el registro:
+                // el backend vuelve a validar el correo duplicado y responde 409.
+                console.error("Error al verificar el email:", error)
+                return false
+            }
+        },
+
         async getUser(){
             try {
                 const {data} = await useApiPrivate().get("/api/auth/profile");

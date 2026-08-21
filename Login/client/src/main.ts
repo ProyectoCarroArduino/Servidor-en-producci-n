@@ -8,6 +8,9 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap"
 import 'material-icons/iconfont/material-icons.css'
 
+// Tokens de diseno compartidos (solo variables CSS sobre :root)
+import './assets/theme.css'
+
 const app = createApp(App)
 
 app.use(createPinia())

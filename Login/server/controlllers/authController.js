@@ -23,24 +23,30 @@ export const register = async (req, res) => {
     const userExists = await User.exists({ email }).exec();
     if (userExists) return res.sendStatus(409);
 
+    // Se mantiene fuera del try para poder revertir la creacion si algo falla despues.
+    let newUser = null;
+
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Buscar la plantilla del curso
-        const plantilla = await CourseTemplate.findOne();
-        if (!plantilla) return res.status(500).json({ message: "No hay plantilla de curso disponible" });
+        // Clonar TODAS las plantillas disponibles, no solo la primera:
+        // el usuario debe nacer con el catalogo completo de cursos.
+        const plantillas = await CourseTemplate.find().exec();
+        if (plantillas.length === 0)
+            return res.status(500).json({ message: "No hay plantilla de curso disponible" });
 
-        // Clonar el curso 
-        const cursoClonado = JSON.parse(JSON.stringify(plantilla.toObject()));
+        const cursosClonados = plantillas.map(
+            (plantilla) => JSON.parse(JSON.stringify(plantilla.toObject()))
+        );
 
-        // Crear el usuario con el curso asignado
-        const newUser = await User.create({
+        // Crear el usuario con los cursos asignados
+        newUser = await User.create({
             email,
             username,
             password: hashedPassword,
             first_name,
             last_name,
-            curso: cursoClonado
+            curso: cursosClonados
         });
 
         // Generar token de activación
@@ -60,17 +66,39 @@ export const register = async (req, res) => {
         return res.status(201).json({
             message: "Cuenta creada. Revisa tu correo para activar tu cuenta."
         });
-        
+
     } catch (error) {
-        console.log(error);
+        console.error("Error en el registro:", error);
+
+        // Choque con el indice unico de email: otro registro gano la carrera
+        // entre el User.exists() de arriba y el User.create().
+        if (error?.code === 11000) return res.sendStatus(409);
+
+        // Si el usuario alcanzo a crearse pero fallo el token o el envio del correo,
+        // lo borramos: de lo contrario queda una cuenta sin verificar que no puede
+        // iniciar sesion y que ademas bloquea el reintento con ese mismo correo.
+        if (newUser) {
+            try {
+                await User.findByIdAndDelete(newUser._id).exec();
+            } catch (rollbackError) {
+                console.error("No se pudo revertir el usuario:", rollbackError);
+            }
+
+            return res.status(502).json({
+                message: "No se pudo enviar el correo de verificacion. Intenta de nuevo en unos minutos."
+            });
+        }
+
         return res.status(400).json({ message: "no se pudo registrar" });
     }
 };
 
+// Consultas de disponibilidad: van por GET con querystring, que es lo que
+// envia el formulario de registro (antes estaban como POST y devolvian 404).
 export const checkEmail = async (req, res) => {
     try {
-        const { email } = req.body;
-        
+        const { email } = req.query;
+
         if (!email) {
             return res.status(422).json({ message: "El campo email es requerido" });
         }
@@ -85,8 +113,8 @@ export const checkEmail = async (req, res) => {
 
 export const checkUsername = async (req, res) => {
     try {
-        const { username } = req.body;
-        
+        const { username } = req.query;
+
         if (!username) {
             return res.status(422).json({ message: "El campo username es requerido" });
         }

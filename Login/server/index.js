@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import "./config/validate_env.js";
 import cors from "cors";
 import cookieparser from "cookie-parser";
 import mongoose from "mongoose";
@@ -61,6 +62,8 @@ mongoose.connection.once("open", () => {
     
 })
 
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

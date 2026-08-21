@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap");
+
+/*
+ * Tokens de diseno del proyecto.
+ * Solo define variables sobre :root, no aplica estilos a ningun elemento, por lo
+ * que puede importarse de forma global sin alterar vistas existentes.
+ *
+ * Los valores de marca provienen del tema ya establecido en
+ * views/auth/GuiaProgramacionC/GuiaProgramacionHome.vue.
+ *
+ * Los valores del bloque data-viz estan validados con el validador de paletas
+ * (banda de luminosidad, piso de croma, separacion CVD protan/deutan, contraste
+ * contra superficie #ffffff). No sustituir por otros hex sin volver a validar.
+ * Ver documentacion/diseno-estilos-plantillas.md.
+ */
+
+:root {
+  /* --- Marca: escala de azules --- */
+  --ec-blue-950: #0b1f33;
+  --ec-blue-800: #123357;
+  --ec-blue-700: #1a4a78;
+  --ec-blue-600: #2564a8;
+  --ec-blue-200: #d7e7fb;
+  --ec-blue-100: #eff6ff;
+  --ec-accent: #6ec6ff;
+  --ec-accent-soft: rgba(110, 198, 255, 0.28);
+
+  /* --- Tinta --- */
+  --ec-text: #0b1f33;
+  --ec-text-muted: #3e556c;
+  --ec-text-subtle: #6b7f94;
+
+  /* --- Superficies --- */
+  --ec-surface: #ffffff;
+  --ec-surface-glass: rgba(255, 255, 255, 0.82);
+  --ec-surface-sunken: #f4f8fd;
+  --ec-page-bg:
+    radial-gradient(900px 460px at 10% 10%, rgba(102, 169, 255, 0.26), transparent 60%),
+    radial-gradient(600px 360px at 80% 5%, rgba(86, 175, 230, 0.22), transparent 60%),
+    linear-gradient(180deg, #f7fbff 0%, #eef4ff 52%, #f7fbff 100%);
+
+  /* --- Bordes --- */
+  --ec-border: rgba(17, 50, 90, 0.12);
+  --ec-border-strong: rgba(17, 50, 90, 0.2);
+
+  /* --- Radios --- */
+  --ec-radius-lg: 28px;
+  --ec-radius-md: 20px;
+  --ec-radius-sm: 14px;
+  --ec-radius-xs: 10px;
+
+  /* --- Sombras --- */
+  --ec-shadow-lg: 0 32px 70px rgba(11, 31, 51, 0.16);
+  --ec-shadow-md: 0 16px 34px rgba(11, 31, 51, 0.1);
+  --ec-shadow-sm: 0 8px 18px rgba(11, 31, 51, 0.08);
+
+  /* --- Tipografia --- */
+  --ec-font: "Sora", "Manrope", "Poppins", "Segoe UI", system-ui, sans-serif;
+  --ec-font-ui: "Manrope", "Segoe UI", system-ui, sans-serif;
+
+  /* ============================================================
+   * Data-viz — valores validados, no editar sin re-validar
+   * ============================================================ */
+
+  /* Serie unica (magnitud sobre categorias nominales): un solo color */
+  --viz-series-1: #2a78d6;
+  --viz-series-1-soft: #dce9fa;
+
+  /* Rampa ordinal azul: bandas con orden natural (edad, hogar, ingresos) */
+  --viz-ordinal-1: #86b6ef;
+  --viz-ordinal-2: #5598e7;
+  --viz-ordinal-3: #2a78d6;
+  --viz-ordinal-4: #1c5cab;
+  --viz-ordinal-5: #104281;
+
+  /* Divergente para escalas ordenadas tipo Likert: rojo <- gris -> azul */
+  --viz-div-neg-2: #b83232;
+  --viz-div-neg-1: #ec8b8a;
+  --viz-div-neutral: #d9d7d2;
+  --viz-div-pos-1: #86b6ef;
+  --viz-div-pos-2: #1c5cab;
+
+  /* Chrome del grafico */
+  --viz-grid: #e6ecf4;
+  --viz-axis: #c8d4e2;
+  --viz-ink: #0b1f33;
+  --viz-ink-muted: #6b7f94;
+  --viz-track: #e8eff8;
+}

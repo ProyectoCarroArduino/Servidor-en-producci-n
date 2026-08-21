@@ -60,21 +60,32 @@
 
       <div class="information">
         <p>
-          A continuación, encontrarás una serie de preguntas que requieren tu calificación en una escala del 1 al 5:
-          <br /><strong>1: Muy alta</strong><br /><strong>2: Alta</strong><br /><strong>3: Moderada</strong><br />
-          <strong>4: Baja</strong><br /><strong>5: Muy baja</strong>
+          A continuación, encontrarás una serie de preguntas que requieren tu calificación
+          en una escala del 1 al 5, donde <strong>1 es la valoración más baja</strong> y
+          <strong>5 la más alta</strong>:
         </p>
+        <ul class="escala-guia">
+          <li><strong>1</strong> Muy baja</li>
+          <li><strong>2</strong> Baja</li>
+          <li><strong>3</strong> Moderada</li>
+          <li><strong>4</strong> Alta</li>
+          <li><strong>5</strong> Muy alta</li>
+        </ul>
       </div>
 
       <div class="question2" v-for="(section, key) in questionSections" :key="key">
         <h3>{{ section.title }}</h3>
         <div v-for="(question, index) in section.questions" :key="key + '-' + index">
           <label class="text">{{ question }}</label>
-          <fieldset>
-            <legend class="sr-only">Calificación</legend>
-            <label v-for="n in 5" :key="n">
+          <!-- Las anclas van junto a los radios, no solo en la leyenda de arriba:
+               es donde la persona decide, y donde la direccion debe quedar clara. -->
+          <fieldset class="escala">
+            <legend class="sr-only">Calificación de 1 (muy baja) a 5 (muy alta)</legend>
+            <span class="escala-ancla" aria-hidden="true">Muy baja</span>
+            <label v-for="n in 5" :key="n" class="escala-opcion">
               <input type="radio" :name="key + index" :value="n" v-model="formData[key][index]" /> {{ n }}
             </label>
+            <span class="escala-ancla" aria-hidden="true">Muy alta</span>
           </fieldset>
         </div>
       </div>
@@ -98,18 +109,22 @@ export default {
         household: '',
         income: '',
         employment: '',
-        utility: Array(3).fill(''),
-        easeOfUse: Array(3).fill(''),
-        attitude: Array(3).fill(''),
-        intention: Array(3).fill('')
+        utility: Array(4).fill(''),
+        easeOfUse: Array(4).fill(''),
+        attitude: Array(4).fill(''),
+        intention: Array(4).fill('')
       },
+      // Cada dimension TAM se mide con 4 items. La recomendacion a terceros vive
+      // solo en `intention`: es conducta intencional, no actitud, y tenerla en las
+      // dos dimensiones inflaba artificialmente la correlacion entre ellas.
       questionSections: {
         utility: {
           title: 'Medir la percepción de utilidad',
           questions: [
             '¿La aplicación proporciona herramientas útiles para desarrollar habilidades de pensamiento computacional?',
             '¿La información proporcionada por la aplicación es clara y precisa?',
-            '¿Considera que la aplicación ha mejorado su conocimiento sobre programación?'
+            '¿Considera que la aplicación ha mejorado su conocimiento sobre programación?',
+            '¿Considera que la aplicación puede ser útil para colaborar con otros estudiantes o profesionales?'
           ]
         },
         easeOfUse: {
@@ -117,15 +132,17 @@ export default {
           questions: [
             '¿Qué tan fácil fue entender cómo funciona la aplicación?',
             '¿Fue fácil encontrar las funcionalidades que estaba buscando?',
-            '¿El diseño de la aplicación es intuitivo?'
+            '¿El diseño de la aplicación es intuitivo?',
+            '¿La aplicación se cargaba rápidamente y respondía de manera ágil?'
           ]
         },
         attitude: {
           title: 'Actitud hacia el uso de la aplicación',
           questions: [
             '¿Se siente motivado a seguir usando la aplicación?',
-            '¿Recomendaría esta aplicación a otros estudiantes?',
-            '¿Considera que la aplicación tiene potencial para mejorar su aprendizaje?'
+            '¿Le agrada la idea de usar la aplicación como apoyo en su proceso de aprendizaje?',
+            '¿Considera que la aplicación tiene potencial para mejorar su aprendizaje?',
+            '¿Qué tan satisfecho está con el rendimiento general de la aplicación?'
           ]
         },
         intention: {
@@ -133,7 +150,8 @@ export default {
           questions: [
             '¿Tiene intención de seguir utilizando la aplicación en el futuro?',
             '¿Considera que usará esta aplicación de manera regular?',
-            '¿Se ha convertido esta aplicación en parte de su rutina de estudio?'
+            '¿Se ha convertido esta aplicación en parte de su rutina de estudio?',
+            '¿Recomendaría esta aplicación a otros estudiantes o compañeros?'
           ]
         }
       }
@@ -249,14 +267,18 @@ fieldset > label {
   margin-bottom: 10px;
 }
 
-.information p {
-  font-size: 15px;
+.information {
   margin: 20px 0;
-  line-height: 1.6;
   background-color: #f0f5ff;
   padding: 15px 20px;
   border-left: 4px solid #007acc;
   border-radius: 5px;
+}
+
+.information p {
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.6;
 }
 
 .question2 .text {
@@ -271,6 +293,37 @@ fieldset > label {
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+}
+
+.escala {
+  align-items: center;
+}
+
+.escala-ancla {
+  font-size: 13px;
+  color: #6b7f94;
+  white-space: nowrap;
+}
+
+.escala-opcion {
+  margin-right: 0;
+}
+
+.escala-guia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: #444;
+}
+
+.escala-guia strong {
+  display: inline-block;
+  min-width: 20px;
+  color: #007acc;
 }
 
 button[type="submit"] {

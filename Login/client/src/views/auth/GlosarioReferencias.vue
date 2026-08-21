@@ -75,7 +75,8 @@ const iconoPorTipo = tipo => {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: sans-serif;
+  /* Tipografia del tema (theme.css): Sora para el contenido de la vista */
+  font-family: var(--ec-font);
 }
 
 h1 {
@@ -97,6 +98,8 @@ h2 {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  /* Los controles de formulario no heredan la fuente: hay que declararla */
+  font-family: var(--ec-font-ui);
 }
 
 .tarjetas {
@@ -120,6 +123,13 @@ h2 {
 .tarjeta h3 {
   font-size: 1.2rem;
   margin-bottom: 0.3rem;
+}
+
+/* Texto corrido y enlaces en Manrope, igual que las vistas ya alineadas */
+.tarjeta p,
+.tarjeta a,
+.referencia-header {
+  font-family: var(--ec-font-ui);
 }
 
 .tarjeta a {

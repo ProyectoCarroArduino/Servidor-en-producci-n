@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { connectManual } from './config/connectManual.js';
 import { User } from './models/User.js';
 
-const EMAIL_OBJETIVO = 'j.d.jose.b.a.2000@gmail.com'; // email del usuario a actualizar
+const EMAIL_OBJETIVO = 'josebarrero.0704@gmail.com'; // email del usuario a actualizar
 const NUEVO_INTENTO = 3 // numero de intentos a asignar
 const NOTA_RESETEADA = null // Limpiar nota
 

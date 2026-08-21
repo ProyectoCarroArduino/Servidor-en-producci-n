@@ -3,15 +3,25 @@ import mongoose from 'mongoose';
 
 const registroDBConnection = mongoose.createConnection(process.env.URI_MONGODB);
 
-// Esquema para las secciones TAM (utility, easeOfUse, etc.)
-const SeccionTAMSchema = new mongoose.Schema({
-  respuestas: {
-    type: [Number],
-    validate: arr => arr.length === 3 // asegura que lleguen 3 respuestas
-  }
-}, { _id: false });
-
 // Esquema principal de la respuesta de encuesta
+// Nota: cada dimension TAM se guarda como un arreglo plano de 4 valores 1..5
+// en la escala ascendente del formulario (1 = Muy baja ... 5 = Muy alta).
+// Antes del 10 de agosto de 2026 eran 3 items por dimension; los documentos
+// anteriores siguen siendo legibles, pero no comparables con los actuales.
+const ITEMS_POR_DIMENSION = 4;
+const ESCALA_MIN = 1;
+const ESCALA_MAX = 5;
+
+// Valida cantidad de items y rango de cada valor. El rango faltaba: el esquema
+// aceptaba cualquier numero mientras el arreglo tuviera el largo correcto.
+const escalaTAM = {
+  validator: (arr) =>
+    Array.isArray(arr) &&
+    arr.length === ITEMS_POR_DIMENSION &&
+    arr.every(v => Number.isInteger(v) && v >= ESCALA_MIN && v <= ESCALA_MAX),
+  message: `Cada dimension requiere ${ITEMS_POR_DIMENSION} valores enteros entre ${ESCALA_MIN} y ${ESCALA_MAX}`
+};
+
 const respuestaSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,19 +37,19 @@ const respuestaSchema = new mongoose.Schema({
   employment: { type: String, required: true },
   utility: {
     type: [Number],
-    validate: arr => arr.length === 3
+    validate: escalaTAM
   },
   easeOfUse: {
     type: [Number],
-    validate: arr => arr.length === 3
+    validate: escalaTAM
   },
   attitude: {
     type: [Number],
-    validate: arr => arr.length === 3
+    validate: escalaTAM
   },
   intention: {
     type: [Number],
-    validate: arr => arr.length === 3
+    validate: escalaTAM
   },
   submittedAt: { type: Date, default: Date.now }
 });

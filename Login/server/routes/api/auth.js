@@ -21,8 +21,8 @@ router.get("/user", authentication, auth, user);
 router.get("/profile", authentication, auth, profile);
 router.post('/changePassword', authentication, changePassword);
 
-router.post('/check-email', checkEmail);
-router.post('/check-username', checkUsername);
+router.get('/check-email', checkEmail);
+router.get('/check-username', checkUsername);
 
 
 router.post("/analyze", analyzeCode);

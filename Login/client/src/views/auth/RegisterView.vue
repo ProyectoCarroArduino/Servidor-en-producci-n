@@ -113,9 +113,14 @@
               <span v-if="shouldShowRepasswordError" class="field-note error">
                 La contrasena debe tener al menos 6 caracteres
               </span>
+              <span v-else-if="shouldShowMismatchError" class="field-note error">
+                Las contrasenas no coinciden
+              </span>
             </div>
 
-            <button type="submit" class="submit-btn">Registrar</button>
+            <button type="submit" class="submit-btn" :disabled="!isFormValid || isSubmitting">
+              {{ isSubmitting ? "Registrando..." : "Registrar" }}
+            </button>
 
             <p v-if="errorMessage" class="status-message error" role="alert">{{ errorMessage }}</p>
             <p v-if="successMessage" class="status-message success">{{ successMessage }}</p>
@@ -147,27 +152,24 @@ const registerData = reactive<RegisterData>({
 });
 
 const emailExists = ref(false);
+let emailCheckTimer: ReturnType<typeof setTimeout> | undefined;
 
-async function checkEmailExists() {
-  if (!registerData.email) {
-    emailExists.value = false;
-    return;
-  }
+function checkEmailExists() {
+  clearTimeout(emailCheckTimer);
+  emailExists.value = false;
 
-  try {
-    const response = await fetch(`/api/auth/check-email?email=${registerData.email}`);
-    const data = await response.json();
-    emailExists.value = data.exists;
-  } catch (err) {
-    console.error("Error al verificar el email:", err);
-    emailExists.value = false;
-  }
+  // sin un correo con forma valida no vale la pena consultar
+  if (!registerData.email.includes("@")) return;
+
+  // esperamos a que el usuario deje de escribir para no lanzar una peticion por tecla
+  emailCheckTimer = setTimeout(async () => {
+    emailExists.value = await authStore.checkEmail(registerData.email);
+  }, 400);
 }
 
 const errorMessage = ref<string>("");
 const successMessage = ref<string>("");
-
-const isPasswordValid = ref(false);
+const isSubmitting = ref(false);
 
 const shouldShowPasswordError = computed(() => {
   return registerData.password.length > 0 && registerData.password.length < 6;
@@ -177,31 +179,48 @@ const shouldShowRepasswordError = computed(() => {
   return registerData.password_confirm.length > 0 && registerData.password_confirm.length < 6;
 });
 
+const shouldShowMismatchError = computed(() => {
+  return (
+    registerData.password_confirm.length >= 6 &&
+    registerData.password !== registerData.password_confirm
+  );
+});
+
 const isFormValid = computed(() => {
-  return isPasswordValid.value;
+  return (
+    registerData.username.trim() !== "" &&
+    registerData.first_name.trim() !== "" &&
+    registerData.last_name.trim() !== "" &&
+    registerData.email.trim() !== "" &&
+    !emailExists.value &&
+    registerData.password.length >= 6 &&
+    registerData.password === registerData.password_confirm
+  );
 });
 
 async function submit() {
-  isPasswordValid.value = registerData.password.length >= 6;
+  if (!isFormValid.value || isSubmitting.value) return;
 
-  if (!isPasswordValid.value) return;
+  isSubmitting.value = true;
+  errorMessage.value = "";
 
-  await authStore
-    .register(registerData)
-    .then(() => {
-      // mensaje de exito
-      successMessage.value = "Se ha enviado un mensaje de verificacion al correo proporcionado";
-      errorMessage.value = "";
+  try {
+    await authStore.register(registerData);
 
-      // esperar 10 segundos y redirigir al login
-      setTimeout(() => {
-        router.replace({ name: "login" });
-      }, 10000);
-    })
-    .catch((err) => {
-      errorMessage.value = err.message;
-      successMessage.value = "";
-    });
+    // mensaje de exito
+    successMessage.value = "Se ha enviado un mensaje de verificacion al correo proporcionado";
+    errorMessage.value = "";
+
+    // esperar 10 segundos y redirigir al login
+    setTimeout(() => {
+      router.replace({ name: "login" });
+    }, 10000);
+  } catch (err: any) {
+    errorMessage.value = err.message;
+    successMessage.value = "";
+    // solo reactivamos el boton si fallo: en el caso exitoso ya vamos al login
+    isSubmitting.value = false;
+  }
 }
 </script>
 
@@ -405,9 +424,15 @@ async function submit() {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: 0 18px 40px rgba(27, 184, 255, 0.35);
+}
+
+.submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .status-message {

@@ -28,35 +28,89 @@ export async function registrarRespuesta(req, res) {
   }
 }
 
+// Mapea cada dimension TAM al campo del documento que la almacena
+const DIMENSIONES_TAM = {
+  utilidad: 'utility',
+  facilidad: 'easeOfUse',
+  actitud: 'attitude',
+  intencion: 'intention'
+};
+
+const CAMPOS_DEMOGRAFICOS = {
+  edad: 'age',
+  genero: 'gender',
+  empleo: 'employment',
+  cursos: 'tech_courses',
+  hogar: 'household',
+  ingresos: 'income'
+};
+
+// La encuesta usa una escala Likert ASCENDENTE (1 = Muy baja ... 5 = Muy alta),
+// como el TAM estandar. Los valores se guardan y se devuelven tal cual, sin ninguna
+// transformacion. El campo `escala` declara la direccion para que los consumidores no
+// tengan que asumirla. Ver documentacion/metodologia-tam.md.
+const ESCALA = { min: 1, max: 5, direccion: 'ascendente', mejor: 'max' };
+
 // Obtener resumen estadístico de todas las respuestas
 export async function obtenerResumen(req, res) {
   try {
     const respuestas = await Respuestas.find();
 
+    const dimensiones = Object.keys(DIMENSIONES_TAM);
+
     if (!respuestas.length) {
       return res.json({
-        categorias: {
-          utilidad: 0,
-          facilidad: 0,
-          actitud: 0,
-          intencion: 0
-        },
+        total: 0,
+        escala: ESCALA,
+        categorias: Object.fromEntries(dimensiones.map(d => [d, null])),
+        desviaciones: Object.fromEntries(dimensiones.map(d => [d, null])),
+        distribuciones: Object.fromEntries(
+          dimensiones.map(d => [d, { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }])
+        ),
+        demografia: Object.fromEntries(Object.keys(CAMPOS_DEMOGRAFICOS).map(k => [k, {}])),
+        // Compatibilidad con consumidores previos del endpoint
         edad: {},
         genero: {},
         empleo: {}
       });
     }
 
-    const calcularPromedioCategoria = (lista) => {
-      const total = lista.reduce((sum, arr) => sum + arr.reduce((a, b) => a + b, 0), 0);
-      const cantidad = lista.length * 3;
-      return (total / cantidad).toFixed(2);
+    // Aplana los 3 items de una dimension en una sola lista de valores validos
+    const valoresDe = (campo) =>
+      respuestas
+        .flatMap(r => r[campo] ?? [])
+        .filter(v => typeof v === 'number' && Number.isFinite(v));
+
+    const promedio = (valores) =>
+      valores.length ? Number((valores.reduce((a, b) => a + b, 0) / valores.length).toFixed(2)) : null;
+
+    // Desviacion estandar poblacional: acompaña al promedio para reportar dispersion
+    const desviacion = (valores) => {
+      if (valores.length < 2) return null;
+      const media = valores.reduce((a, b) => a + b, 0) / valores.length;
+      const varianza = valores.reduce((sum, v) => sum + (v - media) ** 2, 0) / valores.length;
+      return Number(Math.sqrt(varianza).toFixed(2));
     };
 
-    const utilidad = calcularPromedioCategoria(respuestas.map(r => r.utility));
-    const facilidad = calcularPromedioCategoria(respuestas.map(r => r.easeOfUse));
-    const actitud = calcularPromedioCategoria(respuestas.map(r => r.attitude));
-    const intencion = calcularPromedioCategoria(respuestas.map(r => r.intention));
+    // Conteo de cuantas veces se marco cada punto 1..5 de la escala
+    const distribucion = (valores) => {
+      const conteo = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      valores.forEach(v => {
+        if (v >= ESCALA.min && v <= ESCALA.max) conteo[v] += 1;
+      });
+      return conteo;
+    };
+
+    const categorias = {};
+    const desviaciones = {};
+    const distribuciones = {};
+
+    for (const [dimension, campo] of Object.entries(DIMENSIONES_TAM)) {
+      const valores = valoresDe(campo);
+      categorias[dimension] = promedio(valores);
+      desviaciones[dimension] = desviacion(valores);
+      distribuciones[dimension] = distribucion(valores);
+    }
 
     const contarPorCampo = (campo) => {
       const conteo = {};
@@ -67,20 +121,21 @@ export async function obtenerResumen(req, res) {
       return conteo;
     };
 
-    const edad = contarPorCampo('age');
-    const genero = contarPorCampo('gender');
-    const empleo = contarPorCampo('employment');
+    const demografia = Object.fromEntries(
+      Object.entries(CAMPOS_DEMOGRAFICOS).map(([clave, campo]) => [clave, contarPorCampo(campo)])
+    );
 
     res.json({
-      categorias: {
-        utilidad,
-        facilidad,
-        actitud,
-        intencion
-      },
-      edad,
-      genero,
-      empleo
+      total: respuestas.length,
+      escala: ESCALA,
+      categorias,
+      desviaciones,
+      distribuciones,
+      demografia,
+      // Compatibilidad con consumidores previos del endpoint
+      edad: demografia.edad,
+      genero: demografia.genero,
+      empleo: demografia.empleo
     });
 
   } catch (error) {
