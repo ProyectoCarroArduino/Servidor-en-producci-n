@@ -6,11 +6,12 @@ node_modules/
 # Archivos de entorno
 .env
 .env.local
-/client/.env
-/client/.env.local
-/server/.env
-/server/.env.development
-/server/.env.production
+Login/client/.env.local
+# client/.env se versiona a proposito: solo tiene URLs publicas, ningun secreto.
+!Login/client/.env
+Login/server/.env
+Login/server/.env.development
+Login/server/.env.production
 
 # Archivos compilados
 /client/dist/
@@ -37,3 +38,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Documentacion de trabajo local (no forma parte del despliegue)
+contexto/
+documentacion/
