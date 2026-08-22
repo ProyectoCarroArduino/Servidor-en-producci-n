@@ -33,6 +33,7 @@ Thumbs.db
 # Archivos de editor
 .idea/
 .vscode/
+.claude/
 *.suo
 *.ntvs*
 *.njsproj
@@ -42,3 +43,6 @@ Thumbs.db
 # Documentacion de trabajo local (no forma parte del despliegue)
 contexto/
 documentacion/
+
+# Volcados de datos generados por los scripts de mantenimiento
+Login/server/backups/
