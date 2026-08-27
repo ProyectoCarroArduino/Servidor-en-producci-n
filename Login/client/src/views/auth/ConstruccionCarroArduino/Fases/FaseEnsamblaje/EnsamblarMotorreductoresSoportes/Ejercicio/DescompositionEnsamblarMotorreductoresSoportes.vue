@@ -23,10 +23,6 @@
         </ul>
       <hr class="my-4" />
       <br>
-      <!-- Intentos de Video -->
-      <p v-if="intentosDisponiblesVideo !== null" class="alert alert-info">
-        Intentos video restantes: {{ intentosDisponiblesVideo }}
-      </p>
       <br>
       <!-- Video -->
       <h3>Descomposición - Sub. Video</h3>
@@ -49,6 +45,7 @@
         </div>
       </div>
       <br>
+      <EstadoSubejercicio :estado="evVideo" />
       <button @click="checkAnswer" class="btn btn-primary w-100 mt-2 d-block mx-auto">Enviar</button>
       <div v-if="feedbackMessage" class="respuesta">
         <p :class="{
@@ -57,19 +54,9 @@
         }">{{ feedbackMessage }}</p>
       </div>
 
-      <div v-if="evaluacionVideo !== null" class="correcto">
-        <p class="alert" :class="{
-          'alert-danger': evaluacionVideo === 1,
-          'alert-success': evaluacionVideo >= 3 && evaluacionVideo <= 5
-        }">Tu evaluación (video): {{ evaluacionVideo }}</p>
-      </div>
-      <br>
+<br>
       <hr class="my-4" />
       <br>
-      <!-- Intentos de Imagen -->
-      <p v-if="intentosDisponiblesImagen !== null" class="alert alert-info">
-        Intentos imagen restantes: {{ intentosDisponiblesImagen }}
-      </p>
       <br>
       <!-- Imagen -->
       <h3>Descomposición - Sub. Imagen</h3>
@@ -90,25 +77,18 @@
             v-if="totalClicksV > 0 && mostrarContadorV === index"
             class="contador-imagen"
           >
-            {{ intentosDisponiblesImagen - totalClicksV }}
+            {{ evImagen.intentosRestantes }}
           </div>
           <img :src="funcion.src" :alt="funcion.alt"
-               :style="{ pointerEvents: isBlockedV ? 'none' : 'auto', opacity: isBlockedV ? 0.5 : 1 }" />
+               :style="{ pointerEvents: evImagen.bloqueado ? 'none' : 'auto', opacity: evImagen.bloqueado ? 0.5 : 1 }" />
         </div>
       </div>
 
       <!-- Resultado parcial imagen -->
+      <EstadoSubejercicio :estado="evImagen" />
       <div v-if="respuestaVar" class="respuesta">
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
-      </div>
-
-      <!-- Nota imagen -->
-      <div v-if="evaluacionV !== null" class="correcto">
-        <p class="alert" :class="{
-          'alert-danger': evaluacionV === 1,
-          'alert-success': evaluacionV >= 3 && evaluacionV <= 5
-        }">Tu evaluación (imagen): {{ evaluacionV }}</p>
       </div>
 
       <!-- Retroalimentación opcional -->
@@ -124,10 +104,6 @@
           Evaluación total: {{ evaluacionTotal.toFixed(1) }}
         </p>
       </div>
-
-      <p class="alert alert-primary">
-        Evaluación Descomposición: {{ evaluacionStore.evaluacion.toFixed(1) }}
-      </p>
 
       <!-- Botón avanzar solo si ambas evaluaciones están completas -->
       <br>
@@ -162,11 +138,13 @@ import Funcion8 from '@/assets/ImagenesEnsamblarMotorreductoresSoportes/Motorred
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
 
   export default {
     name: 'App',
     components: {
       MenuCarro,
+      EstadoSubejercicio
     },
 
     
@@ -213,6 +191,10 @@ setup() {
   });
 
   return {
+    evImagen: evaluacionImagenRaw,
+    evVideo: evaluacionVideoRaw,
+    registrarResultadoImagen: evaluacionImagenRaw.registrarResultado,
+    registrarResultadoVideo: evaluacionVideoRaw.registrarResultado,
     evaluacionStore,
 
     // Imagen
@@ -275,6 +257,12 @@ setup() {
     },
 
     computed: {
+      puedeResponderImagen() {
+        return this.evImagen.estadoCargado && !this.evImagen.bloqueado && !this.evImagen.cargando;
+      },
+      puedeResponderVideo() {
+        return this.evVideo.estadoCargado && !this.evVideo.bloqueado && !this.evVideo.cargando;
+      },
       puedeAvanzar() {
         return this.evaluacionV !== null && this.evaluacionVideo !== null;
       },
@@ -287,7 +275,7 @@ setup() {
     methods: {
   // --- Subejercicio de Imagen ---
   async manejarClickVar(funcionSeleccionada, index) {
-  if (this.intentosDisponiblesImagen <= 0) return;
+  if (!this.puedeResponderImagen) return;
 
   this.mostrarContadorV = index;
   this.respuestaVar = funcionSeleccionada;
@@ -300,29 +288,12 @@ setup() {
     this.mensajeErrorVar = this.obtenerMensajeErrorVar();
   }
 
-  this.calcularEvaluacionVar();
-
-  try {
-    await this.registrarEvaluacionImagen(this.evaluacionV);
-    await this.obtenerIntentosImagen();
-
-    // Solo bloquear si ya no quedan intentos
-    if (this.intentosDisponiblesImagen <= 0) {
-      this.isBlockedV = true;
-    }
-
-    console.log("Imagen evaluada y estado actualizado");
-  } catch (err) {
-    console.error("Error registrando evaluación imagen:", err);
-    alert("Hubo un problema al guardar la evaluación de imagen.");
-  }
+  // La nota la calcula el servidor a partir de los intentos restantes.
+  const respuesta = await this.registrarResultadoImagen(this.CorrectaVar);
+  this.evaluacionV = respuesta ? respuesta.subejercicio.nota : null;
+  this.isBlockedV = this.evImagen.bloqueado;
 }
 ,
-
-  calcularEvaluacionVar() {
-    const intentos = this.totalClicksV;
-    this.evaluacionV = intentos === 0 ? 5 : intentos === 1 ? 4 : 3;
-  },
 
   obtenerMensajeErrorVar() {
     const i = Math.floor(Math.random() * this.mensajesErrorVar.length);
@@ -331,7 +302,7 @@ setup() {
 
   // --- Subejercicio de Video ---
   async checkAnswer() {
-  if (this.intentosDisponiblesVideo <= 0) return;
+  if (!this.puedeResponderVideo) return;
 
   if (!this.selectedVideo) {
     this.feedbackMessage = "Debes seleccionar un video antes de enviar la respuesta.";
@@ -343,40 +314,18 @@ setup() {
     this.correctVideoIndex = true;
     this.feedbackMessage = "¡Correcto! Seleccionaste el video adecuado.";
     this.feedbackClass = "success-message";
-    this.calcularEvaluacionVideo();
   } else {
     this.totalClicksVideo++;
     this.correctVideoIndex = false;
     this.feedbackMessage = this.obtenerMensajeErrorVideo();
     this.feedbackClass = "error-message";
 
-    if (this.totalClicksVideo >= this.intentosDisponiblesVideo) {
-      this.evaluacionVideo = 1;
-    } else {
-      this.calcularEvaluacionVideo();
-    }
   }
 
-  try {
-    await this.registrarEvaluacionVideo(this.evaluacionVideo);
-    await this.obtenerIntentosVideo();
-
-    // Solo bloquear si ya no quedan intentos
-    if (this.intentosDisponiblesVideo <= 0) {
-      this.BlockedVideo = true;
-    }
-
-    console.log("✔ Video evaluado y estado actualizado");
-  } catch (err) {
-    console.error("Error registrando evaluación video:", err);
-    alert("Hubo un problema al guardar la evaluación del video.");
-  }
+  // La nota la calcula el servidor a partir de los intentos restantes.
+  const respuestaVideo = await this.registrarResultadoVideo(this.correctVideoIndex);
+  this.evaluacionVideo = respuestaVideo ? respuestaVideo.subejercicio.nota : null;
 },
-
-  calcularEvaluacionVideo() {
-    const intentos = this.totalClicksVideo;
-    this.evaluacionVideo = intentos === 0 ? 5 : intentos === 1 ? 4 : 3;
-  },
 
   obtenerMensajeErrorVideo() {
     const i = Math.floor(Math.random() * this.mensajesErrorVideo.length);

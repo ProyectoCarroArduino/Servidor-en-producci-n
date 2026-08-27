@@ -98,10 +98,6 @@
         </p>
       </div>
 
-      <p class="alert alert-primary">
-        Evaluación Descomposición: {{ evaluacionStore.evaluacion.toFixed(1) }}
-      </p>
-
       <!-- Botón avanzar solo si ambas evaluaciones están completas -->
       <button
         class="bt-validate"

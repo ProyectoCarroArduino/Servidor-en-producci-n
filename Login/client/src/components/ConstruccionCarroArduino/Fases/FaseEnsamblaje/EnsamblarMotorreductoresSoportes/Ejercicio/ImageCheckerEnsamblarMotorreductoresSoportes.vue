@@ -1,9 +1,6 @@
 <template>
   <div>
     <!-- Mostrar intentos disponibles -->
-    <p v-if="intentosDisponiblesAlgorithm !== null" class="alert alert-info">
-      Intentos restantes: {{ intentosDisponiblesAlgorithm }}
-    </p>
     <br>
     <p class="texto-personalizado">
       <strong> Instrucciones:</strong> {{ instruccion }}
@@ -35,11 +32,13 @@
       </div>
     </div>
 
+    <EstadoSubejercicio :estado="ev" />
+
     <!-- Boton para enviar -->
     <div class="button-container mt-3">
       <button
         @click="validateInputs"
-        :disabled="isButtonDisabled || intentosDisponiblesAlgorithm <= 0"
+        :disabled="isButtonDisabled || !puedeResponder"
         class="btn btn-primary"
       >
         Enviar respuesta
@@ -56,29 +55,11 @@
       <p :class="feedbackClass">{{ feedbackMessage }}</p>
     </div>
 
-    <!-- Nota obtenida -->
-    <div v-if="evaluacion !== null" class="correcto mt-3">
-      <p
-        class="alert"
-        :class="{
-          'alert-danger': evaluacion === 1,
-          'alert-success': evaluacion >= 3
-        }"
-      >
-        Tu evaluación (algoritmo): {{ evaluacion }}
-      </p>
-    </div>
-
-    <!-- Nota global del store -->
-    <p class="alert alert-primary mt-3">
-      Evaluación Algoritmo (global): {{ evaluacionAlgorithmStore.evaluacion.toFixed(1) }}
-    </p>
-
     <!-- Botón avanzar (solo si completó o ya no hay intentos) -->
     <button
       class="bt-validate mt-3"
       @click="finish"
-      :disabled="evaluacion === null || (intentosDisponiblesAlgorithm > 0 && !isCorrect)"
+      :disabled="!ev.bloqueado"
     >
       Avanzar
     </button>
@@ -98,9 +79,12 @@ import image6 from '@/assets/ImagenesEnsamblarMotorreductoresSoportes/Algoritmo6
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
 
 export default {
   name: 'ImageOrderingModule',
+
+  components: { EstadoSubejercicio },
 
   setup() {
     const evaluacionAlgorithmStore = useEvaluacionAlgorithmStore();
@@ -127,6 +111,8 @@ export default {
     });
 
     return {
+      ev: evaluacionAlgorithmRaw,
+      registrarResultado: evaluacionAlgorithmRaw.registrarResultado,
       evaluacionAlgorithmStore,
       intentosDisponiblesAlgorithm: evaluacionAlgorithm.intentosRestantes,
       obtenerIntentosAlgorithm: evaluacionAlgorithm.obtenerIntentos,
@@ -180,7 +166,10 @@ export default {
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesAlgorithm <= 0;
+      return this.ev.bloqueado;
+    },
+    puedeResponder() {
+      return this.ev.estadoCargado && !this.ev.bloqueado && !this.ev.cargando;
     }
   },
 
@@ -204,7 +193,7 @@ export default {
     },
 
     async validateInputs() {
-  if (this.isButtonDisabled || this.intentosDisponiblesAlgorithm <= 0) {
+  if (this.isButtonDisabled || !this.puedeResponder) {
     return;
   }
 
@@ -229,28 +218,9 @@ export default {
     return this.puzzle[inputValue - 1].id === this.correct[index].id;
   });
 
-  // Calcular evaluación SOLO si es correcta o si se acabaron los intentos
-  const intentosAntesDeRegistrar = this.intentosDisponiblesAlgorithm;
-
-  if (this.isCorrect) {
-    this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                      intentosAntesDeRegistrar === 2 ? 4 : 3;
-  } else if (this.intentosDisponiblesAlgorithm <= 1) { 
-    // Si es el último intento y falló, poner la nota mínima
-    this.evaluacion = 1;
-  } else {
-    // Si no es el último intento y falló, no se guarda nota aún
-    this.evaluacion = 1;
-  }
-
-  try {
-    await this.registrarEvaluacionAlgorithm(this.evaluacion);
-    await this.obtenerIntentosAlgorithm(); // Esto refresca los intentos visibles siempre
-    console.log("✔ Evaluación de algoritmo registrada y estado actualizado.");
-  } catch (err) {
-    console.error("Error registrando evaluación del algoritmo:", err);
-    alert("Hubo un problema al guardar la evaluación.");
-  }
+  // La nota la calcula el servidor a partir de los intentos restantes.
+  const respuesta = await this.registrarResultado(this.isCorrect);
+  this.evaluacion = respuesta ? respuesta.subejercicio.nota : null;
 
   this.showResult = true;
   this.showPrincipal = false;

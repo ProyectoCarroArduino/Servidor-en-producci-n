@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import AudioChecker from "@/components/ConstruccionCarroArduino/Fases/FaseMontajeArduinoUNO/MontarArduinoUNOSoporte/AudioCheckerMontarArduinoUNOSoporte.vue";
+import AudioChecker from "@/views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/1/CB_AudioChecker1.vue";
 import Menu from "../../../../../../components/Menu.vue";
 
 export default{

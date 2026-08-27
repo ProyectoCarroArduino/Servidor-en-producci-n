@@ -1,102 +1,88 @@
 import mongoose from 'mongoose';
-import {CourseTemplate} from './models/CourseTemplate.js';
+import { CourseTemplate } from './models/CourseTemplate.js';
 import { connectManual } from './config/connectManual.js';
+import { CURSOS } from './cursosConfig.js';
 
-function generarCategoria(subejerciciosCount = 1) {
-  const subejercicios = Array.from({ length: subejerciciosCount }, (_, i) => ({
-    nombre: `Subejercicio ${i + 1}`,
-    nota: 0,
-    intentos_restantes: 3,
-    ultimo_intento: null
-  }));
+// Crea o COMPLETA las plantillas de curso. Es aditivo e idempotente: agrega los
+// modulos, submodulos y ejercicios que falten y no toca los que ya existen, asi
+// que se puede correr sobre una base con datos sin riesgo.
+//
+// Los nombres de aqui son la fuente de verdad: deben coincidir EXACTAMENTE con
+// los que envian las vistas .vue en useEvaluacionSubejercicio({...}).
+//
+//   node seedCourseTemplate.js
 
-  return {
-    subejercicios,
-    nota: 0,
-    ultimo_intento: null
-  };
-}
+// ============================================================
 
-function generarEjercicio(nombre, config = {}) {
-  return {
-    nombre,
-    categorias: {
-      descomposicion: generarCategoria(config.descomposicion || 1),
-      algoritmo: generarCategoria(config.algoritmo || 1),
-      abstraccion: generarCategoria(config.abstraccion || 1),
-      generalizacion: generarCategoria(config.generalizacion || 1)
-    }
-  };
-}
- 
-// CONFIGURACIÓN CENTRAL
+const cambios = [];
 
-// Guía Construcción Carro Arduino 
-// Guía Programación en C
-const cursoConfig = {
-  nombreCurso: 'Guía Programación en C',
-  modulo: {
-    nombre: '4. Variables y operaciones',
-    nota: 0,
-    submodulo: {
-      nombre: '',
-      nota: 0,
-      ejercicios: [
-        generarEjercicio('Ejercicio 1', { descomposicion: 4 }),
-      ]
+function fusionarSubmodulo(submoduloExistente, submoduloNuevo) {
+  for (const ejercicioNuevo of submoduloNuevo.ejercicios) {
+    const existe = submoduloExistente.ejercicios.some(e => e.nombre === ejercicioNuevo.nombre);
+    if (!existe) {
+      submoduloExistente.ejercicios.push(ejercicioNuevo);
+      cambios.push('  + ejercicio "' + ejercicioNuevo.nombre + '"');
     }
   }
-};
+}
+
+function fusionarModulo(moduloExistente, moduloNuevo) {
+  for (const submoduloNuevo of moduloNuevo.submodulos) {
+    const existente = moduloExistente.submodulos.find(s => s.nombre === submoduloNuevo.nombre);
+    if (existente) {
+      fusionarSubmodulo(existente, submoduloNuevo);
+    } else {
+      moduloExistente.submodulos.push(submoduloNuevo);
+      cambios.push('  + submodulo "' + submoduloNuevo.nombre + '"');
+    }
+  }
+}
 
 async function runSeed() {
   try {
     await connectManual();
 
-    const { nombreCurso, modulo } = cursoConfig;
-    const { nombre: nombreModulo, submodulo } = modulo;
+    for (const cursoConfig of CURSOS) {
+      console.log('\n=== ' + cursoConfig.nombre + ' ===');
+      const antes = cambios.length;
 
-    let plantilla = await CourseTemplate.findOne({ nombre: nombreCurso });
+      let plantilla = await CourseTemplate.findOne({ nombre: cursoConfig.nombre });
 
-    if (!plantilla) {
-      // Crear nueva plantilla desde cero
-      plantilla = new CourseTemplate({
-        nombre: nombreCurso,
-        modulos: [
-          {
-            nombre: nombreModulo,
-            nota: 0,
-            submodulos: [submodulo]
-          }
-        ]
-      });
-      await plantilla.save();
-      console.log('Plantilla creada con nuevo módulo y submódulo.');
-    } else {
-      // Buscar módulo existente
-      const moduloExistente = plantilla.modulos.find(m => m.nombre === nombreModulo);
-
-      if (moduloExistente) {
-        const existeSubmodulo = moduloExistente.submodulos.some(sub => sub.nombre === submodulo.nombre);
-        if (!existeSubmodulo) {
-          moduloExistente.submodulos.push(submodulo);
-          await plantilla.save();
-          console.log('Submódulo agregado al módulo existente.');
-        } else {
-          console.log('El submódulo ya existe. No se agregó nada.');
-        }
-      } else {
-        // Módulo no existe, lo agregamos con el submódulo
-        plantilla.modulos.push({
-          nombre: nombreModulo,
-          nota: 0,
-          submodulos: [submodulo]
+      if (!plantilla) {
+        plantilla = new CourseTemplate({
+          nombre: cursoConfig.nombre,
+          modulos: cursoConfig.modulos
         });
+        cambios.push('  + curso completo (' + cursoConfig.modulos.length + ' modulos)');
+      } else {
+        for (const moduloNuevo of cursoConfig.modulos) {
+          const existente = plantilla.modulos.find(m => m.nombre === moduloNuevo.nombre);
+          if (existente) {
+            fusionarModulo(existente, moduloNuevo);
+          } else {
+            plantilla.modulos.push(moduloNuevo);
+            cambios.push('  + modulo "' + moduloNuevo.nombre + '"');
+          }
+        }
+      }
+
+      const nuevos = cambios.slice(antes);
+      if (nuevos.length === 0) {
+        console.log('  sin cambios, la plantilla ya estaba completa');
+      } else {
         await plantilla.save();
-        console.log('Módulo nuevo con submódulo agregado.');
+        nuevos.forEach(c => console.log(c));
       }
     }
+
+    console.log('\nPlantillas actualizadas. Para que los usuarios ya registrados');
+    console.log('reciban lo nuevo SIN perder notas, corre:');
+    console.log('  node fusionarPlantillaUsuarios.js --apply');
+    console.log('(NO uses sincronizarUsuarios.js: reemplaza el curso completo y borra las notas.)');
+
   } catch (error) {
-    console.error('Error al actualizar plantilla:', error.message);
+    console.error('Error al actualizar plantillas:', error.message);
+    process.exitCode = 1;
   } finally {
     await mongoose.disconnect();
   }

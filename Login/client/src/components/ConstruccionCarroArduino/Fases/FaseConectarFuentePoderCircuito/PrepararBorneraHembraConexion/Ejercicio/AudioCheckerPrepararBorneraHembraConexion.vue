@@ -3,10 +3,6 @@
     <div v-if="showPrincipal" class="generalizacion">
       <h2>Ordena correctamente los audios</h2>
       <br>
-      <!-- Mostrar Intentos Disponibles -->
-      <p v-if="intentosDisponiblesGeneralization !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponiblesGeneralization }}
-      </p>
       <br>
       <div class="audio-container">
         <div class="audio-item" v-for="(audioItem, index) in audio" :key="audioItem.id">
@@ -26,12 +22,14 @@
         </div>
       </div>
 
+      <EstadoSubejercicio :estado="ev" />
+
       <!-- Botón para validar -->
       <div class="button-container mt-3">
         <button 
           class="btn btn-primary"
           @click="validateInputs" 
-          :disabled="isButtonDisabled || intentosDisponiblesGeneralization <= 0">
+          :disabled="isButtonDisabled || !puedeResponder">
           Enviar
         </button>
       </div>
@@ -46,18 +44,6 @@
         <p v-if="isCorrect" class="alert alert-success">¡Correcto!</p>
         <p v-else class="alert alert-danger">Lo sentimos, es incorrecto.</p>
       </div>
-
-      <!-- Evaluación obtenida -->
-      <div v-if="evaluacion !== null" class="mt-3">
-        <p class="alert alert-primary">
-          Tu evaluación: {{ evaluacion }}
-        </p>
-      </div>
-
-      <!-- Nota almacenada en el store -->
-      <p class="alert alert-primary mt-4">
-        Evaluación Generalización (store): {{ evaluacionGeneralizationStore.evaluacion.toFixed(1) }}
-      </p>
 
       <!-- Botón para finalizar -->
       <button
@@ -80,9 +66,12 @@ import audio4 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio4.mp3';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
 
 export default {
   name: 'AudioCheckerConectarCables',
+
+  components: { EstadoSubejercicio },
 
   setup() {
     const evaluacionGeneralizationStore = useEvaluacionGeneralizationStore();
@@ -90,8 +79,8 @@ export default {
     const evaluacionGeneralizationRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '3. Fase de Conectar fuente de poder al circuito',
-        submodulo: '3.2 Preparar la bornera hembra para conexión:',
+        modulo: '3. Fase de conectar la fuente de poder al circuito',
+        submodulo: '3.2 Preparar la bornera hembra para conexión',
         ejercicio: 'Ejercicio 1',
         categoria: 'generalizacion',
         subejercicio: 'Subejercicio 1'
@@ -109,6 +98,8 @@ export default {
     });
 
     return {
+      ev: evaluacionGeneralizationRaw,
+      registrarResultado: evaluacionGeneralizationRaw.registrarResultado,
       evaluacionGeneralizationStore,
       intentosDisponiblesGeneralization: evaluacionGeneralization.intentosRestantes,
       obtenerIntentosGeneralization: evaluacionGeneralization.obtenerIntentos,
@@ -154,7 +145,10 @@ export default {
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesGeneralization <= 0;
+      return this.ev.bloqueado;
+    },
+    puedeResponder() {
+      return this.ev.estadoCargado && !this.ev.bloqueado && !this.ev.cargando;
     }
   },
 
@@ -167,7 +161,7 @@ export default {
     },
 
     async validateInputs() {
-      if (this.isButtonDisabled || this.intentosDisponiblesGeneralization <= 0) {
+      if (this.isButtonDisabled || !this.puedeResponder) {
         return;
       }
 
@@ -190,33 +184,14 @@ export default {
         return inputValue === this.audio[index].id;
       });
 
-      this.calcularEvaluacion();
-
-      try {
-        await this.registrarEvaluacionGeneralization(this.evaluacion);
-        await this.obtenerIntentosGeneralization();
-        console.log("✔ Evaluación de generalización registrada y estado actualizado.");
-      } catch (err) {
-        console.error("Error registrando evaluación de generalización:", err);
-        alert("Hubo un problema al guardar la evaluación.");
-      }
+      // La nota la calcula el servidor a partir de los intentos restantes.
+      const respuesta = await this.registrarResultado(this.isCorrect);
+      this.evaluacion = respuesta ? respuesta.subejercicio.nota : null;
 
       this.showPrincipal = true; // Mantiene la vista principal
       this.showResult = true;
     },
 
-    calcularEvaluacion() {
-      const intentosAntesDeRegistrar = this.intentosDisponiblesGeneralization;
-
-      if (this.isCorrect) {
-        this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                          intentosAntesDeRegistrar === 2 ? 4 : 3;
-      } else if (intentosAntesDeRegistrar <= 1) {
-        this.evaluacion = 1; // Último intento y falló
-      } else {
-        this.evaluacion = 1; // Cualquier intento fallido igual debe registrar
-      }
-    },
 
     finish() {
       if (this.isFinishEnabled) {

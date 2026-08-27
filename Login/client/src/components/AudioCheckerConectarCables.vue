@@ -54,11 +54,6 @@
         </p>
       </div>
 
-      <!-- Nota almacenada en el store -->
-      <p class="alert alert-primary mt-4">
-        Evaluación Generalización (store): {{ evaluacionGeneralizationStore.evaluacion.toFixed(1) }}
-      </p>
-
       <!-- Botón para finalizar -->
       <button
         class="btn btn-success mt-3"

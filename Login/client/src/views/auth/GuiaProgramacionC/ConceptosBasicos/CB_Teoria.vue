@@ -104,7 +104,7 @@ export default {
 
     methods: {
       finish() {
-      router.push('/DescomposicionConectarBorneraHembraPuenteH').then(() => {
+      router.push('/CBDescomposicion1').then(() => {
           window.scrollTo(0, 0);
         });
      

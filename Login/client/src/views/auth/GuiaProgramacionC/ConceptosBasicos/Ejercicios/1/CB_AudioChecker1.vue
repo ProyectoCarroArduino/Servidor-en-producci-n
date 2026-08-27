@@ -3,11 +3,7 @@
     <div v-if="showPrincipal" class="generalizacion">
       <h2>Ordena correctamente los audios</h2>
       <br>
-      <!-- Mostrar Intentos Disponibles -->
-      <p v-if="intentosDisponiblesGeneralization !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponiblesGeneralization }}
-      </p>
-      <br>
+
       <div class="audio-container">
         <div class="audio-item" v-for="(audioItem, index) in audio" :key="audioItem.id">
           <audio :ref="'audioPlayer_' + index" controls>
@@ -26,12 +22,15 @@
         </div>
       </div>
 
+      <EstadoSubejercicio :estado="ev" />
+
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
+        <button
           class="btn btn-primary"
-          @click="validateInputs" 
-          :disabled="isButtonDisabled || intentosDisponiblesGeneralization <= 0">
+          @click="validateInputs"
+          :disabled="entradasIncompletas || !puedeResponder">
+          <span v-if="ev.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
           Enviar
         </button>
       </div>
@@ -47,18 +46,6 @@
         <p v-else class="alert alert-danger">Lo sentimos, es incorrecto.</p>
       </div>
 
-      <!-- Evaluación obtenida -->
-      <div v-if="evaluacion !== null" class="mt-3">
-        <p class="alert alert-primary">
-          Tu evaluación: {{ evaluacion }}
-        </p>
-      </div>
-
-      <!-- Nota almacenada en el store -->
-      <p class="alert alert-primary mt-4">
-        Evaluación Generalización (store): {{ evaluacionGeneralizationStore.evaluacion.toFixed(1) }}
-      </p>
-
       <!-- Botón para finalizar -->
       <button
         class="btn btn-success mt-3"
@@ -72,49 +59,53 @@
 
 
 <script>
-import router from '@/router'; 
-import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';  
+import router from '@/router';
+import { onMounted, reactive, computed } from 'vue';
+import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
+
+// PENDIENTE DE CONTENIDO: los audios y la imagen de codigo de este ejercicio
+// siguen siendo los de "Montar Arduino UNO en el soporte" (guia de Arduino).
+// El registro de la nota ya apunta al lugar correcto (Conceptos basicos), pero
+// el enunciado todavia debe adaptarse a este modulo.
+import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';
 import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
 import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
 import audio4 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio4.mp3';
 import audio5 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio5.mp3';
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
-import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+
+// Debe coincidir EXACTAMENTE con los nombres de la plantilla del curso
+// (ver server/seedCourseTemplate.js).
+const RUTA = {
+  cursoNombre: 'Guía Programación en C',
+  modulo: '1. Conceptos basicos',
+  submodulo: '1.1 Introduccion a C',
+  ejercicio: 'Ejercicio 1',
+  categoria: 'generalizacion',
+  subejercicio: 'Subejercicio 1'
+};
+
+// Generalizacion es la ultima didactica del ejercicio: al terminar se lleva al
+// estudiante a su perfil, donde ve la nota que acaba de quedar registrada.
+const DESTINO_AL_FINALIZAR = '/profile';
 
 export default {
-  name: 'AudioCheckerConectarCables',
+  name: 'CBAudioChecker1',
+
+  components: { EstadoSubejercicio },
 
   setup() {
-    const evaluacionGeneralizationStore = useEvaluacionGeneralizationStore();
-
-    const evaluacionGeneralizationRaw = reactive(
-      useEvaluacionSubejercicio({
-        cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '1. Conceptos basicos',
-        submodulo: '1.1 Introduccion a C',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'generalizacion',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacionGeneralization = {
-      ...toRefs(evaluacionGeneralizationRaw),
-      registrarEvaluacion: evaluacionGeneralizationRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionGeneralizationRaw.obtenerIntentos
-    };
+    const ev = reactive(useEvaluacionSubejercicio({ ...RUTA }));
 
     onMounted(() => {
-      evaluacionGeneralization.obtenerIntentos();
+      ev.obtenerIntentos();
     });
 
-    return {
-      evaluacionGeneralizationStore,
-      intentosDisponiblesGeneralization: evaluacionGeneralization.intentosRestantes,
-      obtenerIntentosGeneralization: evaluacionGeneralization.obtenerIntentos,
-      registrarEvaluacionGeneralization: evaluacionGeneralization.registrarEvaluacion
-    };
+    const puedeResponder = computed(
+      () => ev.estadoCargado && !ev.bloqueado && !ev.cargando
+    );
+
+    return { ev, puedeResponder };
   },
 
   data() {
@@ -126,7 +117,6 @@ export default {
         { id: 4, src: audio4 },
         { id: 5, src: audio5 },
       ],
-      evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
@@ -137,8 +127,6 @@ export default {
         name: `input-${index + 1}`
       })),
       numSteps: 5,
-      feedbackMessage: '',
-      feedbackClass: ''
     };
   },
 
@@ -147,16 +135,16 @@ export default {
   },
 
   computed: {
-    isButtonDisabled() {
+    entradasIncompletas() {
       return !this.inputs.every(
         (input) =>
           Number.isInteger(input.value) &&
           input.value >= 1 &&
-          input.value <= 5
+          input.value <= this.numSteps
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesGeneralization <= 0;
+      return this.ev.bloqueado;
     }
   },
 
@@ -169,7 +157,7 @@ export default {
     },
 
     async validateInputs() {
-      if (this.isButtonDisabled || this.intentosDisponiblesGeneralization <= 0) {
+      if (this.entradasIncompletas || !this.puedeResponder) {
         return;
       }
 
@@ -192,48 +180,25 @@ export default {
         return inputValue === this.audio[index].id;
       });
 
-      this.calcularEvaluacion();
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev.registrarResultado(this.isCorrect);
 
-      try {
-        await this.registrarEvaluacionGeneralization(this.evaluacion);
-        await this.obtenerIntentosGeneralization();
-        console.log("✔ Evaluación de generalización registrada y estado actualizado.");
-      } catch (err) {
-        console.error("Error registrando evaluación de generalización:", err);
-        alert("Hubo un problema al guardar la evaluación.");
-      }
-
-      this.showPrincipal = true; // Mantiene la vista principal
+      this.showPrincipal = true;
       this.showResult = true;
     },
 
-    calcularEvaluacion() {
-      const intentosAntesDeRegistrar = this.intentosDisponiblesGeneralization;
-
-      if (this.isCorrect) {
-        this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                          intentosAntesDeRegistrar === 2 ? 4 : 3;
-      } else if (intentosAntesDeRegistrar <= 1) {
-        this.evaluacion = 1; // Último intento y falló
-      } else {
-        this.evaluacion = 1; // Cualquier intento fallido igual debe registrar
-      }
-    },
-
     finish() {
-      if (this.isFinishEnabled) {
-        this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/MontarModuloBluetoothHC06Teoria').then(() => {
-          window.scrollTo(0, 0);
-        });
-      }
+      if (!this.isFinishEnabled) return;
+      router.push(DESTINO_AL_FINALIZAR).then(() => {
+        window.scrollTo(0, 0);
+      });
     }
   }
 };
 </script>
 
 
-  
+
   <style scoped>
   .audio-item {
     display: flex;
@@ -241,12 +206,12 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  
+
   .audio-item audio {
     width: 70%;
     margin-bottom: 2%;
   }
-  
+
   .audio-item input[type='number'] {
     align-items: center;
     font-size: large;
@@ -255,7 +220,7 @@ export default {
     text-align: center;
     margin-bottom: 2%;
   }
-  
+
   button {
     margin: auto;
     width: calc(100% / 3);
@@ -266,39 +231,39 @@ export default {
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .generalizacion {
     margin: 0 auto;
     width: 90%;
   }
-  
+
   .message p {
     margin-top: 20px;
     text-align: center;
     font-size: 1em;
     font-weight: bold;
   }
-  
+
   .text {
     font-size: 1.2em;
     margin-top: 0;
     margin-bottom: 20px;
   }
-  
+
   .description {
     text-align: center;
     font-size: 1em;
     margin-top: -15px;
     margin-bottom: 20px;
   }
-  
+
   .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 1%;
   }
-  
+
   .validate-msg {
     display: flex;
     justify-content: center;
@@ -308,41 +273,40 @@ export default {
     margin: 0 auto;
     text-align: center;
   }
-  
+
   .bt-validate {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 1%;
   }
-  
+
   .texto-personalizado {
       font-family: Arial, sans-serif; /* Tipo de letra */
       font-size: 18px; /* Tamaño de fuente */
       text-align: justify; /* Alineación justificada */
   }
-  
+
   @media (max-width: 768px) {
-  
+
     .text {
       font-size: 1em;
     }
-  
+
     .description {
       font-size: 0.5em;
     }
-  
+
     .message {
       font-size: 0.75em;
     }
-  
+
     .button {
       font-size: 0.75em;
     }
-  
+
     .step {
       font-size: 1.1em;
     }
   }
-
-  </style>
+</style>

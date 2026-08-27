@@ -5,14 +5,6 @@
       4. De acuerdo al tema de <strong>declaración de una variable</strong>,
       ordene de manera que la variable esté bien definida:
     </h4>
-    <p
-      v-if="intentosRestantes !== null"
-      class="alert"
-      :class="(intentosRestantes === 1 || (intentosRestantes === 0 && notaActual === 1)) ? 'alert-danger' : 'alert-info'"
-    >
-      Intentos restantes: {{ intentosRestantes }} | Nota actual: {{ notaActual !== null ? notaActual : '-' }}
-    </p>
-
     <div>
       <div ref="parent" class="grid gray-background">
         <article
@@ -23,12 +15,13 @@
           <p>{{ tape }}</p>
         </article>
       </div>
-      <br /><br />
+      <EstadoSubejercicio :estado="ev4" />
       <button
         @click="verificarOrden"
-        :disabled="intentosRestantes <= 0 || ordenCorrecto === true"
+        :disabled="!puedeResponder(ev4)"
         class="btn btn-primary"
       >
+        <span v-if="ev4.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
         Verificar Orden
       </button>
       <p
@@ -52,14 +45,6 @@
       5. De acuerdo al tema de <strong>declaración de una variable</strong>,
       ordene de forma que la variable esté bien definida:
     </h4>
-    <p
-      v-if="intentos5 !== null"
-      class="alert"
-      :class="(intentos5 === 1 || (intentos5 === 0 && nota5 === 1)) ? 'alert-danger' : 'alert-info'"
-    >
-      Intentos restantes: {{ intentos5 }} | Nota actual: {{ nota5 !== null ? nota5 : '-' }}
-    </p>
-
     <div>
       <div ref="parent2" class="grid gray-background">
         <article
@@ -70,12 +55,13 @@
           <p>{{ tape2 }}</p>
         </article>
       </div>
-      <br /><br />
+      <EstadoSubejercicio :estado="ev5" />
       <button
         @click="verificarOrden2"
-        :disabled="intentos5 <= 0 || ordenCorrecto2 === true"
+        :disabled="!puedeResponder(ev5)"
         class="btn btn-primary"
       >
+        <span v-if="ev5.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
         Verificar Orden 2
       </button>
       <p
@@ -100,44 +86,32 @@
 <script>
 import { animations } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-import { reactive, toRefs, onMounted } from "vue";
+import { reactive, onMounted } from "vue";
 import { useEvaluacionSubejercicio } from "@/composables/useEvaluacionSubejercicio";
+import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
+
+// Debe coincidir EXACTAMENTE con los nombres de la plantilla del curso
+// (ver server/seedCourseTemplate.js).
+const RUTA = {
+  cursoNombre: 'Guía Programación en C',
+  modulo: '1. Conceptos basicos',
+  submodulo: '1.1 Introduccion a C',
+  ejercicio: 'Ejercicio 1',
+  categoria: 'descomposicion'
+};
 
 export default {
   name: "Variables",
 
+  components: { EstadoSubejercicio },
+
   setup() {
-    // Evaluación subejercicio 4
-    const evaluacion4Raw = reactive(
-      useEvaluacionSubejercicio({
-        cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '1. Conceptos basicos',
-        submodulo: '1.1 Introduccion a C',
-        ejercicio: 'Ejercicio 1',
-        categoria: "descomposicion",
-        subejercicio: "Subejercicio 4",
-      })
-    );
+    const ev4 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 4" }));
+    const ev5 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 5" }));
 
-    // Evaluación subejercicio 5
-    const evaluacion5Raw = reactive(
-      useEvaluacionSubejercicio({
-        cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '1. Conceptos basicos',
-        submodulo: '1.1 Introduccion a C',
-        ejercicio: 'Ejercicio 1',
-        categoria: "descomposicion",
-        subejercicio: "Subejercicio 5",
-      })
-    );
-
-    const evaluacion4 = toRefs(evaluacion4Raw);
-    const evaluacion5 = toRefs(evaluacion5Raw);
-
-    // Intentos al montar
     onMounted(() => {
-      evaluacion4Raw.obtenerIntentos();
-      evaluacion5Raw.obtenerIntentos();
+      ev4.obtenerIntentos();
+      ev5.obtenerIntentos();
     });
 
     // DnD setup
@@ -152,16 +126,8 @@ export default {
     );
 
     return {
-      // Evaluación sub 4
-      ...evaluacion4,
-      registrarEvaluacion4: evaluacion4Raw.registrarEvaluacion,
-      obtenerIntentos4: evaluacion4Raw.obtenerIntentos,
-
-      // Evaluación sub 5
-      intentos5: evaluacion5.intentosRestantes,
-      nota5: evaluacion5.notaActual,
-      registrarEvaluacion5: evaluacion5Raw.registrarEvaluacion,
-      obtenerIntentos5: evaluacion5Raw.obtenerIntentos,
+      ev4,
+      ev5,
 
       // Drag and drop
       parent,
@@ -187,45 +153,48 @@ export default {
   },
 
   methods: {
-    async verificarOrden() {
-      const esperado = ["int", "base", "=", 12, ";"];
-      const esCorrecto = this.tapes.every((t, i) => t === esperado[i]);
-
-      this.ordenCorrecto = esCorrecto;
-      if (!esCorrecto) {
-        this.mensajeError = this.obtenerMensajeAleatorio();
-      }
-
-      const intentos = this.intentosRestantes;
-      const nota = esCorrecto
-        ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
-        : (intentos <= 1 ? 1 : 1);
-
-      await this.registrarEvaluacion4(nota);
-      await this.obtenerIntentos4();
+    // Compara contenido Y longitud: un Array.every() sobre una lista mas corta
+    // que la esperada devuelve true.
+    listasIguales(actual, esperado) {
+      return (
+        Array.isArray(actual) &&
+        actual.length === esperado.length &&
+        actual.every((item, i) => item === esperado[i])
+      );
     },
 
-    async verificarOrden2() {
-      const esperado = ["int", "altura", "=", 8, ";"];
-      const esCorrecto = this.tapes2.every((t, i) => t === esperado[i]);
-
-      this.ordenCorrecto2 = esCorrecto;
-      if (!esCorrecto) {
-        this.mensajeError2 = this.obtenerMensajeAleatorio();
-      }
-
-      const intentos = this.intentos5;
-      const nota = esCorrecto
-        ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
-        : (intentos <= 1 ? 1 : 1);
-
-      await this.registrarEvaluacion5(nota);
-      await this.obtenerIntentos5();
+    puedeResponder(ev) {
+      return ev.estadoCargado && !ev.bloqueado && !ev.cargando;
     },
 
     obtenerMensajeAleatorio() {
       const i = Math.floor(Math.random() * this.respuestasIncorrectas.length);
       return this.respuestasIncorrectas[i];
+    },
+
+    async verificarOrden() {
+      if (!this.puedeResponder(this.ev4)) return;
+
+      const esCorrecto = this.listasIguales(this.tapes, ["int", "base", "=", 12, ";"]);
+      this.ordenCorrecto = esCorrecto;
+      if (!esCorrecto) {
+        this.mensajeError = this.obtenerMensajeAleatorio();
+      }
+
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev4.registrarResultado(esCorrecto);
+    },
+
+    async verificarOrden2() {
+      if (!this.puedeResponder(this.ev5)) return;
+
+      const esCorrecto = this.listasIguales(this.tapes2, ["int", "altura", "=", 8, ";"]);
+      this.ordenCorrecto2 = esCorrecto;
+      if (!esCorrecto) {
+        this.mensajeError2 = this.obtenerMensajeAleatorio();
+      }
+
+      await this.ev5.registrarResultado(esCorrecto);
     },
   },
 };
@@ -286,4 +255,4 @@ export default {
     text-align: justify; /* Alineación justificada */
 }
 
-</style> 
+</style>

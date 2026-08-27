@@ -24,13 +24,6 @@
       <hr class="my-4" />
       <br>
       <!-- Intentos de Video -->
-      <p
-        v-if="intentosDisponiblesVideo !== null"
-        class="alert"
-        :class="(intentosDisponiblesVideo === 1 || (intentosDisponiblesVideo === 0 && notaActualVideo === 1)) ? 'alert-danger' : 'alert-info'"
-      >
-        Intentos video restantes: {{ intentosDisponiblesVideo }} | Nota actual: {{ notaActualVideo !== null ? notaActualVideo : '-' }}
-      </p>
       <br>
       <!-- Video -->
       <h3>Descomposición - Sub. Video</h3>
@@ -53,6 +46,7 @@
         </div>
       </div>
       <br>
+      <EstadoSubejercicio :estado="evVideo" />
       <button @click="checkAnswer" class="btn btn-primary w-100 mt-2 d-block mx-auto">Enviar</button>
 
       <div v-if="feedbackMessage" class="respuesta">
@@ -65,13 +59,6 @@
       <hr class="my-4" />
       <br>
       <!-- Intentos de Imagen -->
-      <p
-        v-if="intentosDisponiblesImagen !== null"
-        class="alert"
-        :class="(intentosDisponiblesImagen === 1 || (intentosDisponiblesImagen === 0 && notaActualImagen === 1)) ? 'alert-danger' : 'alert-info'"
-      >
-        Intentos imagen restantes: {{ intentosDisponiblesImagen }} | Nota actual: {{ notaActualImagen !== null ? notaActualImagen : '-' }}
-      </p>
       <br>
       <!-- Imagen -->
       <h3>Descomposición - Sub. Imagen</h3>
@@ -88,11 +75,12 @@
           @click="manejarClickVar(funcion.alt)"
         >
           <img :src="funcion.src" :alt="funcion.alt"
-               :style="{ pointerEvents: isBlockedV ? 'none' : 'auto', opacity: isBlockedV ? 0.5 : 1 }" />
+               :style="{ pointerEvents: evImagen.bloqueado ? 'none' : 'auto', opacity: evImagen.bloqueado ? 0.5 : 1 }" />
         </div>
       </div>
 
       <!-- Resultado parcial imagen -->
+      <EstadoSubejercicio :estado="evImagen" />
       <div v-if="respuestaVar" class="respuesta">
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
@@ -132,11 +120,13 @@ import Funcion8 from '@/assets/ImagenesMontarArduinoUNOSoporte/ArduinoUNO4.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
 
   export default {
     name: 'App',
     components: {
       MenuCarro,
+      EstadoSubejercicio
     },
 
     
@@ -183,6 +173,10 @@ setup() {
   });
 
   return {
+    evImagen: evaluacionImagenRaw,
+    evVideo: evaluacionVideoRaw,
+    registrarResultadoImagen: evaluacionImagenRaw.registrarResultado,
+    registrarResultadoVideo: evaluacionVideoRaw.registrarResultado,
     evaluacionStore,
 
     // Imagen
@@ -240,10 +234,27 @@ setup() {
       };
     },
 
+    computed: {
+
+      puedeResponderImagen() {
+
+        return this.evImagen.estadoCargado && !this.evImagen.bloqueado && !this.evImagen.cargando;
+
+      },
+
+      puedeResponderVideo() {
+
+        return this.evVideo.estadoCargado && !this.evVideo.bloqueado && !this.evVideo.cargando;
+
+      }
+
+    },
+
+
     methods: {
   // --- Subejercicio de Imagen ---
   async manejarClickVar(funcionSeleccionada) {
-  if (this.intentosDisponiblesImagen <= 0) return;
+  if (!this.puedeResponderImagen) return;
 
   this.respuestaVar = funcionSeleccionada;
   const esCorrecta = funcionSeleccionada === this.respuestaCorrectaV;
@@ -253,26 +264,10 @@ setup() {
     this.mensajeErrorVar = this.obtenerMensajeErrorVar();
   }
 
-  const intentos = this.intentosDisponiblesImagen;
-  const nota = esCorrecta
-    ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
-    : 1;
-  this.evaluacionV = nota;
-
-  try {
-    await this.registrarEvaluacionImagen(nota);
-    await this.obtenerIntentosImagen();
-
-    // Solo bloquear si ya no quedan intentos
-    if (this.intentosDisponiblesImagen <= 0) {
-      this.isBlockedV = true;
-    }
-
-    console.log("Imagen evaluada y estado actualizado");
-  } catch (err) {
-    console.error("Error registrando evaluación imagen:", err);
-    alert("Hubo un problema al guardar la evaluación de imagen.");
-  }
+  // La nota la calcula el servidor a partir de los intentos restantes.
+  const respuesta = await this.registrarResultadoImagen(esCorrecta);
+  this.evaluacionV = respuesta ? respuesta.subejercicio.nota : null;
+  this.isBlockedV = this.evImagen.bloqueado;
 }
 ,
 
@@ -283,7 +278,7 @@ setup() {
 
   // --- Subejercicio de Video ---
   async checkAnswer() {
-  if (this.intentosDisponiblesVideo <= 0) return;
+  if (!this.puedeResponderVideo) return;
 
   if (!this.selectedVideo) {
     this.correctVideoIndex = false;
@@ -297,22 +292,9 @@ setup() {
     ? "¡Correcto! Seleccionaste el video adecuado."
     : this.obtenerMensajeErrorVideo();
 
-  const intentos = this.intentosDisponiblesVideo;
-  const nota = esCorrecto
-    ? (intentos === 3 ? 5 : intentos === 2 ? 4 : 3)
-    : 1;
-  this.evaluacionVideo = nota;
-
-  try {
-    await this.registrarEvaluacionVideo(nota);
-    await this.obtenerIntentosVideo();
-
-    // Solo bloquear si ya no quedan intentos
-    console.log("✔ Video evaluado y estado actualizado");
-  } catch (err) {
-    console.error("Error registrando evaluación video:", err);
-    alert("Hubo un problema al guardar la evaluación del video.");
-  }
+  // La nota la calcula el servidor a partir de los intentos restantes.
+  const respuestaVideo = await this.registrarResultadoVideo(esCorrecto);
+  this.evaluacionVideo = respuestaVideo ? respuestaVideo.subejercicio.nota : null;
 },
 
   obtenerMensajeErrorVideo() {

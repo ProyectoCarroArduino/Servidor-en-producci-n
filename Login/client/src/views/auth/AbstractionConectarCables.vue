@@ -46,10 +46,7 @@
         </button>
       </div>
 
-      <p class="alert alert-primary">
-        Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
-      </p>
-    </div>
+</div>
 
     <div class="align-left col-md-3">
       <div class="temas">

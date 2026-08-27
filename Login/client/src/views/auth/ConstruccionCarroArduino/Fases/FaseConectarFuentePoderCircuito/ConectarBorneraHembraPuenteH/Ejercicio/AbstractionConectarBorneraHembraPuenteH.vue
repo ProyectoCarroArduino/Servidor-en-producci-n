@@ -25,10 +25,6 @@
       <br>
       <h3>Abstracción:</h3>
       <br>
-      <!-- Intentos de Video -->
-      <p v-if="intentosDisponibles !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponibles }}
-      </p>
       <br>
       <p class="texto-personalizado">
       <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
@@ -39,6 +35,7 @@
         <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
         <br>
         <br>
+        <EstadoSubejercicio :estado="ev" />
         <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
         <br>
 
@@ -47,14 +44,10 @@
       </div>
 
       <br>
-      <p v-if="isCorrect || intentosDisponibles <= 0" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
-
       <div>
         <button
           class="bt-validate"
-          v-if="isCorrect || intentosDisponibles <= 0"
+          v-if="ev.bloqueado"
           :disabled="!isFinishEnabled"
           @click="finish"
         >
@@ -62,10 +55,7 @@
         </button>
       </div>
 
-      <p class="alert alert-primary">
-        Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
-      </p>
-    </main>
+</main>
 
     <aside class="menu-lateral">
       <div>
@@ -82,10 +72,12 @@ import MenuCarro from "@/components/MenuCarro.vue";
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAbstractionStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
 
 export default {
   components: {
-    MenuCarro
+    MenuCarro,
+    EstadoSubejercicio
   },
 
   props: {
@@ -98,8 +90,8 @@ export default {
     const evaluacionRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '2. Fase de montaje del circuito en el Arduino UNO',
-        submodulo: '2.3 Montaje del puente H (módulo L298N) y conectarlo al Arduino UNO',
+        modulo: '3. Fase de conectar la fuente de poder al circuito',
+        submodulo: '3.3 Conectar bornera tipo hembra al puente H (módulo L298N)',
         ejercicio: 'Ejercicio 1',
         categoria: 'abstraccion',
         subejercicio: 'Subejercicio 1'
@@ -117,6 +109,8 @@ export default {
     });
 
     return {
+      ev: evaluacionRaw,
+      registrarResultado: evaluacionRaw.registrarResultado,
       evaluacionAbstractionStore,
       intentosDisponibles: evaluacion.intentosRestantes,
       notaActual: evaluacion.notaActual,
@@ -174,16 +168,16 @@ int main() {
 
   computed: {
     isRetryDisabled() {
-      return this.isCorrect || this.intentosDisponibles <= 0;
+      return !this.ev.estadoCargado || this.ev.bloqueado || this.ev.cargando;
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponibles <= 0;
+      return this.ev.bloqueado;
     }
   },
 
   methods: {
     async analyzeCode() {
-      if (this.isCorrect || this.intentosDisponibles <= 0) {
+      if (this.isRetryDisabled) {
         return;
       }
 
@@ -214,20 +208,9 @@ int main() {
           this.isCorrect = true;
         }
 
-        // Calcular nota según patrón
-        const intentosAntes = this.intentosDisponibles;
-        let evaluacion = 1;
-        if (isCorrect) {
-          evaluacion = intentosAntes === 3 ? 5 : intentosAntes === 2 ? 4 : 3;
-        } else if (intentosAntes <= 1) {
-          evaluacion = 1;
-        } else {
-          evaluacion = 1;
-        }
-
-        await this.registrarEvaluacion(evaluacion);
-        await this.obtenerIntentos();
-        this.evaluacion = evaluacion;
+        // La nota la calcula el servidor a partir de los intentos restantes.
+        const respuesta = await this.registrarResultado(isCorrect);
+        this.evaluacion = respuesta ? respuesta.subejercicio.nota : null;
 
       } catch (error) {
         console.error("Error al analizar el código:", error);

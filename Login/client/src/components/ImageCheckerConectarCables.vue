@@ -67,11 +67,6 @@
       </p>
     </div>
 
-    <!-- Nota global del store -->
-    <p class="alert alert-primary mt-3">
-      Evaluación Algoritmo (global): {{ evaluacionAlgorithmStore.evaluacion.toFixed(1) }}
-    </p>
-
     <!-- Botón avanzar (solo si completó o ya no hay intentos) -->
     <button
       class="bt-validate mt-3"

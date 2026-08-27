@@ -1,13 +1,5 @@
 ﻿<template>
   <div>
-    <!-- Mostrar intentos disponibles -->
-    <p
-      v-if="intentosDisponiblesAlgorithm !== null"
-      class="alert"
-      :class="(intentosDisponiblesAlgorithm === 1 || (intentosDisponiblesAlgorithm === 0 && notaActualAlgorithm === 1)) ? 'alert-danger' : 'alert-info'"
-    >
-      Intentos restantes: {{ intentosDisponiblesAlgorithm }} | Nota actual: {{ notaActualAlgorithm !== null ? notaActualAlgorithm : '-' }}
-    </p>
     <br>
      <p class="texto-personalizado">
       <strong> Instrucciones:</strong> {{ instruccion }}
@@ -39,11 +31,13 @@
       </div>
     </div>
 
+    <EstadoSubejercicio :estado="ev" />
+
     <!-- Boton para enviar -->
     <div class="button-container mt-3">
       <button
         @click="validateInputs"
-        :disabled="isButtonDisabled || intentosDisponiblesAlgorithm <= 0"
+        :disabled="isButtonDisabled || !puedeResponder"
         class="btn btn-primary"
       >
         Enviar respuesta
@@ -64,7 +58,7 @@
     <button
       class="btn btn-primary mt-3"
       @click="finish"
-      :disabled="evaluacion === null || (intentosDisponiblesAlgorithm > 0 && !isCorrect)"
+      :disabled="!ev.bloqueado"
     >
       Avanzar
     </button>
@@ -84,9 +78,12 @@ import image6 from '@/assets/ImagenesMontarArduinoUNOSoporte/Algoritmo6.png';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
 
 export default {
   name: 'ImageOrderingModule',
+
+  components: { EstadoSubejercicio },
 
   setup() {
     const evaluacionAlgorithmStore = useEvaluacionAlgorithmStore();
@@ -113,6 +110,8 @@ export default {
     });
 
     return {
+      ev: evaluacionAlgorithmRaw,
+      registrarResultadoAlgorithm: evaluacionAlgorithmRaw.registrarResultado,
       evaluacionAlgorithmStore,
       intentosDisponiblesAlgorithm: evaluacionAlgorithm.intentosRestantes,
       obtenerIntentosAlgorithm: evaluacionAlgorithm.obtenerIntentos,
@@ -167,7 +166,10 @@ export default {
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesAlgorithm <= 0;
+      return this.ev.bloqueado;
+    },
+    puedeResponder() {
+      return this.ev.estadoCargado && !this.ev.bloqueado && !this.ev.cargando;
     }
   },
 
@@ -191,7 +193,7 @@ export default {
     },
 
     async validateInputs() {
-  if (this.isButtonDisabled || this.intentosDisponiblesAlgorithm <= 0) {
+  if (this.isButtonDisabled || !this.puedeResponder) {
     return;
   }
 
@@ -221,28 +223,9 @@ export default {
   this.feedbackMessage = this.isCorrect ? 'Correcto!' : 'Incorrecto. Intenta de nuevo.';
   this.feedbackClass = this.isCorrect ? 'alert alert-success' : 'alert alert-danger';
 
-  // Calcular evaluación SOLO si es correcta o si se acabaron los intentos
-  const intentosAntesDeRegistrar = this.intentosDisponiblesAlgorithm;
-
-  if (this.isCorrect) {
-    this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                      intentosAntesDeRegistrar === 2 ? 4 : 3;
-  } else if (this.intentosDisponiblesAlgorithm <= 1) { 
-    // Si es el último intento y falló, poner la nota mínima
-    this.evaluacion = 1;
-  } else {
-    // Si no es el último intento y falló, no se guarda nota aún
-    this.evaluacion = 1;
-  }
-
-  try {
-    await this.registrarEvaluacionAlgorithm(this.evaluacion);
-    await this.obtenerIntentosAlgorithm(); // Esto refresca los intentos visibles siempre
-    console.log("✔ Evaluación de algoritmo registrada y estado actualizado.");
-  } catch (err) {
-    console.error("Error registrando evaluación del algoritmo:", err);
-    alert("Hubo un problema al guardar la evaluación.");
-  }
+  // La nota la calcula el servidor a partir de los intentos restantes.
+  const respuesta = await this.registrarResultadoAlgorithm(this.isCorrect);
+  this.evaluacion = respuesta ? respuesta.subejercicio.nota : null;
 
   this.showResult = true;
   this.showPrincipal = false;
@@ -251,7 +234,7 @@ export default {
     finish() {
       if (this.isFinishEnabled) {
         this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/CB_Abstracion1').then(() => {
+        router.push('/CBAbstraccion1').then(() => {
           window.scrollTo(0, 0);
         });
       }
