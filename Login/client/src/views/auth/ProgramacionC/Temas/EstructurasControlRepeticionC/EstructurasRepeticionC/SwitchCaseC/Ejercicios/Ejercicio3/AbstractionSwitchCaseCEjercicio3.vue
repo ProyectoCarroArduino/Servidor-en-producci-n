@@ -1,0 +1,370 @@
+<template>
+  <div id="layout-general">
+    <main class="contenido">
+        <h1 class="text-center">5.2 Switch case</h1>
+      <br>
+      <br>
+      <h3>Ejercicio 3:</h3>
+      <br>
+      <p class="texto-personalizado">Hacer un programa en C que simule el funcionamiento de un sistema de gestión de libros para una biblioteca. 
+      La biblioteca debe <strong>mostrar el número de libros disponibles y libros prestados,  permitir el préstamo de libros a un usuario y permitir la devolución de libros de un usuario</strong>, 
+      este sistema se debe ejecutar hasta que el usuario decida <strong>salir</strong>. La biblioteca cuenta las siguientes reglas:</p>
+      <ul>
+        <li class="texto-personalizado">La biblioteca <strong>solo</strong> puede almacenar un número máximo de <strong>25</strong> libros.</li>
+        <li class="texto-personalizado">Un usuario puede solicitar el <strong>préstamo de libros</strong>, pero este número debe ser acorde al número de <strong>libros disponibles</strong> en la biblioteca, de lo contrario imprimir el mensaje:
+            <strong>“No hay libros disponibles suficientes para prestar en este momento.”</strong>.</li>
+        <li class="texto-personalizado">Un usuario solo puede <strong>devolver los libros</strong> que haya <strong>solicitado</strong> a la biblioteca, si ese número <strong>excede</strong> el máximo de libros almacenados imprimir el mensaje: 
+            <strong>"No puede devolver más libros de los que ha solicitado"</strong>. Así mismo, el número de <strong>libros devueltos</strong> debe ser mayor a <strong>0</strong>, si no es así imprimir el mensaje: <strong>“La cantidad debe ser mayor que cero.”</strong>.</li>
+        <li class="texto-personalizado">Si un usuario decide <strong>devolver</strong> más libros de los que la biblioteca <strong>puede almacenar</strong> imprimir el mensaje: <strong>“No se pueden almacenar más libros.”</strong>.</li>
+      </ul>
+      <p><span style="font-weight: bold;">Nota:</span> El programa debe utilizar la instrucción <strong>switch case</strong> y el default debe contener <strong>break</strong>.</p>
+      <p><span style="font-weight: bold;">Nota2:</span> El progrma <strong>debe imprimir</strong> el siguiente mensaje si se digita una opción que no es válida: <strong>"Opcion no valida. Intente de nuevo."</strong>.</p>
+      <br>
+      <hr class="my-4" />
+      <br>
+      <h3>Abstracción:</h3>
+      <br>
+      <br>
+      <p class="texto-personalizado">
+      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
+      </p>
+      <br>
+      <div class="hello">
+        <h1>{{ msg }}</h1>
+        <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
+        <br>
+        <br>
+        <EstadoSubejercicio :estado="ev" />
+        <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
+        <br>
+
+        <br>
+        <p v-if="result" :class="resultClass">{{ result }}</p>
+      </div>
+
+      <div>
+        <button
+          class="bt-validate"
+          v-if="ev.bloqueado"
+          :disabled="!isFinishEnabled"
+          @click="finish"
+        >
+          Avanzar
+        </button>
+      </div>
+
+    </main>
+
+    <aside class="menu-lateral">
+      <div>
+        <Menu />
+      </div>
+    </aside>
+  </div>
+</template>
+
+<script>
+import router from '@/router';
+import axios from 'axios';
+import Menu from "@/components/Menu.vue";
+import { onMounted, reactive, toRefs } from 'vue';
+import { useEvaluacionAbstractionStore } from '@/stores/evaluation';
+import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import EstadoSubejercicio from '@/components/EstadoSubejercicio.vue';
+
+export default {
+  components: {
+    Menu,
+    EstadoSubejercicio
+  },
+
+  props: {
+    msg: String
+  },
+
+  setup() {
+    const evaluacionAbstractionStore = useEvaluacionAbstractionStore();
+
+     const evaluacionRaw = reactive(
+      useEvaluacionSubejercicio({
+        cursoNombre: 'Guía Programación en C', // Añadido
+        modulo: '4. Variables y operaciones',
+        submodulo: '',
+        ejercicio: 'Ejercicio 2',
+        categoria: 'abstraccion',
+        subejercicio: 'Subejercicio 1'
+      })
+    );
+
+    const evaluacion = {
+      ...toRefs(evaluacionRaw),
+      registrarEvaluacion: evaluacionRaw.registrarEvaluacion,
+      obtenerIntentos: evaluacionRaw.obtenerIntentos
+    };
+
+    onMounted(() => {
+      evaluacion.obtenerIntentos();
+    });
+
+    return {
+      ev: evaluacionRaw,
+      evaluacionAbstractionStore,
+      intentosDisponibles: evaluacion.intentosRestantes,
+      notaActual: evaluacion.notaActual,
+      registrarEvaluacion: evaluacion.registrarEvaluacion,
+      obtenerIntentos: evaluacion.obtenerIntentos
+    };
+  },
+
+  data() {
+    return {
+      evaluacion: null,
+      isCorrect: false,
+      code: '',
+      result: '',
+      resultClass: '',
+      correctCode: `#include <stdio.h>
+
+int main() {
+    char opcion;
+    int librosDisponibles = 25;
+    int librosPrestados = 0;
+    int cantidad;
+
+    do {
+        printf("\n--- GESTION DE BIBLIOTECA ---\n");
+        printf("m. Mostrar libros disponibles\n");
+        printf("p. Solicitar un préstamo de libros\n");
+        printf("d. Devolver libros\n");
+        printf("s. Salir\n");
+        printf("Elija una opcion: ");
+
+        scanf(" %c", &opcion);
+
+        switch (opcion) {
+
+            case 'm':
+            case 'M':
+                printf("\nLibros disponibles: %d\n", librosDisponibles);
+                printf("Libros prestados: %d\n", librosPrestados);
+                break;
+
+            case 'p':
+            case 'P':
+                printf("¿Cuantos libros desea solicitar que se le presten?: ");
+                scanf("%d", &cantidad);
+
+                if (cantidad <= 0) {
+                    printf("La cantidad debe ser mayor que cero.\n");
+                }
+                else if (cantidad > librosDisponibles) {
+                    printf("No hay libros disponibles suficientes para prestar en este momento.\n");
+                }
+                else {
+                    librosDisponibles = librosDisponibles - cantidad;
+                    librosPrestados = librosPrestados + cantidad;
+
+                    printf("Prestamo exitoso.\n");
+                    printf("Libros disponibles: %d\n", librosDisponibles);
+                    printf("Libros prestados: %d\n", librosPrestados);
+                }
+                break;
+
+            case 'd':
+            case 'D':
+                printf("¿Cuantos libros desea devolver?: ");
+                scanf("%d", &cantidad);
+
+                if (cantidad <= 0) {
+                    printf("La cantidad debe ser mayor que cero.\n");
+                }
+                else if (cantidad > librosPrestados) {
+                    printf("No puede devolver mas libros de los que ha solicitado.\n");
+                }
+                else if (librosDisponibles + cantidad > 25) {
+                    printf("No se pueden almacenar más libros.\n");
+                }
+                else {
+                    librosDisponibles = librosDisponibles + cantidad;
+                    librosPrestados = librosPrestados - cantidad;
+
+                    printf("Devolucion registrada con exito.\n");
+                    printf("Libros disponibles: %d\n", librosDisponibles);
+                    printf("Libros prestados: %d\n", librosPrestados);
+                }
+                break;
+
+            case 's':
+            case 'S':
+                printf("Saliendo del sistema de biblioteca. ¡Hasta luego!\n");
+                break;
+
+            default:
+                printf("Opcion no valida. Por favor, intente de nuevo.\n");
+        }
+
+    } while (opcion != 's' && opcion != 'S');
+
+    return 0;
+}`
+    };
+  },
+
+  computed: {
+    isRetryDisabled() {
+      return !this.ev.estadoCargado || this.ev.bloqueado || this.ev.cargando;
+    },
+    isFinishEnabled() {
+      return this.ev.bloqueado;
+    }
+  },
+
+  methods: {
+    async analyzeCode() {
+      if (this.isRetryDisabled) {
+        return;
+      }
+
+      this.result = '';
+      this.resultClass = '';
+      this.isCorrect = false;
+
+      const userCode = this.code.replace(/\s+/g, ' ').trim();
+      const correctCode = this.correctCode.replace(/\s+/g, ' ').trim();
+
+      let localError = '';
+      if (userCode !== correctCode) {
+        localError = "El código ingresado no coincide con la solución esperada. Revisa la sintaxis, espacios y elimina cualquier comentario.";
+      }
+
+      let isCorrect = false;
+
+      try {
+        const response = await axios.post(import.meta.env.VITE_API_URI_ANALYZE, { code: this.code });
+
+        if (response.data.errors) {
+          this.result = [localError, response.data.errors].filter(Boolean).join('\n');
+          this.resultClass = 'warning';
+        } else {
+          this.result = '¡El código es correcto!';
+          this.resultClass = 'success';
+          isCorrect = true;
+          this.isCorrect = true;
+        }
+
+        // La nota la calcula el servidor a partir de los intentos restantes.
+        const respuesta = await this.registrarResultado(isCorrect);
+        this.evaluacion = respuesta ? respuesta.subejercicio.nota : null;
+
+      } catch (error) {
+        console.error("Error al analizar el código:", error);
+        this.result = "Ha ocurrido un error al analizar el código. Inténtalo nuevamente.";
+        this.resultClass = "warning";
+      }
+    },
+
+    finish() {
+      this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
+      router.push('/GeneralizacionSwitchCaseCEjercicio1').then(() => {
+        window.scrollTo(0, 0);
+      });
+    }
+  }
+};
+</script>
+
+
+<style>
+#user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+    .layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
+}
+
+.card {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+.texto-personalizado {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-align: justify;
+}
+
+.temas {
+  position: fixed;
+  margin-top: -245px;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.warning {
+  color: red;
+  font-weight: bold;
+  font-size: 15px;
+}
+</style>

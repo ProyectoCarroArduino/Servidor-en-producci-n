@@ -155,8 +155,8 @@ setup() {
   // Sub. Imagen - Descomposición
   const evaluacionImagenRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-    modulo: '3. Fase de conectar la fuente de poder al circuito',
-    submodulo: '3.1 Conectar la fuente de poder a la bornera macho',
+    modulo: '3. Fase de Conectar fuente de poder al circuito',
+    submodulo: '3.1 Conectar la fuente de poder a la bornera macho:',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 1'
@@ -164,8 +164,8 @@ setup() {
 
   const evaluacionVideoRaw = reactive(useEvaluacionSubejercicio({
     cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-    modulo: '3. Fase de conectar la fuente de poder al circuito',
-    submodulo: '3.1 Conectar la fuente de poder a la bornera macho',
+    modulo: '3. Fase de Conectar fuente de poder al circuito',
+    submodulo: '3.1 Conectar la fuente de poder a la bornera macho:',
     ejercicio: 'Ejercicio 1',
     categoria: 'descomposicion',
     subejercicio: 'Subejercicio 2'

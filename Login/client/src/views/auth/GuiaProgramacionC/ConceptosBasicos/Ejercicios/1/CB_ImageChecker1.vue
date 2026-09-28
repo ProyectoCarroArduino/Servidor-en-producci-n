@@ -225,7 +225,7 @@ export default {
 
   // La nota la calcula el servidor a partir de los intentos restantes.
   const respuesta = await this.registrarResultadoAlgorithm(this.isCorrect);
-  this.evaluacion = respuesta ? respuesta.subejercicio.nota : null;
+  this.evaluacion = respuesta ? respuesta.subejercicio.nota : null; 
 
   this.showResult = true;
   this.showPrincipal = false;

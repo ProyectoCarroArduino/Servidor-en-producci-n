@@ -5,35 +5,27 @@
       <p class="texto-personalizado"><strong>Instrucciones:</strong> los <strong>Elementos</strong> deben ir en el cuadro a la derecha de color <strong>verde</strong> y el orden debe ser descendente.</p>
       <br>
       <div class="flex-container">
-        <div ref="todoList" class="kanban-board kanban-column gray-background scrollable">
+        <div ref="todoList" class="kanban-board kanban-column gray-background">
           <article
             v-for="todo in todos"
-            :key="todo.id"
+            :key="todo"
             class="kanban-item"
           >
             <span class="kanban-handle"></span>
-            <p>{{ todo.text }}</p>
+            <p>{{ todo }}</p>
           </article>
         </div>
-        <div ref="doneList" class="kanban-board kanban-column gray-background2 scrollable">
+        <div ref="doneList" class="kanban-board kanban-column gray-background2">
           <article
             v-for="done in dones"
-            :key="done.id"
+            :key="done"
             class="kanban-item"
           >
             <span class="kanban-handle"></span>
-            <p>{{ done.text }}</p>
+            <p>{{ done }}</p>
           </article>
         </div>
       </div>
-      <br>
-      <p v-if="contadorOrden > 0 && !ordenVerdadero" class="contador">
-        intentos restantes: {{ Maxintento - contadorOrden }}
-      </p>
-      <br>
-      <button @click="enviarOrden"
-      :disabled="contadorOrden >= 3 || ordenVerdadero === true"
-      >Enviar Orden</button>
       <br>
       <div v-if="resultadoValidacion === 'correcto'">
         <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
@@ -41,9 +33,16 @@
       <div v-else-if="resultadoValidacion === 'incorrecto'">
         <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
       </div>
-      <p v-if="ordenVerdadero || contadorOrden === Maxintento" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
+      <EstadoSubejercicio :estado="ev4" />
+      <br>
+      <button
+        @click="enviarOrden"
+        :disabled="!puedeResponder(ev4)"
+        class="btn btn-primary"
+      >
+        <span v-if="ev4.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+        Enviar Orden
+      </button>
       <br>
     </div>
   </template>
@@ -51,19 +50,69 @@
   <script>
   import { animations } from "@formkit/drag-and-drop";
   import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+  import { reactive, onMounted } from "vue";
+  import { useEvaluacionSubejercicio } from "@/composables/useEvaluacionSubejercicio";
+  import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
+
+  // Debe coincidir EXACTAMENTE con los nombres de la plantilla del curso
+  // (ver server/seedCourseTemplate.js).
+  const RUTA = {
+    cursoNombre: 'Guía Programación en C',
+    modulo: '4. Variables y operaciones',
+    submodulo: '',
+    ejercicio: 'Ejercicio 1',
+    categoria: 'descomposicion'
+  };
   
   export default {
     name: 'DragAndDrop2Checker',
+
+    components: { EstadoSubejercicio },
+
+
+    setup() {
+      const ev4 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 4" }));
+
+      onMounted(() => {
+        ev4.obtenerIntentos();
+      });
+
+      const [todoList, todos] = useDragAndDrop(
+        ["float x1, y1, x2, y2;", "float x1, y1, x2, y2;", "double iva;", "printf(mensaje, distancia);", "float distancia;", "double total;"].sort(() => Math.random() - 0.5),
+        {
+          plugins: [animations()],
+          group: "kanbanGroup1",
+          dragHandle: ".kanban-handle",
+        }
+      );
+
+      const [doneList, dones] = useDragAndDrop(
+        ["double x1, y1;", "return 1;", "distancia = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));", "double x2, y2;", "int distancia;"].sort(() => Math.random() - 0.5), 
+        {
+          plugins: [animations()],
+          group: "kanbanGroup1",
+          dragHandle: ".kanban-handle",
+      });
+
+      return {
+        ev4,
+
+        // Kanban
+        todoList,
+        todos,
+        doneList,
+        dones,
+      };
+    },
   
     data() {
       return {
         ordenCorrecto: [
-          { id: 1, text: "float x1, y1, x2, y2;" },
-          { id: 2, text: "float distancia;" },
-          { id: 3, text: "distancia = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));" },
-          { id: 4, text: "printf(mensaje, distancia);" },
-          { id: 5, text: "return 0;" },
-
+          "float x1, y1, x2, y2;",
+          "float distancia;",
+          "distancia = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));",
+          "printf(mensaje, distancia);",
+          "return 0;"
         ],
         respuestasIncorrectas: [
           "¡Error! Revisa la teoria sobre la estructura de una función para poder determinar cuales son los elementos necesarios",
@@ -73,103 +122,43 @@
         ],
         mensajeRespuesta: "",
         resultadoValidacion: null,
-        contadorOrden : 0, 
-        Maxintento : 3,
-        ordenVerdadero : null,
-        evaluacion : null,
-
-      
       };
     },
-  
-    setup() {
-  
-      const [todoList, todos] = useDragAndDrop(
-        [
-          { id: 1, text: "return 0;"},
-          { id: 2, text: "float x1, y1, x2, y2;"},
-          { id: 3, text: "double iva;"},
-          { id: 4, text: "printf(mensaje, distancia);"},
-          { id: 5, text: "float distancia;"},
-          { id: 6, text: "double total;"},
-        ].sort(() => Math.random() - 0.5),
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-  
-      const [doneList, dones] = useDragAndDrop(
-        [
-          { id: 7, text: "double x1, y1;"},
-          { id: 8, text: "return 1;"},
-          { id: 9, text: "distancia = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));"},
-          { id: 10, text: "double x2, y2;"},
-          { id: 11, text: "int distancia;"},
 
-        ],
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-
-      return {
-        todoList,
-        todos,
-        doneList,
-        dones,
-      };
-    },
   
     methods: {
-      
-      validarOrden(arr) {
-        if(this.ordenVerdadero === true || this.contadorOrden >= this.Maxintento){
-          return;
-        }
-        this.contadorOrden++;
-        for (let i = 0; i < this.ordenCorrecto.length; i++) {
-          if (arr[i].text !== this.ordenCorrecto[i].text) {
-            this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
-            this.ordenVerdadero = false;
-            this.calcularEvaluacion(false);
-            return 'incorrecto';
+    // Compara contenido Y longitud. Sin la comparacion de longitud, un
+    // Array.every() sobre una lista mas corta que la esperada devuelve true:
+    // vaciar la columna gris se calificaba como respuesta correcta.
+    listasIguales(actual, esperado) {
+      return (
+        Array.isArray(actual) &&
+        actual.length === esperado.length &&
+        actual.every((item, i) => item === esperado[i])
+      );
+    },
 
-          } else {
-            this.ordenVerdadero = true;
-            this.calcularEvaluacion();
-            return 'correcto';
-          }
-        }
-        return 'correcto';
-      },
+    puedeResponder(ev) {
+      return ev.estadoCargado && !ev.bloqueado && !ev.cargando;
+    },
 
-      enviarOrden() {
-        this.resultadoValidacion = this.validarOrden(this.dones);
-      },
+    mensajeAleatorio(lista) {
+      return lista[Math.floor(Math.random() * lista.length)];
+    },
 
-      calcularEvaluacion() {
-      if (this.ordenVerdadero === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorOrden === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorOrden === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorOrden === 3) {
-          this.evaluacion = 3;
-        } 
-      } else if (this.contadorOrden === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
+    async enviarOrden() {
+      if (!this.puedeResponder(this.ev4)) return;
+
+      const esCorrecto = this.listasIguales(this.dones, this.ordenCorrecto);
+      this.resultadoValidacion = esCorrecto ? "correcto" : "incorrecto";
+      if (!esCorrecto) {
+        this.mensajeRespuesta = this.mensajeAleatorio(this.respuestasIncorrectas);
       }
 
-      this.$emit('evaluacionEstructura', this.evaluacion); // Emitir la evaluación al componente padre
-  },
-  
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev4.registrarResultado(esCorrecto);
     },
+  },
   
   };
   </script>
@@ -241,6 +230,7 @@
   .kanban-item {
     padding: 0.5rem;
     background-color: rgba(80, 13, 13, 0.904);
+    color: rgba(240, 232, 232, 0.9);
     border: 1px solid hsl(0, 0%, 3%);
     border-radius: 5px;
     margin: 0.5rem 0;

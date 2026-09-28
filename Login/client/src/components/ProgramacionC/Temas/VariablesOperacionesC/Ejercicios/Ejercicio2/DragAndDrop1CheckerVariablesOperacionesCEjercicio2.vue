@@ -14,20 +14,28 @@
           </article>
         </div>
         <br>
-        <p v-if="contadorVerificaciones > 0 && !ordenCorrecto" class="contador">
-          Intentos restantes: {{ Maxintento - contadorVerificaciones }}
-        </p>
+        <EstadoSubejercicio :estado="ev3" />
         <br>
-        <button 
-          @click="verificarOrden" 
-          :disabled="contadorVerificaciones >= 3 || ordenCorrecto === true">
+        <button
+          @click="verificarOrden"
+          :disabled="!puedeResponder(ev3)"
+          class="btn btn-primary"
+        >
+          <span v-if="ev3.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
           Verificar Orden
         </button>
         <br>
-        <p v-if="ordenCorrecto === true" class="correcto alert alert-success mt-3">¡Orden correcto!</p>
-        <p v-if="ordenCorrecto === false" class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
-        <p v-if="ordenCorrecto || contadorVerificaciones === Maxintento" class="correcto alert alert-success mt-3">
-          Tu evaluación final es: {{ evaluacion }}
+        <p
+          v-if="ordenCorrecto === true"
+          class="correcto alert alert-success mt-3"
+        >
+          ¡Orden correcto!
+        </p>
+        <p
+          v-if="ordenCorrecto === false"
+          class="incorrecto alert alert-danger mt-3"
+        >
+          {{ mensajeError }}
         </p>
       </div>
       <br>
@@ -35,93 +43,97 @@
     </div>
   </template>
   
-  <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+<script>
+import { animations } from "@formkit/drag-and-drop";
+import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+import { reactive, onMounted } from "vue";
+import { useEvaluacionSubejercicio } from "@/composables/useEvaluacionSubejercicio";
+import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
+
+// Debe coincidir EXACTAMENTE con los nombres de la plantilla del curso
+// (ver server/seedCourseTemplate.js).
+const RUTA = {
+  cursoNombre: 'Guía Programación en C',
+  modulo: '4. Variables y Operaciones',
+  submodulo: '4.1 Variables y Operaciones',
+  ejercicio: 'Ejercicio 1',
+  categoria: 'descomposicion'
+};
+
   export default {
     name: 'DragAndDrop1Checker',
-  
-    data() {
-      return {
-        ordenCorrecto: null,
-        mensajeError: "",
-        contadorVerificaciones : 0,
-        Maxintento: 3,
-        evaluacion : null,
-        respuestasIncorrectas: [
-          "¡Error! Por favor, ten en cuenta la estructura de una función y cómo se hace su llamada",
-          "¡Error! Revisa el orden en el que estas ubicando los elementos de la llamada de una función",
-          "¡Error! Recuerda que la llamada de una función (sin parámetros) no lleva nada dentro de los paréntesis",
-          "¡Error! Considera el orden en el cual estas ubicando los elementos y llegarás a la respuesta",
-        ],
-      };
-    },
 
-    methods: {
-      verificarOrden() {
-        if (this.ordenCorrecto === true || this.contadorVerificaciones >= this.Maxintento) {
-          return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-        }
+    components: { EstadoSubejercicio },
 
-        this.contadorVerificaciones++;
-        const ordenEsperado = ["iva", "=", "subtotal", "%", "0.21;"];
-        if (this.tapes.every((tape, index) => tape === ordenEsperado[index])) {
-          this.ordenCorrecto = true;
-          this.calcularEvaluacion();
-        } else {
-          this.ordenCorrecto = false;
-          this.mensajeError = this.obtenerMensajeAleatorio();
-
-          if (this.contadorVerificaciones >= this.Maxintento) {
-            this.calcularEvaluacion(false);
-          }
-        }
-      },
-
-      calcularEvaluacion() {
-      if (this.ordenCorrecto === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorVerificaciones === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorVerificaciones === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorVerificaciones === 3) {
-          this.evaluacion = 3;
-        }
-      } else if (this.contadorVerificaciones === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
-      }
-
-      this.$emit('evaluacionLlamada', this.evaluacion); // Emitir la evaluación al componente padre
-  },
-      
-      obtenerMensajeAleatorio() {
-        const indiceAleatorio = Math.floor(Math.random() * this.respuestasIncorrectas.length);
-        return this.respuestasIncorrectas[indiceAleatorio];
-      }
-    },
-  
     setup() {
-      const [parent, tapes] = useDragAndDrop(
-        [
-          "iva",
-          "=",
-          "subtotal",
-          "*",
-          "0.21;"
-        ].sort(() => Math.random() - 0.5),
-        { 
-          plugins: [animations()],
-        }
+    const ev3 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 3" }));
+
+    onMounted(() => {
+      ev3.obtenerIntentos();
+    });
+
+    // DnD setup
+    const [parent, tapes] = useDragAndDrop(
+      ["iva", "=", "subtotal", "*", "0.21;"].sort(() => Math.random() - 0.5),
+      { plugins: [animations()] }
+    );
+
+    return {
+      ev3,
+
+      // Drag and drop
+      parent,
+      tapes,
+    };
+  },
+  
+  data() {
+    return {
+      ordenCorrecto: null,
+      mensajeError: "",
+      respuestasIncorrectas: [
+        "¡Error! Por favor, ten en cuenta la estructura de una función y cómo se hace su llamada",
+        "¡Error! Revisa el orden en el que estas ubicando los elementos de la llamada de una función",
+        "¡Error! Recuerda que la llamada de una función (sin parámetros) no lleva nada dentro de los paréntesis",
+        "¡Error! Considera el orden en el cual estas ubicando los elementos y llegarás a la respuesta",
+      ],
+    };
+  },
+
+  methods: {
+    // Compara contenido Y longitud: un Array.every() sobre una lista mas corta
+    // que la esperada devuelve true.
+    listasIguales(actual, esperado) {
+      return (
+        Array.isArray(actual) &&
+        actual.length === esperado.length &&
+        actual.every((item, i) => item === esperado[i])
       );
-  
-  
-      return {
-        parent,
-        tapes,
-      };
-    }
+    },
+
+    puedeResponder(ev) {
+      return ev.estadoCargado && !ev.bloqueado && !ev.cargando;
+    },
+
+    obtenerMensajeAleatorio() {
+      const i = Math.floor(Math.random() * this.respuestasIncorrectas.length);
+      return this.respuestasIncorrectas[i];
+    },
+
+    async verificarOrden() {
+      if (!this.puedeResponder(this.ev3)) return;
+
+      const esCorrecto = this.listasIguales(this.tapes, ["iva", "=", "subtotal", "*", "0.21;"]);
+      this.ordenCorrecto = esCorrecto;
+      if (!esCorrecto) {
+        this.mensajeError = this.obtenerMensajeAleatorio();
+      }
+
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev3.registrarResultado(esCorrecto);
+    },
+
+  },
   
   };
   </script>

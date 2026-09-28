@@ -28,27 +28,16 @@
           v-for="(figura, index) in figuras"
           :key="figura.alt"
           class="figura"
+          :class="{ 'figura-bloqueada': ev1.bloqueado || ev1.cargando }"
           @click="manejarClick(figura.alt, index)"
         > 
-        <div
-          v-if="totalClicks > 0 && mostrarContador === index"
-          class="contador-imagen"
-        >
-          {{ maxClicks - totalClicks }}
-        </div>
-          <img :src="figura.src" :alt="figura.alt" 
-          :style="{ 
-              pointerEvents: isBlocked ? 'none' : 'auto', 
-              opacity: isBlocked ? 0.5 : 1 
-          }"/>
+          <img :src="figura.src" :alt="figura.alt" />
         </div>
       </div>
+      <EstadoSubejercicio :estado="ev1" />
       <div v-if="respuesta" class="respuesta">
         <p v-if="esCorrecta" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
-      </div>
-      <div v-if="evaluacion !== null" class="correcto">
-        <p class="alert alert-info">Tu evaluación es: {{ evaluacion }}</p>
       </div>
       <br>
       <br>
@@ -59,51 +48,23 @@
           v-for="(figura, index) in figurasV"
           :key="figura.alt"
           class="figura"
+          :class="{ 'figura-bloqueada': ev2.bloqueado || ev2.cargando }"
           @click="manejarClickVar(figura.alt, index)"
         >
-        <div
-          v-if="totalClicksV > 0 && mostrarContadorV === index"
-          class="contador-imagen"
-        >
-          {{ maxClicksV - totalClicksV }}
-        </div>
           <img :src="figura.src" :alt="figura.alt" 
-          :style="{ 
-              pointerEvents: isBlockedV ? 'none' : 'auto', 
-              opacity: isBlockedV ? 0.5 : 1 
-          }"/>
         </div>
       </div>
+      <EstadoSubejercicio :estado="ev2" />
       <div v-if="respuestaVar" class="respuesta">
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
       </div>
-      <div v-if="evaluacionV !== null" class="correcto">
-        <p class="alert alert-info">Tu evaluación es: {{ evaluacionV }}</p>
-      </div>
       <br>
-      <div>
-        <br>
-        <br>
+      <br>
         <DragAndDrop1Checker @evaluacionDrapAndDrop1Checker="actualizarEvaluacionDragAndDrop1Checker"/>
         <DragAndDrop2Checker @evaluacionDragAndDrop2Checker="actualizarEvaluacionDragAndDrop2Checker"/>
-      </div>
-      <div>
-        <br>
-        <br>
-      </div>
-      <br>
-      <div v-if="puedeAvanzar" class="evaluacion-final">
-        <p class="alert alert-primary">
-          Evaluación total: {{ evaluacionTotal.toFixed(1) }}
-        </p>
-      </div>
-      <button class="bt-validate" 
-        @click="finish"
-        :disabled="!puedeAvanzar">
-        Avanzar
-      </button>
     </main>
+
     <aside class="menu-lateral">
       <div>
         <Menu />
@@ -115,8 +76,11 @@
 <script>
 import router from '@/router'
 import Menu from "@/components/Menu.vue";
+import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
 import DragAndDrop1Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/DragAndDrop1CheckerSwitchCaseCEjercicio1.vue";
 import DragAndDrop2Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/DragAndDrop2CheckerSwitchCaseCEjercicio1.vue";
+import { reactive, toRefs, onMounted } from 'vue';
+import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
 import Figura1 from '@/assets/ImagenesSwitchCaseC/Codigo9.png';
 import Figura2 from '@/assets/ImagenesSwitchCaseC/Codigo10.png';
 import Figura3 from '@/assets/ImagenesSwitchCaseC/Codigo11.png';
@@ -126,13 +90,37 @@ import Figura6 from '@/assets/ImagenesSwitchCaseC/Codigo14.png';
 import Figura7 from '@/assets/ImagenesSwitchCaseC/Codigo15.png';
 import Figura8 from '@/assets/ImagenesSwitchCaseC/Codigo16.png';
 
+
+// Ruta comun de los tres subejercicios. Debe coincidir EXACTAMENTE con los
+// nombres de la plantilla del curso (ver server/seedCourseTemplate.js).
+const RUTA = {
+  cursoNombre: 'Guía Programación en C',
+  modulo: '4. Variables y operaciones',
+  submodulo: '',
+  ejercicio: 'Ejercicio 1', 
+  categoria: 'descomposicion'
+};
+
 export default {
   name: 'App',
 
   components: {
     Menu,
+    EstadoSubejercicio,
     DragAndDrop1Checker,
     DragAndDrop2Checker,
+  },
+
+  setup() {
+    const ev1 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: 'Subejercicio 1' }));
+    const ev2 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: 'Subejercicio 2' }));
+
+    onMounted(() => {
+      ev1.obtenerIntentos();
+      ev2.obtenerIntentos();
+    });
+
+    return { ev1, ev2 };
   },
 
   data() {
@@ -162,7 +150,6 @@ export default {
         '¡Error! Recuerda que debes de seleccionar la imagen que concuerde con la función prototipo que resuelva el problema',
       ],
       
-      respuestaCorrecta: 'Figura 1',
       respuestaVar: null,
       CorrectaVar: false,
       mensajeErrorVar: '',
@@ -172,25 +159,10 @@ export default {
         '¡Error! Intenta ir a revisar la teoria sobre la declaración de una función e intentalo de nuevo',
         '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)',
       ],
-
-      respuestaCorrectaV: 'Figura 5',
-      totalClicks: 0,
-      totalClicksV: 0,
-      maxClicks: 3,
-      maxClicksV: 3,
-      mostrarContador: null,
-      mostrarContadorV: null,
-      isBlocked: false,
-      isBlockedV: false,
-      evaluacion: null,
-      evaluacionV: null,
-      evaluacionDragAndDrop1Checker: null,
-      evaluacionDragAndDrop2Checker: null,
     };
-    
-    },
+  },
 
-    computed: {
+  computed: {
     // Propiedad computada para habilitar o deshabilitar el botón
     puedeAvanzar() {
       return (
@@ -213,106 +185,40 @@ export default {
   },
 
   methods: {
-    manejarClick(funcion, index) {
-      if (this.isBlocked || this.totalClicks >= this.maxClicks) {
-        return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-      }
 
-      const figuraSeleccionada = this.figuras[index].alt;
-      
-      if (figuraSeleccionada === this.respuestaCorrecta) {
-        this.isBlocked = true; // Bloquea clics adicionales
-        this.calcularEvaluacion();
-        this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
-        this.respuesta = figura;
-        this.esCorrecta = true;
-        return; // Termina aquí para evitar incrementar el contador
-      }
+    // Un subejercicio ya aprobado o sin intentos no vuelve a registrarse: antes
+    // se podia acertar (nota 5) y luego bajarla a 1 haciendo clic otra vez.
+    puedeResponder(ev) {
+      return ev.estadoCargado && !ev.bloqueado && !ev.cargando;
+    },
 
-      this.totalClicks++; // Incrementa el contador global
-      this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
+    mensajeAleatorio(lista) {
+      return lista[Math.floor(Math.random() * lista.length)];
+    },
+
+    async manejarClick(figura) {
+      if (!this.puedeResponder(this.ev1)) return;
+
       this.respuesta = figura;
       this.esCorrecta = figura === 'Figura 1';
-
-      if (this.totalClicks >= this.maxClicks) {
-        this.isBlocked = true; 
-        this.evaluacion = 1; // Asegura que se evalúe como 0
-        return;
-      }
-
       if (!this.esCorrecta) {
-        this.mensajeError = this.obtenerMensajeError();
+        this.mensajeError = this.mensajeAleatorio(this.mensajesError);
       }
+
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev1.registrarResultado(this.esCorrecta);
     },
 
-    calcularEvaluacion() {
-      if (this.totalClicks === 0) {
-        this.evaluacion = 5;
-      } else if (this.totalClicks === 1) {
-        this.evaluacion = 4;
-      } else if (this.totalClicks === 2) {
-        this.evaluacion = 3;
-      } 
-    },
+    async manejarClickVar(figura) {
+      if (!this.puedeResponder(this.ev2)) return;
 
-    obtenerMensajeError() {
-      const randomIndex = Math.floor(Math.random() * this.mensajesError.length);
-      return this.mensajesError[randomIndex];
-    },
-
-    manejarClickVar(figurasV, index) {
-      if (this.isBlockedV || this.totalClicksV >= this.maxClicksV) {
-        return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-      }
-
-      const figuraSeleccionada = this.figurasV[index].alt;
-      
-      if (figuraSeleccionada === this.respuestaCorrectaV) {
-        this.isBlockedV = true; // Bloquea clics adicionales
-        this.calcularEvaluacionVar();
-        this.mostrarContadorV = index; // Muestra el contador en la imagen seleccionada
-        this.respuestaVar = figurasV;
-        this.CorrectaVar = true;
-        return; // Termina aquí para evitar incrementar el contador
-      }
-
-      this.totalClicksV++; // Incrementa el contador global
-      this.mostrarContadorV = index; // Muestra el contador en la imagen seleccionada
-      this.respuestaVar = figurasV;
-      this.CorrectaVar = figurasV === 'Figura 5';
-
-      if (this.totalClicksV >= this.maxClicksV) {
-        this.isBlockedV = true; 
-        this.evaluacionV = 1; // Asegura que se evalúe como 0
-        return;
-      }
-
+      this.respuestaVar = figura;
+      this.CorrectaVar = figura === 'Figura 5';
       if (!this.CorrectaVar) {
-        this.mensajeErrorVar = this.obtenerMensajeErrorVar();
+        this.mensajeErrorVar = this.mensajeAleatorio(this.mensajesErrorVar);
       }
-    },
 
-    calcularEvaluacionVar() {
-      if (this.totalClicksV === 0) {
-        this.evaluacionV = 5;
-      } else if (this.totalClicksV === 1) {
-        this.evaluacionV = 4;
-      } else if (this.totalClicksV === 2) {
-        this.evaluacionV = 3;
-      } 
-    },
-
-    obtenerMensajeErrorVar() {
-      const randomIndex = Math.floor(Math.random() * this.mensajesErrorVar.length);
-      return this.mensajesErrorVar[randomIndex];
-    },
-
-    actualizarEvaluacionDragAndDrop1Checker(evaluacion) {
-      this.evaluacionDragAndDrop1Checker = evaluacion;
-    },
-
-    actualizarEvaluacionDragAndDrop2Checker(evaluacion) {
-      this.evaluacionDragAndDrop2Checker = evaluacion;
+      await this.ev2.registrarResultado(this.CorrectaVar);
     },
 
     finish() {

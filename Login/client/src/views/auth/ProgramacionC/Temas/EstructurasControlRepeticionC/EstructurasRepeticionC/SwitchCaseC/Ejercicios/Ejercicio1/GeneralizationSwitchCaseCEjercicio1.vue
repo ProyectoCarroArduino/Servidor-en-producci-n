@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import AudioChecker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejemplo/AudioCheckerSwitchCaseCEjemplo.vue";
+import AudioChecker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio1/AudioCheckerSwitchCaseCEjercicio1.vue";
 import Menu from "@/components/Menu.vue";
 
 export default{

@@ -378,7 +378,7 @@ export default {
                 icon: "",
                 children: [
                     {
-                        label: "Preparar cables de los motorreductores para la conexión al módulo L298N (puente H):",
+                        label: "Paso 1. Preparar cables de los motorreductores para la conexión al módulo L298N (puente H):",
                         icon: "",
                         children: [
                             {

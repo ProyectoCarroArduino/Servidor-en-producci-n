@@ -1,7 +1,7 @@
 <template>
     <div>
       <h4 class="texto-personalizado">De acuerdo al tema <strong>(operadores aritméticos)</strong>, ordene de forma correcta 
-        los elementos para construir la formula del área de un triángulo:</h4>
+        los elementos para construir la formula del <strong>área de un triángulo</strong>:</h4>
       <br>
       <div>
         <div ref="parent" class="grid gray-background">

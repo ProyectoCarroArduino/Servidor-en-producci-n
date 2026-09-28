@@ -223,7 +223,7 @@ export default {
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
     max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 35%;
+    width: 45%;
 }
 
 .centrada2 {
@@ -231,7 +231,7 @@ export default {
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
     max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 25%;
+    width: 30%;
 }
 
 .centradados {

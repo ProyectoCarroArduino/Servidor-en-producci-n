@@ -119,7 +119,7 @@ export const registrarEvaluacion = async (req, res) => {
     nota
   } = req.body;
 
-  if (!cursoNombre || !modulo || !submodulo || !ejercicio || !categoria || !subejercicio) {
+  if (!cursoNombre || !modulo || !ejercicio || !categoria || !subejercicio) {
     return res.status(400).json({ message: 'Faltan datos para evaluar' });
   }
 

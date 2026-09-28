@@ -5,35 +5,27 @@
       <p class="texto-personalizado"><strong>Instrucciones:</strong> los <strong>Elementos</strong> deben ir en el cuadro a la derecha de color <strong>azul</strong> y el orden debe ser descendente.</p>
       <br>
       <div class="flex-container">
-        <div ref="todoList" class="kanban-board kanban-column gray-background scrollable">
+        <div ref="todoList" class="kanban-board kanban-column gray-background">
           <article
             v-for="todo in todos"
-            :key="todo.id"
+            :key="todo"
             class="kanban-item"
           >
             <span class="kanban-handle"></span>
-            <p>{{ todo.text }}</p>
+            <p>{{ todo }}</p>
           </article>
         </div>
-        <div ref="doneList" class="kanban-board kanban-column gray-background2 scrollable">
+        <div ref="doneList" class="kanban-board kanban-column gray-background2">
           <article
             v-for="done in dones"
-            :key="done.id"
+            :key="done"
             class="kanban-item"
           >
             <span class="kanban-handle"></span>
-            <p>{{ done.text }}</p>
+            <p>{{ done }}</p>
           </article>
         </div>
       </div>
-      <br>
-      <p v-if="contadorOrden > 0 && !ordenVerdadero" class="contador">
-        intentos restantes: {{ Maxintento - contadorOrden }}
-      </p>
-      <br>
-      <button @click="enviarOrden"
-      :disabled="contadorOrden >= 3 || ordenVerdadero === true"
-      >Enviar Orden</button>
       <br>
       <div v-if="resultadoValidacion === 'correcto'">
         <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
@@ -41,32 +33,90 @@
       <div v-else-if="resultadoValidacion === 'incorrecto'">
         <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
       </div>
-      <p v-if="ordenVerdadero || contadorOrden === Maxintento" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
+      <EstadoSubejercicio :estado="ev4" />
+      <br>
+      <button
+        @click="enviarOrden"
+        :disabled="!puedeResponder(ev4)"
+        class="btn btn-primary"
+      >
+        <span v-if="ev4.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+        Enviar Orden
+      </button>
       <br>
     </div>
   </template>
   
-  <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+<script>
+import { animations } from "@formkit/drag-and-drop";
+import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+import { reactive, onMounted } from "vue";
+import { useEvaluacionSubejercicio } from "@/composables/useEvaluacionSubejercicio";
+import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
+
+// Debe coincidir EXACTAMENTE con los nombres de la plantilla del curso
+// (ver server/seedCourseTemplate.js).
+const RUTA = {
+  cursoNombre: 'Guía Programación en C',
+  modulo: '4. Variables y Operaciones',
+  submodulo: '4.1 Variables y Operaciones',
+  ejercicio: 'Ejercicio 1',
+  categoria: 'descomposicion'
+};
   
   export default {
     name: 'DragAndDrop2Checker',
+
+    components: { EstadoSubejercicio },
+
+
+    setup() {
+      const ev4 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 4" }));
+
+      onMounted(() => {
+        ev4.obtenerIntentos();
+      });
+
+      const [todoList, todos] = useDragAndDrop(
+        ["double iva;", "int suma = 12;", "double total;", "printf(mensaje)", "double precio;", "total = subtotal + iva;"].sort(() => Math.random() - 0.5),
+        {
+          plugins: [animations()],
+          group: "kanbanGroup1",
+          dragHandle: ".kanban-handle",
+        }
+      );
+
+      const [doneList, dones] = useDragAndDrop(
+        ["double cantidad;", "return 0;", "iva = subtotal * 0.21;", "double subtotal;", "int iva;", "subtotal = precio * cantidad;"].sort(() => Math.random() - 0.5), 
+        {
+          plugins: [animations()],
+          group: "kanbanGroup1",
+          dragHandle: ".kanban-handle",
+      });
+
+      return {
+        ev4,
+
+        // Kanban
+        todoList,
+        todos,
+        doneList,
+        dones,
+      };
+    },
   
     data() {
       return {
         ordenCorrecto: [
-          { id: 1, text: "double precio;" },
-          { id: 2, text: "double cantidad;" },
-          { id: 3, text: "double subtotal;" },
-          { id: 4, text: "double iva;" },
-          { id: 5, text: "double total;" },
-          { id: 6, text: "subtotal = precio * cantidad;" },
-          { id: 7, text: "iva = subtotal * 0.21;" },
-          { id: 8, text: "total = subtotal + iva;" },
-          { id: 9, text: "return 0;" },
+          "double precio;",
+          "double cantidad;",
+          "double subtotal;",
+          "double iva;",
+          "double total;",
+          "subtotal = precio * cantidad;",
+          "iva = subtotal * 0.21;",
+          "total = subtotal + iva;",
+          "return 0;"
 
         ],
         respuestasIncorrectas: [
@@ -77,104 +127,44 @@
         ],
         mensajeRespuesta: "",
         resultadoValidacion: null,
-        contadorOrden : 0, 
-        Maxintento : 3,
-        ordenVerdadero : null,
-        evaluacion : null,
-
       
       };
     },
   
-    setup() {
   
-      const [todoList, todos] = useDragAndDrop(
-        [
-          { id: 1, text: "int suma = 12;"},
-          { id: 2, text: "double precio;"},
-          { id: 3, text: "double iva;"},
-          { id: 4, text: "printf(mensaje)"},
-          { id: 5, text: "total = subtotal + iva;"},
-          { id: 6, text: "double total;"},
-        ].sort(() => Math.random() - 0.5),
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
+methods: {
+    // Compara contenido Y longitud. Sin la comparacion de longitud, un
+    // Array.every() sobre una lista mas corta que la esperada devuelve true:
+    // vaciar la columna gris se calificaba como respuesta correcta.
+    listasIguales(actual, esperado) {
+      return (
+        Array.isArray(actual) &&
+        actual.length === esperado.length &&
+        actual.every((item, i) => item === esperado[i])
       );
-  
-      const [doneList, dones] = useDragAndDrop(
-        [
-          { id: 7, text: "double cantidad;"},
-          { id: 8, text: "return 0;"},
-          { id: 9, text: "iva = subtotal * 0.21;"},
-          { id: 10, text: "double subtotal;"},
-          { id: 11, text: "int iva;"},
-          { id: 12, text: "subtotal = precio * cantidad;"},
-
-        ],
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-
-      return {
-        todoList,
-        todos,
-        doneList,
-        dones,
-      };
     },
-  
-    methods: {
-      
-      validarOrden(arr) {
-        if(this.ordenVerdadero === true || this.contadorOrden >= this.Maxintento){
-          return;
-        }
-        this.contadorOrden++;
-        for (let i = 0; i < this.ordenCorrecto.length; i++) {
-          if (arr[i].text !== this.ordenCorrecto[i].text) {
-            this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
-            this.ordenVerdadero = false;
-            this.calcularEvaluacion(false);
-            return 'incorrecto';
 
-          } else {
-            this.ordenVerdadero = true;
-            this.calcularEvaluacion();
-            return 'correcto';
-          }
-        }
-        return 'correcto';
-      },
+    puedeResponder(ev) {
+      return ev.estadoCargado && !ev.bloqueado && !ev.cargando;
+    },
 
-      enviarOrden() {
-        this.resultadoValidacion = this.validarOrden(this.dones);
-      },
+    mensajeAleatorio(lista) {
+      return lista[Math.floor(Math.random() * lista.length)];
+    },
 
-      calcularEvaluacion() {
-      if (this.ordenVerdadero === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorOrden === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorOrden === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorOrden === 3) {
-          this.evaluacion = 3;
-        } 
-      } else if (this.contadorOrden === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
+    async enviarOrden() {
+      if (!this.puedeResponder(this.ev4)) return;
+
+      const esCorrecto = this.listasIguales(this.dones, this.ordenCorrecto);
+      this.resultadoValidacion = esCorrecto ? "correcto" : "incorrecto";
+      if (!esCorrecto) {
+        this.mensajeRespuesta = this.mensajeAleatorio(this.respuestasIncorrectas);
       }
 
-      this.$emit('evaluacionEstructura', this.evaluacion); // Emitir la evaluación al componente padre
-  },
-  
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev4.registrarResultado(esCorrecto);
     },
+  },
   
   };
   </script>
