@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- SUBEJERCICIO 6 -->
+    <!-- SUBEJERCICIO 3 -->
     <h4 class="texto-personalizado">
-      6. Selecciona los elementos <strong>(variables)</strong> que se deben usar en la variable: <strong>"int area = "</strong> para poder hallar el área de un triángulo.
+      3. Selecciona los elementos <strong>(variables)</strong> que se deben usar en la variable: <strong>"int area = "</strong> para poder hallar el área de un triángulo.
     </h4>
     <p class="texto-personalizado">
       <strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.
@@ -29,22 +29,22 @@
       <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
     </div>
 
-    <EstadoSubejercicio :estado="ev6" />
+    <EstadoSubejercicio :estado="ev3" />
 
     <button
       @click="enviarOrden"
-      :disabled="!puedeResponder(ev6)"
+      :disabled="!puedeResponder(ev3)"
       class="btn btn-primary"
     >
-      <span v-if="ev6.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+      <span v-if="ev3.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
       Enviar Orden
     </button>
 
     <br /><br /><br />
 
-    <!-- SUBEJERCICIO 7 -->
+    <!-- SUBEJERCICIO 4 -->
     <h4 class="texto-personalizado">
-      7. Selecciona las operaciones que se deben usar en la variable: <strong>"int area = base _____ altura _____ 2 ="</strong> para poder hallar el área de un triángulo.
+      4. Selecciona las operaciones que se deben usar en la variable: <strong>"int area = base _____ altura _____ 2 ="</strong> para poder hallar el área de un triángulo.
     </h4>
     <p class="texto-personalizado">
       <strong>Instrucciones:</strong> las operaciones deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.
@@ -71,14 +71,14 @@
       <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuestaDones2 }}</p>
     </div>
 
-    <EstadoSubejercicio :estado="ev7" />
+    <EstadoSubejercicio :estado="ev4" />
 
     <button
       @click="enviarOrdenDones2"
-      :disabled="!puedeResponder(ev7)"
+      :disabled="!puedeResponder(ev4)"
       class="btn btn-primary"
     >
-      <span v-if="ev7.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+      <span v-if="ev4.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
       Enviar Orden
     </button>
   </div>
@@ -108,12 +108,12 @@ export default {
   components: { EstadoSubejercicio },
 
   setup() {
-    const ev6 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 6" }));
-    const ev7 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 7" }));
+    const ev3 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 3" }));
+    const ev4 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 4" }));
 
     onMounted(() => {
-      ev6.obtenerIntentos();
-      ev7.obtenerIntentos();
+      ev3.obtenerIntentos();
+      ev4.obtenerIntentos();
     });
 
     const [todoList, todos] = useDragAndDrop(
@@ -147,8 +147,8 @@ export default {
     });
 
     return {
-      ev6,
-      ev7,
+      ev3,
+      ev4,
 
       // Kanban
       todoList,
@@ -202,7 +202,7 @@ export default {
     },
 
     async enviarOrden() {
-      if (!this.puedeResponder(this.ev6)) return;
+      if (!this.puedeResponder(this.ev3)) return;
 
       const esCorrecto = this.listasIguales(this.dones, this.ordenCorrecto);
       this.resultadoValidacion = esCorrecto ? "correcto" : "incorrecto";
@@ -211,11 +211,11 @@ export default {
       }
 
       // El servidor calcula la nota a partir de los intentos restantes.
-      await this.ev6.registrarResultado(esCorrecto);
+      await this.ev3.registrarResultado(esCorrecto);
     },
 
     async enviarOrdenDones2() {
-      if (!this.puedeResponder(this.ev7)) return;
+      if (!this.puedeResponder(this.ev4)) return;
 
       const esCorrecto = this.listasIguales(this.dones2, this.ordenCorrectoDones2);
       this.resultadoValidacionDones2 = esCorrecto ? "correcto" : "incorrecto";
@@ -223,7 +223,7 @@ export default {
         this.mensajeRespuestaDones2 = this.mensajeAleatorio(this.respuestasIncorrectasDones2);
       }
 
-      await this.ev7.registrarResultado(esCorrecto);
+      await this.ev4.registrarResultado(esCorrecto);
     },
   },
 };

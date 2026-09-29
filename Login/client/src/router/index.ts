@@ -334,6 +334,12 @@ const router = createRouter({
     // GUÍA DE CONSTRUCCIÓN DE CARRO ARDUINO
 
     {
+      path: '/IntroGuiaConstruccion',
+      name: 'IntroGuiaConstruccion',
+      component: () => import('../views/auth/GuiaConstruccionCarro/GuiaConstruccionHome.vue'),
+      meta: {requiresAuth: true},
+    },
+    {
       path: '/GuiaConstruccion',
       name: 'GuiaConstruccion',
       component: () => import('../views/auth/GuiaConstruccion.vue'),
@@ -626,6 +632,12 @@ const router = createRouter({
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/PrepararCablesConexionModuloL298N/Ejercicio/GeneralizationPrepararCablesConexionModuloL298N.vue"),
     },
     {
+      path: '/DesplazarCircuitoChasisTeoria',
+      name: 'DesplazarCircuitoChasisTeoria',
+      component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasis/DesplazarCircuitoChasisTeoria.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
       path: '/DesplazarCircuitoChasisParte1Teoria',
       name: 'DesplazarCircuitoChasisParte1Teoria',
       component: () => import("../views/auth/ConstruccionCarroArduino/Fases/FaseMontajeCircuitoChasis/DesplazarCircuitoChasisParte1/DesplazarCircuitoChasisParte1Teoria.vue"),
@@ -782,6 +794,102 @@ const router = createRouter({
       path: '/CBGeneralizacion1',
       name: 'CBGeneralizacion1',
       component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/1/CB_Generalizacion1.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjDescomposicion1',
+      name: 'CBEjDescomposicion1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/1/CB1_Descomposition.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjAlgoritmo1',
+      name: 'CBEjAlgoritmo1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/1/CB1_Algorithm.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjAbstraccion1',
+      name: 'CBEjAbstraccion1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/1/CB1_Abstraction.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjGeneralizacion1',
+      name: 'CBEjGeneralizacion1',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/1/CB1_Generalization.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjDescomposicion2',
+      name: 'CBEjDescomposicion2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/2/CB2_Descomposition.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjAlgoritmo2',
+      name: 'CBEjAlgoritmo2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/2/CB2_Algorithm.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjAbstraccion2',
+      name: 'CBEjAbstraccion2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/2/CB2_Abstraction.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBEjGeneralizacion2',
+      name: 'CBEjGeneralizacion2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejemplo/2/CB2_Generalization.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBDescomposicion2',
+      name: 'CBDescomposicion2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/2/CB_Descomposicion2.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBAlgoritmo2',
+      name: 'CBAlgoritmo2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/2/CB_Algoritmo2.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBAbstraccion2',
+      name: 'CBAbstraccion2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/2/CB_Abstraccion2.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBGeneralizacion2',
+      name: 'CBGeneralizacion2',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/2/CB_Generalizacion2.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBDescomposicion3',
+      name: 'CBDescomposicion3',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/3/CB_Descomposicion3.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBAlgoritmo3',
+      name: 'CBAlgoritmo3',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/3/CB_Algoritmo3.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBAbstraccion3',
+      name: 'CBAbstraccion3',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/3/CB_Abstraccion3.vue"),
+      meta: {requiresAuth: true},
+    },
+    {
+      path: '/CBGeneralizacion3',
+      name: 'CBGeneralizacion3',
+      component: () => import("../views/auth/GuiaProgramacionC/ConceptosBasicos/Ejercicios/3/CB_Generalizacion3.vue"),
       meta: {requiresAuth: true},
     },
 

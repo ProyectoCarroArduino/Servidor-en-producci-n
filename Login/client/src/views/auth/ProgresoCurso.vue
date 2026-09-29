@@ -144,7 +144,13 @@ function avanceCurso(c: Curso): Avance {
   return sumarAvances((c.modulos || []).map(avanceModulo))
 }
 
-const listaCursos = computed(() => (cursos.value || []) as Curso[])
+const listaCursos = computed(() => {
+  const lista = [...(cursos.value || [])] as Curso[]
+  const cursoPrioritario = 'Guía Programación en C'
+  return lista.sort((a, b) =>
+    Number(b.nombre === cursoPrioritario) - Number(a.nombre === cursoPrioritario)
+  )
+})
 
 function textoNota(nota: number | null): string {
   return nota === null ? '—' : nota.toFixed(2)

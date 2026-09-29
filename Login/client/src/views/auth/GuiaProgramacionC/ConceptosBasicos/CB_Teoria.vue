@@ -1,360 +1,274 @@
 <template>
-  <div id="layout-general">
-    <main class="contenido">
-      <!--<h1 class="text-center">Programación en C</h1>-->
-      <h1 class="text-center">Paso 1. Desplazar circuito al chasis</h1>
-      <br>
-      <br>
-      <p class="texto-personalizado">Para este paso los materiales necesarios son una bornera tipo hembra ya preparada, un puente H (módulo L298N) y un destornillador pequeño tipo estrella.</p>
-      <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe tener en cuenta que los materiales mencionados anteriormente corresponden a la <strong>conexión</strong> de una
-        bornera de tipo hembra al puente H (módulo L298N), y para la construcción del carro <strong>solo se necesita conectar</strong> una bornera tipo hembra, es decir, el paso a paso que se va a explicar a continuación
-        <strong>se debe</strong>repetir solo una vez.</p>
-      <br>
-      <div class="contenedor">
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/BorneraHembra.png" alt="BorneraHembra">
-          <p class="texto">Bornera tipo hembra</p>
-        </div>
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/PuenteH.png" alt="PuenteH">
-          <p class="texto">Módulo puente H (módulo L298N)</p>
-        </div>
-        <div class="imagen-item">
-          <img src="@/assets/ImagenesConectarBorneraHembraPuenteH/DestornilladorPequeno.png" alt="DestornilladorPequeno">
-          <p class="texto">Destornillador pequeño</p>
-        </div>
-      </div>
-      <br>
-      <p class="texto-personalizado">Lo único que se debe de hacer es conectar los dos cables <strong>(negros, gris o azul oscuro)</strong> que se han conectado al pin (terminal) <strong>negativo</strong> de la bornera tipo hembra al pin <strong>GND</strong> del módulo L298N o puente H. 
-        El proceso de conexión de los dos cables al pin GND del módulo L298N <strong>requiere</strong> el uso del destornillador pequeño tipo estrella para aflojar el pin GND, luego se <strong>conectarán</strong> los cables enrollados.</p>
-      <br>
-      <div class="contenedordos">
-        <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
-        </div>
-        <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/TerminalPositivoConectado.png" alt="TerminalPositivoConectado">
-        </div>
-      </div>
-      <br>
-      <br>
-      <p style="padding-left: 20px;"><span style="font-weight: bold;">Nota:</span> Se debe de recordar que ya <strong>hay un cable en el pin GND</strong>, el cual es el que se conectó al pin <strong>GND</strong> de la placa Arduino, así que con mucho cuidado se van a introducir los dos cables <strong>junto</strong> al cable que ya está en el pin y, 
-      al final se volverá a ajustar el pin atornillando de nuevo.</p>
-      <br>
-      <p class="texto-personalizado">Adicional a esto se puede <strong>soldar</strong> los dos cables negros de la bornera hembra y el cable negro que se ha conectado anterioemente del módulo L298N a la placa Arduino, esto se debe a que los tres cables <strong>deben</strong> estar conectados al pin GND del módulo L298N.</p>
-      <br>
-      
-      <div class="contenedordos">
-        <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/ConectarTerminalPositivo.png" alt="ConectarTerminalPositivo">
-        </div>
-        <div class="imagen-item-dos">
-          <img src="@/assets/ImagenesPrepararBorneraHembraConexion/TerminalPositivoConectado.png" alt="TerminalPositivoConectado">
-        </div>
-      </div>
-      <br>
-      <br>
-      <br>
-      <h2>Video del paso:</h2>
-      <br>
-      <br>
-      <div class="video-container">
-      <iframe
-        width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/GADroHyutZI?si=OmiMePFQLm6ICJ98" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-      </iframe>
-      </div>
-      <br>
-      <br>
-      <div>
-        <button class="bt-validate" @click="finish">Avanzar</button>
-      </div>
-    </main>
-    <aside class="menu-lateral">
-      <div>
-        <MenuCarro />
-      </div>
-    </aside>
-</div>
+  <TeoriaLayout
+    titulo="Introducción a C"
+    migas="1. Conceptos básicos · 1.1 Introducción a C"
+    siguiente-ruta="/CBDescomposicion1"
+    siguiente-texto="Ir al Ejercicio 1: Descomposición"
+  >
+    <p>
+      Antes de escribir código conviene entender qué es un programa, qué es el
+      lenguaje C y cómo un computador pasa de un texto escrito por una persona a
+      algo que puede ejecutar.
+    </p>
+
+    <h2>1. ¿Qué es programar?</h2>
+    <p>
+      Un computador no piensa por sí mismo: solo ejecuta instrucciones, una tras
+      otra, muy rápido y sin equivocarse en lo que se le pidió. Un
+      <strong>programa</strong> es un conjunto ordenado de esas instrucciones que
+      resuelve un problema concreto.
+    </p>
+    <p>
+      <strong>Programar</strong> es, por tanto, dos cosas a la vez: pensar la
+      solución a un problema y expresarla en un
+      <strong>lenguaje de programación</strong>, que funciona como puente entre la
+      forma en que las personas razonamos y lo que la máquina es capaz de ejecutar.
+    </p>
+    <div class="nota">
+      <p>
+        <strong>Idea clave:</strong> el computador hace exactamente lo que se le
+        indica, no lo que se quiso decir. Por eso la claridad y el orden de las
+        instrucciones son tan importantes.
+      </p>
+    </div>
+
+    <h2>2. ¿Qué es el lenguaje C?</h2>
+    <p>
+      C es un lenguaje de programación de propósito general creado por
+      <strong>Dennis Ritchie</strong> en los Laboratorios Bell entre 1969 y 1973.
+      Nació para escribir el sistema operativo UNIX y, desde entonces, se ha usado
+      para construir sistemas operativos, compiladores, bases de datos y el
+      software de millones de dispositivos electrónicos.
+    </p>
+    <p>
+      Con el tiempo fue estandarizado para que un mismo programa funcione igual en
+      distintos equipos. Las versiones más conocidas del estándar son C89/C90,
+      C99, C11, C17 y C23.
+    </p>
+
+    <h3>¿Por qué aprender C?</h3>
+    <ul>
+      <li>
+        <strong>Es la base de muchos lenguajes.</strong> C++, Java, C# y JavaScript
+        heredan gran parte de su sintaxis; lo que aprendas aquí te servirá después.
+      </li>
+      <li>
+        <strong>Está en todas partes.</strong> Núcleos de sistemas operativos como
+        Linux y Windows, microcontroladores y placas como Arduino se programan en C
+        o en lenguajes derivados de él.
+      </li>
+      <li>
+        <strong>Enseña cómo funciona la máquina.</strong> C obliga a pensar en tipos
+        de datos, memoria y en el orden exacto de las operaciones.
+      </li>
+      <li>
+        <strong>Es eficiente.</strong> Los programas en C son rápidos y ocupan pocos
+        recursos.
+      </li>
+    </ul>
+
+    <h3>Características principales</h3>
+    <ul>
+      <li><strong>Compilado:</strong> el código se traduce completo a lenguaje de máquina antes de ejecutarse.</li>
+      <li><strong>Estructurado:</strong> los programas se organizan en funciones y bloques de instrucciones.</li>
+      <li><strong>Tipado:</strong> cada dato tiene un tipo (entero, decimal, carácter…) que se declara.</li>
+      <li>
+        <strong>Sensible a mayúsculas:</strong> <code>main</code>, <code>Main</code>
+        y <code>MAIN</code> son palabras distintas.
+      </li>
+    </ul>
+
+    <h2>3. Del código al programa: la compilación</h2>
+    <p>
+      El computador no entiende directamente el texto que escribimos en C. Ese
+      texto, llamado <strong>código fuente</strong>, se guarda en un archivo con
+      extensión <code>.c</code> y debe pasar por un <strong>compilador</strong> que
+      lo traduce a un <strong>programa ejecutable</strong>:
+    </p>
+    <ol>
+      <li><strong>Escribir:</strong> se redacta el código fuente en un editor o IDE (<code>programa.c</code>).</li>
+      <li><strong>Compilar:</strong> el compilador revisa que el código respete las reglas del lenguaje y lo traduce a lenguaje de máquina.</li>
+      <li><strong>Enlazar:</strong> se une el código traducido con las bibliotecas que utiliza, por ejemplo, la que permite imprimir en pantalla.</li>
+      <li><strong>Ejecutar:</strong> se obtiene el ejecutable y se corre para ver el resultado.</li>
+    </ol>
+
+    <h3>Tipos de errores</h3>
+    <ul>
+      <li>
+        <strong>De compilación (sintaxis):</strong> el código no respeta las reglas
+        del lenguaje, por ejemplo, falta un punto y coma. El compilador los detecta
+        y no genera el ejecutable.
+      </li>
+      <li>
+        <strong>De ejecución:</strong> el programa compila, pero falla mientras
+        corre, por ejemplo, al dividir entre cero.
+      </li>
+      <li>
+        <strong>De lógica:</strong> el programa corre sin fallar, pero el resultado
+        es incorrecto porque la solución estaba mal planteada. Son los más
+        difíciles de encontrar.
+      </li>
+    </ul>
+    <p class="aparte">
+      En la sección <strong>2. ¿Cómo instalar el IDE de C?</strong> verás cómo
+      preparar tu equipo para compilar y ejecutar tus propios programas.
+    </p>
+
+    <h2>4. Tu primer programa en C</h2>
+    <p>
+      Por tradición, el primer programa que se escribe en un lenguaje nuevo muestra
+      un saludo en pantalla:
+    </p>
+    <BloqueCodigo archivo="hola.c" :codigo="codigoHola" salida="Hola, mundo" />
+
+    <h3>Línea por línea</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>¿Qué significa?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="fila in explicacionHola" :key="fila.codigo">
+          <td><code>{{ fila.codigo }}</code></td>
+          <td>{{ fila.texto }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5. Reglas básicas de escritura</h2>
+    <ul>
+      <li>Casi todas las instrucciones terminan en <strong>punto y coma</strong> (<code>;</code>).</li>
+      <li>
+        Las <strong>llaves</strong> <code>{ }</code> agrupan instrucciones en un
+        bloque. Cada llave que se abre debe cerrarse.
+      </li>
+      <li>
+        C distingue <strong>mayúsculas de minúsculas</strong>: escribir
+        <code>Printf</code> en lugar de <code>printf</code> produce un error.
+      </li>
+      <li>Los <strong>comentarios</strong> son notas para las personas; el compilador los ignora.</li>
+      <li>
+        La <strong>indentación</strong> (sangría) no es obligatoria, pero hace que
+        el código se lea y se corrija con facilidad.
+      </li>
+    </ul>
+    <BloqueCodigo archivo="Comentarios" :codigo="codigoComentarios" />
+
+    <h2>6. Pensar antes de programar</h2>
+    <p>
+      Escribir código es solo la última parte del trabajo. En esta guía, cada
+      ejercicio se resuelve en cuatro etapas del
+      <strong>pensamiento computacional</strong>, las mismas que encontrarás en el
+      menú lateral:
+    </p>
+    <ol>
+      <li><strong>Descomposición:</strong> dividir el problema en partes más pequeñas: qué datos hay, qué se pide y qué operaciones se necesitan.</li>
+      <li><strong>Algoritmo:</strong> ordenar los pasos que llevan desde los datos hasta el resultado.</li>
+      <li><strong>Abstracción:</strong> quedarse solo con la información importante y descartar los detalles que no afectan la solución.</li>
+      <li><strong>Generalización:</strong> reconocer el patrón para que la solución sirva en otros casos parecidos.</li>
+    </ol>
+
+    <h3>Ejemplo: el área de un rectángulo</h3>
+    <div class="nota">
+      <p><strong>Problema:</strong> calcular el área de un rectángulo de base 5 cm y altura 3 cm.</p>
+    </div>
+    <ul>
+      <li>
+        <strong>Descomposición:</strong> la figura es un rectángulo; los datos son
+        la base (5) y la altura (3); se pide el área.
+      </li>
+      <li>
+        <strong>Algoritmo:</strong> 1) tomar la base, 2) tomar la altura,
+        3) multiplicarlas, 4) mostrar el resultado.
+      </li>
+      <li>
+        <strong>Abstracción:</strong> el color o el material del rectángulo no
+        importan; solo sus medidas.
+      </li>
+      <li>
+        <strong>Generalización:</strong> la fórmula base × altura sirve para
+        cualquier rectángulo, así que las medidas se guardan en
+        <strong>variables</strong> en lugar de fijarlas en el cálculo.
+      </li>
+    </ul>
+    <p>Así se vería la solución en C:</p>
+    <BloqueCodigo
+      archivo="area_rectangulo.c"
+      :codigo="codigoRectangulo"
+      salida="El area del rectangulo es: 15"
+    />
+    <p class="aparte">
+      No te preocupes si aún no entiendes <code>int</code> o <code>%d</code>: las
+      variables y las operaciones se estudian a fondo en la sección
+      <strong>4. Variables y operaciones</strong>. Por ahora, fíjate en cómo cada
+      etapa del razonamiento se refleja en el código.
+    </p>
+
+    <h2>Puntos clave</h2>
+    <div class="nota">
+      <ul>
+        <li>Un programa es un conjunto ordenado de instrucciones que resuelve un problema.</li>
+        <li>C es un lenguaje compilado, estructurado y tipado, base de muchos lenguajes actuales.</li>
+        <li>El código fuente (<code>.c</code>) se compila para obtener un ejecutable.</li>
+        <li>Todo programa en C empieza a ejecutarse en la función <code>main</code>.</li>
+        <li>Antes de programar se descompone el problema, se diseña el algoritmo, se abstrae lo esencial y se generaliza.</li>
+      </ul>
+    </div>
+  </TeoriaLayout>
 </template>
 
-<script>
-import router from '@/router';
-import MenuCarro from "@/components/MenuCarro.vue";
-import NavBar from '@/components/NavBar.vue';
-import Moto from '@/assets/imagenesCarro/Moto.png';
-export default {
-    components: {
-        NavBar,
-        MenuCarro
-    },
+<script setup>
+import TeoriaLayout from "@/components/teoria/TeoriaLayout.vue";
+import BloqueCodigo from "@/components/teoria/BloqueCodigo.vue";
 
-    data() {
-        return {
-            Moto // Agregar la imagen a `data()`
-        };
-    },
+const codigoHola = `#include <stdio.h>
 
-    methods: {
-      finish() {
-      router.push('/CBDescomposicion1').then(() => {
-          window.scrollTo(0, 0);
-        });
-     
-    },
-    },
+int main(void) {
+    printf("Hola, mundo\\n");
+    return 0;
+}`;
 
-};
+const explicacionHola = [
+  {
+    codigo: "#include <stdio.h>",
+    texto:
+      "Incluye la biblioteca estándar de entrada y salida, que contiene la función printf para imprimir en pantalla.",
+  },
+  {
+    codigo: "int main(void)",
+    texto:
+      "Declara la función principal. Todo programa en C comienza a ejecutarse aquí. int indica que al terminar devuelve un número entero.",
+  },
+  {
+    codigo: "{ … }",
+    texto: "Las llaves delimitan el bloque de instrucciones que pertenece a main.",
+  },
+  {
+    codigo: 'printf("Hola, mundo\\n");',
+    texto:
+      "Imprime el texto entre comillas. \\n es un salto de línea y el punto y coma indica el final de la instrucción.",
+  },
+  {
+    codigo: "return 0;",
+    texto: "Termina el programa e informa al sistema operativo que todo salió bien.",
+  },
+];
+
+const codigoComentarios = `// Comentario de una sola línea
+
+/* Comentario que puede
+   ocupar varias líneas */`;
+
+const codigoRectangulo = `#include <stdio.h>
+
+int main(void) {
+    int base = 5;               // dato 1
+    int altura = 3;             // dato 2
+    int area = base * altura;   // operación
+
+    printf("El area del rectangulo es: %d\\n", area);   // resultado
+    return 0;
+}`;
 </script>
-
-<style scoped>
-
-#user {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 75vh;
-}
-
-.layout-general {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  padding: 1rem;
-  margin: 0 auto; /* centra horizontalmente */
-  box-sizing: border-box;
-  gap: 2rem;
-  }
-
-/* Contenido principal */
-.contenido {
-  flex: 1; /* Ocupa el resto del espacio disponible */
-  min-width: 0; /* evita overflow horizontal */
-  max-width: 82%; /* Ajusta este valor según quieras */
-  overflow-x: hidden;
-  }
-
-/* Menú lateral */
-.menu-lateral {
-  flex: 0 0 280px;
-  background-color: transparent;
-  border-radius: 10px;
-  padding: 1rem;
-  position: sticky;
-  top: 20px;
-  height: fit-content;
-  }
-
-  /* Versión responsive */
-@media (max-width: 992px) {
-  .layout-general {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .contenido {
-    flex: 1;
-    max-width: 120%;
-  }
-  .menu-lateral {
-    max-width: 100%;
-  }
-
-  .menu-lateral {
-    position: relative; /* deja de ser sticky en móviles */
-    top: 0;
-  }
-
-}
-
-.card {
-  max-width: 100%;
-  margin: auto;
-}
-
-.align-left {
-  text-align: left; /* Alinea el contenido a la izquierda */
-}
-
-.square-card {
-  width: 330px; /* Define el ancho deseado de la tarjeta */
-  margin-top: 0px;
-  overflow: hidden; /* Evita que el contenido se desborde */
-}
-
-.texto-personalizado {
-    font-family: Arial, sans-serif; /* Tipo de letra */
-    font-size: 18px; /* Tamaño de fuente */
-    text-align: justify; /* Alineación justificada */
-}
-
-.centrada {
-    display: flex;
-    margin: 0 auto; /* Esto centra horizontalmente la imagen */
-    max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
-    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 22%;
-}
-
-.centradados {
-    display: flex;
-    margin: 0 auto; /* Esto centra horizontalmente la imagen */
-    max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
-    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    width: 32%;
-}
-
-.temas {
-  position: sticky;
-  margin-top: -245px;
-}
-
-.letras {
-  font-size: 0px;
-  height: 0px;
-  font-weight: bold;
-  color: #16161696;
-}
-
-.bt-validate {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1%;
-}
-
-.contenedor {
-  display: flex;
-  justify-content: space-between; /* Se asegura que haya espacio entre las imágenes */
-  align-items: flex-start; /* Alineación de las imágenes desde la parte superior */
-  gap: 10px; /* Espacio entre las imágenes */
-  flex-wrap: wrap; /* Permite que las imágenes se ajusten si el espacio es insuficiente */
-}
-
-.imagen-item {
-  text-align: center;
-  width: 18%; /* Ajusta el tamaño de cada contenedor de imagen */
-  display: flex;
-  flex-direction: column; /* Coloca el texto debajo de la imagen */
-  justify-content: center;
-  align-items: center;
-}
-
-.imagen-item img {
-  width: 100%; /* Las imágenes llenan el contenedor */
-  height: 200px; /* Establece una altura fija para todas las imágenes */
-  object-fit: contain; /* Mantiene la proporción de la imagen */
-}
-
-.texto {
-  font-weight: bold;
-  font-size: 18px;
-  text-align: center;
-  margin-top: 10px;
-  min-height: 50px; /* Ajusta la altura mínima del texto */
-}
-
-.contenedordos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 200px;
-  flex-wrap: nowrap;
-}
-
-.imagen-item-dos {
-  text-align: center;
-  width: 22%;
-  position: relative;
-}
-
-.imagen-item-dos::before {
-  content: "";
-  display: block;
-  padding-top: 100%; /* Esto hace que el contenedor tenga una relación de aspecto de 4:3 */
-}
-
-.imagen-item-dos img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
-}
-
-.contenedordosv2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 200px;
-  flex-wrap: nowrap;
-}
-
-.imagen-item-dosv2 {
-  text-align: center;
-  width: 20%;
-  position: relative;
-}
-
-.imagen-item-dosv2::before {
-  content: "";
-  display: block;
-  padding-top: 100%; /* Esto hace que el contenedor tenga una relación de aspecto de 4:3 */
-}
-
-.imagen-item-dosv2 img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 155%;
-  height: 105%;
-  object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
-}
-
-.contenedortres {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 100px;
-  flex-wrap: nowrap;
-}
-
-.imagen-item-tres {
-  text-align: center;
-  width: 25%;
-  position: relative;
-}
-
-.imagen-item-tres::before {
-  content: "";
-  display: block;
-  padding-top: 100%; /* Esto hace que el contenedor tenga una relación de aspecto de 4:3 */
-}
-
-.imagen-item-tres img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 115%;
-  height: 80%;
-  object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
-}
-
-.video-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 20px; /* Espaciado superior e inferior */
-}
-
-</style>

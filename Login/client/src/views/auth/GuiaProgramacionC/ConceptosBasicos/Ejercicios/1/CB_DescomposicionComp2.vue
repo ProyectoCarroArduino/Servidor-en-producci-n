@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- SUBEJERCICIO 4 -->
+    <!-- SUBEJERCICIO 2 -->
     <h4 class="texto-personalizado">
-      4. De acuerdo al tema de <strong>declaración de una variable</strong>,
+      2. De acuerdo al tema de <strong>declaración de una variable</strong>,
       ordene de manera que la variable esté bien definida:
     </h4>
     <div>
@@ -15,13 +15,13 @@
           <p>{{ tape }}</p>
         </article>
       </div>
-      <EstadoSubejercicio :estado="ev4" />
+      <EstadoSubejercicio :estado="ev2" />
       <button
         @click="verificarOrden"
-        :disabled="!puedeResponder(ev4)"
+        :disabled="!puedeResponder(ev2)"
         class="btn btn-primary"
       >
-        <span v-if="ev4.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+        <span v-if="ev2.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
         Verificar Orden
       </button>
       <p
@@ -39,46 +39,6 @@
     </div>
 
     <br /><br /><br />
-
-    <!-- SUBEJERCICIO 5 -->
-    <h4 class="texto-personalizado">
-      5. De acuerdo al tema de <strong>declaración de una variable</strong>,
-      ordene de forma que la variable esté bien definida:
-    </h4>
-    <div>
-      <div ref="parent2" class="grid gray-background">
-        <article
-          v-for="tape2 in tapes2"
-          :key="tape2"
-          class="bg-black text-white rounded-full p-4 flex items-center justify-center"
-        >
-          <p>{{ tape2 }}</p>
-        </article>
-      </div>
-      <EstadoSubejercicio :estado="ev5" />
-      <button
-        @click="verificarOrden2"
-        :disabled="!puedeResponder(ev5)"
-        class="btn btn-primary"
-      >
-        <span v-if="ev5.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-        Verificar Orden 2
-      </button>
-      <p
-        v-if="ordenCorrecto2 === true"
-        class="correcto alert alert-success mt-3"
-      >
-        ¡Orden correcto!
-      </p>
-      <p
-        v-if="ordenCorrecto2 === false"
-        class="incorrecto alert alert-danger mt-3"
-      >
-        {{ mensajeError2 }}
-      </p>
-    </div>
-
-    <br /><br />
   </div>
 </template>
 
@@ -106,12 +66,10 @@ export default {
   components: { EstadoSubejercicio },
 
   setup() {
-    const ev4 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 4" }));
-    const ev5 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 5" }));
+    const ev2 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 2" }));
 
     onMounted(() => {
-      ev4.obtenerIntentos();
-      ev5.obtenerIntentos();
+      ev2.obtenerIntentos();
     });
 
     // DnD setup
@@ -120,29 +78,19 @@ export default {
       { plugins: [animations()] }
     );
 
-    const [parent2, tapes2] = useDragAndDrop(
-      ["int", "altura", "=", 8, ";"].sort(() => Math.random() - 0.5),
-      { plugins: [animations()] }
-    );
-
     return {
-      ev4,
-      ev5,
+      ev2,
 
       // Drag and drop
       parent,
       tapes,
-      parent2,
-      tapes2,
     };
   },
 
   data() {
     return {
       ordenCorrecto: null,
-      ordenCorrecto2: null,
       mensajeError: "",
-      mensajeError2: "",
       respuestasIncorrectas: [
         "¡Error! Por favor, ten en cuenta la estructura para definir una variable",
         "¡Error! Revisa el orden en el que estás ubicando los elementos de la estructura",
@@ -173,7 +121,7 @@ export default {
     },
 
     async verificarOrden() {
-      if (!this.puedeResponder(this.ev4)) return;
+      if (!this.puedeResponder(this.ev2)) return;
 
       const esCorrecto = this.listasIguales(this.tapes, ["int", "base", "=", 12, ";"]);
       this.ordenCorrecto = esCorrecto;
@@ -182,19 +130,7 @@ export default {
       }
 
       // El servidor calcula la nota a partir de los intentos restantes.
-      await this.ev4.registrarResultado(esCorrecto);
-    },
-
-    async verificarOrden2() {
-      if (!this.puedeResponder(this.ev5)) return;
-
-      const esCorrecto = this.listasIguales(this.tapes2, ["int", "altura", "=", 8, ";"]);
-      this.ordenCorrecto2 = esCorrecto;
-      if (!esCorrecto) {
-        this.mensajeError2 = this.obtenerMensajeAleatorio();
-      }
-
-      await this.ev5.registrarResultado(esCorrecto);
+      await this.ev2.registrarResultado(esCorrecto);
     },
   },
 };

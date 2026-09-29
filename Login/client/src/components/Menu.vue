@@ -23,9 +23,137 @@ export default {
                 label: "Contenido"
             },
             {
-                label: "1. ¿Qué es C?:",
+                label: "1. Conceptos básicos",
                 icon: "",
-                href: "/",
+                children: [
+                    {
+                        label: "1.1 Introducción a C",
+                        children: [
+                            {
+                                label: "Teoría",
+                                icon: "",
+                                href: "/CBTeoria"
+                            },
+                            {
+                                label: "Ejemplos:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Ejemplo 1:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/CBEjDescomposicion1"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/CBEjAlgoritmo1"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/CBEjAbstraccion1"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/CBEjGeneralizacion1"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejemplo 2:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/CBEjDescomposicion2"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/CBEjAlgoritmo2"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/CBEjAbstraccion2"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/CBEjGeneralizacion2"
+                                            },
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                label: "Ejercicios:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Ejercicio 1:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/CBDescomposicion1"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/CBAlgoritmo1"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/CBAbstraccion1"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/CBGeneralizacion1"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 2:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/CBDescomposicion2"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/CBAlgoritmo2"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/CBAbstraccion2"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/CBGeneralizacion2"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 3:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/CBDescomposicion3"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/CBAlgoritmo3"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/CBAbstraccion3"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/CBGeneralizacion3"
+                                            },
+                                        ]
+                                    },
+                                ]
+                            }
+                        ],
+                    },
+                ],
             },
             {
                 label: "2. ¿Cómo instalar el IDE de C?:",
