@@ -53,6 +53,10 @@
   import audio9 from '@/assets/audios/Parte 14.mp3'
   
   export default {
+    props: {
+      // Ruta a la que se avanza al terminar; permite reutilizarlo en otras secciones.
+      destino: { type: String, default: '/descomposicionEj' }
+    },
     data() {
       return {
         /*enunciado:
@@ -131,7 +135,7 @@
           }))
       },
       finish() {
-        router.push('/descomposicionEj')
+        router.push(this.destino)
       },
   
       shuffleAudios() {

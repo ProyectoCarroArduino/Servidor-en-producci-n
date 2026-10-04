@@ -24,6 +24,14 @@
                 refuerzan tu aprendizaje paso a paso.
               </p>
             </div>
+            <div class="hero-actions">
+              <button class="cta cta-primary" @click="irATeoria">
+                Comenzar con la teoría
+              </button>
+              <button class="cta cta-ghost" @click="irAPrimerEjercicio">
+                Ir al primer ejercicio
+              </button>
+            </div>
           </div>
           <figure class="hero-visual">
             <img
@@ -103,8 +111,19 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import Menu from "@/components/Menu.vue";
 import heroImage from "@/assets/GuiaProgramacion/GuiaProgramacionC.png";
+
+const router = useRouter();
+
+function irATeoria() {
+  router.push("/CBTeoria").then(() => window.scrollTo(0, 0));
+}
+
+function irAPrimerEjercicio() {
+  router.push("/CBDescomposicion1").then(() => window.scrollTo(0, 0));
+}
 </script>
 
 <style scoped>
@@ -201,6 +220,45 @@ import heroImage from "@/assets/GuiaProgramacion/GuiaProgramacionC.png";
   color: var(--text-muted);
 }
 
+.hero-actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.cta {
+  border: none;
+  cursor: pointer;
+  padding: 13px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.cta-primary {
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
+  color: #ffffff;
+  box-shadow: 0 16px 30px rgba(37, 100, 168, 0.32);
+}
+
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 38px rgba(37, 100, 168, 0.38);
+}
+
+.cta-ghost {
+  background: #ffffff;
+  color: var(--blue-700);
+  box-shadow: inset 0 0 0 1.5px rgba(37, 100, 168, 0.28);
+}
+
+.cta-ghost:hover {
+  transform: translateY(-3px);
+  background: var(--blue-100);
+}
 
 .hero-visual {
   position: relative;
@@ -299,13 +357,14 @@ import heroImage from "@/assets/GuiaProgramacion/GuiaProgramacionC.png";
 }
 
 .menu-lateral {
-  flex: 0 0 280px;
-  background-color: transparent;
-  border-radius: 10px;
-  padding: 1rem;
   position: sticky;
-  top: 20px;
-  height: fit-content;
+  top: 110px;
+  align-self: start;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(11, 31, 51, 0.12);
+  box-shadow: 0 18px 34px rgba(11, 31, 51, 0.1);
 }
 
 @keyframes fade-slide {

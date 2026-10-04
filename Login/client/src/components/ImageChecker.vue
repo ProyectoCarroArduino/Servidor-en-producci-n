@@ -57,6 +57,10 @@ import image7 from '@/assets/images/image7.png'
 import image8 from '@/assets/images/image8.png'
 export default {
   name: 'ImageOrderingModule',
+  props: {
+    // Ruta a la que se avanza al terminar; permite reutilizarlo en otras secciones.
+    destino: { type: String, default: '/abstraccion' }
+  },
   data() {
     return {
       /*enunciado:
@@ -134,7 +138,7 @@ export default {
         }))
     },
     finish() {
-      router.push('/abstraccion')
+      router.push(this.destino)
     },
 
     shuffleImages() {

@@ -73,9 +73,126 @@ export const CURSOS = [
         submodulos: [
           {
             nombre: '1.1 Introduccion a C',
-            ejercicios: [generarEjercicio('Ejercicio 1', { descomposicion: 7 })]
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
           }
         ]
+      },
+      {
+        nombre: '3. Estructutura de un programa e impresiones por pantalla',
+        submodulos: [
+          {
+            nombre: '3.1 Estructutura de un programa e impresiones por pantalla',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          }
+        ]
+      },
+      {
+        nombre: '4. Variables y Operaciones',
+        submodulos: [
+          {
+            nombre: '4.1 Variables y Operaciones',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ],
+          }
+        ]
+      },
+      {
+        nombre: '5. Variables y Operaciones',
+        submodulos: [
+          {
+            nombre: '5.1 Estructuras de control (if else)',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          },
+          {
+            nombre: '5.2 Estructuras de repetición (ciclo for)',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          },
+          {
+            nombre: '5.3 Estructuras de repetición (ciclo while)',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          },
+          {
+            nombre: '5.4 Estructuras de repetición (ciclo do while)',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          },
+          {
+            nombre: '5.5 Estructuras de repetición (switch case)',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          }
+        ]
+      },
+      {
+        nombre: '6. Estructuras de datos',
+        submodulos: [
+          {
+            nombre: '6.1 Arreglos',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          },
+          {
+            nombre: '6.2 Matrices',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          }
+        ]
+      },
+      {
+        nombre: '7. Funciones',
+        submodulos: [
+          {
+            nombre: '7.1 Funciones sin parametros',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          },
+          {
+            nombre: '7.2 Funciones con parametros',
+            ejercicios: [
+              generarEjercicio('Ejercicio 1', { descomposicion: 4 }),  
+              generarEjercicio('Ejercicio 2', { descomposicion: 4 }),
+              generarEjercicio('Ejercicio 3', { descomposicion: 4 }),
+            ]
+          }
+        ],
       }
     ]
   },

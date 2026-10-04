@@ -26,7 +26,7 @@
             <router-link :to="{ name: 'IntroGuiaC' }" class="nav-link">Programacion C</router-link>
           </li>
           <li v-if="isAuthenticated" class="nav-item">
-            <router-link :to="{ name: 'GuiaConstruccion' }" class="nav-link">
+            <router-link :to="{ name: 'IntroGuiaConstruccion' }" class="nav-link">
               Construccion carro Arduino
             </router-link>
           </li>
