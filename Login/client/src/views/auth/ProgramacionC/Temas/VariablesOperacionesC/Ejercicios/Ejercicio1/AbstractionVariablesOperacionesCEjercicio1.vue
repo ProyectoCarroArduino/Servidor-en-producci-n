@@ -79,8 +79,8 @@ export default {
     const evaluacionRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '4. Variables y operaciones',
-        submodulo: '',
+        modulo: '4. Variables y Operaciones',
+        submodulo: '4.1 Variables y Operaciones',
         ejercicio: 'Ejercicio 1',
         categoria: 'abstraccion',
         subejercicio: 'Subejercicio 1'

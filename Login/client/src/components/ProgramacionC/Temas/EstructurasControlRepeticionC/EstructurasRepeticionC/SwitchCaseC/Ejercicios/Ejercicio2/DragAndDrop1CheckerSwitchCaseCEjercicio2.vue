@@ -2,6 +2,7 @@
     <div>
       <h4 class="texto-personalizado">De acuerdo a la teoria sobre la estructura <strong>switch case</strong>, ordene de forma correcta 
         los elementos para construir el <strong>ciclo while</strong>:</h4>
+      <p><span style="font-weight: bold;">Nota:</span> Los elementos <strong>deben</strong> ir ubicados de forma descendente.</p>
       <br>
       <div>
         <div ref="parent" class="grid gray-background">

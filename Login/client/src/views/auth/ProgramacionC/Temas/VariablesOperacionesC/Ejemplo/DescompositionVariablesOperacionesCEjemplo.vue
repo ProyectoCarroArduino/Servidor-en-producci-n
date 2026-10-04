@@ -20,28 +20,20 @@
           v-for="(figura, index) in figuras"
           :key="figura.alt"
           class="figura"
-          @click="manejarClick(figura.alt, index)"
+          @click="manejarClick(figura.alt)"
         > 
-        <div
-          v-if="totalClicks > 0 && mostrarContador === index"
-          class="contador-imagen"
-        >
-          {{ maxClicks - totalClicks }}
-        </div>
-          <img :src="figura.src" :alt="figura.alt" 
-          :style="{ 
-              pointerEvents: isBlocked ? 'none' : 'auto', 
-              opacity: isBlocked ? 0.5 : 1 
-          }"/>
+          <img 
+            :src="figura.src" 
+            :alt="figura.alt" 
+          />
         </div>
       </div>
-      <div v-if="respuesta" class="respuesta">
+      <div v-if="respuesta !== null" class="respuesta">
         <p v-if="esCorrecta" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
       </div>
-      <div v-if="evaluacion !== null" class="correcto">
-        <p class="alert alert-info">Tu evaluación es: {{ evaluacion }}</p>
-      </div>
+
+      
       <br>
       <br>
       <h4 class="texto-personalizado">De acuerdo a la teoria sobre <strong>variables y operaciones</strong> seleccione la imagen que <strong>representa</strong> las operaciones que se necesitan para resolver el problema:</h4>
@@ -51,27 +43,17 @@
           v-for="(figura, index) in figurasV"
           :key="figura.alt"
           class="figura"
-          @click="manejarClickVar(figura.alt, index)"
+          @click="manejarClickVar(figura.alt)"
         >
-        <div
-          v-if="totalClicksV > 0 && mostrarContadorV === index"
-          class="contador-imagen"
-        >
-          {{ maxClicksV - totalClicksV }}
-        </div>
-          <img :src="figura.src" :alt="figura.alt" 
-          :style="{ 
-              pointerEvents: isBlockedV ? 'none' : 'auto', 
-              opacity: isBlockedV ? 0.5 : 1 
-          }"/>
+          <img 
+            :src="figura.src" 
+            :alt="figura.alt" 
+          />
         </div>
       </div>
-      <div v-if="respuestaVar" class="respuesta">
+      <div v-if="respuestaVar !== null" class="respuesta">
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
         <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
-      </div>
-      <div v-if="evaluacionV !== null" class="correcto">
-        <p class="alert alert-info">Tu evaluación es: {{ evaluacionV }}</p>
       </div>
       <br>
       <div>
@@ -85,14 +67,9 @@
         <br>
       </div>
       <br>
-      <div v-if="puedeAvanzar" class="evaluacion-final">
-        <p class="alert alert-primary">
-          Evaluación total: {{ evaluacionTotal.toFixed(1) }}
-        </p>
-      </div>
       <button class="bt-validate" 
         @click="finish"
-        :disabled="!puedeAvanzar">
+        >
         Avanzar
       </button>
     </main>
@@ -147,6 +124,9 @@ export default {
       respuesta: null,
       esCorrecta: false,
       mensajeError: '',
+
+      respuestaCorrecta: 'Figura 1',
+
       mensajesError: [
         '¡Error! Selecciona la imagen que tenga sentido con lo solicitado, pero ten presente la teoria sobre: funciones (sin parámetros) en la parte de estructura de una función',
         '¡Error! Identifica la imagen correcta que tiene la estructura necesaría',
@@ -154,97 +134,38 @@ export default {
         '¡Error! Recuerda que debes de seleccionar la imagen que concuerde con la función prototipo que resuelva el problema',
       ],
       
-      respuestaCorrecta: 'Figura 1',
+      
       respuestaVar: null,
       CorrectaVar: false,
       mensajeErrorVar: '',
+
+      respuestaCorrectaV: 'Figura 5',
+
       mensajesErrorVar: [
         '¡Error! Recuerda que debes de seleccionar la imagen que tenga la declaración de la función (laboratorio) de forma correcta',
         '¡Error! La forma en la que estas haciendo la declaración de la función (laboratorio) no es correcta',
         '¡Error! Intenta ir a revisar la teoria sobre la declaración de una función e intentalo de nuevo',
         '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)',
       ],
-
-      respuestaCorrectaV: 'Figura 5',
-      totalClicks: 0,
-      totalClicksV: 0,
-      maxClicks: 3,
-      maxClicksV: 3,
-      mostrarContador: null,
-      mostrarContadorV: null,
-      isBlocked: false,
-      isBlockedV: false,
-      evaluacion: null,
-      evaluacionV: null,
-      evaluacionDragAndDrop1Checker: null,
-      evaluacionDragAndDrop2Checker: null,
     };
     
     },
 
-    computed: {
-    // Propiedad computada para habilitar o deshabilitar el botón
-    puedeAvanzar() {
-      return (
-        this.evaluacion !== null &&
-        this.evaluacionV !== null &&
-        this.evaluacionDragAndDrop1Checker !== null && // Incluye la evaluación de Llamada
-        this.evaluacionDragAndDrop2Checker !== null
-      );
-    },
-
-    evaluacionTotal() {
-      const total =
-        (this.evaluacion ?? 0) +
-        (this.evaluacionV ?? 0) +
-        (this.evaluacionDragAndDrop1Checker ?? 0) +
-        (this.evaluacionDragAndDrop2Checker ?? 0);
-
-      return total / 4; // Dividimos entre el total de actividades
-    },
-  },
-
   methods: {
-    manejarClick(funcion, index) {
-      if (this.isBlocked || this.totalClicks >= this.maxClicks) {
-        return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-      }
-
-      const figuraSeleccionada = this.figuras[index].alt;
+    manejarClick(figuraSeleccionada) {
       
-      if (figuraSeleccionada === this.respuestaCorrecta) {
-        this.isBlocked = true; // Bloquea clics adicionales
-        this.calcularEvaluacion();
-        this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
-        this.respuesta = figura;
-        this.esCorrecta = true;
-        return; // Termina aquí para evitar incrementar el contador
-      }
+      // Guardamos qué figura seleccionó el usuario
+      this.respuesta = figuraSeleccionada;
 
-      this.totalClicks++; // Incrementa el contador global
-      this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
-      this.respuesta = figura;
-      this.esCorrecta = figura === 'Figura 1';
-
-      if (this.totalClicks >= this.maxClicks) {
-        this.isBlocked = true; 
-        this.evaluacion = 1; // Asegura que se evalúe como 0
-        return;
-      }
+      // Comprobamos si es correcta
+      this.esCorrecta =
+        figuraSeleccionada === this.respuestaCorrecta;
 
       if (!this.esCorrecta) {
         this.mensajeError = this.obtenerMensajeError();
+      } else {
+        this.mensajeError = '';
       }
-    },
-
-    calcularEvaluacion() {
-      if (this.totalClicks === 0) {
-        this.evaluacion = 5;
-      } else if (this.totalClicks === 1) {
-        this.evaluacion = 4;
-      } else if (this.totalClicks === 2) {
-        this.evaluacion = 3;
-      } 
     },
 
     obtenerMensajeError() {
@@ -252,59 +173,26 @@ export default {
       return this.mensajesError[randomIndex];
     },
 
-    manejarClickVar(figurasV, index) {
-      if (this.isBlockedV || this.totalClicksV >= this.maxClicksV) {
-        return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-      }
-
-      const figuraSeleccionada = this.figurasV[index].alt;
+    manejarClickVar(figuraSeleccionada) {
       
-      if (figuraSeleccionada === this.respuestaCorrectaV) {
-        this.isBlockedV = true; // Bloquea clics adicionales
-        this.calcularEvaluacionVar();
-        this.mostrarContadorV = index; // Muestra el contador en la imagen seleccionada
-        this.respuestaVar = figurasV;
-        this.CorrectaVar = true;
-        return; // Termina aquí para evitar incrementar el contador
-      }
 
-      this.totalClicksV++; // Incrementa el contador global
-      this.mostrarContadorV = index; // Muestra el contador en la imagen seleccionada
-      this.respuestaVar = figurasV;
-      this.CorrectaVar = figurasV === 'Figura 5';
+      // Guardamos qué figura seleccionó el usuario
+      this.respuestaVar = figuraSeleccionada;
 
-      if (this.totalClicksV >= this.maxClicksV) {
-        this.isBlockedV = true; 
-        this.evaluacionV = 1; // Asegura que se evalúe como 0
-        return;
-      }
+      // Comprobamos si es correcta
+      this.CorrectaVar =
+        figuraSeleccionada === this.respuestaCorrectaV;
 
       if (!this.CorrectaVar) {
         this.mensajeErrorVar = this.obtenerMensajeErrorVar();
+      } else {
+        this.mensajeErrorVar = '';
       }
-    },
-
-    calcularEvaluacionVar() {
-      if (this.totalClicksV === 0) {
-        this.evaluacionV = 5;
-      } else if (this.totalClicksV === 1) {
-        this.evaluacionV = 4;
-      } else if (this.totalClicksV === 2) {
-        this.evaluacionV = 3;
-      } 
     },
 
     obtenerMensajeErrorVar() {
       const randomIndex = Math.floor(Math.random() * this.mensajesErrorVar.length);
       return this.mensajesErrorVar[randomIndex];
-    },
-
-    actualizarEvaluacionDragAndDrop1Checker(evaluacion) {
-      this.evaluacionDragAndDrop1Checker = evaluacion;
-    },
-
-    actualizarEvaluacionDragAndDrop2Checker(evaluacion) {
-      this.evaluacionDragAndDrop2Checker = evaluacion;
     },
 
     finish() {

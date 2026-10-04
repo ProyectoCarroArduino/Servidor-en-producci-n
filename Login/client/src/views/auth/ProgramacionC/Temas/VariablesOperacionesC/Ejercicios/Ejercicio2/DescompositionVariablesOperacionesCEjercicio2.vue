@@ -16,7 +16,7 @@
       <br>
       <h3>Descomposición:</h3>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teroria sobre variables y operaciones seleccione la imagen que representa las variables que son necesarias:</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teroria sobre <strong>variables y operaciones</strong> seleccione la imagen que <strong>representa</strong> las variables que son necesarias:</h4>
       <br>
       <div class="figuras">
         <div
@@ -36,7 +36,7 @@
       </div> 
       <br>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre variables y operaciones seleccione la imagen que representa las operaciones que sera necesario implementar: </h4>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre <strong>variables y operaciones</strong> seleccione la imagen que <strong>representa</strong> las operaciones que sera necesario implementar: </h4>
       <br>
       <div class="figuras">
         <div

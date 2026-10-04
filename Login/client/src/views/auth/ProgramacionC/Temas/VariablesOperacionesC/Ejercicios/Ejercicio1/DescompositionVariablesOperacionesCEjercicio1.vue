@@ -13,7 +13,7 @@
       <br>
       <h3>Descomposición:</h3>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teroria sobre variables y operaciones seleccione la imagen que representa las variables que serán necesarias:</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teroria sobre <strong>variables y operaciones</strong> seleccione la imagen que <strong>representa</strong> las variables que serán necesarias:</h4>
       <br>
       <div class="figuras">
         <div
@@ -33,7 +33,7 @@
       </div> 
       <br>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre variables y operaciones seleccione la imagen que representa las operaciones que se van a necesitar: </h4>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre <strong>variables y operaciones</strong> seleccione la imagen que <strong>representa</strong> las operaciones que se van a necesitar: </h4>
       <br>
       <div class="figuras">
         <div
@@ -86,8 +86,8 @@ import Figura8 from '@/assets/ImagenesVariablesOperacionesC/Codigo16.png';
 // nombres de la plantilla del curso (ver server/seedCourseTemplate.js).
 const RUTA = {
   cursoNombre: 'Guía Programación en C',
-  modulo: '4. Variables y operaciones',
-  submodulo: '',
+  modulo: '4. Variables y Operaciones',
+  submodulo: '4.1 Variables y Operaciones',
   ejercicio: 'Ejercicio 1', 
   categoria: 'descomposicion'
 };

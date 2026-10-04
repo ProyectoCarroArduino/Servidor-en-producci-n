@@ -27,12 +27,8 @@
         </div>
       </div>
       <br>
-      <p v-if="contadorOrden > 0 && !ordenVerdadero" class="contador">
-        intentos restantes: {{ Maxintento - contadorOrden }}
-      </p>
       <br>
       <button @click="enviarOrden"
-      :disabled="contadorOrden >= 3 || ordenVerdadero === true"
       >Enviar Orden</button>
       <br>
       <div v-if="resultadoValidacion === 'correcto'">
@@ -41,9 +37,6 @@
       <div v-else-if="resultadoValidacion === 'incorrecto'">
         <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
       </div>
-      <p v-if="ordenVerdadero || contadorOrden === Maxintento" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
       <br>
     </div>
   </template>
@@ -77,12 +70,7 @@
         ],
         mensajeRespuesta: "",
         resultadoValidacion: null,
-        contadorOrden : 0, 
-        Maxintento : 3,
         ordenVerdadero : null,
-        evaluacion : null,
-
-      
       };
     },
   
@@ -130,20 +118,19 @@
     methods: {
       
       validarOrden(arr) {
-        if(this.ordenVerdadero === true || this.contadorOrden >= this.Maxintento){
+        if(this.ordenVerdadero === true){
           return;
         }
-        this.contadorOrden++;
+
+        
         for (let i = 0; i < this.ordenCorrecto.length; i++) {
           if (arr[i].text !== this.ordenCorrecto[i].text) {
             this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
             this.ordenVerdadero = false;
-            this.calcularEvaluacion(false);
             return 'incorrecto';
 
           } else {
             this.ordenVerdadero = true;
-            this.calcularEvaluacion();
             return 'correcto';
           }
         }
@@ -153,24 +140,6 @@
       enviarOrden() {
         this.resultadoValidacion = this.validarOrden(this.dones);
       },
-
-      calcularEvaluacion() {
-      if (this.ordenVerdadero === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorOrden === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorOrden === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorOrden === 3) {
-          this.evaluacion = 3;
-        } 
-      } else if (this.contadorOrden === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
-      }
-
-      this.$emit('evaluacionEstructura', this.evaluacion); // Emitir la evaluación al componente padre
-  },
   
     },
   

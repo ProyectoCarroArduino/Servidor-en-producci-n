@@ -3,10 +3,6 @@
     <div v-if="showPrincipal" class="generalizacion">
       <h2>Ordena correctamente los audios</h2>
       <br>
-      <!-- Mostrar Intentos Disponibles -->
-      <p v-if="intentosDisponiblesGeneralization !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponiblesGeneralization }}
-      </p>
       <br>
       <div class="audio-container">
         <div class="audio-item" v-for="(audioItem, index) in audio" :key="audioItem.id">
@@ -31,7 +27,7 @@
         <button 
           class="btn btn-primary"
           @click="validateInputs" 
-          :disabled="isButtonDisabled || intentosDisponiblesGeneralization <= 0">
+          :disabled="isButtonDisabled">
           Enviar
         </button>
       </div>
@@ -47,23 +43,11 @@
         <p v-else class="alert alert-danger">Lo sentimos, es incorrecto.</p>
       </div>
 
-      <!-- Evaluación obtenida -->
-      <div v-if="evaluacion !== null" class="mt-3">
-        <p class="alert alert-primary">
-          Tu evaluación: {{ evaluacion }}
-        </p>
-      </div>
-
-      <!-- Nota almacenada en el store -->
-      <p class="alert alert-primary mt-4">
-        Evaluación Generalización (store): {{ evaluacionGeneralizationStore.evaluacion.toFixed(1) }}
-      </p>
-
       <!-- Botón para finalizar -->
       <button
         class="btn btn-success mt-3"
         @click="finish"
-        :disabled="!isFinishEnabled">
+        >
         Finalizar
       </button>
     </div>
@@ -76,44 +60,9 @@ import router from '@/router';
 import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';  
 import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
 import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
-import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
 
 export default {
   name: 'AudioCheckerConectarCables',
-
-  setup() {
-    const evaluacionGeneralizationStore = useEvaluacionGeneralizationStore();
-
-    const evaluacionGeneralizationRaw = reactive(
-      useEvaluacionSubejercicio({
-        cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'generalizacion',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacionGeneralization = {
-      ...toRefs(evaluacionGeneralizationRaw),
-      registrarEvaluacion: evaluacionGeneralizationRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionGeneralizationRaw.obtenerIntentos
-    };
-
-    onMounted(() => {
-      evaluacionGeneralization.obtenerIntentos();
-    });
-
-    return {
-      evaluacionGeneralizationStore,
-      intentosDisponiblesGeneralization: evaluacionGeneralization.intentosRestantes,
-      obtenerIntentosGeneralization: evaluacionGeneralization.obtenerIntentos,
-      registrarEvaluacionGeneralization: evaluacionGeneralization.registrarEvaluacion
-    };
-  },
 
   data() {
     return {
@@ -122,7 +71,7 @@ export default {
         { id: 2, src: audio2 },
         { id: 3, src: audio3 },
       ],
-      evaluacion: null,
+      
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
@@ -151,10 +100,8 @@ export default {
           input.value <= 3
       );
     },
-    isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesGeneralization <= 0;
-    }
   },
+
 
   methods: {
     shuffleAudios() {
@@ -165,7 +112,8 @@ export default {
     },
 
     async validateInputs() {
-      if (this.isButtonDisabled || this.intentosDisponiblesGeneralization <= 0) {
+      
+      if (this.isButtonDisabled) {
         return;
       }
 
@@ -188,41 +136,22 @@ export default {
         return inputValue === this.audio[index].id;
       });
 
-      this.calcularEvaluacion();
-
-      try {
-        await this.registrarEvaluacionGeneralization(this.evaluacion);
-        await this.obtenerIntentosGeneralization();
-        console.log("✔ Evaluación de generalización registrada y estado actualizado.");
-      } catch (err) {
-        console.error("Error registrando evaluación de generalización:", err);
-        alert("Hubo un problema al guardar la evaluación.");
-      }
-
       this.showPrincipal = true; // Mantiene la vista principal
       this.showResult = true;
     },
 
-    calcularEvaluacion() {
-      const intentosAntesDeRegistrar = this.intentosDisponiblesGeneralization;
-
-      if (this.isCorrect) {
-        this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                          intentosAntesDeRegistrar === 2 ? 4 : 3;
-      } else if (intentosAntesDeRegistrar <= 1) {
-        this.evaluacion = 1; // Último intento y falló
-      } else {
-        this.evaluacion = 1; // Cualquier intento fallido igual debe registrar
-      }
-    },
+    
 
     finish() {
-      if (this.isFinishEnabled) {
-        this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/DescomposicionVariablesOperacionesCEjercicio1').then(() => {
+      /*
+       * El ejemplo no depende de una evaluación
+       * para poder avanzar.
+       */
+      router
+        .push('/DescomposicionVariablesOperacionesCEjercicio1')
+        .then(() => {
           window.scrollTo(0, 0);
         });
-      }
     }
   }
 };

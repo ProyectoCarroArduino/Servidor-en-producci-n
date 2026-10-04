@@ -21,7 +21,7 @@
       <br>
       <h3>Descomposición:</h3>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teroria sobre switch case seleccione la imagen que representa los siguientes elementos en la estructura: instrucción switch, instrucción case, break y default</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teroria sobre <strong>switch case</strong> seleccione la imagen que representa los siguientes elementos en la estructura: <strong>instrucción switch, instrucción case, break y default:</strong>.</h4>
       <br>
       <div class="figuras">
         <div
@@ -41,7 +41,7 @@
       </div>
       <br>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción switch case seleccione la imagen que representa la variable de entrada y el condicional que valida si la opción ingresada es valida:</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción <strong>switch case</strong> seleccione la imagen que representa: <strong>la variable de entrada, las variables necesarias para resolver el ejercicio y el condicional que valida si la variable de entrada ingresada es valida</strong>:</h4>
       <br>
       <div class="figuras">
         <div

@@ -88,8 +88,8 @@ export default {
     const evaluacionAlgorithmRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '4. Variables y operaciones',
-        submodulo: '',
+        modulo: '4. Variables y Operaciones',
+        submodulo: '4.1 Variables y Operaciones',
         ejercicio: 'Ejercicio 1',
         categoria: 'algoritmo',
         subejercicio: 'Subejercicio 1'
@@ -162,6 +162,9 @@ export default {
     },
     isFinishEnabled() {
       return this.ev.bloqueado;
+    }, 
+    puedeResponder() {
+      return this.ev.estadoCargado && !this.ev.bloqueado && !this.ev.cargando;
     }
   },
 
@@ -185,9 +188,9 @@ export default {
     },
 
   async validateInputs() {
-    if (this.isButtonDisabled || this.intentosDisponiblesAlgorithm <= 0) {
-      return;
-    }
+    if (this.isButtonDisabled || !this.puedeResponder) {
+    return;
+  }
 
     this.showErrorMessage = false;
     this.showResult = false;
@@ -209,10 +212,6 @@ export default {
       const inputValue = Number.parseInt(input.value, 10);
       return this.puzzle[inputValue - 1].id === this.correct[index].id;
     });
-
-
-  this.feedbackMessage = this.isCorrect ? 'Correcto!' : 'Incorrecto. Intenta de nuevo.';
-  this.feedbackClass = this.isCorrect ? 'alert alert-success' : 'alert alert-danger';
 
     // La nota la calcula el servidor a partir de los intentos restantes.
     const respuesta = await this.registrarResultado(this.isCorrect);

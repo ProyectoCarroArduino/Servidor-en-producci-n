@@ -13,10 +13,6 @@
       <br>
       <h3>Abstracción:</h3>
       <br>
-      <!-- Intentos de Video -->
-      <p v-if="intentosDisponibles !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponibles }}
-      </p>
       <br>
       <p class="texto-personalizado">
       <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
@@ -27,7 +23,7 @@
         <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
         <br>
         <br>
-        <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
+        <button @click="analyzeCode">Analizar Código</button>
         <br>
 
         <br>
@@ -35,24 +31,17 @@
       </div>
 
       <br>
-      <p v-if="isCorrect || intentosDisponibles <= 0" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
+      
 
       <div>
         <button
           class="bt-validate"
-          v-if="isCorrect || intentosDisponibles <= 0"
-          :disabled="!isFinishEnabled"
           @click="finish"
         >
           Avanzar
         </button>
       </div>
 
-      <p class="alert alert-primary">
-        Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
-      </p>
     </main>
 
     <aside class="menu-lateral">
@@ -67,9 +56,6 @@
 import router from '@/router';
 import axios from 'axios';
 import Menu from "@/components/Menu.vue";
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionAbstractionStore } from '@/stores/evaluation';
-import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
 
 export default {
   components: {
@@ -80,42 +66,8 @@ export default {
     msg: String
   },
 
-  setup() {
-    const evaluacionAbstractionStore = useEvaluacionAbstractionStore();
-
-    const evaluacionRaw = reactive(
-      useEvaluacionSubejercicio({
-        cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'abstraccion',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacion = {
-      ...toRefs(evaluacionRaw),
-      registrarEvaluacion: evaluacionRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionRaw.obtenerIntentos
-    };
-
-    onMounted(() => {
-      evaluacion.obtenerIntentos();
-    });
-
-    return {
-      evaluacionAbstractionStore,
-      intentosDisponibles: evaluacion.intentosRestantes,
-      notaActual: evaluacion.notaActual,
-      registrarEvaluacion: evaluacion.registrarEvaluacion,
-      obtenerIntentos: evaluacion.obtenerIntentos
-    };
-  },
-
   data() {
     return {
-      evaluacion: null,
       isCorrect: false,
       code: '',
       result: '',
@@ -143,18 +95,10 @@ int main() {
     };
   },
 
-  computed: {
-    isRetryDisabled() {
-      return this.isCorrect || this.intentosDisponibles <= 0;
-    },
-    isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponibles <= 0;
-    }
-  },
 
   methods: {
     async analyzeCode() {
-      if (this.isCorrect || this.intentosDisponibles <= 0) {
+      if (this.isCorrect) {
         return;
       }
 
@@ -185,20 +129,6 @@ int main() {
           this.isCorrect = true;
         }
 
-        // Calcular nota según patrón
-        const intentosAntes = this.intentosDisponibles;
-        let evaluacion = 1;
-        if (isCorrect) {
-          evaluacion = intentosAntes === 3 ? 5 : intentosAntes === 2 ? 4 : 3;
-        } else if (intentosAntes <= 1) {
-          evaluacion = 1;
-        } else {
-          evaluacion = 1;
-        }
-
-        await this.registrarEvaluacion(evaluacion);
-        await this.obtenerIntentos();
-        this.evaluacion = evaluacion;
 
       } catch (error) {
         console.error("Error al analizar el código:", error);
@@ -208,7 +138,6 @@ int main() {
     },
 
     finish() {
-      this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
       router.push('/GeneralizacionVariablesOperacionesCEjemplo').then(() => {
         window.scrollTo(0, 0);
       });

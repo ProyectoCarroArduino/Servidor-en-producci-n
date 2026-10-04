@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción switch case, seleccione los elementos necesarios que se necesitan para construir la estructura de la función main:</h4>
-      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir las solicitudes por pantalla, los guardados de variables y los bloques de instrucción.</p>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción <strong>switch case</strong>, seleccione los elementos necesarios que se necesitan para construir la estructura de la función main:</h4>
+      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir las solicitudes de datos, entrada de datos, impresiones por pantalla y mensajes de bloques de instrucción</p>
       <p class="texto-personalizado"><strong>Instrucciones:</strong> los <strong>Elementos</strong> deben ir en el cuadro a la derecha de color <strong>amarillo</strong> y el orden debe ser descendente.</p>
       <br>
       <div class="flex-container">

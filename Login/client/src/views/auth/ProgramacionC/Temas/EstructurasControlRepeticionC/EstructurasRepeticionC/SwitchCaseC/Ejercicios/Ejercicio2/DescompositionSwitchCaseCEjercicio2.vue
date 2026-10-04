@@ -36,7 +36,7 @@
       </div>
       <br>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción switch case seleccione la imagen que representa la variable de entrada y el condicional que valida si la opción ingresada es valida:</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción <strong>switch case</strong> seleccione la imagen que <strong>representa</strong> las variables necesarias para resolver el ejercicio:</h4>
       <br>
       <div class="figuras">
         <div

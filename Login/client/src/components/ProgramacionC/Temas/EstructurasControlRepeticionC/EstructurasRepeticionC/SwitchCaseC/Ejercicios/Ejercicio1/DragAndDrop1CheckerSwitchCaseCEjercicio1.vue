@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la estructura switch case, ordene de forma correcta 
-        los elementos para construir el caso 4: correspondiente a la división:</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la estructura <strong>switch case</strong>, ordene de forma correcta 
+        los elementos para construir el <strong>caso 4:</strong> correspondiente a la división:</h4>
       <br>
       <div>
         <div ref="parent" class="grid gray-background">

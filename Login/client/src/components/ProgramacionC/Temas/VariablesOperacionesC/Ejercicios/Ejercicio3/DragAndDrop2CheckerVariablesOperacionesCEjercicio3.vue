@@ -1,7 +1,7 @@
 <template>
     <div>
       <h4 class="texto-personalizado">De acuerdo a la teoria sobre <strong>(variables y operaciones)</strong> seleccione los elementos necesarios que se necesitan para construir la estructura de la función main:</h4>
-      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir las solicitudes por pantalla y los guardados de variables.</p>
+      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir las solicitudes de datos y las entradas de datos</p>
       <p class="texto-personalizado"><strong>Instrucciones:</strong> los <strong>Elementos</strong> deben ir en el cuadro a la derecha de color <strong>verde</strong> y el orden debe ser descendente.</p>
       <br>
       <div class="flex-container">
@@ -58,9 +58,9 @@
   // (ver server/seedCourseTemplate.js).
   const RUTA = {
     cursoNombre: 'Guía Programación en C',
-    modulo: '4. Variables y operaciones',
-    submodulo: '',
-    ejercicio: 'Ejercicio 1',
+    modulo: '4. Variables y Operaciones',
+    submodulo: '4.1 Variables y Operaciones',
+    ejercicio: 'Ejercicio 3',
     categoria: 'descomposicion'
   };
   

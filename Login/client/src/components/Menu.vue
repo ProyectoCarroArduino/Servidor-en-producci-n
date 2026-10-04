@@ -596,15 +596,15 @@ export default {
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: "/"
+                                                href: "/AlgoritmoWhileCEjercicio1"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: "/"
+                                                href: "/AbstraccionWhileCEjercicio1"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: "/"
+                                                href: "/GeneralizacionWhileCEjercicio1"
                                             },
                                         ]
                                     },
@@ -613,19 +613,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: ""
+                                                href: "/DescomposicionWhileCEjercicio2"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: ""
+                                                href: "/AlgoritmoWhileCEjercicio2"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: ""
+                                                href: "/AbstraccionWhileCEjercicio2"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: ""
+                                                href: "/GeneralizacionWhileCEjercicio2"
                                             },
                                         ]
                                     },

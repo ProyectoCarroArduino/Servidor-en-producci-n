@@ -329,6 +329,48 @@ const router = createRouter({
       component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio1/DescompositionWhileCEjercicio1.vue'),
       //meta: {requiresAuth: true}
     },
+    {
+      path: '/AlgoritmoWhileCEjercicio1',
+      name: 'AlgoritmoWhileCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio1/AlgorithmWhileCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionWhileCEjercicio1',
+      name: 'AbstraccionWhileCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio1/AbstractionWhileCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionWhileCEjercicio1',
+      name: 'GeneralizacionWhileCEjercicio1',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio1/GeneralizationWhileCEjercicio1.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/DescomposicionWhileCEjercicio2',
+      name: 'DescomposicionWhileCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio2/DescompositionWhileCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AlgoritmoWhileCEjercicio2',
+      name: 'AlgoritmoWhileCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio2/AlgorithmWhileCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/AbstraccionWhileCEjercicio2',
+      name: 'AbstraccionWhileCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio2/AbstractionWhileCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
+    {
+      path: '/GeneralizacionWhileCEjercicio2',
+      name: 'GeneralizacionWhileCEjercicio2',
+      component: () => import('../views/auth/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio2/GeneralizationWhileCEjercicio2.vue'),
+      //meta: {requiresAuth: true}
+    },
 
 
     // GUÍA DE CONSTRUCCIÓN DE CARRO ARDUINO

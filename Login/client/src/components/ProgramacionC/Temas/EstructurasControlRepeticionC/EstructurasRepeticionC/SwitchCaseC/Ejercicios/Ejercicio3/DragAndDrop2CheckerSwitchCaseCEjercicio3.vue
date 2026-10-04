@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción <strong>switch case</strong>, seleccione los elementos necesarios que se necesitan para construir la estructura de la instrucción switch case:</h4>
-      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir los bloques de instrucción y los break.</p>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción <strong>switch case</strong>, seleccione los elementos necesarios que se necesitan para construir la estructura de la instrucción <strong>switch case</strong>:</h4>
+      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir la variable de entrada, las solicitudes de datos, entrada de datos, impresiones por pantalla, los mensajes de bloques de instrucción y break.</p>
       <p class="texto-personalizado"><strong>Instrucciones:</strong> los <strong>Elementos</strong> deben ir en el cuadro a la derecha de color <strong>gris</strong> y el orden debe ser descendente.</p>
       <br>
       <div class="flex-container">

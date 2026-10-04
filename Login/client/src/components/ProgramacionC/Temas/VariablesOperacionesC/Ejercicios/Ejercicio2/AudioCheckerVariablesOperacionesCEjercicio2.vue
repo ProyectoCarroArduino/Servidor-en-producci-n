@@ -80,9 +80,9 @@ export default {
     const evaluacionGeneralizationRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '4. Variables y operaciones',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
+        modulo: '4. Variables y Operaciones',
+        submodulo: '4.1 Variables y Operaciones',
+        ejercicio: 'Ejercicio 2',
         categoria: 'generalizacion',
         subejercicio: 'Subejercicio 1'
       })

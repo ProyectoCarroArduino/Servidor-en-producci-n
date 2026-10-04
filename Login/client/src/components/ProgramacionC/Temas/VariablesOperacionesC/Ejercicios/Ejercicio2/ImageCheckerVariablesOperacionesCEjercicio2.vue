@@ -88,8 +88,8 @@ export default {
     const evaluacionAlgorithmRaw = reactive(
       useEvaluacionSubejercicio({
         cursoNombre: 'Guía Programación en C', // Añadido
-        modulo: '4. Variables y operaciones',
-        submodulo: '',
+        modulo: '4. Variables y Operaciones',
+        submodulo: '4.1 Variables y Operaciones',
         ejercicio: 'Ejercicio 2',
         categoria: 'algoritmo',
         subejercicio: 'Subejercicio 1'
@@ -162,6 +162,9 @@ export default {
     },
     isFinishEnabled() {
       return this.ev.bloqueado;
+    },
+    puedeResponder() {
+      return this.ev.estadoCargado && !this.ev.bloqueado && !this.ev.cargando;
     }
   },
 

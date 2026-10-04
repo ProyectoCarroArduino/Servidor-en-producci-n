@@ -14,21 +14,15 @@
           </article>
         </div>
         <br>
-        <p v-if="contadorVerificaciones > 0 && !ordenCorrecto" class="contador">
-          Intentos restantes: {{ Maxintento - contadorVerificaciones }}
-        </p>
         <br>
         <button 
           @click="verificarOrden" 
-          :disabled="contadorVerificaciones >= 3 || ordenCorrecto === true">
+          >
           Verificar Orden
         </button>
         <br>
         <p v-if="ordenCorrecto === true" class="correcto alert alert-success mt-3">¡Orden correcto!</p>
         <p v-if="ordenCorrecto === false" class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
-        <p v-if="ordenCorrecto || contadorVerificaciones === Maxintento" class="correcto alert alert-success mt-3">
-          Tu evaluación final es: {{ evaluacion }}
-        </p>
       </div>
       <br>
       <br>
@@ -45,9 +39,6 @@
       return {
         ordenCorrecto: null,
         mensajeError: "",
-        contadorVerificaciones : 0,
-        Maxintento: 3,
-        evaluacion : null,
         respuestasIncorrectas: [
           "¡Error! Por favor, ten en cuenta la estructura de una función y cómo se hace su llamada",
           "¡Error! Revisa el orden en el que estas ubicando los elementos de la llamada de una función",
@@ -59,42 +50,19 @@
 
     methods: {
       verificarOrden() {
-        if (this.ordenCorrecto === true || this.contadorVerificaciones >= this.Maxintento) {
+        if (this.ordenCorrecto === true) {
           return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
         }
 
-        this.contadorVerificaciones++;
         const ordenEsperado = ["areaTriangulo =", "(baseTriangulo", "*", "alturaTriangulo)", "/2;"];
         if (this.tapes.every((tape, index) => tape === ordenEsperado[index])) {
           this.ordenCorrecto = true;
-          this.calcularEvaluacion();
         } else {
           this.ordenCorrecto = false;
           this.mensajeError = this.obtenerMensajeAleatorio();
-
-          if (this.contadorVerificaciones >= this.Maxintento) {
-            this.calcularEvaluacion(false);
-          }
         }
       },
 
-      calcularEvaluacion() {
-      if (this.ordenCorrecto === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorVerificaciones === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorVerificaciones === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorVerificaciones === 3) {
-          this.evaluacion = 3;
-        }
-      } else if (this.contadorVerificaciones === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
-      }
-
-      this.$emit('evaluacionLlamada', this.evaluacion); // Emitir la evaluación al componente padre
-  },
       
       obtenerMensajeAleatorio() {
         const indiceAleatorio = Math.floor(Math.random() * this.respuestasIncorrectas.length);

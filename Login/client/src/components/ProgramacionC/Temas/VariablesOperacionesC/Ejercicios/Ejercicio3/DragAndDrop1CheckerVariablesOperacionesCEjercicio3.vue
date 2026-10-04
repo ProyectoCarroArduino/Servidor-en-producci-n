@@ -1,7 +1,7 @@
 <template>
     <div>
       <h4 class="texto-personalizado">De acuerdo al tema <strong>(operadores aritméticos)</strong>, ordene de forma correcta 
-        los elementos para construir la operación:</h4>
+        los elementos para construir la operación <strong>distancia</strong>:</h4>
       <br>
       <div>
         <div ref="parent" class="grid gray-background">
@@ -55,9 +55,9 @@
   // (ver server/seedCourseTemplate.js).
   const RUTA = {
     cursoNombre: 'Guía Programación en C',
-    modulo: '4. Variables y operaciones',
-    submodulo: '',
-    ejercicio: 'Ejercicio 1',
+    modulo: '4. Variables y Operaciones',
+    submodulo: '4.1 Variables y Operaciones',
+    ejercicio: 'Ejercicio 3',
     categoria: 'descomposicion'
   };
 
@@ -102,7 +102,7 @@
     };
   },
 
-    methods: {
+  methods: {
     // Compara contenido Y longitud: un Array.every() sobre una lista mas corta
     // que la esperada devuelve true.
     listasIguales(actual, esperado) {

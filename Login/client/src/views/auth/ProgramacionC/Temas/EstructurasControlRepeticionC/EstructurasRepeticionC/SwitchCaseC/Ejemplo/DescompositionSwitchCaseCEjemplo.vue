@@ -16,7 +16,7 @@
       <br>
       <h3>Descomposición:</h3>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teroria sobre switch case seleccione la imagen que representa los siguientes elementos en la estructura: instrucción switch, instrucción case, break y default:</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teroria sobre <strong>switch case</strong> seleccione la imagen que representa los siguientes elementos en la estructura: <strong>instrucción switch, instrucción case, break y default:</strong>.</h4>
       <br>
       <div class="figuras">
         <div
@@ -47,7 +47,7 @@
       </div>
       <br>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción switch case seleccione la imagen que representa la variable de entrada, la solcitud por pantalla de esta y su almacenamiento: </h4>
+      <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción <strong>switch case</strong> seleccione la imagen que representa: <strong>la variable de entrada, su solicitud y el almacenamiento de esta</strong>: </h4>
       <br>
       <div class="figuras">
         <div

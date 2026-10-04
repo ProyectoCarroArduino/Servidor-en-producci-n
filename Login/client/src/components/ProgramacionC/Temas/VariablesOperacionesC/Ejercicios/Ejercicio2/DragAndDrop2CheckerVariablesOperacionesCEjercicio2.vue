@@ -1,7 +1,7 @@
 <template>
     <div>
       <h4 class="texto-personalizado">De acuerdo a la teoria sobre <strong>(variables y operaciones)</strong> seleccione los elementos necesarios que se necesitan para construir la estructura de la función main:</h4>
-      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir las solicitudes por pantalla, los guardados de variables y las impresiones por pantalla.</p>
+      <p><span style="font-weight: bold;">Nota:</span> <strong>No se debe</strong> incluir las solicitudes de datos, entrada de datos e impresiones por pantalla.</p>
       <p class="texto-personalizado"><strong>Instrucciones:</strong> los <strong>Elementos</strong> deben ir en el cuadro a la derecha de color <strong>azul</strong> y el orden debe ser descendente.</p>
       <br>
       <div class="flex-container">
@@ -60,7 +60,7 @@ const RUTA = {
   cursoNombre: 'Guía Programación en C',
   modulo: '4. Variables y Operaciones',
   submodulo: '4.1 Variables y Operaciones',
-  ejercicio: 'Ejercicio 1',
+  ejercicio: 'Ejercicio 2',
   categoria: 'descomposicion'
 };
   
@@ -116,7 +116,7 @@ const RUTA = {
           "subtotal = precio * cantidad;",
           "iva = subtotal * 0.21;",
           "total = subtotal + iva;",
-          "return 0;"
+          "return 0;" 
 
         ],
         respuestasIncorrectas: [

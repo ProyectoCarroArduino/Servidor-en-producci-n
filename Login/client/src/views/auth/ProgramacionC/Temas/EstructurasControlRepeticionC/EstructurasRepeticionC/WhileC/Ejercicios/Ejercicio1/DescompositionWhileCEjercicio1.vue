@@ -6,25 +6,16 @@
       <br>
       <h3>Ejercicio 1:</h3>
       <br>
-      <p class="texto-personalizado">Hacer un programa en C que simule el funcionamiento de un sistema de gestión de libros para una biblioteca. 
-      La biblioteca debe <strong>mostrar el número de libros disponibles y libros prestados,  permitir el préstamo de libros a un usuario y permitir la devolución de libros de un usuario</strong>, 
-      este sistema se debe ejecutar hasta que el usuario decida <strong>salir</strong>. La biblioteca cuenta las siguientes reglas:</p>
-      <ul>
-        <li class="texto-personalizado">La biblioteca <strong>solo</strong> puede almacenar un número máximo de <strong>25</strong> libros.</li>
-        <li class="texto-personalizado">Un usuario puede solicitar el <strong>préstamo de libros</strong>, pero este número debe ser acorde al número de <strong>libros disponibles</strong> en la biblioteca, de lo contrario imprimir el mensaje:
-            <strong>“No hay libros disponibles suficientes para prestar en este momento.”</strong>.</li>
-        <li class="texto-personalizado">Un usuario solo puede <strong>devolver los libros</strong> que haya <strong>solicitado</strong> a la biblioteca, si ese número <strong>excede</strong> el máximo de libros almacenados imprimir el mensaje: 
-            <strong>"No puede devolver más libros de los que ha solicitado"</strong>. Así mismo, el número de <strong>libros devueltos</strong> debe ser mayor a <strong>0</strong>, si no es así imprimir el mensaje: <strong>“La cantidad debe ser mayor que cero.”</strong>.</li>
-        <li class="texto-personalizado">Si un usuario decide <strong>devolver</strong> más libros de los que la biblioteca <strong>puede almacenar</strong> imprimir el mensaje: <strong>“No se pueden almacenar más libros.”</strong>.</li>
-      </ul>
-      <p><span style="font-weight: bold;">Nota:</span> El programa debe utilizar la instrucción <strong>switch case</strong> y el default debe contener <strong>break</strong>.</p>
-      <p><span style="font-weight: bold;">Nota2:</span> El progrma <strong>debe imprimir</strong> el siguiente mensaje si se digita una opción que no es válida: <strong>"Opcion no valida. Intente de nuevo."</strong>.</p>
+      <p class="texto-personalizado">Hacer un programa en C que permita <strong>evaluar</strong> las notas de <strong>5</strong> estudiantes para un examen. El programa deberá <strong>solicitar</strong> ingresar la nota correspondiente de cada estudiante,
+         esta se <strong>asigna</strong> de un valor de 0 a 5. Si la nota de un estudiante es <strong>menor</strong> de 3 el programa deberá imprimir el mensaje: <strong>“Resultado: Reprobado.”</strong>, 
+         por el contrario si la nota de un estudiante es <strong>mayor</strong> de 3 el programa deberá imprimir el mensaje: <strong>“Resultado: Aprobado!”</strong>.</p>
+      <p class="texto-personalizado">Al finalizar el programa deberá indicar cuántos estudiantes han <strong>aprobado</strong> el examen y cuántos han <strong>reprobado</strong> este.</p>
       <br>
       <hr class="my-4" />
       <br>
       <h3>Descomposición:</h3>
       <br>
-      <h4 class="texto-personalizado">De acuerdo a la teroria sobre <strong>switch case</strong> seleccione la imagen que representa los siguientes elementos en la estructura: <strong>instrucción switch, instrucción case, break y default</strong>.</h4>
+      <h4 class="texto-personalizado">De acuerdo a la teroria sobre el <strong>Ciclo while</strong> seleccione la imagen que representa los siguientes elementos en la estructura: <strong>instrucción switch, instrucción case, break y default</strong>.</h4>
       <br>
       <div class="figuras">
         <div
@@ -54,7 +45,7 @@
           :class="{ 'figura-bloqueada': ev2.bloqueado || ev2.cargando }"
           @click="manejarClickVar(figura.alt, index)"
         >
-          <img :src="figura.src" :alt="figura.alt" 
+          <img :src="figura.src" :alt="figura.alt" />
         </div>
       </div>
       <EstadoSubejercicio :estado="ev2" />
@@ -80,18 +71,18 @@
 import router from '@/router'
 import Menu from "@/components/Menu.vue";
 import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
-import DragAndDrop1Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio3/DragAndDrop1CheckerSwitchCaseCEjercicio3.vue";
-import DragAndDrop2Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/SwitchCaseC/Ejercicios/Ejercicio3/DragAndDrop2CheckerSwitchCaseCEjercicio3.vue";
+import DragAndDrop1Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio1/DragAndDrop1CheckerWhileCEjercicio1.vue";
+import DragAndDrop2Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejercicios/Ejercicio1/DragAndDrop2CheckerWhileCEjercicio1.vue";
 import { reactive, toRefs, onMounted } from 'vue';
 import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
-import Figura1 from '@/assets/ImagenesSwitchCaseC/Codigo25.png';
-import Figura2 from '@/assets/ImagenesSwitchCaseC/Codigo26.png';
-import Figura3 from '@/assets/ImagenesSwitchCaseC/Codigo27.png';
-import Figura4 from '@/assets/ImagenesSwitchCaseC/Codigo28.png';
-import Figura5 from '@/assets/ImagenesSwitchCaseC/Codigo29.png';
-import Figura6 from '@/assets/ImagenesSwitchCaseC/Codigo30.png';
-import Figura7 from '@/assets/ImagenesSwitchCaseC/Codigo31.png';
-import Figura8 from '@/assets/ImagenesSwitchCaseC/Codigo32.png';
+import Figura1 from '@/assets/ImagenesWhileC/Codigo9.png';
+import Figura2 from '@/assets/ImagenesWhileC/Codigo10.png';
+import Figura3 from '@/assets/ImagenesWhileC/Codigo11.png';
+import Figura4 from '@/assets/ImagenesWhileC/Codigo12.png';
+import Figura5 from '@/assets/ImagenesWhileC/Codigo13.png';
+import Figura6 from '@/assets/ImagenesWhileC/Codigo14.png';
+import Figura7 from '@/assets/ImagenesWhileC/Codigo15.png';
+import Figura8 from '@/assets/ImagenesWhileC/Codigo16.png';
 
 
 // Ruta comun de los tres subejercicios. Debe coincidir EXACTAMENTE con los
