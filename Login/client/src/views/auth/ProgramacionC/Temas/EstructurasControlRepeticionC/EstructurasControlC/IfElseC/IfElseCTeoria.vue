@@ -2,6 +2,8 @@
   <TeoriaLayout
     titulo="Estructuras de control (if else)"
     migas="5. Estructuras de control y repetición · 5.1 Estructuras de control (if else)"
+    siguiente-ruta="/IEEjDescomposicion"
+    siguiente-texto="Ir al Ejemplo: Descomposición"
   >
     <p>
       Hasta ahora, tus programas ejecutan todas sus instrucciones, una tras otra,

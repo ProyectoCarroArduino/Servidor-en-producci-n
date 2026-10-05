@@ -1,20 +1,17 @@
 <template>
-    <div class="menu">
-        <MenuItemCarro
-            v-for="(item, index) in menuTree" 
-            :key="index"
-            :label="item.label"
-            :icon="item.icon"
-            :depth="0"
-            :data="item.children"
-            :menuTree="menuTree"
-            :href="item.href"
-        />
-    </div>
+  <GuideSidebar
+    :items="menuTree"
+    id="carro"
+    title="Carro Arduino"
+    intro-route="/IntroGuiaConstruccion"
+    section-label="Fases de construcción"
+    count-label="fases"
+    footer-text="Construcción paso a paso"
+  />
 </template>
 
 <script>
-import MenuItemCarro from './MenuItemCarro.vue';
+import GuideSidebar from './GuideSidebar.vue';
 export default {
     name: "recursive-menu",
     data: () => ({
@@ -663,59 +660,6 @@ export default {
     
     }),
 
-    components: {
-        MenuItemCarro
-    },
+    components: { GuideSidebar },
 }
 </script>
-
-<style>
-
-.menu {
-  position: fixed;
-  top: 80px;
-  right: 0;
-  height: calc(100vh - 80px);
-  background-color: rgb(235, 241, 243);
-  font-weight: bold;
-  overflow-y: auto;
-  transition: all 0.3s ease;
-  z-index: 999;
-
-  /* 🔹 AJUSTE DE ANCHO */
-  /* Mínimo 180px, ideal 18vw, máximo 320px */
-  width: clamp(180px, 18vw, 320px);
-
-  /* 🔹 SEPARACIÓN del contenido principal (empuja hacia la izquierda) */
-  padding-left: 0px; 
-  box-sizing: border-box;
-}
-
-/* Laptops medianas */
-@media (max-width: 1300px) {
-  .menu {
-    width: clamp(160px, 20vw, 280px);
-  }
-}
-
-/* Tablets */
-@media (max-width: 900px) {
-  .menu {
-    position: relative;
-    width: 100%;
-    height: auto;
-    top: 0;
-    border-left: none;
-    border-top: 1px solid #ccc;
-  }
-}
-
-/* Celulares */
-@media (max-width: 600px) {
-  .menu {
-    display: none;
-  }
-}
-
-
-</style>

@@ -2,6 +2,8 @@
   <TeoriaLayout
     titulo="Estructuras de repetición (ciclo for)"
     migas="5. Estructuras de control y repetición · 5.2 Estructuras de repetición (ciclo for)"
+    siguiente-ruta="/FOREjDescomposicion"
+    siguiente-texto="Ir al Ejemplo: Descomposición"
   >
     <p>
       Con <code>if else</code> aprendiste a que el programa tome decisiones. Ahora

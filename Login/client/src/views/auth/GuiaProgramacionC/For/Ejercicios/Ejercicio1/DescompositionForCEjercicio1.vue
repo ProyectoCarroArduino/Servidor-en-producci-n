@@ -59,8 +59,15 @@ Total leido: 75 paginas</pre>
       </div>  
       <br>
       <br>
-      <DragAndDrop1Checker />
-      <DragAndDrop2Checker />
+      <DragAndDrop1Checker @finalizado="s3Finalizado = $event" />
+      <DragAndDrop2Checker @finalizado="s4Finalizado = $event" />
+      <div class="ec-acciones">
+        <p v-if="!puedeAvanzar" class="ec-acciones-ayuda">Completa los cuatro subejercicios para avanzar. Un subejercicio queda completo cuando lo resuelves o se agotan sus intentos.</p>
+        <button class="ec-btn ec-btn-secondary" :disabled="!puedeAvanzar" @click="finish">
+          Avanzar
+          <span class="material-icons" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
     </main>
 
     <aside class="menu-lateral">
@@ -137,6 +144,10 @@ export default {
       ].sort(() => Math.random() - 0.5),
 
 
+      // Los subejercicios 3 y 4 viven en sus componentes y avisan con @finalizado.
+      s3Finalizado: false,
+      s4Finalizado: false,
+
       respuesta: null,
       esCorrecta: false,
       mensajeError: '',
@@ -162,24 +173,9 @@ export default {
     },
 
   computed: {
-    // Propiedad computada para habilitar o deshabilitar el botón
+    // Se avanza cuando los cuatro subejercicios estan cerrados: aprobados o sin intentos.
     puedeAvanzar() {
-      return (
-        this.evaluacion !== null &&
-        this.evaluacionV !== null &&
-        this.evaluacionDragAndDrop1Checker !== null && // Incluye la evaluación de Llamada
-        this.evaluacionDragAndDrop2Checker !== null
-      );
-    },
-
-    evaluacionTotal() {
-      const total =
-        (this.evaluacion ?? 0) +
-        (this.evaluacionV ?? 0) +
-        (this.evaluacionDragAndDrop1Checker ?? 0) +
-        (this.evaluacionDragAndDrop2Checker ?? 0);
-
-      return total / 4; // Dividimos entre el total de actividades
+      return this.ev1.bloqueado && this.ev2.bloqueado && this.s3Finalizado && this.s4Finalizado;
     },
   },
 

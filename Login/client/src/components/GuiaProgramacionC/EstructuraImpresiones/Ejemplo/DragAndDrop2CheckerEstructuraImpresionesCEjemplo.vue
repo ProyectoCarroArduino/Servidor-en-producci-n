@@ -26,139 +26,101 @@
         </div>
       </div>
       <br>
-      <p v-if="contadorOrden > 0 && !ordenVerdadero" class="contador">
-        intentos restantes: {{ Maxintento - contadorOrden }}
-      </p>
+
       <br>
-      <button @click="enviarOrden"
-      :disabled="contadorOrden >= 3 || ordenVerdadero === true"
-      >Enviar Orden</button>
+      <button
+        class="ec-btn ec-btn-primary"
+        @click="enviarOrden"
+
+      >
+        Enviar Orden
+      </button>
       <br>
       <div v-if="resultadoValidacion === 'correcto'">
-        <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
+        <p class="correcto alert alert-success mt-3">¡Correcto!</p>
       </div>
       <div v-else-if="resultadoValidacion === 'incorrecto'">
-        <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
+        <p class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
-      <p v-if="ordenVerdadero || contadorOrden === Maxintento" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
+
       <br>
     </div>
   </template>
   
   <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-  
-  export default {
-    name: 'DragAndDrop2Checker',
-  
-    data() {
-      return {
-        ordenCorrecto: [
-          { id: 1, text: "printf(\"Buenas tardes.\\n\");" },
-          { id: 2, text: "printf(\"Hoy aprendo a usar printf.\\n\");" },
-          { id: 3, text: "return 0;" },
-        ],
-        respuestasIncorrectas: [
-          "¡Error! Cada mensaje debe terminar con el salto de línea",
-          "¡Error! Revisa que cada instrucción termine con punto y coma",
-          "¡Error! El primer mensaje que se muestra es el primero que se escribe",
-          "¡Error! No olvides la instrucción que indica que el programa terminó",
-        ],
-        mensajeRespuesta: "",
-        resultadoValidacion: null,
-        contadorOrden : 0, 
-        Maxintento : 3,
-        ordenVerdadero : null,
-        evaluacion : null,
+import { animations } from '@formkit/drag-and-drop';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
 
-      
-      };
-    },
-  
-    setup() {
-  
-      const [todoList, todos] = useDragAndDrop(
-        [
-          { id: 1, text: "printf(\"Buenas tardes.\\n\");" },
-          { id: 2, text: "printf(\"Hoy aprendo a usar printf.\\n\");" },
-          { id: 3, text: "return 0;" },
-          { id: 4, text: "printf(\"Buenas tardes.\");" },
-          { id: 5, text: "printf(\"Hoy aprendo a usar printf.\\n\")" },
-        ].sort(() => Math.random() - 0.5),
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-  
-      const [doneList, dones] = useDragAndDrop(
-        [],
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
+export default {
+  name: 'DragAndDrop2Checker',
 
-      return {
-        todoList,
-        todos,
-        doneList,
-        dones,
-      };
-    },
-  
-    methods: {
-      
-      validarOrden(arr) {
-        if(this.ordenVerdadero === true || this.contadorOrden >= this.Maxintento){
-          return;
-        }
-        this.contadorOrden++;
-        const esCorrecto =
-          arr.length === this.ordenCorrecto.length &&
-          arr.every((item, i) => item.text === this.ordenCorrecto[i].text);
-        if (!esCorrecto) {
-          this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
-          this.ordenVerdadero = false;
-          this.calcularEvaluacion(false);
-          return 'incorrecto';
-        }
-        this.ordenVerdadero = true;
-        this.calcularEvaluacion();
-        return 'correcto';
-      },
-
-      enviarOrden() {
-        this.resultadoValidacion = this.validarOrden(this.dones);
-      },
-
-      calcularEvaluacion() {
-      if (this.ordenVerdadero === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorOrden === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorOrden === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorOrden === 3) {
-          this.evaluacion = 3;
-        } 
-      } else if (this.contadorOrden === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
-      }
-
-      this.$emit('evaluacionEstructura', this.evaluacion); // Emitir la evaluación al componente padre
+  data() {
+    return {
+      ordenCorrecto: [
+        { id: 1, text: 'printf("Buenas tardes.\\n");' },
+        { id: 2, text: 'printf("Hoy aprendo a usar printf.\\n");' },
+        { id: 3, text: 'return 0;' },
+      ],
+      resultadoValidacion: null,
+      ordenVerdadero: null,
+    };
   },
-  
+
+  setup() {
+    const [todoList, todos] = useDragAndDrop(
+      [
+        { id: 1, text: 'printf("Buenas tardes.\\n");' },
+        { id: 2, text: 'printf("Hoy aprendo a usar printf.\\n");' },
+        { id: 3, text: 'return 0;' },
+        { id: 4, text: 'printf("Buenas tardes.");' },
+        { id: 5, text: 'printf("Hoy aprendo a usar printf.\\n")' },
+      ].sort(() => Math.random() - 0.5),
+      {
+        plugins: [animations()],
+        group: 'kanbanGroup1',
+        dragHandle: '.kanban-handle',
+      },
+    );
+
+    const [doneList, dones] = useDragAndDrop([], {
+      plugins: [animations()],
+      group: 'kanbanGroup1',
+      dragHandle: '.kanban-handle',
+    });
+
+    return {
+      todoList,
+      todos,
+      doneList,
+      dones,
+    };
+  },
+
+  methods: {
+    validarOrden(arr) {
+      this.ordenVerdadero =
+        arr.length === this.ordenCorrecto.length &&
+        arr.every((item, index) => item.text === this.ordenCorrecto[index].text);
+      this.$emit('resultado', this.ordenVerdadero);
+      return this.ordenVerdadero ? 'correcto' : 'incorrecto';
     },
-  
-  };
-  </script>
+    enviarOrden() {
+      this.resultadoValidacion = this.validarOrden(this.dones);
+    },
+  },
+  emits: ['resultado'],
+  watch: {
+    dones: {
+      deep: true,
+      handler() {
+        this.ordenVerdadero = null;
+        this.resultadoValidacion = null;
+        this.$emit('resultado', null);
+      },
+    },
+  },
+};
+</script>
   
   <style scoped>
   

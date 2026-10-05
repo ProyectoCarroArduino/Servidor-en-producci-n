@@ -3,10 +3,7 @@
     <div v-if="showPrincipal" class="generalizacion">
       <h2>Ordena correctamente los audios</h2>
       <br>
-      <!-- Mostrar Intentos Disponibles -->
-      <p v-if="intentosDisponiblesGeneralization !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponiblesGeneralization }}
-      </p>
+
       <br>
       <div class="audio-container">
         <div class="audio-item" v-for="(audioItem, index) in audio" :key="audioItem.id">
@@ -28,10 +25,10 @@
 
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
+        <button
           class="btn btn-primary"
-          @click="validateInputs" 
-          :disabled="isButtonDisabled || intentosDisponiblesGeneralization <= 0">
+          @click="validateInputs"
+          :disabled="isButtonDisabled">
           Enviar
         </button>
       </div>
@@ -44,20 +41,8 @@
       <!-- Resultado del intento -->
       <div v-if="showResult" class="mt-4">
         <p v-if="isCorrect" class="alert alert-success">¡Correcto!</p>
-        <p v-else class="alert alert-danger">Lo sentimos, es incorrecto.</p>
+        <p v-else class="alert alert-danger">¡Incorrecto!</p>
       </div>
-
-      <!-- Evaluación obtenida -->
-      <div v-if="evaluacion !== null" class="mt-3">
-        <p class="alert alert-primary">
-          Tu evaluación: {{ evaluacion }}
-        </p>
-      </div>
-
-      <!-- Nota almacenada en el store -->
-      <p class="alert alert-primary mt-4">
-        Evaluación Generalización (store): {{ evaluacionGeneralizationStore.evaluacion.toFixed(1) }}
-      </p>
 
       <!-- Botón para finalizar -->
       <button
@@ -72,49 +57,14 @@
 
 
 <script>
-import router from '@/router'; 
-import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';  
+import router from '@/router';
+import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';
 import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
 import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
 import audio4 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
-import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
 
 export default {
   name: 'AudioCheckerConectarCables',
-
-  setup() {
-    const evaluacionGeneralizationStore = useEvaluacionGeneralizationStore();
-
-    const evaluacionGeneralizationRaw = reactive(
-      useEvaluacionSubejercicio({
-        cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'generalizacion',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacionGeneralization = {
-      ...toRefs(evaluacionGeneralizationRaw),
-      registrarEvaluacion: evaluacionGeneralizationRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionGeneralizationRaw.obtenerIntentos
-    };
-
-    onMounted(() => {
-      evaluacionGeneralization.obtenerIntentos();
-    });
-
-    return {
-      evaluacionGeneralizationStore,
-      intentosDisponiblesGeneralization: evaluacionGeneralization.intentosRestantes,
-      obtenerIntentosGeneralization: evaluacionGeneralization.obtenerIntentos,
-      registrarEvaluacionGeneralization: evaluacionGeneralization.registrarEvaluacion
-    };
-  },
 
   data() {
     return {
@@ -124,19 +74,18 @@ export default {
         { id: 3, src: audio3 },
         { id: 4, src: audio4 },
       ],
-      evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(4).fill().map((_, index) => ({
-        key: index,
-        value: null,
-        name: `input-${index + 1}`
-      })),
+      inputs: Array(4)
+        .fill()
+        .map((_, index) => ({
+          key: index,
+          value: null,
+          name: `input-${index + 1}`,
+        })),
       numSteps: 4,
-      feedbackMessage: '',
-      feedbackClass: ''
     };
   },
 
@@ -148,14 +97,12 @@ export default {
     isButtonDisabled() {
       return !this.inputs.every(
         (input) =>
-          Number.isInteger(input.value) &&
-          input.value >= 1 &&
-          input.value <= 4
+          Number.isInteger(input.value) && input.value >= 1 && input.value <= this.audio.length,
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesGeneralization <= 0;
-    }
+      return this.isCorrect;
+    },
   },
 
   methods: {
@@ -165,68 +112,26 @@ export default {
         [this.audio[i], this.audio[j]] = [this.audio[j], this.audio[i]];
       }
     },
-
-    async validateInputs() {
-      if (this.isButtonDisabled || this.intentosDisponiblesGeneralization <= 0) {
-        return;
-      }
-
+    validateInputs() {
+      if (this.isButtonDisabled) return;
       this.showErrorMessage = false;
-      this.showResult = false;
-      this.isCorrect = false;
-
-      const entradasValidas = this.inputs.every((input) => {
-        const inputValue = Number.parseInt(input.value, 10);
-        return !Number.isNaN(inputValue) && inputValue >= 1 && inputValue <= this.audio.length;
-      });
-
-      if (!entradasValidas) {
-        this.showErrorMessage = true;
-        return;
-      }
-
-      this.isCorrect = this.inputs.every((input, index) => {
-        const inputValue = Number.parseInt(input.value, 10);
-        return inputValue === this.audio[index].id;
-      });
-
-      this.calcularEvaluacion();
-
-      try {
-        await this.registrarEvaluacionGeneralization(this.evaluacion);
-        await this.obtenerIntentosGeneralization();
-        console.log("✔ Evaluación de generalización registrada y estado actualizado.");
-      } catch (err) {
-        console.error("Error registrando evaluación de generalización:", err);
-        alert("Hubo un problema al guardar la evaluación.");
-      }
-
-      this.showPrincipal = true; // Mantiene la vista principal
+      this.isCorrect = this.inputs.every((input, index) => input.value === this.audio[index].id);
       this.showResult = true;
     },
-
-    calcularEvaluacion() {
-      const intentosAntesDeRegistrar = this.intentosDisponiblesGeneralization;
-
-      if (this.isCorrect) {
-        this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                          intentosAntesDeRegistrar === 2 ? 4 : 3;
-      } else if (intentosAntesDeRegistrar <= 1) {
-        this.evaluacion = 1; // Último intento y falló
-      } else {
-        this.evaluacion = 1; // Cualquier intento fallido igual debe registrar
-      }
-    },
-
     finish() {
-      if (this.isFinishEnabled) {
-        this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/DescomposicionSwitchCaseCEjercicio1').then(() => {
-          window.scrollTo(0, 0);
-        });
-      }
-    }
-  }
+      if (!this.isFinishEnabled) return;
+      router.push('/DescomposicionSwitchCaseCEjercicio1').then(() => window.scrollTo(0, 0));
+    },
+  },
+  watch: {
+    inputs: {
+      deep: true,
+      handler() {
+        this.isCorrect = false;
+        this.showResult = false;
+      },
+    },
+  },
 };
 </script>
 

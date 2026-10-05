@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const stages = [
   {
     title: "Descomposición",
@@ -46,7 +50,7 @@ const logoSrc = new URL("@/assets/HomePage/logo.png", import.meta.url).href;
             conceptos claros y evaluación progresiva.
           </p>
           <div class="hero-actions">
-            <button class="btn-primary" type="button">Empezar aprendizaje</button>
+            <button class="btn-primary" type="button" @click="router.push({ name: 'IntroGuiaC' })">Empezar aprendizaje</button>
           </div>
         </div>
         <div class="hero-visual" aria-hidden="true">
@@ -107,7 +111,7 @@ const logoSrc = new URL("@/assets/HomePage/logo.png", import.meta.url).href;
             Explora conceptos clave y desarrolla habilidades que te prepararán para resolver
             problemas como un experto.
           </p>
-          <button class="btn-primary" type="button">Iniciar ahora</button>
+          <button class="btn-primary" type="button" @click="router.push({ name: 'IntroGuiaC' })">Iniciar ahora</button>
         </div>
       </section>
 

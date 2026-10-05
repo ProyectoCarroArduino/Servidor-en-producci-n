@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
+import { onBeforeUnmount, onMounted } from "vue";
+
+let navbarObserver: ResizeObserver | undefined;
+onMounted(() => {
+  const navbar = document.querySelector<HTMLElement>(".app-navbar");
+  if (!navbar) return;
+  navbarObserver = new ResizeObserver(() => {
+    document.documentElement.style.setProperty("--navbar-height", `${navbar.getBoundingClientRect().height}px`);
+  });
+  navbarObserver.observe(navbar);
+});
+onBeforeUnmount(() => navbarObserver?.disconnect());
 </script>
 
 <template>
@@ -8,6 +20,7 @@ import NavBar from "./components/NavBar.vue";
     <NavBar />
     <!-- Contenedor principal para tu contenido -->
     <div class="app-content">
+      <div id="guide-sidebar-host"></div>
       <RouterView />
     </div>
   </div>

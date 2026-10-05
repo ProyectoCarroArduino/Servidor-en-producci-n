@@ -35,9 +35,9 @@
       <EstadoSubejercicio :estado="ev4" />
       <br>
       <button
+        class="ec-btn ec-btn-primary"
         @click="enviarOrden"
         :disabled="!puedeResponder(ev4)"
-        class="btn btn-primary"
       >
         <span v-if="ev4.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
         Enviar Orden
@@ -49,7 +49,7 @@
 <script>
 import { animations } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, watch } from "vue";
 import { useEvaluacionSubejercicio } from "@/composables/useEvaluacionSubejercicio";
 import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
 
@@ -68,9 +68,14 @@ const RUTA = {
 
     components: { EstadoSubejercicio },
 
+  // Avisa a la vista cuando el subejercicio queda cerrado (aprobado o sin intentos).
+  emits: ['finalizado'],
 
-    setup() {
+
+    setup(props, { emit }) {
       const ev4 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: "Subejercicio 4" }));
+
+    watch(() => ev4.bloqueado, (finalizado) => emit('finalizado', finalizado), { immediate: true });
 
       onMounted(() => {
         ev4.obtenerIntentos();

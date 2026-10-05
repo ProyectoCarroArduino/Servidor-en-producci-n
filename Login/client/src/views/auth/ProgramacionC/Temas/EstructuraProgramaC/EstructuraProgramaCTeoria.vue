@@ -2,6 +2,8 @@
   <TeoriaLayout
     titulo="Estructura de un programa e impresiones por pantalla"
     migas="3. Estructura de un programa e impresiones por pantalla"
+    siguiente-ruta="/EIEjDescomposicion"
+    siguiente-texto="Ir al Ejemplo: Descomposición"
   >
     <p>
       En la sección 1 viste tu primer programa en C. Ahora toca entender cómo está

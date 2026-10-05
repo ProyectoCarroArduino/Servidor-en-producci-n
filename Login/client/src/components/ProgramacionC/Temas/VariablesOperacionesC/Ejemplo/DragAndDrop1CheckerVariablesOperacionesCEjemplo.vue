@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h4 class="texto-personalizado">De acuerdo al tema <strong>(operadores aritméticos)</strong>, ordene de forma correcta 
+      <h4 class="texto-personalizado">De acuerdo al tema <strong>(operadores aritméticos)</strong>, ordene de forma correcta
         los elementos para construir la formula del <strong>área de un triángulo</strong>:</h4>
       <br>
       <div>
@@ -14,15 +14,17 @@
           </article>
         </div>
         <br>
+
         <br>
-        <button 
-          @click="verificarOrden" 
+        <button
+          @click="verificarOrden"
           >
           Verificar Orden
         </button>
         <br>
-        <p v-if="ordenCorrecto === true" class="correcto alert alert-success mt-3">¡Orden correcto!</p>
-        <p v-if="ordenCorrecto === false" class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
+        <p v-if="ordenCorrecto === true" class="correcto alert alert-success mt-3">¡Correcto!</p>
+        <p v-if="ordenCorrecto === false" class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
+
       </div>
       <br>
       <br>
@@ -30,69 +32,55 @@
   </template>
   
   <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-  export default {
-    name: 'DragAndDrop1Checker',
-  
-    data() {
-      return {
-        ordenCorrecto: null,
-        mensajeError: "",
-        respuestasIncorrectas: [
-          "¡Error! Por favor, ten en cuenta la estructura de una función y cómo se hace su llamada",
-          "¡Error! Revisa el orden en el que estas ubicando los elementos de la llamada de una función",
-          "¡Error! Recuerda que la llamada de una función (sin parámetros) no lleva nada dentro de los paréntesis",
-          "¡Error! Considera el orden en el cual estas ubicando los elementos y llegarás a la respuesta",
-        ],
-      };
+import { animations } from '@formkit/drag-and-drop';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
+export default {
+  name: 'DragAndDrop1Checker',
+
+  data() {
+    return {
+      ordenCorrecto: null,
+    };
+  },
+
+  methods: {
+    verificarOrden() {
+      const ordenEsperado = ['areaTriangulo =', '(baseTriangulo', '*', 'alturaTriangulo)', '/2;'];
+      this.ordenCorrecto =
+        this.tapes.length === ordenEsperado.length &&
+        this.tapes.every((tape, index) => tape === ordenEsperado[index]);
+      this.$emit('resultado', this.ordenCorrecto);
     },
+  },
 
-    methods: {
-      verificarOrden() {
-        if (this.ordenCorrecto === true) {
-          return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-        }
-
-        const ordenEsperado = ["areaTriangulo =", "(baseTriangulo", "*", "alturaTriangulo)", "/2;"];
-        if (this.tapes.every((tape, index) => tape === ordenEsperado[index])) {
-          this.ordenCorrecto = true;
-        } else {
-          this.ordenCorrecto = false;
-          this.mensajeError = this.obtenerMensajeAleatorio();
-        }
+  setup() {
+    const [parent, tapes] = useDragAndDrop(
+      ['areaTriangulo =', '(baseTriangulo', '*', 'alturaTriangulo)', '/2;'].sort(
+        () => Math.random() - 0.5,
+      ),
+      {
+        plugins: [animations()],
       },
+    );
 
-      
-      obtenerMensajeAleatorio() {
-        const indiceAleatorio = Math.floor(Math.random() * this.respuestasIncorrectas.length);
-        return this.respuestasIncorrectas[indiceAleatorio];
-      }
+    return {
+      parent,
+      tapes,
+    };
+  },
+
+  emits: ['resultado'],
+  watch: {
+    tapes: {
+      deep: true,
+      handler() {
+        this.ordenCorrecto = null;
+        this.$emit('resultado', null);
+      },
     },
-  
-    setup() {
-      const [parent, tapes] = useDragAndDrop(
-        [
-          "areaTriangulo =",
-          "(baseTriangulo",
-          "*",
-          "alturaTriangulo)",
-          "/2;"
-        ].sort(() => Math.random() - 0.5),
-        { 
-          plugins: [animations()],
-        }
-      );
-  
-  
-      return {
-        parent,
-        tapes,
-      };
-    }
-  
-  };
-  </script>
+  },
+};
+</script>
   
   <style scoped>
   

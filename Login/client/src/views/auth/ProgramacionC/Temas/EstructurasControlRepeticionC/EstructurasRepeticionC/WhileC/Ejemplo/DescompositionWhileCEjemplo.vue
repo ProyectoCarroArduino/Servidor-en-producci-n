@@ -6,7 +6,7 @@
       <br>
       <h3>Ejemplo:</h3>
       <br>
-      <p class="texto-personalizado">Hacer un programa en C que le <strong>solicite</strong> a un usuario un número positivo. El programa <strong>deberá</strong> 
+      <p class="texto-personalizado">Hacer un programa en C que le <strong>solicite</strong> a un usuario un número positivo. El programa <strong>deberá</strong>
         solicitarle al usuario un número hasta que este <strong>decida</strong> digitar un número negativo para salir.</p>
       <br>
       <hr class="my-4" />
@@ -21,21 +21,15 @@
           :key="figura.alt"
           class="figura"
           @click="manejarClick(figura.alt, index)"
-        > 
-          <img :src="figura.src" :alt="figura.alt" 
-          :style="{ 
-              pointerEvents: isBlocked ? 'none' : 'auto', 
-              opacity: isBlocked ? 0.5 : 1 
-          }"/>
+        >
+          <img :src="figura.src" :alt="figura.alt" />
         </div>
       </div>
       <div v-if="respuesta" class="respuesta">
         <p v-if="esCorrecta" class="correcto alert alert-success mt-3">¡Correcto!</p>
-        <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
+        <p v-else class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
-      <div v-if="evaluacion !== null" class="correcto">
-        <p class="alert alert-info">Tu evaluación es: {{ evaluacion }}</p>
-      </div>
+
       <br>
       <br>
       <h4 class="texto-personalizado">De acuerdo a la teoria sobre la instrucción switch case seleccione la imagen que representa la variable de entrada, la solcitud por pantalla de esta y su almacenamiento: </h4>
@@ -47,33 +41,27 @@
           class="figura"
           @click="manejarClickVar(figura.alt, index)"
         >
-          <img :src="figura.src" :alt="figura.alt" 
-          :style="{ 
-              pointerEvents: isBlockedV ? 'none' : 'auto', 
-              opacity: isBlockedV ? 0.5 : 1 
-          }"/>
+          <img :src="figura.src" :alt="figura.alt" />
         </div>
       </div>
       <div v-if="respuestaVar" class="respuesta">
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
-        <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
+        <p v-else class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
-      <div v-if="evaluacionV !== null" class="correcto">
-        <p class="alert alert-info">Tu evaluación es: {{ evaluacionV }}</p>
-      </div>
+
       <br>
       <div>
         <br>
         <br>
-        <DragAndDrop1Checker @evaluacionDrapAndDrop1Checker="actualizarEvaluacionDragAndDrop1Checker"/>
-        <DragAndDrop2Checker @evaluacionDragAndDrop2Checker="actualizarEvaluacionDragAndDrop2Checker"/>
+        <DragAndDrop1Checker @resultado="drag1Correcto = $event === true"/>
+        <DragAndDrop2Checker @resultado="drag2Correcto = $event === true"/>
       </div>
       <div>
         <br>
         <br>
       </div>
       <br>
-      <button class="bt-validate" 
+      <button class="bt-validate"
         @click="finish"
         :disabled="!puedeAvanzar">
         Avanzar
@@ -88,10 +76,10 @@
 </template>
 
 <script>
-import router from '@/router'
-import Menu from "@/components/Menu.vue";
-import DragAndDrop1Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejemplo/DragAndDrop1CheckerWhileCEjemplo.vue";
-import DragAndDrop2Checker from "@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejemplo/DragAndDrop2CheckerWhileCEjemplo.vue";
+import router from '@/router';
+import Menu from '@/components/Menu.vue';
+import DragAndDrop1Checker from '@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejemplo/DragAndDrop1CheckerWhileCEjemplo.vue';
+import DragAndDrop2Checker from '@/components/ProgramacionC/Temas/EstructurasControlRepeticionC/EstructurasRepeticionC/WhileC/Ejemplo/DragAndDrop2CheckerWhileCEjemplo.vue';
 import Figura1 from '@/assets/ImagenesWhileC/Codigo1.png';
 import Figura2 from '@/assets/ImagenesWhileC/Codigo2.png';
 import Figura3 from '@/assets/ImagenesWhileC/Codigo3.png';
@@ -118,182 +106,43 @@ export default {
         { src: Figura3, alt: 'Figura 3' },
         { src: Figura4, alt: 'Figura 4' },
       ].sort(() => Math.random() - 0.5),
-
       figurasV: [
         { src: Figura5, alt: 'Figura 5' },
         { src: Figura6, alt: 'Figura 6' },
         { src: Figura7, alt: 'Figura 7' },
         { src: Figura8, alt: 'Figura 8' },
       ].sort(() => Math.random() - 0.5),
-
-
       respuesta: null,
       esCorrecta: false,
-      mensajeError: '',
-      mensajesError: [
-        '¡Error! Selecciona la imagen que tenga sentido con lo solicitado, pero ten presente la teoria sobre: funciones (sin parámetros) en la parte de estructura de una función',
-        '¡Error! Identifica la imagen correcta que tiene la estructura necesaría',
-        '¡Error! Intenta tener en cuenta que la imagen seleccionada debe de resolver el problema dado',
-        '¡Error! Recuerda que debes de seleccionar la imagen que concuerde con la función prototipo que resuelva el problema',
-      ],
-      
       respuestaCorrecta: 'Figura 1',
       respuestaVar: null,
       CorrectaVar: false,
-      mensajeErrorVar: '',
-      mensajesErrorVar: [
-        '¡Error! Recuerda que debes de seleccionar la imagen que tenga la declaración de la función (laboratorio) de forma correcta',
-        '¡Error! La forma en la que estas haciendo la declaración de la función (laboratorio) no es correcta',
-        '¡Error! Intenta ir a revisar la teoria sobre la declaración de una función e intentalo de nuevo',
-        '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)',
-      ],
-
       respuestaCorrectaV: 'Figura 5',
-      totalClicks: 0,
-      totalClicksV: 0,
-      maxClicks: 3,
-      maxClicksV: 3,
-      mostrarContador: null,
-      mostrarContadorV: null,
-      isBlocked: false,
-      isBlockedV: false,
-      evaluacion: null,
-      evaluacionV: null,
-      evaluacionDragAndDrop1Checker: null,
-      evaluacionDragAndDrop2Checker: null,
+      drag1Correcto: false,
+      drag2Correcto: false,
     };
-    
-    },
+  },
 
-    computed: {
-    // Propiedad computada para habilitar o deshabilitar el botón
+  computed: {
     puedeAvanzar() {
-      return true;
-    },
-
-    evaluacionTotal() {
-      const total =
-        (this.evaluacion ?? 0) +
-        (this.evaluacionV ?? 0) +
-        (this.evaluacionDragAndDrop1Checker ?? 0) +
-        (this.evaluacionDragAndDrop2Checker ?? 0);
-
-      return total / 4; // Dividimos entre el total de actividades
+      return this.esCorrecta && this.CorrectaVar && this.drag1Correcto && this.drag2Correcto;
     },
   },
 
   methods: {
     manejarClick(figura, index) {
-      if (this.isBlocked || this.totalClicks >= this.maxClicks) {
-        return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-      }
-
-      const figuraSeleccionada = this.figuras[index].alt;
-      
-      if (figuraSeleccionada === this.respuestaCorrecta) {
-        this.isBlocked = true; // Bloquea clics adicionales
-        this.calcularEvaluacion();
-        this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
-        this.respuesta = figura;
-        this.esCorrecta = true;
-        return; // Termina aquí para evitar incrementar el contador
-      }
-
-      this.totalClicks++; // Incrementa el contador global
-      this.mostrarContador = index; // Muestra el contador en la imagen seleccionada
       this.respuesta = figura;
-      this.esCorrecta = figura === 'Figura 1';
-
-      if (this.totalClicks >= this.maxClicks) {
-        this.isBlocked = true; 
-        this.evaluacion = 1; // Asegura que se evalúe como 0
-        return;
-      }
-
-      if (!this.esCorrecta) {
-        this.mensajeError = this.obtenerMensajeError();
-      }
+      this.esCorrecta = this.figuras[index].alt === this.respuestaCorrecta;
     },
-
-    calcularEvaluacion() {
-      if (this.totalClicks === 0) {
-        this.evaluacion = 5;
-      } else if (this.totalClicks === 1) {
-        this.evaluacion = 4;
-      } else if (this.totalClicks === 2) {
-        this.evaluacion = 3;
-      } 
+    manejarClickVar(figura, index) {
+      this.respuestaVar = figura;
+      this.CorrectaVar = this.figurasV[index].alt === this.respuestaCorrectaV;
     },
-
-    obtenerMensajeError() {
-      const randomIndex = Math.floor(Math.random() * this.mensajesError.length);
-      return this.mensajesError[randomIndex];
-    },
-
-    manejarClickVar(figurasV, index) {
-      if (this.isBlockedV || this.totalClicksV >= this.maxClicksV) {
-        return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-      }
-
-      const figuraSeleccionada = this.figurasV[index].alt;
-      
-      if (figuraSeleccionada === this.respuestaCorrectaV) {
-        this.isBlockedV = true; // Bloquea clics adicionales
-        this.calcularEvaluacionVar();
-        this.mostrarContadorV = index; // Muestra el contador en la imagen seleccionada
-        this.respuestaVar = figurasV;
-        this.CorrectaVar = true;
-        return; // Termina aquí para evitar incrementar el contador
-      }
-
-      this.totalClicksV++; // Incrementa el contador global
-      this.mostrarContadorV = index; // Muestra el contador en la imagen seleccionada
-      this.respuestaVar = figurasV;
-      this.CorrectaVar = figurasV === 'Figura 5';
-
-      if (this.totalClicksV >= this.maxClicksV) {
-        this.isBlockedV = true; 
-        this.evaluacionV = 1; // Asegura que se evalúe como 0
-        return;
-      }
-
-      if (!this.CorrectaVar) {
-        this.mensajeErrorVar = this.obtenerMensajeErrorVar();
-      }
-    },
-
-    calcularEvaluacionVar() {
-      if (this.totalClicksV === 0) {
-        this.evaluacionV = 5;
-      } else if (this.totalClicksV === 1) {
-        this.evaluacionV = 4;
-      } else if (this.totalClicksV === 2) {
-        this.evaluacionV = 3;
-      } 
-    },
-
-    obtenerMensajeErrorVar() {
-      const randomIndex = Math.floor(Math.random() * this.mensajesErrorVar.length);
-      return this.mensajesErrorVar[randomIndex];
-    },
-
-    actualizarEvaluacionDragAndDrop1Checker(evaluacion) {
-      this.evaluacionDragAndDrop1Checker = evaluacion;
-    },
-
-    actualizarEvaluacionDragAndDrop2Checker(evaluacion) {
-      this.evaluacionDragAndDrop2Checker = evaluacion;
-    },
-
     finish() {
-      router.push('/AlgoritmoSwitchCaseCEjemplo').then(() => {
-        window.scrollTo(0, 0);
-      });
+      if (!this.puedeAvanzar) return;
+      router.push('/AlgoritmoSwitchCaseCEjemplo').then(() => window.scrollTo(0, 0));
     },
-
   },
-
-
 };
 </script>
 
@@ -331,17 +180,6 @@ export default {
   margin-top: 20px;
 }
 
-.contador-imagen {
-position: absolute;
-top: 10px;
-left: 10px;
-background-color: rgba(0, 0, 0, 0.7);
-color: white;
-font-size: 14px;
-padding: 5px 10px;
-border-radius: 5px;
-}
-
 .correcto {
   font-size: 20px;
   color: green;
@@ -373,13 +211,6 @@ border-radius: 5px;
     font-family: Arial, sans-serif; /* Tipo de letra */
     font-size: 18px; /* Tamaño de fuente */
     text-align: justify; /* Alineación justificada */
-}
-
-.evaluacion-final {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
 }
 
 #user {

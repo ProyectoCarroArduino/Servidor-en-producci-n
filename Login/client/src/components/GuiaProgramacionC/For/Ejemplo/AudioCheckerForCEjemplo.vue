@@ -3,10 +3,7 @@
     <div v-if="showPrincipal" class="generalizacion">
       <h2>Ordena correctamente los audios</h2>
       <br>
-      <!-- Mostrar Intentos Disponibles -->
-      <p v-if="intentosDisponiblesGeneralization !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponiblesGeneralization }}
-      </p>
+
       <br>
       <div class="audio-container">
         <div class="audio-item" v-for="(audioItem, index) in audio" :key="audioItem.id">
@@ -28,10 +25,11 @@
 
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
-          class="btn btn-primary"
-          @click="validateInputs" 
-          :disabled="isButtonDisabled || intentosDisponiblesGeneralization <= 0">
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="validateInputs"
+          :disabled="isButtonDisabled"
+        >
           Enviar
         </button>
       </div>
@@ -44,101 +42,56 @@
       <!-- Resultado del intento -->
       <div v-if="showResult" class="mt-4">
         <p v-if="isCorrect" class="alert alert-success">¡Correcto!</p>
-        <p v-else class="alert alert-danger">Lo sentimos, es incorrecto.</p>
+        <p v-else class="alert alert-danger">¡Incorrecto!</p>
       </div>
-
-      <!-- Evaluación obtenida -->
-      <div v-if="evaluacion !== null" class="mt-3">
-        <p class="alert alert-primary">
-          Tu evaluación: {{ evaluacion }}
-        </p>
-      </div>
-
-      <!-- Nota almacenada en el store -->
-      <p class="alert alert-primary mt-4">
-        Evaluación Generalización (store): {{ evaluacionGeneralizationStore.evaluacion.toFixed(1) }}
-      </p>
 
       <!-- Botón para finalizar -->
-      <button
-        class="btn btn-success mt-3"
-        @click="finish"
-        :disabled="!isFinishEnabled">
-        Finalizar
-      </button>
+      <div class="ec-acciones">
+        <button
+          class="ec-btn ec-btn-secondary"
+          @click="finish"
+          :disabled="!isFinishEnabled"
+        >
+          Finalizar
+          <span class="material-icons" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
-import router from '@/router'; 
+import router from '@/router';
 import audio1 from '@/assets/AudiosFor/Ejemplo_Gen_Audio1.mp3';
 import audio2 from '@/assets/AudiosFor/Ejemplo_Gen_Audio2.mp3';
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionGeneralizationStore } from '@/stores/evaluation';
-import { useEvaluacionLocal } from '@/composables/useEvaluacionLocal';
 
 export default {
   name: 'AudioCheckerConectarCables',
 
-  setup() {
-    const evaluacionGeneralizationStore = useEvaluacionGeneralizationStore();
-
-    const evaluacionGeneralizationRaw = reactive(
-      useEvaluacionLocal({
-        cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'generalizacion',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacionGeneralization = {
-      ...toRefs(evaluacionGeneralizationRaw),
-      registrarEvaluacion: evaluacionGeneralizationRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionGeneralizationRaw.obtenerIntentos
-    };
-
-    onMounted(() => {
-      evaluacionGeneralization.obtenerIntentos();
-    });
-
-    return {
-      evaluacionGeneralizationStore,
-      intentosDisponiblesGeneralization: evaluacionGeneralization.intentosRestantes,
-      obtenerIntentosGeneralization: evaluacionGeneralization.obtenerIntentos,
-      registrarEvaluacionGeneralization: evaluacionGeneralization.registrarEvaluacion
-    };
-  },
-
   data() {
     return {
-      // id = numero del espacio en blanco de la imagen al que corresponde el audio.
       audio: [
-        { id: 1, src: audio1 }, // espacio (1): i += 2
-        { id: 2, src: audio2 }, // espacio (2): %d
+        { id: 1, src: audio1 }, // espacio (1): for (int i = 2; i <= 10; i += 2) {
+        { id: 2, src: audio2 }, // espacio (2): printf("%d\n", i);
       ],
-      evaluacion: null,
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
       inputs: [],
       numSteps: 0,
-      feedbackMessage: '',
-      feedbackClass: ''
     };
   },
 
   created() {
-    this.inputs = Array(this.audio.length).fill().map((_, index) => ({
-      key: index,
-      value: null,
-      name: `input-${index + 1}`
-    }));
+    this.inputs = Array(this.audio.length)
+      .fill()
+      .map((_, index) => ({
+        key: index,
+        value: null,
+        name: `input-${index + 1}`,
+      }));
     this.numSteps = this.audio.length;
     this.shuffleAudios();
   },
@@ -147,14 +100,12 @@ export default {
     isButtonDisabled() {
       return !this.inputs.every(
         (input) =>
-          Number.isInteger(input.value) &&
-          input.value >= 1 &&
-          input.value <= this.audio.length
+          Number.isInteger(input.value) && input.value >= 1 && input.value <= this.audio.length,
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesGeneralization <= 0;
-    }
+      return this.isCorrect;
+    },
   },
 
   methods: {
@@ -164,68 +115,26 @@ export default {
         [this.audio[i], this.audio[j]] = [this.audio[j], this.audio[i]];
       }
     },
-
-    async validateInputs() {
-      if (this.isButtonDisabled || this.intentosDisponiblesGeneralization <= 0) {
-        return;
-      }
-
+    validateInputs() {
+      if (this.isButtonDisabled) return;
       this.showErrorMessage = false;
-      this.showResult = false;
-      this.isCorrect = false;
-
-      const entradasValidas = this.inputs.every((input) => {
-        const inputValue = Number.parseInt(input.value, 10);
-        return !Number.isNaN(inputValue) && inputValue >= 1 && inputValue <= this.audio.length;
-      });
-
-      if (!entradasValidas) {
-        this.showErrorMessage = true;
-        return;
-      }
-
-      this.isCorrect = this.inputs.every((input, index) => {
-        const inputValue = Number.parseInt(input.value, 10);
-        return inputValue === this.audio[index].id;
-      });
-
-      this.calcularEvaluacion();
-
-      try {
-        await this.registrarEvaluacionGeneralization(this.evaluacion);
-        await this.obtenerIntentosGeneralization();
-        console.log("✔ Evaluación de generalización registrada y estado actualizado.");
-      } catch (err) {
-        console.error("Error registrando evaluación de generalización:", err);
-        alert("Hubo un problema al guardar la evaluación.");
-      }
-
-      this.showPrincipal = true; // Mantiene la vista principal
+      this.isCorrect = this.inputs.every((input, index) => input.value === this.audio[index].id);
       this.showResult = true;
     },
-
-    calcularEvaluacion() {
-      const intentosAntesDeRegistrar = this.intentosDisponiblesGeneralization;
-
-      if (this.isCorrect) {
-        this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                          intentosAntesDeRegistrar === 2 ? 4 : 3;
-      } else if (intentosAntesDeRegistrar <= 1) {
-        this.evaluacion = 1; // Último intento y falló
-      } else {
-        this.evaluacion = 1; // Cualquier intento fallido igual debe registrar
-      }
-    },
-
     finish() {
-      if (this.isFinishEnabled) {
-        this.evaluacionGeneralizationStore.evaluacion = this.evaluacion;
-        router.push('/FORDescomposicion1').then(() => {
-          window.scrollTo(0, 0);
-        });
-      }
-    }
-  }
+      if (!this.isFinishEnabled) return;
+      router.push('/FORDescomposicion1').then(() => window.scrollTo(0, 0));
+    },
+  },
+  watch: {
+    inputs: {
+      deep: true,
+      handler() {
+        this.isCorrect = false;
+        this.showResult = false;
+      },
+    },
+  },
 };
 </script>
 
@@ -253,16 +162,6 @@ export default {
     margin-bottom: 2%;
   }
   
-  button {
-    margin: auto;
-    width: calc(100% / 3);
-    padding: 10px;
-    font-size: 1em;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
   
   .generalizacion {
     margin: 0 auto;

@@ -10,6 +10,9 @@ import 'material-icons/iconfont/material-icons.css'
 
 // Tokens de diseno compartidos (solo variables CSS sobre :root)
 import './assets/theme.css'
+import './assets/guide-sidebar.css'
+// Botones de los ejemplos y ejercicios (clases ec-btn, usan los tokens de theme.css)
+import './assets/ejercicios.css'
 
 const app = createApp(App)
 

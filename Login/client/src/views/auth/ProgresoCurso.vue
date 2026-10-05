@@ -186,28 +186,44 @@ function alternarTodos() {
       <!-- Encabezado -->
       <header class="progreso-hero">
         <div class="hero-text">
-          <p class="hero-eyebrow">Perfil del estudiante</p>
-          <h1 class="hero-title">Progreso del curso</h1>
-          <p class="hero-lead">
-            La <strong>nota</strong> es el promedio de los subejercicios que ya presentaste.
-            El <strong>avance</strong> indica cuántos has presentado del total.
+          <h1 class="hero-title">Perfil del estudiante</h1>
+          <p class="hero-lead">Tus datos y tu recorrido en los cursos.</p>
+        </div>
+        <dl class="perfil-datos">
+          <div class="perfil-dato">
+            <dt>Nombre:</dt>
+            <dd>{{ nombreCompleto || 'Sin nombre registrado' }}</dd>
+          </div>
+          <div class="perfil-dato">
+            <dt>Usuario:</dt>
+            <dd>{{ user?.username || 'Sin usuario registrado' }}</dd>
+          </div>
+          <div class="perfil-dato">
+            <dt>Correo:</dt>
+            <dd>{{ user?.email || 'Sin correo registrado' }}</dd>
+          </div>
+        </dl>
+      </header>
+
+      <div class="progreso-introduccion">
+        <div>
+          <h2 class="progreso-titulo">Progreso del curso</h2>
+          <p class="progreso-explicacion">
+            La nota es el promedio de los subejercicios que ya presentaste.
+            El avance indica cuántos has presentado del total.
             Lo que todavía no presentas no cuenta como cero.
           </p>
-          <div class="hero-chips">
-            <span class="chip"><strong>{{ user?.username || 'Sin datos' }}</strong></span>
-            <span class="chip chip-soft">{{ user?.email || 'Sin correo' }}</span>
-            <span v-if="nombreCompleto" class="chip chip-soft">{{ nombreCompleto }}</span>
-          </div>
-
-          <!-- El control es global (afecta a todos los <details> de la vista),
-               por eso vive en el encabezado y no dentro de un curso. -->
-          <div v-if="!cargando && !error && listaCursos.length > 0" class="hero-acciones">
-            <button type="button" class="boton boton-suave" @click="alternarTodos">
-              {{ estanExpandidos ? 'Contraer todo' : 'Expandir todo' }}
-            </button>
-          </div>
         </div>
-      </header>
+        <!-- El control afecta a todos los detalles de la vista. -->
+        <button
+          v-if="!cargando && !error && listaCursos.length > 0"
+          type="button"
+          class="boton boton-suave"
+          @click="alternarTodos"
+        >
+          {{ estanExpandidos ? 'Contraer todo' : 'Expandir todo' }}
+        </button>
+      </div>
 
       <!-- Carga -->
       <div v-if="cargando" class="estado-carga" aria-live="polite">
@@ -370,80 +386,87 @@ function alternarTodos() {
 /* --- Encabezado --- */
 
 .progreso-hero {
-  position: relative;
-  overflow: hidden;
-  background: var(--ec-surface-glass);
-  border: 1px solid var(--ec-border);
-  border-radius: var(--ec-radius-lg);
-  box-shadow: var(--ec-shadow-lg);
-  backdrop-filter: blur(6px);
-  padding: clamp(26px, 4vw, 44px);
+  padding: 8px 0 clamp(24px, 3vw, 36px);
+  border-bottom: 1px solid var(--ec-border-strong);
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   gap: clamp(20px, 4vw, 48px);
 }
 
-.progreso-hero::before {
-  content: "";
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  top: -150px;
-  right: -110px;
-  background: radial-gradient(circle, rgba(110, 198, 255, 0.35), transparent 70%);
-  pointer-events: none;
-}
-
 .hero-text {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-eyebrow {
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ec-blue-600);
+  min-width: 0;
 }
 
 .hero-title {
   margin: 0;
-  font-size: clamp(28px, 3vw, 42px);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--ec-blue-800);
 }
 
 .hero-lead {
-  margin: 14px 0 0;
-  max-width: 62ch;
-  font-size: clamp(15px, 1.1vw, 17px);
+  margin: 12px 0 0;
+  font-family: var(--ec-font-ui);
+  font-size: 15px;
   line-height: 1.65;
   color: var(--ec-text-muted);
 }
 
-.hero-chips {
-  margin-top: 20px;
+.perfil-datos {
+  min-width: 0;
+  margin: 0;
+  padding-left: clamp(20px, 3vw, 32px);
+  border-left: 2px solid var(--ec-blue-200);
+  display: grid;
+  gap: 10px;
+  font-family: var(--ec-font-ui);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.perfil-dato {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.perfil-dato dt {
+  font-weight: 700;
+  color: var(--ec-text-muted);
+}
+
+.perfil-dato dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.progreso-introduccion {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px 24px;
 }
 
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border-radius: 999px;
+.progreso-introduccion > div {
+  flex: 1 1 320px;
+}
+
+.progreso-titulo {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 500;
+}
+
+.progreso-explicacion {
+  max-width: 70ch;
+  margin: 10px 0 0;
   font-family: var(--ec-font-ui);
   font-size: 14px;
-  color: var(--ec-blue-800);
-  background: var(--ec-blue-100);
-  border: 1px solid var(--ec-border);
-}
-
-.chip-soft {
-  background: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
   color: var(--ec-text-muted);
 }
 
@@ -481,10 +504,6 @@ function alternarTodos() {
   font-size: 14px;
   line-height: 1.6;
   color: var(--ec-text-subtle);
-}
-
-.hero-acciones {
-  margin-top: 18px;
 }
 
 /* --- Arbol de niveles ---
@@ -710,8 +729,9 @@ function alternarTodos() {
 }
 
 .boton-suave {
-  background: var(--ec-surface);
+  background: transparent;
   color: var(--ec-blue-700);
+  font-weight: 400;
 }
 
 .boton-suave:hover {
@@ -791,6 +811,17 @@ function alternarTodos() {
 }
 
 /* --- Responsive --- */
+
+@media (max-width: 820px) {
+  .progreso-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-datos {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
 
 @media (max-width: 620px) {
   .nivel-cuerpo {

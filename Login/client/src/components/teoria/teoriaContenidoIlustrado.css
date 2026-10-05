@@ -1,0 +1,56 @@
+/* Complementos visuales para las teorías que conservan ejemplos en imágenes. */
+.texto-personalizado,
+.texto-li {
+  text-align: left;
+}
+
+li > p:last-child {
+  margin-bottom: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto 24px;
+  border: 1px solid var(--t-azul-200);
+  border-radius: 12px;
+}
+
+.centrada {
+  width: min(100%, 760px);
+}
+
+.centrada2 {
+  width: min(100%, 480px);
+}
+
+.centrada3 {
+  width: min(100%, 360px);
+}
+
+.centrada4 {
+  width: min(100%, 560px);
+}
+
+.teoria-sintaxis {
+  margin: 12px 0 18px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #0f2238;
+  overflow-wrap: anywhere;
+}
+
+.teoria-sintaxis p,
+.teoria-sintaxis span,
+.teoria-sintaxis strong {
+  color: #e6f0fb;
+  font-family: "Consolas", "Fira Code", "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: left !important;
+}
+
+.teoria-sintaxis p:last-child {
+  margin-bottom: 0;
+}

@@ -20,20 +20,17 @@
           v-for="(figura, index) in figuras"
           :key="figura.alt"
           class="figura"
-          @click="manejarClick(figura.alt)"
-        > 
-          <img 
-            :src="figura.src" 
-            :alt="figura.alt" 
-          />
+          @click="manejarClick(figura.alt, index)"
+        >
+
+          <img :src="figura.src" :alt="figura.alt" />
         </div>
       </div>
-      <div v-if="respuesta !== null" class="respuesta">
+      <div v-if="respuesta" class="respuesta">
         <p v-if="esCorrecta" class="correcto alert alert-success mt-3">¡Correcto!</p>
-        <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
+        <p v-else class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
 
-      
       <br>
       <br>
       <h4 class="texto-personalizado">De acuerdo a la teoria sobre <strong>variables y operaciones</strong> seleccione la imagen que <strong>representa</strong> las operaciones que se necesitan para resolver el problema:</h4>
@@ -43,33 +40,33 @@
           v-for="(figura, index) in figurasV"
           :key="figura.alt"
           class="figura"
-          @click="manejarClickVar(figura.alt)"
+          @click="manejarClickVar(figura.alt, index)"
         >
-          <img 
-            :src="figura.src" 
-            :alt="figura.alt" 
-          />
+
+          <img :src="figura.src" :alt="figura.alt" />
         </div>
       </div>
-      <div v-if="respuestaVar !== null" class="respuesta">
+      <div v-if="respuestaVar" class="respuesta">
         <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
-        <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
+        <p v-else class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
+
       <br>
       <div>
         <br>
         <br>
-        <DragAndDrop1Checker @evaluacionDrapAndDrop1Checker="actualizarEvaluacionDragAndDrop1Checker"/>
-        <DragAndDrop2Checker @evaluacionDragAndDrop2Checker="actualizarEvaluacionDragAndDrop2Checker"/>
+        <DragAndDrop1Checker @resultado="drag1Correcto = $event === true"/>
+        <DragAndDrop2Checker @resultado="drag2Correcto = $event === true"/>
       </div>
       <div>
         <br>
         <br>
       </div>
       <br>
-      <button class="bt-validate" 
+
+      <button class="bt-validate"
         @click="finish"
-        >
+        :disabled="!puedeAvanzar">
         Avanzar
       </button>
     </main>
@@ -82,10 +79,10 @@
 </template>
 
 <script>
-import router from '@/router'
-import Menu from "@/components/Menu.vue";
-import DragAndDrop1Checker from "@/components/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/DragAndDrop1CheckerVariablesOperacionesCEjemplo.vue";
-import DragAndDrop2Checker from "@/components/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/DragAndDrop2CheckerVariablesOperacionesCEjemplo.vue";
+import router from '@/router';
+import Menu from '@/components/Menu.vue';
+import DragAndDrop1Checker from '@/components/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/DragAndDrop1CheckerVariablesOperacionesCEjemplo.vue';
+import DragAndDrop2Checker from '@/components/ProgramacionC/Temas/VariablesOperacionesC/Ejemplo/DragAndDrop2CheckerVariablesOperacionesCEjemplo.vue';
 import Figura1 from '@/assets/ImagenesVariablesOperacionesC/Codigo1.png';
 import Figura2 from '@/assets/ImagenesVariablesOperacionesC/Codigo2.png';
 import Figura3 from '@/assets/ImagenesVariablesOperacionesC/Codigo3.png';
@@ -112,98 +109,43 @@ export default {
         { src: Figura3, alt: 'Figura 3' },
         { src: Figura4, alt: 'Figura 4' },
       ].sort(() => Math.random() - 0.5),
-
       figurasV: [
         { src: Figura5, alt: 'Figura 5' },
         { src: Figura6, alt: 'Figura 6' },
         { src: Figura7, alt: 'Figura 7' },
         { src: Figura8, alt: 'Figura 8' },
       ].sort(() => Math.random() - 0.5),
-
-
       respuesta: null,
       esCorrecta: false,
-      mensajeError: '',
-
       respuestaCorrecta: 'Figura 1',
-
-      mensajesError: [
-        '¡Error! Selecciona la imagen que tenga sentido con lo solicitado, pero ten presente la teoria sobre: funciones (sin parámetros) en la parte de estructura de una función',
-        '¡Error! Identifica la imagen correcta que tiene la estructura necesaría',
-        '¡Error! Intenta tener en cuenta que la imagen seleccionada debe de resolver el problema dado',
-        '¡Error! Recuerda que debes de seleccionar la imagen que concuerde con la función prototipo que resuelva el problema',
-      ],
-      
-      
       respuestaVar: null,
       CorrectaVar: false,
-      mensajeErrorVar: '',
-
       respuestaCorrectaV: 'Figura 5',
-
-      mensajesErrorVar: [
-        '¡Error! Recuerda que debes de seleccionar la imagen que tenga la declaración de la función (laboratorio) de forma correcta',
-        '¡Error! La forma en la que estas haciendo la declaración de la función (laboratorio) no es correcta',
-        '¡Error! Intenta ir a revisar la teoria sobre la declaración de una función e intentalo de nuevo',
-        '¡Error! Ten en cuenta que la declaración de la función (laboratorio) para este caso es una función (sin parámetros)',
-      ],
+      drag1Correcto: false,
+      drag2Correcto: false,
     };
-    
-    },
-
-  methods: {
-    manejarClick(figuraSeleccionada) {
-      
-      // Guardamos qué figura seleccionó el usuario
-      this.respuesta = figuraSeleccionada;
-
-      // Comprobamos si es correcta
-      this.esCorrecta =
-        figuraSeleccionada === this.respuestaCorrecta;
-
-      if (!this.esCorrecta) {
-        this.mensajeError = this.obtenerMensajeError();
-      } else {
-        this.mensajeError = '';
-      }
-    },
-
-    obtenerMensajeError() {
-      const randomIndex = Math.floor(Math.random() * this.mensajesError.length);
-      return this.mensajesError[randomIndex];
-    },
-
-    manejarClickVar(figuraSeleccionada) {
-      
-
-      // Guardamos qué figura seleccionó el usuario
-      this.respuestaVar = figuraSeleccionada;
-
-      // Comprobamos si es correcta
-      this.CorrectaVar =
-        figuraSeleccionada === this.respuestaCorrectaV;
-
-      if (!this.CorrectaVar) {
-        this.mensajeErrorVar = this.obtenerMensajeErrorVar();
-      } else {
-        this.mensajeErrorVar = '';
-      }
-    },
-
-    obtenerMensajeErrorVar() {
-      const randomIndex = Math.floor(Math.random() * this.mensajesErrorVar.length);
-      return this.mensajesErrorVar[randomIndex];
-    },
-
-    finish() {
-      router.push('/AlgoritmoVariablesOperacionesCEjemplo').then(() => {
-        window.scrollTo(0, 0);
-      });
-    },
-
   },
 
+  computed: {
+    puedeAvanzar() {
+      return this.esCorrecta && this.CorrectaVar && this.drag1Correcto && this.drag2Correcto;
+    },
+  },
 
+  methods: {
+    manejarClick(figura, index) {
+      this.respuesta = figura;
+      this.esCorrecta = this.figuras[index].alt === this.respuestaCorrecta;
+    },
+    manejarClickVar(figura, index) {
+      this.respuestaVar = figura;
+      this.CorrectaVar = this.figurasV[index].alt === this.respuestaCorrectaV;
+    },
+    finish() {
+      if (!this.puedeAvanzar) return;
+      router.push('/AlgoritmoVariablesOperacionesCEjemplo').then(() => window.scrollTo(0, 0));
+    },
+  },
 };
 </script>
 
@@ -241,17 +183,6 @@ export default {
   margin-top: 20px;
 }
 
-.contador-imagen {
-position: absolute;
-top: 10px;
-left: 10px;
-background-color: rgba(0, 0, 0, 0.7);
-color: white;
-font-size: 14px;
-padding: 5px 10px;
-border-radius: 5px;
-}
-
 .correcto {
   font-size: 20px;
   color: green;
@@ -283,13 +214,6 @@ border-radius: 5px;
     font-family: Arial, sans-serif; /* Tipo de letra */
     font-size: 18px; /* Tamaño de fuente */
     text-align: justify; /* Alineación justificada */
-}
-
-.evaluacion-final {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
 }
 
 #user {

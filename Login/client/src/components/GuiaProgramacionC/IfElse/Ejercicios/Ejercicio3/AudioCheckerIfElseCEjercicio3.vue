@@ -26,10 +26,11 @@
 
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
-          class="btn btn-primary"
-          @click="validateInputs" 
-          :disabled="entradasIncompletas || !puedeResponder">
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="validateInputs"
+          :disabled="entradasIncompletas || !puedeResponder"
+        >
           <span v-if="ev.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
           Enviar
         </button>
@@ -47,12 +48,16 @@
       </div>
 
       <!-- Botón para finalizar -->
-      <button
-        class="btn btn-success mt-3"
-        @click="finish"
-        :disabled="!isFinishEnabled">
-        Finalizar
-      </button>
+      <div class="ec-acciones">
+        <button
+          class="ec-btn ec-btn-secondary"
+          @click="finish"
+          :disabled="!isFinishEnabled"
+        >
+          Finalizar
+          <span class="material-icons" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -114,12 +119,12 @@ export default {
     return {
       // id = numero del espacio en blanco de la imagen al que corresponde el audio.
       audio: [
-        { id: 1, src: audio1 }, // espacio (1): %d
-        { id: 2, src: audio2 }, // espacio (2): ||
-        { id: 3, src: audio3 }, // espacio (3): <=
-        { id: 4, src: audio4 }, // espacio (4): ==
-        { id: 5, src: audio5 }, // espacio (5): else
-        { id: 6, src: audio6 }, // espacio (6): return 0;
+        { id: 1, src: audio1 }, // espacio (1): printf("Edad: %d\n", edad);
+        { id: 2, src: audio2 }, // espacio (2): if (edad < 0 || edad > 120) { / printf("Error: edad no valida\n"); / } else {
+        { id: 3, src: audio3 }, // espacio (3): if (edad < 12) { / printf("Tarifa: Infantil\n"); / } else if (edad <= 17) { / printf("Tarifa: Juvenil\n");
+        { id: 4, src: audio4 }, // espacio (4): } else { / printf("Tarifa: General\n"); / }
+        { id: 5, src: audio5 }, // espacio (5): if (dia == 6 || dia == 7) { / printf("Dia: fin de semana\n");
+        { id: 6, src: audio6 }, // espacio (6): } else { / printf("Dia: entre semana\n"); / }
       ],
       evaluacion: null,
       showErrorMessage: false,
@@ -244,16 +249,6 @@ export default {
     margin-bottom: 2%;
   }
   
-  button {
-    margin: auto;
-    width: calc(100% / 3);
-    padding: 10px;
-    font-size: 1em;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
   
   .generalizacion {
     margin: 0 auto;

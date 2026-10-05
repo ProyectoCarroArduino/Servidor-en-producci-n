@@ -26,10 +26,11 @@
 
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
-          class="btn btn-primary"
-          @click="validateInputs" 
-          :disabled="entradasIncompletas || !puedeResponder">
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="validateInputs"
+          :disabled="entradasIncompletas || !puedeResponder"
+        >
           <span v-if="ev.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
           Enviar
         </button>
@@ -47,12 +48,16 @@
       </div>
 
       <!-- Botón para finalizar -->
-      <button
-        class="btn btn-success mt-3"
-        @click="finish"
-        :disabled="!isFinishEnabled">
-        Finalizar
-      </button>
+      <div class="ec-acciones">
+        <button
+          class="ec-btn ec-btn-secondary"
+          @click="finish"
+          :disabled="!isFinishEnabled"
+        >
+          Finalizar
+          <span class="material-icons" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -111,9 +116,9 @@ export default {
     return {
       // id = numero del espacio en blanco de la imagen al que corresponde el audio.
       audio: [
-        { id: 1, src: audio1 }, // espacio (1): 0
-        { id: 2, src: audio2 }, // espacio (2): <=
-        { id: 3, src: audio3 }, // espacio (3): +=
+        { id: 1, src: audio1 }, // espacio (1): int paginasPorDia = 15; / int total = 0;
+        { id: 2, src: audio2 }, // espacio (2): for (int dia = 1; dia <= 5; dia++) {
+        { id: 3, src: audio3 }, // espacio (3): total += paginasPorDia; / printf("Dia %d: %d paginas\n", dia, total);
       ],
       evaluacion: null,
       showErrorMessage: false,
@@ -238,16 +243,6 @@ export default {
     margin-bottom: 2%;
   }
   
-  button {
-    margin: auto;
-    width: calc(100% / 3);
-    padding: 10px;
-    font-size: 1em;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
   
   .generalizacion {
     margin: 0 auto;

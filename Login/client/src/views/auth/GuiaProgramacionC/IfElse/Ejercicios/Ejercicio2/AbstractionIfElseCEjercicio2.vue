@@ -26,7 +26,13 @@ Estado: Fiebre</pre>
         <br>
         <br>
         <EstadoSubejercicio :estado="ev" />
-        <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="analyzeCode"
+          :disabled="isRetryDisabled"
+        >
+          Analizar Código
+        </button>
         <br>
 
         <br>
@@ -36,14 +42,17 @@ Estado: Fiebre</pre>
       <br>
 
       <div>
-        <button
-          class="bt-validate"
-          v-if="ev.bloqueado"
-          :disabled="!isFinishEnabled"
-          @click="finish"
-        >
-          Avanzar
-        </button>
+        <div class="ec-acciones">
+          <p v-if="!isFinishEnabled" class="ec-acciones-ayuda">Resuelve el código o agota tus intentos para avanzar a Generalización.</p>
+          <button
+            class="ec-btn ec-btn-secondary"
+            :disabled="!isFinishEnabled"
+            @click="finish"
+          >
+            Avanzar
+            <span class="material-icons" aria-hidden="true">arrow_forward</span>
+          </button>
+        </div>
       </div>
 
     </main>
@@ -192,6 +201,7 @@ int main(void) {
     },
 
     finish() {
+      if (!this.isFinishEnabled) return;
       this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
       router.push('/IEGeneralizacion2').then(() => {
         window.scrollTo(0, 0);

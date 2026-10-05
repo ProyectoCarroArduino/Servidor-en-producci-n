@@ -36,9 +36,9 @@
     <!-- Boton para enviar -->
     <div class="button-container mt-3">
       <button
+        class="ec-btn ec-btn-primary"
         @click="validateInputs"
         :disabled="isButtonDisabled || !puedeResponder"
-        class="btn btn-primary"
       >
         Enviar respuesta
       </button>
@@ -55,13 +55,17 @@
     </div>
 
     <!-- Botón avanzar (solo si completó o ya no hay intentos) -->
-    <button
-      class="btn btn-primary mt-3"
-      @click="finish"
-      :disabled="!ev.bloqueado"
-    >
-      Avanzar
-    </button>
+    <div class="ec-acciones">
+      <p v-if="!ev.bloqueado" class="ec-acciones-ayuda">Resuelve el algoritmo o agota tus intentos para avanzar a Abstracción.</p>
+      <button
+        class="ec-btn ec-btn-secondary"
+        @click="finish"
+        :disabled="!ev.bloqueado"
+      >
+        Avanzar
+        <span class="material-icons" aria-hidden="true">arrow_forward</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -256,16 +260,6 @@ export default {
       text-align: center;
     }
     
-    button {
-      margin: auto;
-      width: calc(100% / 3);
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
     
     .algoritmos {
       margin: 0 auto;

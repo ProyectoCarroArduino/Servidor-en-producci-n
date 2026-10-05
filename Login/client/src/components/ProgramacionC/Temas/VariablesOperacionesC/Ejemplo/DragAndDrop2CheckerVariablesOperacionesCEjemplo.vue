@@ -27,124 +27,113 @@
         </div>
       </div>
       <br>
+
       <br>
       <button @click="enviarOrden"
+
       >Enviar Orden</button>
       <br>
       <div v-if="resultadoValidacion === 'correcto'">
-        <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
+        <p class="correcto alert alert-success mt-3">¡Correcto!</p>
       </div>
       <div v-else-if="resultadoValidacion === 'incorrecto'">
-        <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
+        <p class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
+
       <br>
     </div>
   </template>
   
   <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-  
-  export default {
-    name: 'DragAndDrop2Checker',
-  
-    data() {
-      return {
-        ordenCorrecto: [
-          { id: 1, text: "int largoRectangulo = 12;" },
-          { id: 2, text: "int anchoRectangulo = 6;" },
-          { id: 3, text: "int areaRectangulo;" },
-          { id: 4, text: "int baseTriangulo = 12;" },
-          { id: 5, text: "int alturaTriangulo = 8;" },
-          { id: 6, text: "int areaTriangulo;" },
-          { id: 7, text: "areaRectangulo = largoRectangulo * anchoRectangulo;" },
-          { id: 8, text: "areaTriangulo = (baseTriangulo * alturaTriangulo) / 2;" },
-          { id: 9, text: "return 0;" },
+import { animations } from '@formkit/drag-and-drop';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
 
-        ],
-        respuestasIncorrectas: [
-          "¡Error! Revisa la teoria sobre la estructura de una función para poder determinar cuales son los elementos necesarios",
-          "¡Error! Ten presente el orden en el que los elementos están determinados en la estructura de una función",
-          "¡Error! No olvides que en el cuadro marrón solo tienen que estar los elementos necesarios para resolver el ejercicio",
-          "¡Error! Considera si los elementos que estas agregando son los adecuados para una función (sin parámetros)",
-        ],
-        mensajeRespuesta: "",
-        resultadoValidacion: null,
-        ordenVerdadero : null,
-      };
-    },
-  
-    setup() {
-  
-      const [todoList, todos] = useDragAndDrop(
-        [
-          { id: 1, text: "int largoRectangulo = 12;"},
-          { id: 2, text: "areaRectangulo = largoRectangulo * anchoRectangulo;"},
-          { id: 3, text: "int baseTriangulo = 12;"},
-          { id: 4, text: "printf(mensaje)"},
-          { id: 5, text: "int anchoRectangulo = 6;"},
-          { id: 6, text: "int areaRectangulo;"},
-        ].sort(() => Math.random() - 0.5),
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-  
-      const [doneList, dones] = useDragAndDrop(
-        [
-          { id: 7, text: "int alturaTriangulo = 8;"},
-          { id: 8, text: "return 0;"},
-          { id: 9, text: "int areaTriangulo;"},
-          { id: 10, text: "areaTriangulo = (baseTriangulo * alturaTriangulo) / 2;"},
-          { id: 11, text: "int area;"},
-        ],
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
+export default {
+  name: 'DragAndDrop2Checker',
 
-      return {
-        todoList,
-        todos,
-        doneList,
-        dones,
-      };
-    },
-  
-    methods: {
-      
-      validarOrden(arr) {
-        if(this.ordenVerdadero === true){
-          return;
-        }
+  data() {
+    return {
+      ordenCorrecto: [
+        { id: 1, text: 'int largoRectangulo = 12;' },
+        { id: 2, text: 'int anchoRectangulo = 6;' },
+        { id: 3, text: 'int areaRectangulo;' },
+        { id: 4, text: 'int baseTriangulo = 12;' },
+        { id: 5, text: 'int alturaTriangulo = 8;' },
+        { id: 6, text: 'int areaTriangulo;' },
+        { id: 7, text: 'areaRectangulo = largoRectangulo * anchoRectangulo;' },
+        { id: 8, text: 'areaTriangulo = (baseTriangulo * alturaTriangulo) / 2;' },
+        { id: 9, text: 'return 0;' },
+      ],
+      resultadoValidacion: null,
+      ordenVerdadero: null,
+    };
+  },
 
-        
-        for (let i = 0; i < this.ordenCorrecto.length; i++) {
-          if (arr[i].text !== this.ordenCorrecto[i].text) {
-            this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
-            this.ordenVerdadero = false;
-            return 'incorrecto';
-
-          } else {
-            this.ordenVerdadero = true;
-            return 'correcto';
-          }
-        }
-        return 'correcto';
+  setup() {
+    const [todoList, todos] = useDragAndDrop(
+      [
+        { id: 1, text: 'int largoRectangulo = 12;' },
+        { id: 2, text: 'areaRectangulo = largoRectangulo * anchoRectangulo;' },
+        { id: 3, text: 'int baseTriangulo = 12;' },
+        { id: 4, text: 'printf(mensaje)' },
+        { id: 5, text: 'int anchoRectangulo = 6;' },
+        { id: 6, text: 'int areaRectangulo;' },
+      ].sort(() => Math.random() - 0.5),
+      {
+        plugins: [animations()],
+        group: 'kanbanGroup1',
+        dragHandle: '.kanban-handle',
       },
+    );
 
-      enviarOrden() {
-        this.resultadoValidacion = this.validarOrden(this.dones);
+    const [doneList, dones] = useDragAndDrop(
+      [
+        { id: 7, text: 'int alturaTriangulo = 8;' },
+        { id: 8, text: 'return 0;' },
+        { id: 9, text: 'int areaTriangulo;' },
+        { id: 10, text: 'areaTriangulo = (baseTriangulo * alturaTriangulo) / 2;' },
+        { id: 11, text: 'int area;' },
+      ],
+      {
+        plugins: [animations()],
+        group: 'kanbanGroup1',
+        dragHandle: '.kanban-handle',
       },
-  
+    );
+
+    return {
+      todoList,
+      todos,
+      doneList,
+      dones,
+    };
+  },
+
+  methods: {
+    validarOrden(arr) {
+      this.ordenVerdadero =
+        arr.length === this.ordenCorrecto.length &&
+        arr.every((item, index) => item.text === this.ordenCorrecto[index].text);
+      this.$emit('resultado', this.ordenVerdadero);
+      return this.ordenVerdadero ? 'correcto' : 'incorrecto';
     },
-  
-  };
-  </script>
+    enviarOrden() {
+      this.resultadoValidacion = this.validarOrden(this.dones);
+    },
+  },
+  emits: ['resultado'],
+  watch: {
+    dones: {
+      deep: true,
+      handler() {
+        this.ordenVerdadero = null;
+        this.resultadoValidacion = null;
+        this.$emit('resultado', null);
+      },
+    },
+  },
+};
+</script>
   
   <style scoped>
   

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- Mostrar intentos disponibles -->
-    <p v-if="intentosDisponiblesAlgorithm !== null" class="alert alert-info">
-      Intentos restantes: {{ intentosDisponiblesAlgorithm }}
-    </p>
+
     <br>
      <p class="texto-personalizado">
       <strong> Instrucciones:</strong> {{ instruccion }}
@@ -38,9 +35,9 @@
     <!-- Boton para enviar -->
     <div class="button-container mt-3">
       <button
+        class="ec-btn ec-btn-primary"
         @click="validateInputs"
-        :disabled="isButtonDisabled || intentosDisponiblesAlgorithm <= 0"
-        class="btn btn-primary"
+        :disabled="isButtonDisabled"
       >
         Enviar respuesta
       </button>
@@ -52,36 +49,22 @@
     </div>
 
     <!-- Retroalimentación -->
-    <div v-if="feedbackMessage" class="mt-3">
-      <p :class="feedbackClass">{{ feedbackMessage }}</p>
+    <div v-if="showResult" class="mt-3">
+      <p v-if="isCorrect" class="alert alert-success">¡Correcto!</p>
+      <p v-else class="alert alert-danger">¡Incorrecto!</p>
     </div>
 
-    <!-- Nota obtenida -->
-    <div v-if="evaluacion !== null" class="correcto mt-3">
-      <p
-        class="alert"
-        :class="{
-          'alert-danger': evaluacion === 1,
-          'alert-success': evaluacion >= 3
-        }"
+    <div class="ec-acciones">
+      <p v-if="!isFinishEnabled" class="ec-acciones-ayuda">Resuelve correctamente el algoritmo para avanzar a Abstracción.</p>
+      <button
+        class="ec-btn ec-btn-secondary"
+        @click="finish"
+        :disabled="!isFinishEnabled"
       >
-        Tu evaluación (algoritmo): {{ evaluacion }}
-      </p>
+        Avanzar
+        <span class="material-icons" aria-hidden="true">arrow_forward</span>
+      </button>
     </div>
-
-    <!-- Nota global del store -->
-    <p class="alert alert-primary mt-3">
-      Evaluación Algoritmo (global): {{ evaluacionAlgorithmStore.evaluacion.toFixed(1) }}
-    </p>
-
-    <!-- Botón avanzar (solo si completó o ya no hay intentos) -->
-    <button
-      class="bt-validate mt-3"
-      @click="finish"
-      :disabled="evaluacion === null || (intentosDisponiblesAlgorithm > 0 && !isCorrect)"
-    >
-      Avanzar
-    </button>
   </div>
 </template>
 
@@ -93,79 +76,38 @@ import parte1 from '@/assets/ImagenesConceptosBasicosC/Ejemplo_Alg_Parte1.png';
 import parte2 from '@/assets/ImagenesConceptosBasicosC/Ejemplo_Alg_Parte2.png';
 import parte3 from '@/assets/ImagenesConceptosBasicosC/Ejemplo_Alg_Parte3.png';
 import distractor1 from '@/assets/ImagenesConceptosBasicosC/Ejemplo_Alg_Dis1.png';
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionAlgorithmStore } from '@/stores/evaluation';
-import { useEvaluacionLocal } from '@/composables/useEvaluacionLocal';
 
 export default {
   name: 'ImageOrderingModule',
-
-  setup() {
-    const evaluacionAlgorithmStore = useEvaluacionAlgorithmStore();
-
-    const evaluacionAlgorithmRaw = reactive(
-      useEvaluacionLocal({
-        cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'algoritmo',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacionAlgorithm = {
-      ...toRefs(evaluacionAlgorithmRaw),
-      registrarEvaluacion: evaluacionAlgorithmRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionAlgorithmRaw.obtenerIntentos
-    };
-
-    onMounted(() => {
-      evaluacionAlgorithm.obtenerIntentos();
-    });
-
-    return {
-      evaluacionAlgorithmStore,
-      intentosDisponiblesAlgorithm: evaluacionAlgorithm.intentosRestantes,
-      obtenerIntentosAlgorithm: evaluacionAlgorithm.obtenerIntentos,
-      registrarEvaluacionAlgorithm: evaluacionAlgorithm.registrarEvaluacion,
-      notaActualAlgorithm: evaluacionAlgorithm.notaActual
-    };
-  },
 
   data() {
     return {
       instruccion: 'Ingrese el orden correcto del algoritmo',
       puzzle: [],
-      evaluacion: null,
-      // Partes del algoritmo en el orden correcto (ids 1..n).
       correct: [
         { id: 1, src: parte1 },
         { id: 2, src: parte2 },
         { id: 3, src: parte3 },
       ],
-      // Pool de distractores (ids desde n+1).
-      bad: [
-        { id: 4, src: distractor1 },
-      ],
+      bad: [{ id: 4, src: distractor1 }],
       distractoresVisibles: 1,
       inputs: [],
       numSteps: 0,
-      feedbackMessage: '',
-      feedbackClass: '',
       isCorrect: false,
       showPrincipal: true,
       showResult: false,
-      showErrorMessage: false
+      showErrorMessage: false,
     };
   },
 
   created() {
-    this.inputs = Array(this.correct.length).fill().map((_, index) => ({
-      key: index,
-      value: null,
-      name: `input-${index + 1}`
-    }));
+    this.inputs = Array(this.correct.length)
+      .fill()
+      .map((_, index) => ({
+        key: index,
+        value: null,
+        name: `input-${index + 1}`,
+      }));
     // Se muestran todas las partes y una seleccion al azar del pool de distractores.
     const distractores = this.mezclar(this.bad).slice(0, this.distractoresVisibles);
     this.puzzle = [...this.correct, ...distractores];
@@ -177,14 +119,12 @@ export default {
     isButtonDisabled() {
       return !this.inputs.every(
         (input) =>
-          Number.isInteger(input.value) &&
-          input.value >= 1 &&
-          input.value <= this.puzzle.length
+          Number.isInteger(input.value) && input.value >= 1 && input.value <= this.puzzle.length,
       );
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponiblesAlgorithm <= 0;
-    }
+      return this.isCorrect;
+    },
   },
 
   methods: {
@@ -194,7 +134,6 @@ export default {
         [this.puzzle[i], this.puzzle[j]] = [this.puzzle[j], this.puzzle[i]];
       }
     },
-
     mezclar(lista) {
       const copia = [...lista];
       for (let i = copia.length - 1; i > 0; i--) {
@@ -203,69 +142,28 @@ export default {
       }
       return copia;
     },
-
-    async validateInputs() {
-  if (this.isButtonDisabled || this.intentosDisponiblesAlgorithm <= 0) {
-    return;
-  }
-
-  this.showErrorMessage = false;
-  this.showResult = false;
-  this.isCorrect = false;
-
-  // Validar entradas
-  const entradasValidas = this.inputs.every((input) => {
-    const inputValue = Number.parseInt(input.value, 10);
-    return !Number.isNaN(inputValue) && inputValue >= 1 && inputValue <= this.puzzle.length;
-  });
-
-  if (!entradasValidas) {
-    this.showErrorMessage = true;
-    return;
-  }
-
-  // Verificar si es correcta la respuesta
-  this.isCorrect = this.inputs.every((input, index) => {
-    const inputValue = Number.parseInt(input.value, 10);
-    return this.puzzle[inputValue - 1].id === this.correct[index].id;
-  });
-
-  // Calcular evaluación SOLO si es correcta o si se acabaron los intentos
-  const intentosAntesDeRegistrar = this.intentosDisponiblesAlgorithm;
-
-  if (this.isCorrect) {
-    this.evaluacion = intentosAntesDeRegistrar === 3 ? 5 :
-                      intentosAntesDeRegistrar === 2 ? 4 : 3;
-  } else if (this.intentosDisponiblesAlgorithm <= 1) { 
-    // Si es el último intento y falló, poner la nota mínima
-    this.evaluacion = 1;
-  } else {
-    // Si no es el último intento y falló, no se guarda nota aún
-    this.evaluacion = 1;
-  }
-
-  try {
-    await this.registrarEvaluacionAlgorithm(this.evaluacion);
-    await this.obtenerIntentosAlgorithm(); // Esto refresca los intentos visibles siempre
-    console.log("✔ Evaluación de algoritmo registrada y estado actualizado.");
-  } catch (err) {
-    console.error("Error registrando evaluación del algoritmo:", err);
-    alert("Hubo un problema al guardar la evaluación.");
-  }
-
-  this.showResult = true;
-  this.showPrincipal = false;
-},
-
+    validateInputs() {
+      if (this.isButtonDisabled) return;
+      this.showErrorMessage = false;
+      this.isCorrect = this.inputs.every(
+        (input, index) => this.puzzle[input.value - 1].id === this.correct[index].id,
+      );
+      this.showResult = true;
+    },
     finish() {
-      if (this.isFinishEnabled) {
-        this.evaluacionAlgorithmStore.evaluacion = this.evaluacion;
-        router.push('/CBEjAbstraccion').then(() => {
-          window.scrollTo(0, 0);
-        });
-      }
-    }
-  }
+      if (!this.isFinishEnabled) return;
+      router.push('/CBEjAbstraccion').then(() => window.scrollTo(0, 0));
+    },
+  },
+  watch: {
+    inputs: {
+      deep: true,
+      handler() {
+        this.isCorrect = false;
+        this.showResult = false;
+      },
+    },
+  },
 };
 </script>
 
@@ -280,16 +178,6 @@ export default {
       text-align: center;
     }
     
-    button {
-      margin: auto;
-      width: calc(100% / 3);
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
     
     .algoritmos {
       margin: 0 auto;

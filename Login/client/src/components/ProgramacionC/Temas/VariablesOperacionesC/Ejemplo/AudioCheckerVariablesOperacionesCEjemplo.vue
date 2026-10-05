@@ -3,6 +3,7 @@
     <div v-if="showPrincipal" class="generalizacion">
       <h2>Ordena correctamente los audios</h2>
       <br>
+
       <br>
       <div class="audio-container">
         <div class="audio-item" v-for="(audioItem, index) in audio" :key="audioItem.id">
@@ -24,9 +25,9 @@
 
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
+        <button
           class="btn btn-primary"
-          @click="validateInputs" 
+          @click="validateInputs"
           :disabled="isButtonDisabled">
           Enviar
         </button>
@@ -40,14 +41,14 @@
       <!-- Resultado del intento -->
       <div v-if="showResult" class="mt-4">
         <p v-if="isCorrect" class="alert alert-success">¡Correcto!</p>
-        <p v-else class="alert alert-danger">Lo sentimos, es incorrecto.</p>
+        <p v-else class="alert alert-danger">¡Incorrecto!</p>
       </div>
 
       <!-- Botón para finalizar -->
       <button
         class="btn btn-success mt-3"
         @click="finish"
-        >
+        :disabled="!isFinishEnabled">
         Finalizar
       </button>
     </div>
@@ -56,8 +57,8 @@
 
 
 <script>
-import router from '@/router'; 
-import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';  
+import router from '@/router';
+import audio1 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio1.mp3';
 import audio2 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio2.mp3';
 import audio3 from '@/assets/AudiosMontarArduinoUNOSoporte/Audio3.mp3';
 
@@ -71,19 +72,18 @@ export default {
         { id: 2, src: audio2 },
         { id: 3, src: audio3 },
       ],
-      
       showErrorMessage: false,
       showResult: false,
       isCorrect: false,
       showPrincipal: true,
-      inputs: Array(3).fill().map((_, index) => ({
-        key: index,
-        value: null,
-        name: `input-${index + 1}`
-      })),
+      inputs: Array(3)
+        .fill()
+        .map((_, index) => ({
+          key: index,
+          value: null,
+          name: `input-${index + 1}`,
+        })),
       numSteps: 3,
-      feedbackMessage: '',
-      feedbackClass: ''
     };
   },
 
@@ -95,13 +95,13 @@ export default {
     isButtonDisabled() {
       return !this.inputs.every(
         (input) =>
-          Number.isInteger(input.value) &&
-          input.value >= 1 &&
-          input.value <= 3
+          Number.isInteger(input.value) && input.value >= 1 && input.value <= this.audio.length,
       );
     },
+    isFinishEnabled() {
+      return this.isCorrect;
+    },
   },
-
 
   methods: {
     shuffleAudios() {
@@ -110,50 +110,28 @@ export default {
         [this.audio[i], this.audio[j]] = [this.audio[j], this.audio[i]];
       }
     },
-
-    async validateInputs() {
-      
-      if (this.isButtonDisabled) {
-        return;
-      }
-
+    validateInputs() {
+      if (this.isButtonDisabled) return;
       this.showErrorMessage = false;
-      this.showResult = false;
-      this.isCorrect = false;
-
-      const entradasValidas = this.inputs.every((input) => {
-        const inputValue = Number.parseInt(input.value, 10);
-        return !Number.isNaN(inputValue) && inputValue >= 1 && inputValue <= this.audio.length;
-      });
-
-      if (!entradasValidas) {
-        this.showErrorMessage = true;
-        return;
-      }
-
-      this.isCorrect = this.inputs.every((input, index) => {
-        const inputValue = Number.parseInt(input.value, 10);
-        return inputValue === this.audio[index].id;
-      });
-
-      this.showPrincipal = true; // Mantiene la vista principal
+      this.isCorrect = this.inputs.every((input, index) => input.value === this.audio[index].id);
       this.showResult = true;
     },
-
-    
-
     finish() {
-      /*
-       * El ejemplo no depende de una evaluación
-       * para poder avanzar.
-       */
+      if (!this.isFinishEnabled) return;
       router
         .push('/DescomposicionVariablesOperacionesCEjercicio1')
-        .then(() => {
-          window.scrollTo(0, 0);
-        });
-    }
-  }
+        .then(() => window.scrollTo(0, 0));
+    },
+  },
+  watch: {
+    inputs: {
+      deep: true,
+      handler() {
+        this.isCorrect = false;
+        this.showResult = false;
+      },
+    },
+  },
 };
 </script>
 

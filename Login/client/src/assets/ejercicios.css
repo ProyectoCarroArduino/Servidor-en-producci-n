@@ -1,0 +1,83 @@
+/*
+ * Botones de las vistas de ejemplos y ejercicios de la Guia de Programacion en C.
+ * Usan los tokens de theme.css y el lenguaje de los botones .cta de
+ * GuiaProgramacionHome.vue. Las clases llevan el prefijo ec- para no chocar con
+ * Bootstrap ni con los estilos scoped de cada vista.
+ *
+ *   .ec-btn            base comun
+ *   .ec-btn-primary    accion del subejercicio (Enviar, Verificar, Analizar)
+ *   .ec-btn-secondary  navegacion entre fases (Avanzar, Finalizar)
+ *   .ec-acciones       fila centrada para uno o varios botones
+ */
+
+.ec-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 180px;
+  padding: 11px 24px;
+  border: none;
+  border-radius: var(--ec-radius-sm);
+  font-family: var(--ec-font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ec-btn .material-icons {
+  font-size: 20px;
+}
+
+.ec-btn-primary {
+  background: linear-gradient(135deg, var(--ec-blue-600), var(--ec-blue-800));
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(37, 100, 168, 0.28);
+}
+
+.ec-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(37, 100, 168, 0.36);
+}
+
+.ec-btn-secondary {
+  background: var(--ec-surface);
+  color: var(--ec-blue-700);
+  box-shadow: inset 0 0 0 1.5px rgba(37, 100, 168, 0.32);
+}
+
+.ec-btn-secondary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: var(--ec-blue-100);
+}
+
+.ec-btn:focus-visible {
+  outline: 3px solid var(--ec-accent);
+  outline-offset: 2px;
+}
+
+.ec-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.ec-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.ec-acciones-ayuda {
+  flex-basis: 100%;
+  margin: 0;
+  text-align: center;
+  font-family: var(--ec-font-ui);
+  font-size: 14px;
+  color: var(--ec-text-muted);
+}

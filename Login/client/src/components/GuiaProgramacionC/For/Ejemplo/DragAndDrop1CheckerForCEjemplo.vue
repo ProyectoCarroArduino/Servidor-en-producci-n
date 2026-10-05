@@ -13,21 +13,19 @@
           </article>
         </div>
         <br>
-        <p v-if="contadorVerificaciones > 0 && !ordenCorrecto" class="contador">
-          Intentos restantes: {{ Maxintento - contadorVerificaciones }}
-        </p>
+
         <br>
-        <button 
-          @click="verificarOrden" 
-          :disabled="contadorVerificaciones >= 3 || ordenCorrecto === true">
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="verificarOrden"
+
+        >
           Verificar Orden
         </button>
         <br>
-        <p v-if="ordenCorrecto === true" class="correcto alert alert-success mt-3">¡Orden correcto!</p>
-        <p v-if="ordenCorrecto === false" class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
-        <p v-if="ordenCorrecto || contadorVerificaciones === Maxintento" class="correcto alert alert-success mt-3">
-          Tu evaluación final es: {{ evaluacion }}
-        </p>
+        <p v-if="ordenCorrecto === true" class="correcto alert alert-success mt-3">¡Correcto!</p>
+        <p v-if="ordenCorrecto === false" class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
+
       </div>
       <br>
       <br>
@@ -35,89 +33,63 @@
   </template>
   
   <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-  export default {
-    name: 'DragAndDrop1Checker',
-  
-    data() {
-      return {
-        ordenCorrecto: null,
-        mensajeError: "",
-        contadorVerificaciones : 0,
-        Maxintento: 3,
-        evaluacion : null,
-        respuestasIncorrectas: [
-        "¡Error! La inicialización se ejecuta una sola vez, al comienzo",
-        "¡Error! La condición se revisa antes de entrar al cuerpo",
-        "¡Error! La actualización ocurre al final de cada vuelta",
-        "¡Error! Repasa en la teoría cómo se ejecuta un ciclo for",
-      ],
-      };
-    },
+import { animations } from '@formkit/drag-and-drop';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
+export default {
+  name: 'DragAndDrop1Checker',
 
-    methods: {
-      verificarOrden() {
-        if (this.ordenCorrecto === true || this.contadorVerificaciones >= this.Maxintento) {
-          return; // Bloquea clics adicionales si se alcanzó el límite o la respuesta es correcta
-        }
-
-        this.contadorVerificaciones++;
-        const ordenEsperado = ["Inicialización: i empieza en 2", "Condición: revisar si i <= 10", "Cuerpo: mostrar el valor de i", "Actualización: sumar 2 a i y volver a la condición"];
-        if (this.tapes.every((tape, index) => tape === ordenEsperado[index])) {
-          this.ordenCorrecto = true;
-          this.calcularEvaluacion();
-        } else {
-          this.ordenCorrecto = false;
-          this.mensajeError = this.obtenerMensajeAleatorio();
-
-          if (this.contadorVerificaciones >= this.Maxintento) {
-            this.calcularEvaluacion(false);
-          }
-        }
-      },
-
-      calcularEvaluacion() {
-      if (this.ordenCorrecto === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorVerificaciones === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorVerificaciones === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorVerificaciones === 3) {
-          this.evaluacion = 3;
-        }
-      } else if (this.contadorVerificaciones === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
-      }
-
-      this.$emit('evaluacionLlamada', this.evaluacion); // Emitir la evaluación al componente padre
+  data() {
+    return {
+      ordenCorrecto: null,
+    };
   },
-      
-      obtenerMensajeAleatorio() {
-        const indiceAleatorio = Math.floor(Math.random() * this.respuestasIncorrectas.length);
-        return this.respuestasIncorrectas[indiceAleatorio];
-      }
+
+  methods: {
+    verificarOrden() {
+      const ordenEsperado = [
+        'Inicialización: i empieza en 2',
+        'Condición: revisar si i <= 10',
+        'Cuerpo: mostrar el valor de i',
+        'Actualización: sumar 2 a i y volver a la condición',
+      ];
+      this.ordenCorrecto =
+        this.tapes.length === ordenEsperado.length &&
+        this.tapes.every((tape, index) => tape === ordenEsperado[index]);
+      this.$emit('resultado', this.ordenCorrecto);
     },
-  
-    setup() {
-      const [parent, tapes] = useDragAndDrop(
-        ["Inicialización: i empieza en 2", "Condición: revisar si i <= 10", "Cuerpo: mostrar el valor de i", "Actualización: sumar 2 a i y volver a la condición"].sort(() => Math.random() - 0.5),
-        { 
-          plugins: [animations()],
-        }
-      );
-  
-  
-      return {
-        parent,
-        tapes,
-      };
-    }
-  
-  };
-  </script>
+  },
+
+  setup() {
+    const [parent, tapes] = useDragAndDrop(
+      [
+        'Inicialización: i empieza en 2',
+        'Condición: revisar si i <= 10',
+        'Cuerpo: mostrar el valor de i',
+        'Actualización: sumar 2 a i y volver a la condición',
+      ].sort(() => Math.random() - 0.5),
+      {
+        plugins: [animations()],
+      },
+    );
+
+    return {
+      parent,
+      tapes,
+    };
+  },
+
+  emits: ['resultado'],
+  watch: {
+    tapes: {
+      deep: true,
+      handler() {
+        this.ordenCorrecto = null;
+        this.$emit('resultado', null);
+      },
+    },
+  },
+};
+</script>
   
   <style scoped>
   

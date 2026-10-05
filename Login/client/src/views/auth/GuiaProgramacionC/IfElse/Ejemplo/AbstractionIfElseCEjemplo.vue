@@ -14,13 +14,10 @@
       <br>
       <h3>Abstracción:</h3>
       <br>
-      <!-- Intentos de Video -->
-      <p v-if="intentosDisponibles !== null" class="alert alert-info">
-        Intentos restantes: {{ intentosDisponibles }}
-      </p>
+
       <br>
       <p class="texto-personalizado">
-      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
+      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").
       </p>
       <br>
       <div class="hello">
@@ -28,7 +25,13 @@
         <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
         <br>
         <br>
-        <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="analyzeCode"
+          :disabled="isRetryDisabled"
+        >
+          Analizar Código
+        </button>
         <br>
 
         <br>
@@ -36,24 +39,21 @@
       </div>
 
       <br>
-      <p v-if="isCorrect || intentosDisponibles <= 0" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
 
       <div>
-        <button
-          class="bt-validate"
-          v-if="isCorrect || intentosDisponibles <= 0"
-          :disabled="!isFinishEnabled"
-          @click="finish"
-        >
-          Avanzar
-        </button>
+        <div class="ec-acciones">
+          <p v-if="!isFinishEnabled" class="ec-acciones-ayuda">Resuelve correctamente el código para avanzar a Generalización.</p>
+          <button
+            class="ec-btn ec-btn-secondary"
+            :disabled="!isFinishEnabled"
+            @click="finish"
+          >
+            Avanzar
+            <span class="material-icons" aria-hidden="true">arrow_forward</span>
+          </button>
+        </div>
       </div>
 
-      <p class="alert alert-primary">
-        Evaluación Abstracción: {{ evaluacionAbstractionStore.evaluacion.toFixed(1) }}
-      </p>
     </main>
 
     <aside class="menu-lateral">
@@ -67,147 +67,73 @@
 <script>
 import router from '@/router';
 import axios from 'axios';
-import Menu from "@/components/Menu.vue";
-import { onMounted, reactive, toRefs } from 'vue';
-import { useEvaluacionAbstractionStore } from '@/stores/evaluation';
-import { useEvaluacionLocal } from '@/composables/useEvaluacionLocal';
+import Menu from '@/components/Menu.vue';
 
 export default {
   components: {
-    Menu
+    Menu,
   },
 
   props: {
-    msg: String
-  },
-
-  setup() {
-    const evaluacionAbstractionStore = useEvaluacionAbstractionStore();
-
-    const evaluacionRaw = reactive(
-      useEvaluacionLocal({
-        cursoNombre: 'Guía Construcción Carro Arduino', // Añadido
-        modulo: '',
-        submodulo: '',
-        ejercicio: 'Ejercicio 1',
-        categoria: 'abstraccion',
-        subejercicio: 'Subejercicio 1'
-      })
-    );
-
-    const evaluacion = {
-      ...toRefs(evaluacionRaw),
-      registrarEvaluacion: evaluacionRaw.registrarEvaluacion,
-      obtenerIntentos: evaluacionRaw.obtenerIntentos
-    };
-
-    onMounted(() => {
-      evaluacion.obtenerIntentos();
-    });
-
-    return {
-      evaluacionAbstractionStore,
-      intentosDisponibles: evaluacion.intentosRestantes,
-      notaActual: evaluacion.notaActual,
-      registrarEvaluacion: evaluacion.registrarEvaluacion,
-      obtenerIntentos: evaluacion.obtenerIntentos
-    };
+    msg: String,
   },
 
   data() {
     return {
-      evaluacion: null,
       isCorrect: false,
       code: '',
       result: '',
       resultClass: '',
-      correctCode: `#include <stdio.h>
-
-int main(void) {
-    int edad = 16;
-
-    if (edad >= 18) {
-        printf("Puede votar\\n");
-    } else {
-        printf("Todavia no puede votar\\n");
-    }
-
-    return 0;
-}`
+      analizando: false,
     };
   },
 
   computed: {
     isRetryDisabled() {
-      return this.isCorrect || this.intentosDisponibles <= 0;
+      return this.analizando || !this.code.trim();
     },
     isFinishEnabled() {
-      return this.isCorrect || this.intentosDisponibles <= 0;
-    }
+      return this.isCorrect;
+    },
   },
 
   methods: {
     async analyzeCode() {
-      if (this.isCorrect || this.intentosDisponibles <= 0) {
-        return;
-      }
-
+      if (this.isRetryDisabled) return;
+      this.analizando = true;
       this.result = '';
-      this.resultClass = '';
       this.isCorrect = false;
-
-      const userCode = this.code.replace(/\s+/g, ' ').trim();
-      const correctCode = this.correctCode.replace(/\s+/g, ' ').trim();
-
-      let localError = '';
-      if (userCode !== correctCode) {
-        localError = "El código ingresado no coincide con la solución esperada. Revisa la sintaxis, espacios y elimina cualquier comentario.";
-      }
-
-      let isCorrect = false;
-
+      const submittedCode = this.code;
       try {
-        const response = await axios.post(import.meta.env.VITE_API_URI_ANALYZE, { code: this.code });
-
-        if (response.data.errors) {
-          this.result = [localError, response.data.errors].filter(Boolean).join('\n');
-          this.resultClass = 'warning';
-        } else {
-          this.result = '¡El código es correcto!';
-          this.resultClass = 'success';
-          isCorrect = true;
-          this.isCorrect = true;
-        }
-
-        // Calcular nota según patrón
-        const intentosAntes = this.intentosDisponibles;
-        let evaluacion = 1;
-        if (isCorrect) {
-          evaluacion = intentosAntes === 3 ? 5 : intentosAntes === 2 ? 4 : 3;
-        } else if (intentosAntes <= 1) {
-          evaluacion = 1;
-        } else {
-          evaluacion = 1;
-        }
-
-        await this.registrarEvaluacion(evaluacion);
-        await this.obtenerIntentos();
-        this.evaluacion = evaluacion;
-
+        const response = await axios.post(import.meta.env.VITE_API_URI_ANALYZE, {
+          code: submittedCode,
+        });
+        if (this.code !== submittedCode) return;
+        this.isCorrect = !response.data.errors;
+        this.result = this.isCorrect ? '¡Correcto!' : '¡Incorrecto!';
+        this.resultClass = this.isCorrect ? 'success' : 'warning';
       } catch (error) {
-        console.error("Error al analizar el código:", error);
-        this.result = "Ha ocurrido un error al analizar el código. Inténtalo nuevamente.";
-        this.resultClass = "warning";
+        console.error('Error al analizar el código:', error);
+        if (this.code === submittedCode) {
+          this.result = 'No se pudo analizar el código. Inténtalo nuevamente.';
+          this.resultClass = 'warning';
+        }
+      } finally {
+        this.analizando = false;
       }
     },
-
     finish() {
-      this.evaluacionAbstractionStore.evaluacion = this.evaluacion;
-      router.push('/IEEjGeneralizacion').then(() => {
-        window.scrollTo(0, 0);
-      });
-    }
-  }
+      if (!this.isFinishEnabled) return;
+      router.push('/IEEjGeneralizacion').then(() => window.scrollTo(0, 0));
+    },
+  },
+  watch: {
+    code() {
+      this.isCorrect = false;
+      this.result = '';
+      this.resultClass = '';
+    },
+  },
 };
 </script>
 

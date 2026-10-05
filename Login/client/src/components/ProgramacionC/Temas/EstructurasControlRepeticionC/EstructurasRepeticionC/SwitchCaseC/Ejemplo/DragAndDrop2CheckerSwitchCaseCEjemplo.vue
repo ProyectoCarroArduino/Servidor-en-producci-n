@@ -27,158 +27,115 @@
         </div>
       </div>
       <br>
-      <p v-if="contadorOrden > 0 && !ordenVerdadero" class="contador">
-        intentos restantes: {{ Maxintento - contadorOrden }}
-      </p>
+
       <br>
       <button @click="enviarOrden"
-      :disabled="contadorOrden >= 3 || ordenVerdadero === true"
+
       >Enviar Orden</button>
       <br>
       <div v-if="resultadoValidacion === 'correcto'">
-        <p class="correcto alert alert-success mt-3">¡El orden es correcto!</p>
+        <p class="correcto alert alert-success mt-3">¡Correcto!</p>
       </div>
       <div v-else-if="resultadoValidacion === 'incorrecto'">
-        <p class="incorrecto alert alert-danger mt-3">{{ mensajeRespuesta }}</p>
+        <p class="incorrecto alert alert-danger mt-3">¡Incorrecto!</p>
       </div>
-      <p v-if="ordenVerdadero || contadorOrden === Maxintento" class="correcto alert alert-success mt-3">
-        Tu evaluación final es: {{ evaluacion }}
-      </p>
+
       <br>
     </div>
   </template>
   
   <script>
-  import { animations } from "@formkit/drag-and-drop";
-  import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
-  
-  export default {
-    name: 'DragAndDrop2Checker',
-  
-    data() {
-      return {
-        ordenCorrecto: [
-          { id: 1, text: "int opcion;" },
-          { id: 2, text: "switch (opcion) {" },
-          { id: 3, text: "case 1:" },
-          { id: 4, text: "break;" },
-          { id: 5, text: "case 2:" },
-          { id: 6, text: "break;" },
-          { id: 7, text: "default:" },
-          { id: 8, text: "break;" },
-          { id: 9, text: "}" },
-          { id: 10, text: "return 0;" },
+import { animations } from '@formkit/drag-and-drop';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
 
-        ],
-        respuestasIncorrectas: [
-          "¡Error! Revisa la teoria sobre la estructura de una función para poder determinar cuales son los elementos necesarios",
-          "¡Error! Ten presente el orden en el que los elementos están determinados en la estructura de una función",
-          "¡Error! No olvides que en el cuadro marrón solo tienen que estar los elementos necesarios para resolver el ejercicio",
-          "¡Error! Considera si los elementos que estas agregando son los adecuados para una función (sin parámetros)",
-        ],
-        mensajeRespuesta: "",
-        resultadoValidacion: null,
-        contadorOrden : 0, 
-        Maxintento : 3,
-        ordenVerdadero : null,
-        evaluacion : null,
+export default {
+  name: 'DragAndDrop2Checker',
 
-      
-      };
-    },
-  
-    setup() {
-  
-      const [todoList, todos] = useDragAndDrop(
-        [
-          { id: 1, text: "return 0;"},
-          { id: 2, text: "case 1:"},
-          { id: 3, text: "}"},
-          { id: 4, text: "switch (opcion) {"},
-          { id: 5, text: "break;"},
-          { id: 6, text: "default:"},
-        ].sort(() => Math.random() - 0.5),
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-  
-      const [doneList, dones] = useDragAndDrop(
-        [
-          { id: 7, text: "int opcion;"},
-          { id: 8, text: "case 2:"},
-          { id: 9, text: "break;"},
-          { id: 10, text: "break;"},
-          { id: 11, text: "int distancia;"},
-          { id: 12, text: "char numero;"},
-
-        ],
-        {
-          plugins: [animations()],
-          group: "kanbanGroup1",
-          dragHandle: ".kanban-handle"
-        }
-      );
-
-      return {
-        todoList,
-        todos,
-        doneList,
-        dones,
-      };
-    },
-  
-    methods: {
-      
-      validarOrden(arr) {
-        if(this.ordenVerdadero === true || this.contadorOrden >= this.Maxintento){
-          return;
-        }
-        this.contadorOrden++;
-        for (let i = 0; i < this.ordenCorrecto.length; i++) {
-          if (arr[i].text !== this.ordenCorrecto[i].text) {
-            this.mensajeRespuesta = this.respuestasIncorrectas[Math.floor(Math.random() * this.respuestasIncorrectas.length)];
-            this.ordenVerdadero = false;
-            this.calcularEvaluacion(false);
-            return 'incorrecto';
-
-          } else {
-            this.ordenVerdadero = true;
-            this.calcularEvaluacion();
-            return 'correcto';
-          }
-        }
-        return 'correcto';
-      },
-
-      enviarOrden() {
-        this.resultadoValidacion = this.validarOrden(this.dones);
-      },
-
-      calcularEvaluacion() {
-      if (this.ordenVerdadero === true) {
-        // Calcular evaluación solo si la respuesta es correcta
-        if (this.contadorOrden === 1) {
-          this.evaluacion = 5;
-        } else if (this.contadorOrden === 2) {
-          this.evaluacion = 4;
-        } else if (this.contadorOrden === 3) {
-          this.evaluacion = 3;
-        } 
-      } else if (this.contadorOrden === this.Maxintento) {
-        // Asignar calificación mínima al alcanzar intentos máximos sin éxito
-        this.evaluacion = 1;
-      }
-
-      this.$emit('evaluacionEstructura', this.evaluacion); // Emitir la evaluación al componente padre
+  data() {
+    return {
+      ordenCorrecto: [
+        { id: 1, text: 'int opcion;' },
+        { id: 2, text: 'switch (opcion) {' },
+        { id: 3, text: 'case 1:' },
+        { id: 4, text: 'break;' },
+        { id: 5, text: 'case 2:' },
+        { id: 6, text: 'break;' },
+        { id: 7, text: 'default:' },
+        { id: 8, text: 'break;' },
+        { id: 9, text: '}' },
+        { id: 10, text: 'return 0;' },
+      ],
+      resultadoValidacion: null,
+      ordenVerdadero: null,
+    };
   },
-  
+
+  setup() {
+    const [todoList, todos] = useDragAndDrop(
+      [
+        { id: 1, text: 'return 0;' },
+        { id: 2, text: 'case 1:' },
+        { id: 3, text: '}' },
+        { id: 4, text: 'switch (opcion) {' },
+        { id: 5, text: 'break;' },
+        { id: 6, text: 'default:' },
+      ].sort(() => Math.random() - 0.5),
+      {
+        plugins: [animations()],
+        group: 'kanbanGroup1',
+        dragHandle: '.kanban-handle',
+      },
+    );
+
+    const [doneList, dones] = useDragAndDrop(
+      [
+        { id: 7, text: 'int opcion;' },
+        { id: 8, text: 'case 2:' },
+        { id: 9, text: 'break;' },
+        { id: 10, text: 'break;' },
+        { id: 11, text: 'int distancia;' },
+        { id: 12, text: 'char numero;' },
+      ],
+      {
+        plugins: [animations()],
+        group: 'kanbanGroup1',
+        dragHandle: '.kanban-handle',
+      },
+    );
+
+    return {
+      todoList,
+      todos,
+      doneList,
+      dones,
+    };
+  },
+
+  methods: {
+    validarOrden(arr) {
+      this.ordenVerdadero =
+        arr.length === this.ordenCorrecto.length &&
+        arr.every((item, index) => item.text === this.ordenCorrecto[index].text);
+      this.$emit('resultado', this.ordenVerdadero);
+      return this.ordenVerdadero ? 'correcto' : 'incorrecto';
     },
-  
-  };
-  </script>
+    enviarOrden() {
+      this.resultadoValidacion = this.validarOrden(this.dones);
+    },
+  },
+  emits: ['resultado'],
+  watch: {
+    dones: {
+      deep: true,
+      handler() {
+        this.ordenVerdadero = null;
+        this.resultadoValidacion = null;
+        this.$emit('resultado', null);
+      },
+    },
+  },
+};
+</script>
   
   <style scoped>
   

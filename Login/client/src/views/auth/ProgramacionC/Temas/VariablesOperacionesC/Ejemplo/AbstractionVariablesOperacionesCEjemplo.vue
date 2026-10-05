@@ -13,9 +13,10 @@
       <br>
       <h3>Abstracción:</h3>
       <br>
+
       <br>
       <p class="texto-personalizado">
-      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").                     
+      <strong> Instrucciones:</strong>  Digite el código correcto en C para solucionar el ejercicio. Elimine cualquier comentario que haya agregado al código. Solo se permite un salto de linea ("\n").
       </p>
       <br>
       <div class="hello">
@@ -23,7 +24,7 @@
         <textarea v-model="code" placeholder="Escribe tu código aquí"></textarea>
         <br>
         <br>
-        <button @click="analyzeCode">Analizar Código</button>
+        <button @click="analyzeCode" :disabled="isRetryDisabled">Analizar Código</button>
         <br>
 
         <br>
@@ -31,11 +32,12 @@
       </div>
 
       <br>
-      
 
       <div>
         <button
           class="bt-validate"
+
+          :disabled="!isFinishEnabled"
           @click="finish"
         >
           Avanzar
@@ -55,15 +57,15 @@
 <script>
 import router from '@/router';
 import axios from 'axios';
-import Menu from "@/components/Menu.vue";
+import Menu from '@/components/Menu.vue';
 
 export default {
   components: {
-    Menu
+    Menu,
   },
 
   props: {
-    msg: String
+    msg: String,
   },
 
   data() {
@@ -72,77 +74,56 @@ export default {
       code: '',
       result: '',
       resultClass: '',
-      correctCode: `#include <stdio.h>
-
-int main() {
-
-    int largoRectangulo = 12;
-    int anchoRectangulo = 6;
-    int areaRectangulo;
-
-    int baseTriangulo = 12;
-    int alturaTriangulo = 8;
-    int areaTriangulo;
-
-    areaRectangulo = largoRectangulo * anchoRectangulo;
-    areaTriangulo = (baseTriangulo * alturaTriangulo) / 2;
-
-    printf("Area del rectangulo: %d cm^2\n", areaRectangulo);
-    printf("Area del triangulo: %d cm^2\n", areaTriangulo);
-
-    return 0;
-}`
+      analizando: false,
     };
   },
 
+  computed: {
+    isRetryDisabled() {
+      return this.analizando || !this.code.trim();
+    },
+    isFinishEnabled() {
+      return this.isCorrect;
+    },
+  },
 
   methods: {
     async analyzeCode() {
-      if (this.isCorrect) {
-        return;
-      }
-
+      if (this.isRetryDisabled) return;
+      this.analizando = true;
       this.result = '';
-      this.resultClass = '';
       this.isCorrect = false;
-
-      const userCode = this.code.replace(/\s+/g, ' ').trim();
-      const correctCode = this.correctCode.replace(/\s+/g, ' ').trim();
-
-      let localError = '';
-      if (userCode !== correctCode) {
-        localError = "El código ingresado no coincide con la solución esperada. Revisa la sintaxis, espacios y elimina cualquier comentario.";
-      }
-
-      let isCorrect = false;
-
+      const submittedCode = this.code;
       try {
-        const response = await axios.post(import.meta.env.VITE_API_URI_ANALYZE, { code: this.code });
-
-        if (response.data.errors) {
-          this.result = [localError, response.data.errors].filter(Boolean).join('\n');
-          this.resultClass = 'warning';
-        } else {
-          this.result = '¡El código es correcto!';
-          this.resultClass = 'success';
-          isCorrect = true;
-          this.isCorrect = true;
-        }
-
-
+        const response = await axios.post(import.meta.env.VITE_API_URI_ANALYZE, {
+          code: submittedCode,
+        });
+        if (this.code !== submittedCode) return;
+        this.isCorrect = !response.data.errors;
+        this.result = this.isCorrect ? '¡Correcto!' : '¡Incorrecto!';
+        this.resultClass = this.isCorrect ? 'success' : 'warning';
       } catch (error) {
-        console.error("Error al analizar el código:", error);
-        this.result = "Ha ocurrido un error al analizar el código. Inténtalo nuevamente.";
-        this.resultClass = "warning";
+        console.error('Error al analizar el código:', error);
+        if (this.code === submittedCode) {
+          this.result = 'No se pudo analizar el código. Inténtalo nuevamente.';
+          this.resultClass = 'warning';
+        }
+      } finally {
+        this.analizando = false;
       }
     },
-
     finish() {
-      router.push('/GeneralizacionVariablesOperacionesCEjemplo').then(() => {
-        window.scrollTo(0, 0);
-      });
-    }
-  }
+      if (!this.isFinishEnabled) return;
+      router.push('/GeneralizacionVariablesOperacionesCEjemplo').then(() => window.scrollTo(0, 0));
+    },
+  },
+  watch: {
+    code() {
+      this.isCorrect = false;
+      this.result = '';
+      this.resultClass = '';
+    },
+  },
 };
 </script>
 

@@ -1,180 +1,83 @@
 <template>
-    <div class="menu-item" :class="{expanded: expanded}">
-        <div 
-            class="label"
-            @click="handleClick()"
-            :style="{
-                paddingLeft: depth * 20 + 'px'
-            }"
-        >
-            <div class="left" :style="{ marginLeft: 10 + depth * 10 + 'px' }">
-                <i v-if="icon" class="material-icons">{{ icon }}</i>
-                <span>{{ label }}</span>
-            </div>
-            <div v-if="data" class="right">
-                <i class="expand material-icons" :class="{expanded: expanded}" style="color: #6e6e6e;">expand_more</i>
-            </div>
-        </div>
-        <div 
-            v-show="showChildren"
-            class="items-container"
-            ref="container"
-            :style="{height: containerHeight}"
-        >
-            <menu-item
-                v-for="(item, index) in data"
-                :key="index"
-                :label="item.label"
-                :icon="item.icon"
-                :depth="depth + 1"
-                :data="item.children"
-                :href="item.href"
-            />
-        </div>
+  <details
+    v-if="data?.length"
+    class="guide-menu-item"
+    :class="{ 'is-root': depth === 0 }"
+    :open="expanded"
+    @toggle="onToggle"
+  >
+    <summary class="guide-menu-row">
+      <span v-if="number" class="guide-menu-number">{{ number }}.</span>
+      <span class="guide-menu-label">{{ displayLabel }}</span>
+      <span class="guide-menu-chevron" aria-hidden="true"></span>
+    </summary>
+    <div class="guide-menu-children">
+      <MenuItem
+        v-for="item in data"
+        :key="item.label"
+        :label="item.label"
+        :depth="depth + 1"
+        :data="item.children"
+        :href="item.href"
+      />
     </div>
+  </details>
+  <RouterLink
+    v-else-if="href"
+    :to="href"
+    class="guide-menu-item guide-menu-row"
+    :class="{ 'is-root': depth === 0 }"
+    :aria-current="route.path === href ? 'page' : undefined"
+    @click="scrollPageToTop"
+  >
+    <span v-if="number" class="guide-menu-number">{{ number }}.</span>
+    <span class="guide-menu-label">{{ displayLabel }}</span>
+  </RouterLink>
 </template>
 
-<script>
-export default {
-    name: 'menu-item',
-    data: () => ({
-        showChildren: false,
-        expanded: false,
-        containerHeight: 0,
-    }),
-    props: {
-        label: {
-            type: String, 
-            required: true
-        },
-        icon: {
-            type: String
-        },
-        depth: {
-            type: Number, 
-            required: true
-        },
-        data: {
-            type: Array
-        }, 
-        href: {
-            type: String, 
-        },
-    },
+<script setup lang="ts">
+import { computed, nextTick, ref, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { menuNodeContainsRoute, type GuideMenuNode } from '@/types/guideMenu'
 
-    methods: {
-        toggleMenu() {
-            this.expanded = !this.expanded;
-            if(!this.showChildren) {
-                this.showChildren = true;
-                this.$nextTick(() => {
-                    this.containerHeight = this.$refs["container"].scrollHeight + "px";
-                    setTimeout(() => {
-                        this.containerHeight = "fit-content";
-                        this.$refs["container"].style.overflow = "visible";
-                    }, 300)
-                })
-            }else{
-                this.containerHeight = this.$refs["container"].scrollHeight + "px";
-                this.$refs["container"].style.overflow = "hidden";
-                setTimeout(() => {
-                    this.containerHeight = 0 + "px";
-                }, 10)
-                setTimeout(() => {
-                    this.showChildren = false;
+const props = defineProps<{
+  label: string
+  depth: number
+  data?: GuideMenuNode[]
+  href?: string
+  icon?: string
+}>()
 
-                }, 300)
-                this.showChildren = false;
-            }
-        },
+const route = useRoute()
+const expanded = ref(false)
+const cleanLabel = computed(() =>
+  props.label
+    .trim()
+    .replace(/:\s*$/, '')
+    .replace(/^Teoria$/, 'Teoría')
+    .replace(/^Ejemplo$/, 'Ejemplos')
+)
+const number = computed(() =>
+  props.depth === 0 ? cleanLabel.value.match(/^(\d+)\.\s*/)?.[1] : undefined
+)
+const displayLabel = computed(() =>
+  number.value ? cleanLabel.value.replace(/^\d+\.\s*/, '') : cleanLabel.value
+)
 
-        handleClick() {
-            if (this.data === undefined || this.data === null) {
-                // Redirige utilizando Vue Router si hay una ruta definida
-                if (this.href) {
-                    this.$router.push(this.href);
-                }
-            } else {
-                this.toggleMenu();
-            }
-        },
-    }
+watch(
+  () => route.path,
+  (path) => {
+    expanded.value = Boolean(props.data?.some((item) => menuNodeContainsRoute(item, path)))
+  },
+  { immediate: true }
+)
+
+function onToggle(event: Event) {
+  expanded.value = (event.currentTarget as HTMLDetailsElement).open
+}
+
+async function scrollPageToTop() {
+  await nextTick()
+  window.scrollTo({ top: 0 })
 }
 </script>
-
-<style scoped>
-
-.menu-item {
-    position: relative;
-    width: 100%;
-    .label {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        white-space: normal;
-        user-select: none;
-        min-height: 50px;
-        padding: 10px 20px;
-        box-sizing: border-box;
-        color: #3a3939;
-        transition: all .3s ease;
-        border-bottom: 1px solid #dddcdccc;
-        border-top: 1px solid #dddcdccc;
-        > div {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-
-        .right {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            min-width: 20px;
-            margin-left: 10px;
-            /* ✅ mueve la flecha más hacia el borde derecho */
-        }
-
-        span {
-            white-space: normal; /* 🔹 Permite varias líneas */
-            word-wrap: break-word; /* 🔹 Rompe palabras largas si es necesario */
-            overflow: visible;
-            text-overflow: unset;
-            display: inline-block;
-            flex: 1; /* 🔹 Asegura que use el espacio disponible */
-        }
-
-        i {
-            font-size: 20px;
-            color: #6e6e6e;
-            transition: all .3s ease;
-            &.expand {
-                font-size: 16px;
-                color: #cacaca;
-                &.expanded {
-                    transform: rotate(180deg);
-                }
-            }
-        }
-    }
-    .label {
-    transition: background-color .3s ease;
-    }
-
-  .label:hover {
-    background-color: rgba(46, 209, 198, 0.35);
-    cursor: pointer;
-    }
-
-    .items-container {
-        width: 100%;
-        overflow: hidden;
-        transition: height .3s ease;
-    }
-}
-
-</style>

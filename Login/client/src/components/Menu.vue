@@ -1,20 +1,17 @@
 <template>
-    <div class="menu">
-        <MenuItem
-            v-for="(item, index) in menuTree" 
-            :key="index"
-            :label="item.label"
-            :icon="item.icon"
-            :depth="0"
-            :data="item.children"
-            :menuTree="menuTree"
-            :href="item.href"
-        />
-    </div>
+  <GuideSidebar
+    :items="menuTree"
+    id="programacion"
+    title="Programación en C"
+    intro-route="/IntroGuiaC"
+    section-label="Temas"
+    count-label="temas"
+    footer-text="Teoría, ejemplos y ejercicios"
+  />
 </template>
 
 <script>
-import MenuItem from './MenuItem.vue';
+import GuideSidebar from './GuideSidebar.vue';
 export default {
     name: "recursive-menu",
     data: () => ({
@@ -975,7 +972,7 @@ export default {
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/"
+                                href: "/MatricesCTeoria"
                             },
                             {
                                 label: "Ejemplo:",
@@ -983,19 +980,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/"
+                                        href: "/MATEjDescomposicion"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/"
+                                        href: "/MATEjAlgoritmo"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/"
+                                        href: "/MATEjAbstraccion"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/"
+                                        href: "/MATEjGeneralizacion"
                                     },
                                 ]
                             },
@@ -1008,19 +1005,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: "/"
+                                                href: "/MATDescomposicion1"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: "/"
+                                                href: "/MATAlgoritmo1"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: "/"
+                                                href: "/MATAbstraccion1"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: "/"
+                                                href: "/MATGeneralizacion1"
                                             },
                                         ]
                                     },
@@ -1029,19 +1026,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: ""
+                                                href: "/MATDescomposicion2"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: ""
+                                                href: "/MATAlgoritmo2"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: ""
+                                                href: "/MATAbstraccion2"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: ""
+                                                href: "/MATGeneralizacion2"
                                             },
                                         ]
                                     },
@@ -1050,19 +1047,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: ""
+                                                href: "/MATDescomposicion3"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: ""
+                                                href: "/MATAlgoritmo3"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: ""
+                                                href: "/MATAbstraccion3"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: ""
+                                                href: "/MATGeneralizacion3"
                                             },
                                         ]
                                     },
@@ -1186,7 +1183,7 @@ export default {
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/"
+                                href: "/FuncionesConParametrosCTeoria"
                             },
                             {
                                 label: "Ejemplo:",
@@ -1194,19 +1191,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/"
+                                        href: "/FCPEjDescomposicion"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/"
+                                        href: "/FCPEjAlgoritmo"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/"
+                                        href: "/FCPEjAbstraccion"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/"
+                                        href: "/FCPEjGeneralizacion"
                                     },
                                 ]
                             },
@@ -1219,19 +1216,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: "/"
+                                                href: "/FCPDescomposicion1"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: "/"
+                                                href: "/FCPAlgoritmo1"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: "/"
+                                                href: "/FCPAbstraccion1"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: "/"
+                                                href: "/FCPGeneralizacion1"
                                             },
                                         ]
                                     },
@@ -1240,19 +1237,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: ""
+                                                href: "/FCPDescomposicion2"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: ""
+                                                href: "/FCPAlgoritmo2"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: ""
+                                                href: "/FCPAbstraccion2"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: ""
+                                                href: "/FCPGeneralizacion2"
                                             },
                                         ]
                                     },
@@ -1261,19 +1258,19 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: ""
+                                                href: "/FCPDescomposicion3"
                                             },
                                             {
                                                 label: "Algoritmo",
-                                                href: ""
+                                                href: "/FCPAlgoritmo3"
                                             },
                                             {
                                                 label: "Abstracción",
-                                                href: ""
+                                                href: "/FCPAbstraccion3"
                                             },
                                             {
                                                 label: "Generalización",
-                                                href: ""
+                                                href: "/FCPGeneralizacion3"
                                             },
                                         ]
                                     },
@@ -1289,59 +1286,6 @@ export default {
     
     }),
 
-    components: {
-        MenuItem
-    },
+    components: { GuideSidebar },
 }
 </script>
-
-<style>
-
-.menu {
-  position: fixed;
-  top: 80px;
-  right: 0;
-  height: calc(100vh - 80px);
-  background-color: rgb(235, 241, 243);
-  font-weight: bold;
-  overflow-y: auto;
-  transition: all 0.3s ease;
-  z-index: 999;
-
-  /* 🔹 AJUSTE DE ANCHO */
-  /* Mínimo 180px, ideal 18vw, máximo 320px */
-  width: clamp(180px, 18vw, 320px);
-
-  /* 🔹 SEPARACIÓN del contenido principal (empuja hacia la izquierda) */
-  padding-left: 0px; 
-  box-sizing: border-box;
-}
-
-/* Laptops medianas */
-@media (max-width: 1300px) {
-  .menu {
-    width: clamp(160px, 20vw, 280px);
-  }
-}
-
-/* Tablets */
-@media (max-width: 900px) {
-  .menu {
-    position: relative;
-    width: 100%;
-    height: auto;
-    top: 0;
-    border-left: none;
-    border-top: 1px solid #ccc;
-  }
-}
-
-/* Celulares */
-@media (max-width: 600px) {
-  .menu {
-    display: none;
-  }
-}
-
-
-</style>

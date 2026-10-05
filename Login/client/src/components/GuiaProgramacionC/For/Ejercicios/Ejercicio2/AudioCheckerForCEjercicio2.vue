@@ -26,10 +26,11 @@
 
       <!-- Botón para validar -->
       <div class="button-container mt-3">
-        <button 
-          class="btn btn-primary"
-          @click="validateInputs" 
-          :disabled="entradasIncompletas || !puedeResponder">
+        <button
+          class="ec-btn ec-btn-primary"
+          @click="validateInputs"
+          :disabled="entradasIncompletas || !puedeResponder"
+        >
           <span v-if="ev.cargando" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
           Enviar
         </button>
@@ -47,12 +48,16 @@
       </div>
 
       <!-- Botón para finalizar -->
-      <button
-        class="btn btn-success mt-3"
-        @click="finish"
-        :disabled="!isFinishEnabled">
-        Finalizar
-      </button>
+      <div class="ec-acciones">
+        <button
+          class="ec-btn ec-btn-secondary"
+          @click="finish"
+          :disabled="!isFinishEnabled"
+        >
+          Finalizar
+          <span class="material-icons" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -112,10 +117,10 @@ export default {
     return {
       // id = numero del espacio en blanco de la imagen al que corresponde el audio.
       audio: [
-        { id: 1, src: audio1 }, // espacio (1): i--
-        { id: 2, src: audio2 }, // espacio (2): %
+        { id: 1, src: audio1 }, // espacio (1): int contador = 0; / for (int i = 20; i >= 1; i--) {
+        { id: 2, src: audio2 }, // espacio (2): if (i % 4 == 0) { / printf("%d ", i);
         { id: 3, src: audio3 }, // espacio (3): contador++;
-        { id: 4, src: audio4 }, // espacio (4): \n
+        { id: 4, src: audio4 }, // espacio (4): printf("\nHay %d multiplos de 4\n", contador);
       ],
       evaluacion: null,
       showErrorMessage: false,
@@ -240,16 +245,6 @@ export default {
     margin-bottom: 2%;
   }
   
-  button {
-    margin: auto;
-    width: calc(100% / 3);
-    padding: 10px;
-    font-size: 1em;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
   
   .generalizacion {
     margin: 0 auto;
