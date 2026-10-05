@@ -1,0 +1,409 @@
+<template>
+  <div id="layout-general">
+    <main class="contenido">
+      <h1 class="text-center">5. Estructuras de control y repetición</h1>
+      <br>
+      <br>
+      <h3>Ejercicio 3:</h3>
+      <br>
+      <p class="texto-personalizado">Un museo cobra según la edad del visitante y el día de la visita. Hacer un programa en C que declare dos variables enteras: edad con el valor 15 y dia con el valor 6 (1 = lunes … 7 = domingo), en ese orden. Primero muestre Edad: 15 con un printf que use %d y la variable edad. Luego, si edad es menor que 0 o mayor que 120 (una sola condición con ||), muestre Error: edad no valida. Si no (en el else), tome dos decisiones, una después de la otra: (a) con if, else if y else: si edad es menor que 12, muestre Tarifa: Infantil; si no, si edad es menor o igual que 17, muestre Tarifa: Juvenil; en otro caso, muestre Tarifa: General; (b) con if else: si dia es igual a 6 o igual a 7 (una sola condición con == y ||), muestre Dia: fin de semana; si no, muestre Dia: entre semana. Use la estructura vista en la teoría: biblioteca stdio.h, función int main(void), las variables declaradas al inicio de main con su valor fijo, llaves en todos los bloques y return 0; al final. Cada mensaje termina en \n y se escribe sin tildes.</p>
+      <p class="texto-personalizado"><strong>Salida esperada:</strong></p>
+      <pre style="background-color: #f4f4f4; border: 1px solid #ddd; border-radius: 6px; padding: 12px; text-align: left; font-size: 16px; white-space: pre-wrap;">Edad: 15
+Tarifa: Juvenil
+Dia: fin de semana</pre>
+      <br>
+      <hr class="my-4" />
+      <br>
+      <h3>Descomposición:</h3>
+      <br>
+      <h4 class="texto-personalizado">¿Cuál de las siguientes imágenes muestra lo que aparece en pantalla al ejecutar el programa con edad = 15 y dia = 6?</h4>
+      <br>
+      <div class="figuras">
+        <div
+          v-for="(figura, index) in figuras"
+          :key="figura.alt"
+          class="figura"
+          :class="{ 'figura-bloqueada': ev1.bloqueado || ev1.cargando }"
+          @click="manejarClick(figura.alt, index)"
+        > 
+          <img :src="figura.src" :alt="figura.alt" />
+        </div>
+      </div>
+      <EstadoSubejercicio :estado="ev1" />
+      <div v-if="respuesta" class="respuesta">
+        <p v-if="esCorrecta" class="correcto alert alert-success mt-3">¡Correcto!</p>
+        <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeError }}</p>
+      </div>
+      <br>
+      <br>
+      <h4 class="texto-personalizado">¿Cuál imagen muestra la condición correcta para detectar una edad no válida (menor que 0 o mayor que 120)?</h4>
+      <br>
+      <div class="figuras">
+        <div
+          v-for="(figura, index) in figurasV"
+          :key="figura.alt"
+          class="figura"
+          :class="{ 'figura-bloqueada': ev2.bloqueado || ev2.cargando }"
+          @click="manejarClickVar(figura.alt, index)"
+        >
+          <img :src="figura.src" :alt="figura.alt" />
+        </div>
+      </div>
+      <EstadoSubejercicio :estado="ev2" />
+      <div v-if="respuestaVar" class="respuesta">
+        <p v-if="CorrectaVar" class="correcto alert alert-success mt-3">¡Correcto!</p>
+        <p v-else class="incorrecto alert alert-danger mt-3">{{ mensajeErrorVar }}</p>
+      </div>
+      <br>
+      <br>
+        <DragAndDrop1Checker @evaluacionDrapAndDrop1Checker="actualizarEvaluacionDragAndDrop1Checker"/>
+        <DragAndDrop2Checker @evaluacionDragAndDrop2Checker="actualizarEvaluacionDragAndDrop2Checker"/>
+    </main>
+
+    <aside class="menu-lateral">
+      <div>
+        <Menu />
+      </div>
+    </aside>
+  </div>
+</template>
+
+<script>
+import router from '@/router'
+import Menu from "@/components/Menu.vue";
+import EstadoSubejercicio from "@/components/EstadoSubejercicio.vue";
+import DragAndDrop1Checker from "@/components/GuiaProgramacionC/IfElse/Ejercicios/Ejercicio3/DragAndDrop1CheckerIfElseCEjercicio3.vue";
+import DragAndDrop2Checker from "@/components/GuiaProgramacionC/IfElse/Ejercicios/Ejercicio3/DragAndDrop2CheckerIfElseCEjercicio3.vue";
+import { reactive, toRefs, onMounted } from 'vue';
+import { useEvaluacionSubejercicio } from '@/composables/useEvaluacionSubejercicio';
+import Figura1 from '@/assets/ImagenesIfElse/Ej3_Desc_S1_Correcta.png';
+import Figura2 from '@/assets/ImagenesIfElse/Ej3_Desc_S1_Inc1.png';
+import Figura3 from '@/assets/ImagenesIfElse/Ej3_Desc_S1_Inc2.png';
+import Figura4 from '@/assets/ImagenesIfElse/Ej3_Desc_S1_Inc3.png';
+import Figura5 from '@/assets/ImagenesIfElse/Ej3_Desc_S2_Correcta.png';
+import Figura6 from '@/assets/ImagenesIfElse/Ej3_Desc_S2_Inc1.png';
+import Figura7 from '@/assets/ImagenesIfElse/Ej3_Desc_S2_Inc2.png';
+import Figura8 from '@/assets/ImagenesIfElse/Ej3_Desc_S2_Inc3.png';
+
+
+// Ruta comun de los tres subejercicios. Debe coincidir EXACTAMENTE con los
+// nombres de la plantilla del curso (ver server/seedCourseTemplate.js).
+const RUTA = {
+  cursoNombre: 'Guía Programación en C',
+  modulo: '5. Estructuras de control y repetición',
+  submodulo: '5.1 Estructuras de control (if else)',
+  ejercicio: 'Ejercicio 3', 
+  categoria: 'descomposicion'
+};
+
+export default {
+  name: 'App',
+
+  components: {
+    Menu,
+    EstadoSubejercicio,
+    DragAndDrop1Checker,
+    DragAndDrop2Checker,
+  },
+
+  setup() {
+    const ev1 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: 'Subejercicio 1' }));
+    const ev2 = reactive(useEvaluacionSubejercicio({ ...RUTA, subejercicio: 'Subejercicio 2' }));
+
+    onMounted(() => {
+      ev1.obtenerIntentos();
+      ev2.obtenerIntentos();
+    });
+
+    return { ev1, ev2 };
+  },
+
+  data() {
+    return {
+      figuras: [
+        { src: Figura1, alt: 'Figura 1' },
+        { src: Figura2, alt: 'Figura 2' },
+        { src: Figura3, alt: 'Figura 3' },
+        { src: Figura4, alt: 'Figura 4' },
+      ].sort(() => Math.random() - 0.5),
+
+      figurasV: [
+        { src: Figura5, alt: 'Figura 5' },
+        { src: Figura6, alt: 'Figura 6' },
+        { src: Figura7, alt: 'Figura 7' },
+        { src: Figura8, alt: 'Figura 8' },
+      ].sort(() => Math.random() - 0.5),
+
+
+      respuesta: null,
+      esCorrecta: false,
+      mensajeError: '',
+      mensajesError: [
+        "¡Error! 15 está dentro del rango válido: la validación es falsa y se entra al else",
+        "¡Error! Revisa en orden las condiciones de la tarifa: se elige la primera que se cumple",
+        "¡Error! El día 6 cumple una de las dos comparaciones unidas con ||",
+        "¡Error! Dentro del else se toman dos decisiones y cada una muestra su propio mensaje",
+      ],
+      
+      respuestaVar: null,
+      CorrectaVar: false,
+      mensajeErrorVar: '',
+      mensajesErrorVar: [
+        "¡Error! Ninguna edad puede ser menor que 0 y mayor que 120 a la vez",
+        "¡Error! En C no se encadenan comparaciones como en matemáticas",
+        "¡Error! 0 y 120 son edades válidas: revisa si los operadores las incluyen",
+        "¡Error! La edad es inválida si cumple cualquiera de los dos casos",
+      ],
+    };
+  },
+
+  computed: {
+    // Propiedad computada para habilitar o deshabilitar el botón
+    puedeAvanzar() {
+      return (
+        this.evaluacion !== null &&
+        this.evaluacionV !== null &&
+        this.evaluacionDragAndDrop1Checker !== null && // Incluye la evaluación de Llamada
+        this.evaluacionDragAndDrop2Checker !== null
+      );
+    },
+
+    evaluacionTotal() {
+      const total =
+        (this.evaluacion ?? 0) +
+        (this.evaluacionV ?? 0) +
+        (this.evaluacionDragAndDrop1Checker ?? 0) +
+        (this.evaluacionDragAndDrop2Checker ?? 0);
+
+      return total / 4; // Dividimos entre el total de actividades
+    },
+  },
+
+  methods: {
+
+    // Un subejercicio ya aprobado o sin intentos no vuelve a registrarse: antes
+    // se podia acertar (nota 5) y luego bajarla a 1 haciendo clic otra vez.
+    puedeResponder(ev) {
+      return ev.estadoCargado && !ev.bloqueado && !ev.cargando;
+    },
+
+    mensajeAleatorio(lista) {
+      return lista[Math.floor(Math.random() * lista.length)];
+    },
+
+    async manejarClick(figura) {
+      if (!this.puedeResponder(this.ev1)) return;
+
+      this.respuesta = figura;
+      this.esCorrecta = figura === 'Figura 1';
+      if (!this.esCorrecta) {
+        this.mensajeError = this.mensajeAleatorio(this.mensajesError);
+      }
+
+      // El servidor calcula la nota a partir de los intentos restantes.
+      await this.ev1.registrarResultado(this.esCorrecta);
+    },
+
+    async manejarClickVar(figura) {
+      if (!this.puedeResponder(this.ev2)) return;
+
+      this.respuestaVar = figura;
+      this.CorrectaVar = figura === 'Figura 5';
+      if (!this.CorrectaVar) {
+        this.mensajeErrorVar = this.mensajeAleatorio(this.mensajesErrorVar);
+      }
+
+      await this.ev2.registrarResultado(this.CorrectaVar);
+    },
+
+    finish() {
+      router.push('/IEAlgoritmo3').then(() => {
+        window.scrollTo(0, 0);
+      });
+    },
+  },
+
+};
+
+
+</script>
+
+<style scoped>
+
+.figuras {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* Añade un espacio entre las figuras */
+}
+
+.figura {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  border: 2px solid #ccc; /* Añade un borde para distinguir cada figura */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que la imagen no sobresalga del contenedor */
+  transition: transform 0.2s; /* Añade una transición para el efecto de agrandamiento */
+}
+
+.figura:hover {
+  transform: scale(1.1); /* Agranda la imagen al pasar el cursor sobre ella */
+}
+
+.figura img {
+  width: 350px; /* Ajusta el tamaño de la imagen */
+  height: 220px; /* Ajusta el tamaño de la imagen */
+  object-fit: contain; /* Muestra la imagen completa (con cover se recortaba el texto) */
+  background-color: white;
+}
+
+.respuesta {
+  margin-top: 20px;
+}
+
+.contador-imagen {
+position: absolute;
+top: 10px;
+left: 10px;
+background-color: rgba(0, 0, 0, 0.7);
+color: white;
+font-size: 14px;
+padding: 5px 10px;
+border-radius: 5px;
+}
+
+.correcto {
+  font-size: 20px;
+  color: green;
+}
+
+.incorrecto {
+  font-size: 20px;
+  color: red;
+}
+
+.card {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+.texto-personalizado {
+  font-family: Arial, sans-serif; /* Tipo de letra */
+  font-size: 18px; /* Tamaño de fuente */
+  text-align: justify; /* Alineación justificada */
+}
+
+.temas {
+  position: fixed;
+  margin-top: -245px;
+}
+
+.texto-personalizado {
+    font-family: Arial, sans-serif; /* Tipo de letra */
+    font-size: 18px; /* Tamaño de fuente */
+    text-align: justify; /* Alineación justificada */
+}
+
+.evaluacion-final {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.layout-general {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto; /* centra horizontalmente */
+  box-sizing: border-box;
+  gap: 2rem;
+  }
+
+/* Contenido principal */
+.contenido {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  min-width: 0; /* evita overflow horizontal */
+  max-width: 82%; /* Ajusta este valor según quieras */
+  overflow-x: hidden;
+  }
+
+/* Menú lateral */
+.menu-lateral {
+  flex: 0 0 280px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  }
+
+  /* Versión responsive */
+@media (max-width: 992px) {
+  .layout-general {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contenido {
+    flex: 1;
+    max-width: 120%;
+  }
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .menu-lateral {
+    position: relative; /* deja de ser sticky en móviles */
+    top: 0;
+  }
+
+}
+
+.align-left {
+  text-align: left; /* Alinea el contenido a la izquierda */
+}
+
+.square-card {
+  width: 330px; /* Define el ancho deseado de la tarjeta */
+  margin-top: 0px;
+  overflow: hidden; /* Evita que el contenido se desborde */
+}
+
+.centrada {
+    display: flex;
+    margin: 0 auto; /* Esto centra horizontalmente la imagen */
+    max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    width: 35%;
+}
+
+.centrada2 {
+    display: flex;
+    margin: 0 auto; /* Esto centra horizontalmente la imagen */
+    max-width: 100%; /* Puedes ajustar el tamaño máximo de la imagen según tus necesidades */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    width: 25%;
+}
+
+.bt-validate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
+}
+
+</style>

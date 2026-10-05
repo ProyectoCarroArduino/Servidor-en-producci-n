@@ -35,51 +35,25 @@ export default {
                                 href: "/CBTeoria"
                             },
                             {
-                                label: "Ejemplos:",
+                                label: "Ejemplo:",
                                 icon: "",
                                 children: [
                                     {
-                                        label: "Ejemplo 1:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: "/CBEjDescomposicion1"
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: "/CBEjAlgoritmo1"
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: "/CBEjAbstraccion1"
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: "/CBEjGeneralizacion1"
-                                            },
-                                        ]
+                                        label: "Descomposición",
+                                        href: "/CBEjDescomposicion"
                                     },
                                     {
-                                        label: "Ejemplo 2:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: "/CBEjDescomposicion2"
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: "/CBEjAlgoritmo2"
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: "/CBEjAbstraccion2"
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: "/CBEjGeneralizacion2"
-                                            },
-                                        ]
-                                    }
+                                        label: "Algoritmo",
+                                        href: "/CBEjAlgoritmo"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/CBEjAbstraccion"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/CBEjGeneralizacion"
+                                    },
                                 ]
                             },
                             {
@@ -161,13 +135,13 @@ export default {
                 href: "/ComoInstalarCTeoria",
             },
             {
-                label: "3. Estructura de un programa e impresiones por pantalla:", 
+                label: "3. Estructura de un programa e impresiones por pantalla:",
                 icon: "",
                 children: [
                     {
                         label: "Teoria",
                         icon: "",
-                        href: "/VariablesOperacionesCTeoria"
+                        href: "/EstructuraProgramaCTeoria"
                     },
                     {
                         label: "Ejemplo:",
@@ -175,19 +149,19 @@ export default {
                         children: [
                             {
                                 label: "Descomposición",
-                                href: "/CBDescomposicion1"
+                                href: "/EIEjDescomposicion"
                             },
                             {
                                 label: "Algoritmo",
-                                href: "/AlgoritmoVariablesOperacionesCEjemplo"
+                                href: "/EIEjAlgoritmo"
                             },
                             {
                                 label: "Abstracción",
-                                href: "/AbstraccionVariablesOperacionesCEjemplo"
+                                href: "/EIEjAbstraccion"
                             },
                             {
                                 label: "Generalización",
-                                href: "/GeneralizacionVariablesOperacionesCEjemplo"
+                                href: "/EIEjGeneralizacion"
                             },
                       
                         ]
@@ -201,19 +175,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionVariablesOperacionesCEjercicio1"
+                                        href: "/EIDescomposicion1"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoVariablesOperacionesCEjercicio1"
+                                        href: "/EIAlgoritmo1"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionVariablesOperacionesCEjercicio1"
+                                        href: "/EIAbstraccion1"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionVariablesOperacionesCEjercicio1"
+                                        href: "/EIGeneralizacion1"
                                     },
                                 ]
                             },
@@ -222,19 +196,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionVariablesOperacionesCEjercicio2"
+                                        href: "/EIDescomposicion2"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoVariablesOperacionesCEjercicio2"
+                                        href: "/EIAlgoritmo2"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionVariablesOperacionesCEjercicio2"
+                                        href: "/EIAbstraccion2"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionVariablesOperacionesCEjercicio2"
+                                        href: "/EIGeneralizacion2"
                                     },
                                 ]
                             },
@@ -243,19 +217,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/DescomposicionVariablesOperacionesCEjercicio3"
+                                        href: "/EIDescomposicion3"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/AlgoritmoVariablesOperacionesCEjercicio3"
+                                        href: "/EIAlgoritmo3"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/AbstraccionVariablesOperacionesCEjercicio3"
+                                        href: "/EIAbstraccion3"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/GeneralizacionVariablesOperacionesCEjercicio3"
+                                        href: "/EIGeneralizacion3"
                                     },
                                 ]
                             },
@@ -378,7 +352,7 @@ export default {
                             {
                                 label: "Teoria",
                                 icon: "",
-                                href: "/"
+                                href: "/IfElseCTeoria"
                             },
                             {
                                 label: "Ejemplo:",
@@ -386,19 +360,19 @@ export default {
                                 children: [
                                     {
                                         label: "Descomposición",
-                                        href: "/"
+                                        href: "/IEEjDescomposicion"
                                     },
                                     {
                                         label: "Algoritmo",
-                                        href: "/"
+                                        href: "/IEEjAlgoritmo"
                                     },
                                     {
                                         label: "Abstracción",
-                                        href: "/"
+                                        href: "/IEEjAbstraccion"
                                     },
                                     {
                                         label: "Generalización",
-                                        href: "/"
+                                        href: "/IEEjGeneralizacion"
                                     },
                                 ]
                             },
@@ -411,7 +385,213 @@ export default {
                                         children: [
                                             {
                                                 label: "Descomposición",
-                                                href: "/"
+                                                href: "/IEDescomposicion1"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/IEAlgoritmo1"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/IEAbstraccion1"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/IEGeneralizacion1"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 2:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/IEDescomposicion2"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/IEAlgoritmo2"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/IEAbstraccion2"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/IEGeneralizacion2"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 3:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/IEDescomposicion3"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/IEAlgoritmo3"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/IEAbstraccion3"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/IEGeneralizacion3"
+                                            },
+                                        ]
+                                    },
+                                ]
+                            }
+                            
+                        ],
+                    },
+
+                    {
+                        label: "5.2 Estructuras de repetición (ciclo for): ",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/ForCTeoria"
+                            },
+                            {
+                                label: "Ejemplo:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/FOREjDescomposicion"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/FOREjAlgoritmo"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/FOREjAbstraccion"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/FOREjGeneralizacion"
+                                    },
+                                ]
+                            },
+                            {
+                                label: "Ejercicios:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Ejercicio 1:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/FORDescomposicion1"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/FORAlgoritmo1"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/FORAbstraccion1"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/FORGeneralizacion1"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 2:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/FORDescomposicion2"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/FORAlgoritmo2"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/FORAbstraccion2"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/FORGeneralizacion2"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 3:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/FORDescomposicion3"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/FORAlgoritmo3"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/FORAbstraccion3"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/FORGeneralizacion3"
+                                            },
+                                        ]
+                                    },
+                                ]
+                            }
+                            
+                        ],
+                    },
+
+                    {
+                        label: "5.3 Estructuras de repetición (ciclo while): ",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/WhileCTeoria"
+                            },
+                            {
+                                label: "Ejemplo:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/DescomposicionWhileCEjemplo"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/AlgoritmoWhileCEjemplo"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/AbstraccionWhileCEjemplo"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/GeneralizacionWhileCEjemplo"
+                                    },
+                                ]
+                            },
+                            {
+                                label: "Ejercicios:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Ejercicio 1:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/DescomposicionWhileCEjercicio1"
                                             },
                                             {
                                                 label: "Algoritmo",
@@ -470,13 +650,114 @@ export default {
                                         ]
                                     },
                                 ]
-                            }
-                            
+                            } 
                         ],
                     },
 
                     {
-                        label: "5.2 Estructuras de repetición (switch case): ",
+                        label: "5.4 Estructuras de repetición (ciclo do while): ",
+                        children: [
+                            {
+                                label: "Teoria",
+                                icon: "",
+                                href: "/"
+                            },
+                            {
+                                label: "Ejemplo:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Descomposición",
+                                        href: "/"
+                                    },
+                                    {
+                                        label: "Algoritmo",
+                                        href: "/"
+                                    },
+                                    {
+                                        label: "Abstracción",
+                                        href: "/"
+                                    },
+                                    {
+                                        label: "Generalización",
+                                        href: "/"
+                                    },
+                                ]
+                            },
+                            {
+                                label: "Ejercicios:",
+                                icon: "",
+                                children: [
+                                    {
+                                        label: "Ejercicio 1:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/AlgoritmoWhileCEjercicio1"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/AbstraccionWhileCEjercicio1"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/GeneralizacionWhileCEjercicio1"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 2:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: "/DescomposicionWhileCEjercicio2"
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: "/AlgoritmoWhileCEjercicio2"
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: "/AbstraccionWhileCEjercicio2"
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: "/GeneralizacionWhileCEjercicio2"
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        label: "Ejercicio 3:",
+                                        children: [
+                                            {
+                                                label: "Descomposición",
+                                                href: ""
+                                            },
+                                            {
+                                                label: "Algoritmo",
+                                                href: ""
+                                            },
+                                            {
+                                                label: "Abstracción",
+                                                href: ""
+                                            },
+                                            {
+                                                label: "Generalización",
+                                                href: ""
+                                            },
+                                        ]
+                                    },
+                                ]
+                            }
+                            
+                        ],
+                    },
+                    {
+                        label: "5.5 Estructuras de repetición (switch case): ",
                         children: [
                             {
                                 label: "Teoria",
@@ -578,313 +859,6 @@ export default {
                         ],
                     },
 
-                    {
-                        label: "5.3 Estructuras de repetición (ciclo for): ",
-                        children: [
-                            {
-                                label: "Teoria",
-                                icon: "",
-                                href: "/"
-                            },
-                            {
-                                label: "Ejemplo:",
-                                icon: "",
-                                children: [
-                                    {
-                                        label: "Descomposición",
-                                        href: "/"
-                                    },
-                                    {
-                                        label: "Algoritmo",
-                                        href: "/"
-                                    },
-                                    {
-                                        label: "Abstracción",
-                                        href: "/"
-                                    },
-                                    {
-                                        label: "Generalización",
-                                        href: "/"
-                                    },
-                                ]
-                            },
-                            {
-                                label: "Ejercicios:",
-                                icon: "",
-                                children: [
-                                    {
-                                        label: "Ejercicio 1:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: "/"
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: "/"
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: "/"
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: "/"
-                                            },
-                                        ]
-                                    },
-                                    {
-                                        label: "Ejercicio 2:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: ""
-                                            },
-                                        ]
-                                    },
-                                    {
-                                        label: "Ejercicio 3:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: ""
-                                            },
-                                        ]
-                                    },
-                                ]
-                            }
-                            
-                        ],
-                    },
-
-                    {
-                        label: "5.4 Estructuras de ciclo while (ciclo while): ",
-                        children: [
-                            {
-                                label: "Teoria",
-                                icon: "",
-                                href: "/WhileCTeoria"
-                            },
-                            {
-                                label: "Ejemplo:",
-                                icon: "",
-                                children: [
-                                    {
-                                        label: "Descomposición",
-                                        href: "/DescomposicionWhileCEjemplo"
-                                    },
-                                    {
-                                        label: "Algoritmo",
-                                        href: "/AlgoritmoWhileCEjemplo"
-                                    },
-                                    {
-                                        label: "Abstracción",
-                                        href: "/AbstraccionWhileCEjemplo"
-                                    },
-                                    {
-                                        label: "Generalización",
-                                        href: "/GeneralizacionWhileCEjemplo"
-                                    },
-                                ]
-                            },
-                            {
-                                label: "Ejercicios:",
-                                icon: "",
-                                children: [
-                                    {
-                                        label: "Ejercicio 1:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: "/DescomposicionWhileCEjercicio1"
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: "/AlgoritmoWhileCEjercicio1"
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: "/AbstraccionWhileCEjercicio1"
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: "/GeneralizacionWhileCEjercicio1"
-                                            },
-                                        ]
-                                    },
-                                    {
-                                        label: "Ejercicio 2:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: "/DescomposicionWhileCEjercicio2"
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: "/AlgoritmoWhileCEjercicio2"
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: "/AbstraccionWhileCEjercicio2"
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: "/GeneralizacionWhileCEjercicio2"
-                                            },
-                                        ]
-                                    },
-                                    {
-                                        label: "Ejercicio 3:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: ""
-                                            },
-                                        ]
-                                    },
-                                ]
-                            } 
-                        ],
-                    },
-
-                    {
-                        label: "5.5 Estructuras de repetición (ciclo dp while): ",
-                        children: [
-                            {
-                                label: "Teoria",
-                                icon: "",
-                                href: "/"
-                            },
-                            {
-                                label: "Ejemplo:",
-                                icon: "",
-                                children: [
-                                    {
-                                        label: "Descomposición",
-                                        href: "/"
-                                    },
-                                    {
-                                        label: "Algoritmo",
-                                        href: "/"
-                                    },
-                                    {
-                                        label: "Abstracción",
-                                        href: "/"
-                                    },
-                                    {
-                                        label: "Generalización",
-                                        href: "/"
-                                    },
-                                ]
-                            },
-                            {
-                                label: "Ejercicios:",
-                                icon: "",
-                                children: [
-                                    {
-                                        label: "Ejercicio 1:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: "/"
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: "/"
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: "/"
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: "/"
-                                            },
-                                        ]
-                                    },
-                                    {
-                                        label: "Ejercicio 2:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: ""
-                                            },
-                                        ]
-                                    },
-                                    {
-                                        label: "Ejercicio 3:",
-                                        children: [
-                                            {
-                                                label: "Descomposición",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Algoritmo",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Abstracción",
-                                                href: ""
-                                            },
-                                            {
-                                                label: "Generalización",
-                                                href: ""
-                                            },
-                                        ]
-                                    },
-                                ]
-                            }
-                            
-                        ],
-                    },
                ]
             },
 

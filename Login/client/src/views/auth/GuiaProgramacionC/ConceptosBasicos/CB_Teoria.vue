@@ -2,8 +2,8 @@
   <TeoriaLayout
     titulo="Introducción a C"
     migas="1. Conceptos básicos · 1.1 Introducción a C"
-    siguiente-ruta="/CBDescomposicion1"
-    siguiente-texto="Ir al Ejercicio 1: Descomposición"
+    siguiente-ruta="/CBEjDescomposicion"
+    siguiente-texto="Ir al Ejemplo: Descomposición"
   >
     <p>
       Antes de escribir código conviene entender qué es un programa, qué es el
@@ -120,43 +120,13 @@
       un saludo en pantalla:
     </p>
     <BloqueCodigo archivo="hola.c" :codigo="codigoHola" salida="Hola, mundo" />
+    <p class="aparte">
+      Qué hace cada línea de este programa y las reglas para escribirlo se estudian
+      en la sección <strong>3. Estructura de un programa e impresiones por
+      pantalla</strong>.
+    </p>
 
-    <h3>Línea por línea</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>¿Qué significa?</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="fila in explicacionHola" :key="fila.codigo">
-          <td><code>{{ fila.codigo }}</code></td>
-          <td>{{ fila.texto }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>5. Reglas básicas de escritura</h2>
-    <ul>
-      <li>Casi todas las instrucciones terminan en <strong>punto y coma</strong> (<code>;</code>).</li>
-      <li>
-        Las <strong>llaves</strong> <code>{ }</code> agrupan instrucciones en un
-        bloque. Cada llave que se abre debe cerrarse.
-      </li>
-      <li>
-        C distingue <strong>mayúsculas de minúsculas</strong>: escribir
-        <code>Printf</code> en lugar de <code>printf</code> produce un error.
-      </li>
-      <li>Los <strong>comentarios</strong> son notas para las personas; el compilador los ignora.</li>
-      <li>
-        La <strong>indentación</strong> (sangría) no es obligatoria, pero hace que
-        el código se lea y se corrija con facilidad.
-      </li>
-    </ul>
-    <BloqueCodigo archivo="Comentarios" :codigo="codigoComentarios" />
-
-    <h2>6. Pensar antes de programar</h2>
+    <h2>5. Pensar antes de programar</h2>
     <p>
       Escribir código es solo la última parte del trabajo. En esta guía, cada
       ejercicio se resuelve en cuatro etapas del
@@ -212,7 +182,6 @@
         <li>Un programa es un conjunto ordenado de instrucciones que resuelve un problema.</li>
         <li>C es un lenguaje compilado, estructurado y tipado, base de muchos lenguajes actuales.</li>
         <li>El código fuente (<code>.c</code>) se compila para obtener un ejecutable.</li>
-        <li>Todo programa en C empieza a ejecutarse en la función <code>main</code>.</li>
         <li>Antes de programar se descompone el problema, se diseña el algoritmo, se abstrae lo esencial y se generaliza.</li>
       </ul>
     </div>
@@ -229,37 +198,6 @@ int main(void) {
     printf("Hola, mundo\\n");
     return 0;
 }`;
-
-const explicacionHola = [
-  {
-    codigo: "#include <stdio.h>",
-    texto:
-      "Incluye la biblioteca estándar de entrada y salida, que contiene la función printf para imprimir en pantalla.",
-  },
-  {
-    codigo: "int main(void)",
-    texto:
-      "Declara la función principal. Todo programa en C comienza a ejecutarse aquí. int indica que al terminar devuelve un número entero.",
-  },
-  {
-    codigo: "{ … }",
-    texto: "Las llaves delimitan el bloque de instrucciones que pertenece a main.",
-  },
-  {
-    codigo: 'printf("Hola, mundo\\n");',
-    texto:
-      "Imprime el texto entre comillas. \\n es un salto de línea y el punto y coma indica el final de la instrucción.",
-  },
-  {
-    codigo: "return 0;",
-    texto: "Termina el programa e informa al sistema operativo que todo salió bien.",
-  },
-];
-
-const codigoComentarios = `// Comentario de una sola línea
-
-/* Comentario que puede
-   ocupar varias líneas */`;
 
 const codigoRectangulo = `#include <stdio.h>
 

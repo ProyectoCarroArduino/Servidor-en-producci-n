@@ -108,7 +108,7 @@ export const CURSOS = [
         ]
       },
       {
-        nombre: '5. Variables y Operaciones',
+        nombre: '5. Estructuras de control y repetición',
         submodulos: [
           {
             nombre: '5.1 Estructuras de control (if else)',
